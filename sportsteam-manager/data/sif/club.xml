@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <club name="Sagene Idrettsforening" department="Fotball" abbrivation="SIF" organizationNumber="985413320" bankAccountNumber="90120538143" version="0.1" releaseDate="14.06.2014">
+	        <address streetName="" streetNumber="" zipCode="0406" city="Oslo" country="Norway" postbox=" Postboks 3488, 0406 Oslo"/>
+	        <stadium>Voldsløkka</stadium>
+	        <homepage>http://sageneif.no/</homepage>
+	        <email>post@sageneif.no</email>
+	        <phone>92660636</phone>
+	  
+	         <contacts>
+	             <contact gender="M" firstName="" middleName="" lastName=""  mobile="" email="" >
+		        	<address streetName="" streetNumber="" zipCode="" city="" country="" />
+		        	<roles>
+		            	 <role>chairman</role>
+		         	</roles>
+		        </contact>
+	        </contacts>
+	        
+	         <teams>
+	             <team file="sif/jenter-2002.xml" />
+	         </teams>
+    </club>
+    
+  

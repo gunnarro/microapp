@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  
+  <changeSet author="t539547" id="1">
+        <comment>jira-1: add guest to user table</comment>
+        <sql>
+            INSERT INTO `users` VALUES (4,now(),now(),'guest-read','guest-read','',1);
+        </sql>
+        <rollback>
+            <sql>
+                DELETE FROM users WHERE id = 4;
+            </sql>
+        </rollback>
+  </changeSet>
+  
+  <changeSet author="t539547" id="2">
+        <comment>jira-2: add jenter 14 to calendar_urls table </comment>
+        <sql>
+            INSERT INTO `calendar_urls` VALUES (3,now(),now(),'Jenter 14 år 1.div avd 05', 'sagene', 'http://www.fotball.no/templates/portal/pages/GenerateICalendar.aspx?tournamentid=144524','icalendar','calendar events for j14 football');
+        </sql>
+        <rollback>
+            <sql>
+                DELETE FROM calendar_urls WHERE id = 3;
+            </sql>
+        </rollback>
+  </changeSet>
+  
+  <!-- always last changeset - uncomment when adding first change set - runAlways=false when cutting release -->
+    <changeSet author="t539547" id="999" runAlways="false">
+        <tagDatabase tag="1.1" />
+    </changeSet>
+  
+</databaseChangeLog>

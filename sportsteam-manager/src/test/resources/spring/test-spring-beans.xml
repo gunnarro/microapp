@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	
+	<bean id="httpSessionListener" class="com.gunnarro.sportsteam.listener.HttpSessionListener"/>
+
+	<!-- Edit 'mail.properties' to set a valid user and password for the mail sender.
+    <context:property-placeholder location="classpath:/mail.properties" />
+     -->
+    <!-- 
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean" 
+          p:resourceLoaderPath="classpath:/org/springbyexample/email" 
+          p:preferFileSystemAccess="false"/>
+	 -->
+
+	<bean id="gmailMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="uilbandy2003@gmail.com" />
+		<property name="password" value="Team2oo3" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.mime.charset">UTF-8</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="yahooMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.mail.yahoo.com" />
+		<property name="port" value="587" />
+		<property name="username" value="sport4team@yahoo.com" />
+		<property name="password" value="ABcd2o1o" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.mime.charset">UTF-8</prop>
+				<prop key="mail.smtp.debug">true</prop>
+				<prop key="mail.smtps.quitwait">false</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- Definition for sportsteam service bean -->
+	<bean id="sportsTeamService" class="com.gunnarro.sportsteam.service.impl.SportsTeamServiceImpl">
+		<qualifier value="sportsTeamService" />
+	</bean>
+	
+	<!-- Definition for message service bean -->
+	<bean id="messageService" class="com.gunnarro.sportsteam.service.impl.MessageServiceImpl">
+		<qualifier value="messageService" />
+	</bean>
+	
+	<!-- Definition for image service bean -->
+	<bean id="imageService" class="com.gunnarro.sportsteam.service.impl.ImageServiceImpl">
+		<qualifier value="imageService" />
+	</bean>
+	<bean id="smsGlobalConnection" class="com.gunnarro.sportsteam.connection.impl.SmsGlobalConnectionImpl"/>
+
+	<!-- For spring security setup -->
+	<bean id="loginAttemptService" class="com.gunnarro.sportsteam.service.impl.LoginAttemptService"/>
+	
+	<bean id="customUserDetailsService" class="com.gunnarro.sportsteam.service.impl.CustomUserDetailsServiceImpl"/>
+	
+	<bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg type="int" value="13" />
+	</bean>
+	
+	<bean id="authProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="customUserDetailsService" />
+		<property name="passwordEncoder" ref="encoder" />
+	</bean>
+	
+</beans>

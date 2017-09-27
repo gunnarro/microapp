@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<team name="Knøtt 2002" gender="M" yearOfBirth="2002" version="0.1" releaseDate="10.03.2014">
+    <club name="Ullevål Idretts Lag" department="Bandy"/>
+    <contacts>
+        <contact id="1" gender="M" firstName="Svein" middleName="Tore" lastName="Heimdal"  mobile="11223344" email="svein-tore@yahoo.no" >
+        	<address streetName="xx" streetNumber="0" zipCode="9999" city="Oslo" country="Norway" />
+        	<roles>
+            	 <role>teamlead</role>
+         	</roles>
+        </contact>
+    </contacts>
+    
+    <players>
+    	<player id="1" gender="F" status="active" firstName="Thomas" middleName="" lastName="Heimdal" birthDate="01.01.2002" mobile="" email="" >
+    	 	<address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+    	 	<parents>
+    	 	    <parent firstName="Svein" lastName="Heimdal" />
+    	 	</parents>
+    	</player>   
+    </players>
+	
+    <seasons>
+        <season period="2013/2014" startDate="01.09.2013" endDate="01.04.2014" >
+		    <matches leagueId="1">
+		        <match type="TRAINING" date="05.03.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" awayTeam="UIL Knøtt 2002" goalsHomeTeam="3" goalsAwayTeam="6" venue="Bergbanen" referee="Mats Håkansson" />
+           </matches>
+	
+		    <cups>
+		        <cup date="10.11.2013" startTime="09:00" deadlineDate="10.11.2013" signed="true" clubName="Stabekk" cupName="Kosa Cup" venue="Hauger kunstis" >
+		            <matches clubName="" teamName="">
+		                <match type="CUP" date="12.11.2013" startTime="09:00" homeTeam="Konnerud" awayTeam="UIL Knøtt 2002" goalsHomeTeam="5" goalsAwayTeam="2" venue="" referee="dommer ukjent" />
+		        		<match type="CUP" date="12.11.2013" startTime="10:00" homeTeam="UIL Knøtt 2002" awayTeam="Snarøya" goalsHomeTeam="6" goalsAwayTeam="3" venue="" referee="dommer ukjent" />
+		        		<match type="CUP" date="12.11.2013" startTime="11:00" homeTeam="Stabekk" awayTeam="UIL Knøtt 2002" goalsHomeTeam="4" goalsAwayTeam="3" venue="" referee="dommer ukjent" />
+		            </matches>
+		        </cup>
+		    </cups>
+		    
+		    <trainings>
+		        <training date="16.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="17.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="22.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="24.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="29.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="30.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="31.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="04.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="06.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="13.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="18.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="20.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="25.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="27.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="30.11.2013" fromTime="14:30" toTime="16:00" place="Bergbanen" />
+		        <training date="02.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="04.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="09.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="11.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="16.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="18.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="06.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="08.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="11.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+				<training date="13.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="15.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="18.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="20.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="22.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="26.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="05.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="08.02.2014" fromTime="14:30" toTime="16:00" place="Bergbanen" />
+		        <training date="10.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="12.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="15.02.2014" fromTime="14:30" toTime="16:00" place="Bergbanen" />
+		        <training date="24.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		    </trainings>
+	    </season>
+    </seasons>
+  </team>

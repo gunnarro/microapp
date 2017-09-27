@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style type="text/css">
+
+.mytable {
+	table-layout: fixed;
+}
+
+thead {
+    border-top: solid thick;
+    border-right: blank;    /* prevent colgroup border */
+    border-left: blank      /* prevent cell border */
+}
+colgroup { border-right: solid thick }
+thead td { border: solid }
+tbody td { border: blank }  /* remove colgroup border */
+
+.test {
+	border-right: blank;
+    border-left: blank;
+    border-top: solid thin;
+    border-buttom: solid thick;
+    margin: 5em;
+  	padding: 0em;  
+  	width: 7em;
+}
+
+.common-cell { width: 7em !important; padding: 0em; text-align: center;}
+.arrow-cell { border-bottom: solid; }
+.empty-cell { width: 2em important; }
+.goals-cell { width: 1em important; background-color: #eeeeee;}
+.quarterfinal1 { background-color: #be4dff; }
+.quarterfinal2 { background-color: #e5b8ff; }
+.quarterfinal3 { background-color: #4d62ff; }
+.quarterfinal4 { background-color: #b8c0ff; }
+.semifinal1 {}
+.semifinal2 {}
+.bronsefinal { background-color: #01fd62; }
+.goldfinal { background-color: #02a942; }
+
+</style>
+</head>
+<body>
+
+	<h4>Single-elimination tournament</h4>
+	
+	<table class="table table-condensed">
+					<thead>
+						<tr class="info">
+							<th colspan="2" class="text-left">Quarter Finals</th>
+							<th colspan="2" class="text-left">Semi Finals</th>
+							<th colspan="2" class="text-left">Final</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="col-md-2 quarterfinal1 common-cell"><small>${tournament.finalsSetup.quarterFinal1.homeTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal1.numberOfGoalsHome}" /></small><td>
+						<td class="col-md-1"></td>
+						<td class="col-md-1"></td>
+						<td class="col-md-1"></td>
+						<td class="col-md-1"></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 quarterfinal1 common-cell"><small>${tournament.finalsSetup.quarterFinal1.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal1.numberOfGoalsAway}" /></small><td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 semifinal1 quarterfinal1 common-cell"><small>${tournament.finalsSetup.semiFinal1.homeTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.semiFinal1.numberOfGoalsHome}" /></small><td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 semifinal1 quarterfinal2 common-cell"><small>${tournament.finalsSetup.semiFinal1.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.semiFinal1.numberOfGoalsAway}" /></small><td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 semifinal1 quarterfinal2 common-cell"><small>${tournament.finalsSetup.quarterFinal2.homeTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal2.numberOfGoalsAway}" /></small><td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 quarterfinal2 common-cell"><small>${tournament.finalsSetup.quarterFinal2.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal2.numberOfGoalsAway}" /></small><td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 goldfinal common-cell"><small>${tournament.finalsSetup.goldFinal.homeTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.goldFinal.numberOfGoalsHome}" /></small><td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 goldfinal common-cell"><small>${tournament.finalsSetup.goldFinal.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.goldFinal.numberOfGoalsAway}" /></small><td>
+					</tr>
+					<tr>
+						<td class="col-md-2 quarterfinal3 common-cell"><small>${tournament.finalsSetup.quarterFinal3.homeTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal3.numberOfGoalsHome}" /></small><td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 quarterfinal3 common-cell"><small>${tournament.finalsSetup.quarterFinal3.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal3.numberOfGoalsAway}" /></small><td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 semifinal2 quarterfinal3 common-cell"><small>${tournament.finalsSetup.semiFinal2.homeTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.semiFinal2.numberOfGoalsHome}" /></small><td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 semifinal2 quarterfinal4 common-cell"><small>${tournament.finalsSetup.semiFinal2.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.semiFinal2.numberOfGoalsAway}" /></small><td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 quarterfinal4 common-cell"><small>${tournament.finalsSetup.quarterFinal4.homeTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal4.numberOfGoalsHome}" /></small><td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 quarterfinal4 common-cell"><small>${tournament.finalsSetup.quarterFinal4.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.quarterFinal4.numberOfGoalsAway}" /></small><td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 bronsefinal common-cell"><small>${tournament.finalsSetup.bronseFinal.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.bronseFinal.numberOfGoalsAway}" /></small><td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="col-md-2 bronsefinal common-cell"><small>${tournament.finalsSetup.bronseFinal.awayTeam.name}</small></td>
+						<td class="col-md-1 goals-cell"><small><input size="3" type="text" value="${tournament.finalsSetup.bronseFinal.numberOfGoalsAway}" /></small><td>
+					</tr>
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+
+</body>
+</html>

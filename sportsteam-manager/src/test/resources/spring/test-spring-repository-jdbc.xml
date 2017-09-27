@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/jdbc 
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+
+
+	<!-- Data Source bean definition -->
+	<!-- <bean id="sportsteamDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> 
+		<property name="driverClass" value="${salesmaker.jdbc.driver}" /> <property 
+		name="jdbcUrl" value="${salesmaker.jdbc.url}" /> <property name="user" value="${salesmaker.jdbc.username}" 
+		/> <property name="password" value="${salesmaker.jdbc.password}" /> <property 
+		name="initialPoolSize" value="${salesmaker.pool.init}" /> <property name="minPoolSize" 
+		value="${salesmaker.pool.min}" /> <property name="acquireIncrement" value="${salesmaker.pool.increment}" 
+		/> <property name="maxPoolSize" value="${salesmaker.pool.max}" /> <property 
+		name="maxStatements" value="${salesmaker.pool.max.statements}" /> <property 
+		name="maxIdleTime" value="${salesmaker.pool.idle}" /> <property name="unreturnedConnectionTimeout" 
+		value="${salesmaker.pool.timeout}" /> <property name="debugUnreturnedConnectionStackTraces" 
+		value="${salesmaker.pool.debug}" /> </bean> -->
+
+	<bean id="sportsteamDataSource_junit"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<!-- <property name="url" value="jdbc:h2:sportsteam_unit_test" /> -->
+		<property name="url" value="jdbc:h2:mem:sportsteam_unit_test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE" />
+		<property name="username" value="SA" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="sportsteamDataSource_local"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/sportsteam_unit_test" />
+		<property name="username" value="unittest" />
+		<property name="password" value="test1234" />
+	</bean>
+
+	<bean id="sportsteamDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://127.9.127.2:3306/sportsteam_unit_test" />
+		<property name="username" value="unittest" />
+		<property name="password" value="test1234" />
+	</bean>
+
+	<!-- JDBC Template bean definition -->
+	<bean id="sportsteamJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="sportsteamDataSource_junit" />
+	</bean>
+
+	<!-- Sportsteam JDBC Repository bean definition -->
+	<bean id="sportsteamRepository"
+		class="com.gunnarro.sportsteam.repository.impl.SportsTeamRepositoryImpl">
+		<qualifier value="sportsTeamRepository" />
+		<constructor-arg ref="sportsteamJdbcTemplate" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="sportsteamDataSource_junit" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<jdbc:initialize-database data-source="sportsteamDataSource_junit">
+		<jdbc:script location="classpath:database/sportsteam-1.0-SNAPSHOT-mysql-table.sql" />
+	 	<jdbc:script location="classpath:database/sportsteam-1.0-SNAPSHOT-mysql-data.sql" />
+<!-- 	<jdbc:script location="classpath:database/sportsteam-1.0-SNAPSHOT-mysql-view.sql" /> -->
+	</jdbc:initialize-database>
+
+</beans>

@@ -1,0 +1,25 @@
+dietplan:
+	breakfast:
+		- Frokost (0830 - 0900, helg 0900 -1030)
+        - 3 brødskiver med margarin og pålegg / Havregrøt på lettmelk med 1 ts sukker og evntuelt kanel
+        - 1 glass lettmelk (2 dl)
+        - 1 frukt
+        - 25 ml Fresubin Energy
+        - Vitaminer: fosfat, magnesium
+	lunch:
+		- Lunsj (1230 - 1300, helg 1300 - 1330
+        - 3 brødskiver med margarin og pålegg / 2 brødskiver med margarin og 1 egg, pluss 1 yoghurt
+        - 1 glass lettmelk (2 dl)
+        - 1 frukt
+        - 25 ml Fresubin Energy
+	dinner:
+		- Middag (1630 - 1700, helg 1700 - 1730)
+        - 1 porsjon middag (varier mellom kjøtt og fisk, ikke vegetar)
+        - 1 dessert (ikke fruktsalat) eller 1 yoghurt
+        - 1 juice (2 dl)
+        - 25 ml Fresubin Energy
+	supper:
+		- Kveldsmat (2030 - 2100, helg 2100 - 2130)
+        - 1 brødskiver med margarin og pålegg, pluss 1 Go'Morgen yoghurt
+        - 1 melk (2 dl)
+        - 25 ml Fresubin Energy

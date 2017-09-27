@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Example of Twitter Bootstrap 3 Simple Tables</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+.borderless tbody tr td, .borderless thead tr th {
+	border: none;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<!-- inser code here -->
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title">Cup</h1>
+			</div>
+
+			<div class="panel-body">
+				<table class="tabel borderless">
+					<tbody>
+						<tr>
+							<td>Date</td>
+							<td>:</td>
+							<td><span class="text-info"><fmt:formatDate value="${cup.startDate}" type="both" pattern="dd.MM.yyyy hh:mm" /></span></td>
+						</tr>
+						<tr>
+							<td>Deadline</td>
+							<td>:</td>
+							<td><span class="text-info"><fmt:formatDate value="${cup.deadlineDate}" type="both" pattern="dd.MM.yyyy hh:mm" /></span></td>
+						</tr>
+						<tr>
+							<td>Cup</td>
+							<td>:</td>
+							<td><span class="text-info">${cup.cupName}</span></td>
+						</tr>
+						<tr>
+							<td>Club</td>
+							<td>:</td>
+							<td><span class="text-info">${cup.clubName}</span></td>
+						</tr>
+						<tr>
+							<td>Place</td>
+							<td>:</td>
+							<td><span class="text-info">${cup.venue}</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="panel-body">
+				<h2 class="panel-title">
+					Registrered Players <span class="badge alert-info"><span class="text-danger">2</span> / 14</span>
+				</h2>
+				<hr></hr>
+
+				<table class="tabel borderless">
+					
+					<tr>
+						<td><a type="button" class="btn btn-primary btn-xs text-success">Gunnar 1</a></td>
+					</tr>
+					<tr>
+						<td><a type="button" class="btn btn-link btn-xs text-success">Gunnar 2</a></td>
+					</tr>
+					<tr>
+						<td><a type="button" class="btn btn-link btn-xs text-success">Gunnar 3</a></td>
+					</tr>
+					<tr>
+						<td><a type="button" class="btn btn-link btn-xs text-success">Gunnar 4</a></td>
+					</tr>
+					<tr>
+						<td><a type="button" class="btn btn-link btn-xs text-success">Gunnar 5</a></td>
+					</tr>
+					<tr>
+						<td><a type="button" class="btn btn-link btn-xs text-danger">Gunnar 6</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel-footer clearfix">
+		<div class="pull-right">
+			<spring:url value="/listclubs/" var="viewUrl">
+			</spring:url>
+			<a href="${fn:escapeXml(viewUrl)}" class="btn btn-primary btn-sm">Back</a>
+		</div>
+	</div>
+	<!-- end insert code -->
+</body>
+</html>

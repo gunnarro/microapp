@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+	<resource-ref>
+		<res-ref-name>jdbc/SportsTeamDS</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<jndi-name>java:jboss/datasources/SportsTeamDS</jndi-name>
+	</resource-ref>
+
+	<valve>
+		<class-name>org.apache.catalina.valves.AccessLogValve</class-name>
+		<param>
+			<param-name>prefix</param-name>
+			<param-value>sportsteam_access_log.</param-value>
+		</param>
+		<param>
+			<param-name>suffix</param-name>
+			<param-value>.log</param-value>
+		</param>
+		<param>
+			<param-name>fileDateFormat</param-name>
+			<!-- You can use pattern letters defined in SimpleDateFormat. This fileDateFormat 
+				setting affects to log rotation cycle -->
+			<!-- default setting: daily -->
+			<param-value>yyyy-MM-dd</param-value>
+			<!-- hourly <param-value>yyyy-MM-dd.HH</param-value> -->
+		</param>
+		<param>
+			<param-name>pattern</param-name>
+			<param-value>%h %l %u %t %r %s %b %{Referer}i %{User-Agent}i %S %T</param-value>
+			<!-- You can use constant text or replacement strings defined in http://docs.jboss.org/jbossweb/7.0.x/config/valve.html 
+				to pattern tokens. -->
+			<!-- default setting: common (%h %l %u %t "%r" %s %b) -->
+			<!-- <param-value>common</param-value>-->
+			<!-- combined (%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i") 
+				<param-value>combined</param-value> -->
+			<!-- combined + response time <param-value>%h %l %u %t %r %s %b %{Referer}i 
+				%{User-Agent}i %T</param-value> -->
+			<!-- combined + Session ID + Response time <param-value>%h %l %u %t %r 
+				%s %b %{Referer}i %{User-Agent}i %S %T</param-value> -->
+		</param>
+		<param>
+			<param-name>directory</param-name>
+			<param-value>~/jbossews/app-root/logs/</param-value>
+		</param>
+		<param>
+			<param-name>resolveHosts</param-name>
+			<param-value>false</param-value>
+		</param>
+	</valve>
+	
+	<!-- 
+		<class-name>org.apache.catalina.valves.RemoteIpValve</class-name>
+        <param>
+            <param-name>remoteIPHeader</param-name>
+            <param-value>x-forwarded-for</param-value>
+        </param>
+	 -->
+	 
+</jboss-web>

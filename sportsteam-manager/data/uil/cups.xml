@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seasons>
+	<season period="2013-2014" startDate="01.09.2013" endDate="01.04.2014" >
+		<cups>
+	        <cup startDate="10.11.2013" endDate="10.11.2013" startTime="09:00" deadlineDate="10.11.2013" signed="true" organizingClub="Stabekk" cupName="Kosa Cup" homePage="https://www.deltager.no/kosa_open" email="per@phagberg.no" venue="Hauger kunstis" >
+	            <matches league="Knøtt" clubName="Ullevål IL" teamName="UIL Knøtt 2003">
+	                <match type="CUP" date="10.11.2013" startTime="09:00" homeTeam="Konnerud" awayTeam="UIL Knøtt 2003" goalsHomeTeam="5" goalsAwayTeam="2" venue="" referee="dommer ukjent" />
+	        		<match type="CUP" date="10.11.2013" startTime="10:00" homeTeam="UIL Knøtt 2003" awayTeam="Snarøya 2" goalsHomeTeam="6" goalsAwayTeam="3" venue="" referee="dommer ukjent" />
+	        		<match type="CUP" date="10.11.2013" startTime="11:00" homeTeam="Stabekk 1" awayTeam="UIL Knøtt 2003" goalsHomeTeam="4" goalsAwayTeam="3" venue="" referee="dommer ukjent" />
+	            </matches>
+	        </cup>
+	        <cup startDate="08.12.2013" endDate="08.12.2013" startTime="09:00" deadlineDate="08.12.2013" signed="true" organizingClub="Frigg" cupName="Frigg Cup" homePage="http://www.frigg-cup.no/bandy/Frigg-Cup_2014/Velkommen.html" email="" venue="Frogner stadion" >
+	            <matches league="Knøtt" clubName="Ullevål IL" teamName="UIL Knøtt 2003">
+	                <match type="CUP" date="08.12.2013" startTime="09:00" homeTeam="UIL Knøtt 2003" awayTeam="Ready Tigers" goalsHomeTeam="3" goalsAwayTeam="5" venue="" referee="dommer ukjent" />
+	        		<match type="CUP" date="08.12.2013" startTime="10:00" homeTeam="Stabekk 2" awayTeam="UIL Knøtt 2003" goalsHomeTeam="6" goalsAwayTeam="3" venue="" referee="dommer ukjent" />
+	        		<match type="CUP" date="08.12.2013" startTime="11:00" homeTeam="Øv/Holse løvene" awayTeam="UIL Knøtt 2003" goalsHomeTeam="4" goalsAwayTeam="4" venue="" referee="dommer ukjent" />
+	            </matches>
+	        </cup>
+	        <cup startDate="02.02.2014" endDate="02.02.2014" startTime="09:00" deadlineDate="11.01.2014" organizingClub="Snarøya" cupName="Snarøya Cup" homePage="" email="" venue="Snarøya" >
+	            <matches league="Knøtt" clubName="Ullevål IL" teamName="UIL Knøtt 2003">
+	                <match type="CUP" date="02.02.2014" startTime="09:00" homeTeam="Ready Champions" awayTeam="UIL Knøtt 2003" goalsHomeTeam="4" goalsAwayTeam="0"  venue="" referee="dommer ukjent" />
+	        		<match type="CUP" date="02.02.2014" startTime="10:00" homeTeam="UIL Knøtt 2003" awayTeam="Stabekk 2" goalsHomeTeam="0" goalsAwayTeam="2"  venue="" referee="dommer ukjent" />
+	        		<match type="CUP" date="02.02.2014" startTime="11:00" homeTeam="Snarøya 2" awayTeam="UIL Knøtt 2003" goalsHomeTeam="2" goalsAwayTeam="5" venue="" referee="dommer ukjent" />
+	            </matches>
+	        </cup>
+	    </cups>
+	</season>
+
+	<season period="2014-2015" startDate="01.09.2014" endDate="01.04.2015" >
+		<cups>
+			<cup startDate="25.10.2014" endDate="27.10.2014" startTime="09:00" deadlineDate="19.09.2014" organizingClub="Stabekk" cupName="Kosa Cup" homePage="https://www.deltager.no/kosa_open" email="per@phagberg.no" venue="Hauger kunstis" >
+			 	<matches league="Lillegutt" clubName="Ullevål IL" teamName="UIL Knøtt 2003" >
+					<match type="CUP" date="26.10.2014" startTime="09:00" homeTeam="Sagene" awayTeam="UIL Knøtt 2003" goalsHomeTeam="2" goalsAwayTeam="4"  venue="Stabekk, bane 1" referee="" />
+					<match type="CUP" date="26.10.2014" startTime="10:00" homeTeam="UIL Knøtt 2003" awayTeam="MIF Superstars 2" goalsHomeTeam="2" goalsAwayTeam="4"  venue="Stabekk, bane 2" referee="" />
+					<match type="CUP" date="26.10.2014" startTime="12:00" homeTeam="Stabekk 2" awayTeam="UIL Knøtt 2003" goalsHomeTeam="3" goalsAwayTeam="1" venue="Stabekk, bane 2" referee="" />
+		    	</matches>
+			</cup>
+			<cup startDate="15.11.2014" endDate="16.11.2014" startTime="09:00" deadlineDate="02.11.2014" organizingClub="Skiold IF" cupName="Marienlyst Bandy Cup" homePage="http://213.179.53.71/paameldingskupong%20bandycup.htm" email="mbacke@online.no" venue="Marienlyst kunstis Drammen" />
+			<cup startDate="23.11.2014" endDate="25.11.2014" startTime="09:00" deadlineDate="11.11.2014" organizingClub="Hamar Bandy" cupName="Hamar Bandy Cup" homePage="" email="per.myrvang@skurdal.net" venue="Vikingskipet" />
+			<cup startDate="29.11.2014" endDate="30.11.2014" startTime="09:00" deadlineDate="11.11.2014" organizingClub="Mjøndalen IF" cupName="Vassenga Cup 2014" homePage="http://bandyjr.mif.no" email="bandycup@mif.no" venue="Vassenga Kunstisbane" />
+			<cup startDate="05.12.2014" endDate="07.12.2014" startTime="09:00" deadlineDate="05.12.2014" organizingClub="Frigg Oslo FK" cupName="Frigg Cup" homePage="http://www.frigg-cup.no/bandy/Frigg-Cup_2014/Velkommen.html" email="" venue="Frogner stadion" />
+			<cup startDate="05.12.2014" endDate="07.12.2014" startTime="09:00" deadlineDate="05.12.2014" organizingClub="Frigg Oslo FK" cupName="Frigg Cup" homePage="http://www.frigg-cup.no/bandy/Frigg-Cup_2014/Velkommen.html" email="" venue="Frogner stadion" />
+			<cup startDate="10.01.2015" endDate="11.01.2015" startTime="09:00" deadlineDate="" organizingClub="Røa" cupName="Røa Energizer Cup" homePage="" email="" venue="Røa banen" >
+				<matches league="Lillegutt" clubName="Ullevål IL" teamName="UIL Knøtt 2003" >
+					<match type="CUP" date="11.01.2015" startTime="13:00" homeTeam="UIL Knøtt 2003" awayTeam="Røa Allstars" goalsHomeTeam="" goalsAwayTeam=""  venue="NIH, bane 3" referee="" />
+					<match type="CUP" date="11.01.2015" startTime="14:00" homeTeam="UIL Knøtt 2003" awayTeam="ØIHL 2003-2" goalsHomeTeam="" goalsAwayTeam=""  venue="NIH, bane 2" referee="" />
+					<match type="CUP" date="11.01.2015" startTime="15:00" homeTeam="Ready Tigers 03" awayTeam="UIL Knøtt 2003" goalsHomeTeam="" goalsAwayTeam="" venue="NIH, bane 2" referee="" />
+		    	</matches>
+		    </cup>
+			<cup startDate="17.01.2015" endDate="18.01.2015" startTime="09:00" deadlineDate="" organizingClub="Ready" cupName="Ready Cup" homePage="" email="" venue="Gressbanen" />
+			<cup startDate="24.01.2015" endDate="25.01.2015" startTime="09:00" deadlineDate="" organizingClub="Haslum" cupName="Haslum Bandycup" homePage="" email="" venue="Haslum banen" >
+				<matches league="Lillegutt" clubName="Ullevål IL" teamName="UIL Knøtt 2003" >
+					<match type="CUP" date="11.01.2015" startTime="13:00" homeTeam="UIL Knøtt 2003" awayTeam="Mjøndalen" goalsHomeTeam="3" goalsAwayTeam="3"  venue="Haslum banen, bane 3" referee="" />
+					<match type="CUP" date="11.01.2015" startTime="14:00" homeTeam="UIL Knøtt 2003" awayTeam="Solberg" goalsHomeTeam="0" goalsAwayTeam="7"  venue="Haslum banen, bane 1" referee="" />
+					<match type="CUP" date="11.01.2015" startTime="15:00" homeTeam="ØIHL" awayTeam="UIL Knøtt 2003" goalsHomeTeam="4" goalsAwayTeam="5" venue="Haslum banen, bane 1" referee="" />
+		    	</matches>
+		    </cup>
+			
+			<cup startDate="31.01.2015" endDate="01.02.2015" startTime="09:00" deadlineDate="" organizingClub="Snarøya" cupName="Snarøya Cup" homePage="" email="" venue="Snarøya kunstis" />
+			<cup startDate="07.02.2015" endDate="07.02.2015" startTime="09:00" deadlineDate="" organizingClub="Ullern" cupName="CCvest Ullern Cup" homePage="" email="" venue="Ullern kunstis" />
+			<cup startDate="14.03.2015" endDate="15.03.2015" startTime="09:00" deadlineDate="" organizingClub="Stabekk" cupName="Stabæk 7ér cup" homePage="" email="" venue="Stabekk kunstis" />
+		</cups>
+	</season>
+</seasons>

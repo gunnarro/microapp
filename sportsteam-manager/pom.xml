@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.gunnarro.enterprise</groupId>
+		<artifactId>enterprise-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom-parent.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gunnarro.sportsteam</groupId>
+	<artifactId>sportsteam-manager</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Sportsteam management</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<!-- in order to show version number in jsp -->
+		<version.sportsteamVersion>${project.version}</version.sportsteamVersion>
+		<!-- javax -->
+		<version.javax.mail.api>1.5.2</version.javax.mail.api>
+		<version.javax.mail>1.5.0-b01</version.javax.mail>
+		<!-- apache poi -->
+		<version.apache.poi>3.12</version.apache.poi>
+	</properties>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<dependencies>
+		<!-- javax mail import -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${version.javax.mail}</version>
+		</dependency>
+		<!-- For reading xlsx files -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${version.apache.poi}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${version.apache.poi}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>${version.apache.poi}</version>
+		</dependency>
+		<!-- passay for password validation -->
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+	</dependencies>
+</project>

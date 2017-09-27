@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <clubs name="Ullevål Idretts Lag" department="Bandy" abbrivation="UIL" organizationNumber="985413320" bankAccountNumber="90120538143" version="0.1" releaseDate="05.04.2014">
+	        <address streetName="sognsveien" streetNumber="155" zipCode="0805" city="Oslo" country="Norway" postbox="Pb 3901 Ullevål Hageby"/>
+	        <stadium>Bergbanen</stadium>
+	        <homepage>http://www.uil.no</homepage>
+	  		<email>post@uil.no</email>
+	        <phone>99887766</phone>
+	        
+	         <contacts>
+	             <contact id="1" gender="M" firstName="Gunnar" middleName="" lastName="Rønneberg"  mobile="+4745465500" email="gunnar_ronneberg@yahoo.no" >
+		        	<address streetName="Stavangergata" streetNumber="35" zipCode="0467" city="Oslo" country="Norway" />
+		        	<roles>
+		            	 <role>chairman</role>
+		         	</roles>
+		        </contact>
+	        </contacts>
+	        
+    </clubs>
+    
+  

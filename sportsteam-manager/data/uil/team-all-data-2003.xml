@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<team name="UIL Knøtt 2003" gender="M" yearOfBirth="2003" league="Lillegutt Oslo 03" version="0.1" releaseDate="02.11.2014">
+    <club name="Ullevål Idretts Lag" department="Bandy"/>
+    <contacts>
+        <contact gender="M" status="active" firstName="Gunnar" middleName="" lastName="Rønneberg"  mobile="+4745465500" email="gunnar_ronneberg@yahoo.no" >
+        	<address streetName="Stavangergata" streetNumber="35" zipCode="0467" city="Oslo" country="Norway" />
+        	<roles>
+            	 <role>teamlead</role>
+             	 <role>coach</role>
+         	</roles>
+        </contact>
+        <contact gender="F" status="active" firstName="Siri" middleName="Birgitte" lastName="Paulen" mobile="+4792671308" email="spaulen@ymail.com" >
+        	<address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Trond" middleName="" lastName="Kiplesund" mobile="+4792045699" email="trond.kiplesund@sparebank1.no" >
+            <address streetName="BORGESTADVEIEN" streetNumber="2" streetNumberPrefix="c" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Heidi" middleName="" lastName="Kiplesund" mobile="+4700000000" email="change me" >
+            <address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Vemund" middleName="" lastName="Hartberg" mobile="+4792668817" email="vem-har@online.no" >
+            <address streetName="NIELS HENRIK ABELS VEI" streetNumber="4" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Cecilie" middleName="" lastName="Hartberg" mobile="+4792666231" email="c.b.hartberg@medisin.uio.no" >
+            <address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Johan" middleName="" lastName="Braanen" mobile="+4700000000" email="Johan@Braanen.com" >
+            <address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Frank" middleName="" lastName="Halse" mobile="+4700000000" email="fhalse@gmail.com" >
+            <address streetName="Nils Bays vei" streetNumber="108" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Anita" middleName="" lastName="Halse" mobile="+4798616194" email="halseanita@gmail.com" >
+            <address streetName="Nils Bays vei" streetNumber="108" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Mats" middleName="" lastName="Håkansson" mobile="+4792031707" email="mats.hakansson@hotmail.no" >
+            <address streetName="Lersolveien" streetNumber="11" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Atle" middleName="" lastName="Jensen" mobile="+4792462282" email="atlej@math.uio.no" >
+            <address streetName="Odd Hassels vei" streetNumber="3" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Kristin" middleName="" lastName="Halvorsen" mobile="+4700000000" email="kristinprivat@hotmail.com" >
+            <address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="David" middleName="" lastName="Dunlop" mobile="+4799106806" email="david.dunlop@ude.oslo.kommune.no" >
+            <address streetName="Almeveien" streetNumber="24" streetNumberPrefix="b" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Torstein" middleName="" lastName="Harildstad" mobile="+4700000000" email="torstein.harildstad@software-innovation.com" >
+            <address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Petter" middleName="" lastName="Karal" mobile="+4741760969" email="petter@karal.no" >
+            <address streetName="Blåsbortveien" streetNumber="19" streetNumberPrefix="b" zipCode="0873" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Heidi" middleName="" lastName="Karal" mobile="+4700000000" email="heidi.karal@gmail.com" >
+            <address streetName="Blåsbortveien" streetNumber="19" streetNumberPrefix="b" zipCode="0873" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="M" status="active" firstName="Otto" middleName="" lastName="Scharff" mobile="+4799298019" email="otto@scharff.net" >
+            <address streetName="Kongleveien" streetNumber="11" zipCode="0875" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Kristin" middleName="" lastName="Bjelland" mobile="+4700000000" email="kbjellan@gmail.com" >
+           <address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Anne Jorun" middleName="" lastName="Aas" mobile="+4700000000" email="annejorunaas@gmail.com" >
+            <address streetName="Tåsen Terrasse" streetNumber="9" streetNumberPrefix="b" zipCode="0873" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Karen" middleName="" lastName="Frivik" mobile="+4700000000" email="karen@dyrevern.no" >
+            <address streetName="" streetNumber="" zipCode="" city="Oslo" country="Norway" />
+        </contact>
+        <contact gender="F" status="active" firstName="Nini" middleName="" lastName="Ring" mobile="+4700000000" email="nini.ring@domstol.no" >
+            <address streetName="Bregneveien" streetNumber="27" streetNumberPrefix="b" zipCode="0875" city="Oslo" country="Norway" />
+        </contact> 
+        <contact gender="F" status="active" firstName="Mari" middleName="" lastName="Grini" mobile="+4700000000" email="marigrini99@gmail.com" >
+            <address streetName="" streetNumber="" streetNumberPrefix="" zipCode="" city="Oslo" country="Norway" />
+        </contact> 
+    </contacts>
+    
+    <players>
+    	<player jersy="10" gender="F" status="active" firstName="Emilie" middleName="" lastName="Paluen" birthDate="22.01.2002" mobile="" email="" >
+    	 	<address streetName="Stavangergata" streetNumber="35" zipCode="0467" city="Oslo" country="Norway" />
+    	 	<parents>
+    	 	    <parent firstName="Gunnar" lastName="Rønneberg" />
+        		<parent firstName="Siri" middleName="Birgitte" lastName="Paulen" />
+    	 	</parents>
+    	</player>   
+    	<player jersy="11" gender="M" status="active" firstName="Andreas" middleName="" lastName="Paluen" birthDate="20.11.2003" mobile="" email="" >
+    	 	<address streetName="Stavangergata" streetNumber="35" zipCode="0467" city="Oslo" country="Norway" />
+    	 	<parents>
+    	 	    <parent firstName="Gunnar" lastName="Rønneberg" />
+        		<parent firstName="Siri" middleName="Birgitte" lastName="Paulen" />
+    	 	</parents>
+    	</player>   
+    	<player jersy="16" gender="M" status="active" firstName="Marius" middleName="" lastName="Kiplesund" birthDate="17.11.2003" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Trond" lastName="Kiplesund" />
+        		<parent firstName="Heidi" lastName="Kiplesund" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="7" gender="M" status="active" firstName="August" middleName="" lastName="Hartberg" birthDate="" mobile="" email="" >
+    	    <address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Vemund" lastName="Hartberg" />
+        		<parent firstName="Cecilie" lastName="Hartberg" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="" gender="M" status="active" firstName="Anton" middleName="" lastName="Braanen" birthDate="" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Johan" lastName="Braanen" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="9" gender="M" status="active" firstName="Magnus" middleName="" lastName="Halse" birthDate="18.11.2013" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Frank" lastName="Halse" />
+        		<parent firstName="Anita" lastName="Halse" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="21" gender="M" status="active" firstName="Thomas" middleName="" lastName="Bergan Håkansson" birthDate="" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Mats" lastName="Håkansson" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="2" gender="M" status="active" firstName="Linus" middleName="" lastName="Jensen" birthDate="" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Atle" lastName="Jensen" />
+        		<parent firstName="Kristin" lastName="Halvorsen" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="" gender="M" status="active" firstName="Oscar" middleName="" lastName="Dunlop" birthDate="" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="David" lastName="Dunlop" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="3" gender="M" status="active" firstName="Mathias" middleName="" lastName="Harildstad" birthDate="" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Torstein" lastName="Harildstad" />
+    	 	</parents>
+   	 	</player>
+    	<player jersy="" gender="M" status="active" firstName="Martin André" middleName="" lastName="Karal" birthDate="27.10.2003" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Petter" lastName="Karal" />
+        		<parent firstName="Heidi"  lastName="Karal" />
+    	 	</parents>
+     	</player>
+    	<player jersy="22" gender="M" status="active" firstName="Trygve" middleName="" lastName="Scharff" birthDate="04.08.2003" mobile="" email="" >
+    		<address streetName="" streetNumber="" zipCode="" city="" country="" />
+    		<parents>
+    	 	    <parent firstName="Otto" lastName="Scharff" />
+    	 	</parents>
+    	</player>
+    	<player jersy="" gender="M" status="active" firstName="Andreas" middleName="" lastName="Bjelland" birthDate="" mobile="" email="" >
+	    	<address streetName="" streetNumber="" zipCode="" city="" country="" />
+	    	<parents>
+	    	 	    <parent firstName="Kristin" lastName="Bjelland" />
+	    	 </parents>
+    	</player>
+    	<player jersy="" gender="M" status="active" firstName="Paul" middleName="Ring" lastName="Sørensen" birthDate="27.11.2003" mobile="" email="" >
+	    	<address streetName="" streetNumber="" zipCode="" city="" country="" />
+	    	<parents>
+	    	 	    <parent firstName="Nini" lastName="Ring" />
+	    	 </parents>
+    	</player>
+    	<player jersy="" gender="M" status="active" firstName="Brage" middleName="" lastName="Frivik" birthDate="" mobile="" email="" >
+	    	<address streetName="" streetNumber="" zipCode="" city="" country="" />
+	    	<parents>
+	    	 	    <parent firstName="Karen" lastName="Frivik" />
+	    	 </parents>
+    	</player>
+    	<player jersy="" gender="M" status="active" firstName="Ole Martin" middleName="" lastName="Skedsmo" birthDate="06.05.2003" mobile="" email="" >
+	    	<address streetName="" streetNumber="" zipCode="" city="" country="" />
+	    	<parents>
+	    	 	    <parent firstName="Anne Jorun" lastName="Aas" />
+	    	 </parents>
+    	</player>
+    </players>
+	
+    <seasons>
+        <season period="2013-2014" startDate="01.09.2013" endDate="01.04.2014" >
+		    <matches league="Knøtt Oslo 03">
+		        <match type="LEAGUE" date="26.11.2013" startTime="17:00" homeTeam="UIL Knøtt 2003" awayTeam="Røa 03 2" goalsHomeTeam="4" goalsAwayTeam="4" venue="Bergbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="10.12.2013" startTime="17:00" homeTeam="UIL Knøtt 2003" awayTeam="Ready 01 4" goalsHomeTeam="5" goalsAwayTeam="2" venue="Bergbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="17.12.2013" startTime="17:00" homeTeam="Ready 01 3 Jenter" awayTeam="UIL Knøtt 2003" goalsHomeTeam="3" goalsAwayTeam="5" venue="Gressbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="07.01.2014" startTime="18:00" homeTeam="UIL Knøtt 2003" awayTeam="Sarpsborg" goalsHomeTeam="5" goalsAwayTeam="9" venue="Bergbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="14.01.2014" startTime="18:00" homeTeam="Ullern" awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="9" venue="Ullernbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="21.01.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" awayTeam="Røa 03 1" goalsHomeTeam="7" goalsAwayTeam="7" venue="Bergbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="04.02.2014" startTime="17:00" homeTeam="Ready 01 2" awayTeam="UIL Knøtt 2003" goalsHomeTeam="1" goalsAwayTeam="10" venue="Gressbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="11.02.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" awayTeam="Ready 01" goalsHomeTeam="5" goalsAwayTeam="3" venue="Bergbanen" referee="dommer ukjent" />
+		        <match type="LEAGUE" date="26.02.2014" startTime="18:00" homeTeam="Sagene 03" awayTeam="UIL Knøtt 2003" goalsHomeTeam="3" goalsAwayTeam="11" venue="Voldsløkka" referee="dommer ukjent" />
+		        <match type="TRAINING" date="12.02.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" awayTeam="Ullevål 2004" goalsHomeTeam="11" goalsAwayTeam="2" venue="Bergbanen" referee="dommer ukjent" />
+		        <match type="TRAINING" date="05.03.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" awayTeam="Ullevål 2002" goalsHomeTeam="3" goalsAwayTeam="6" venue="Bergbanen" referee="Mats Håkansson" />
+		    </matches>
+	
+		    <trainings>
+		        <training date="16.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="17.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="22.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="24.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="29.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="30.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="31.10.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="04.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="06.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="13.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="18.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="20.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="25.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="27.11.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="30.11.2013" fromTime="14:30" toTime="16:00" place="Bergbanen" />
+		        <training date="02.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="04.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="09.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="11.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="16.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="18.12.2013" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="06.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="08.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="11.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+				<training date="13.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="15.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="18.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="20.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="22.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="26.01.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="05.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="08.02.2014" fromTime="14:30" toTime="16:00" place="Bergbanen" />
+		        <training date="10.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="12.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="15.02.2014" fromTime="14:30" toTime="16:00" place="Bergbanen" />
+		        <training date="24.02.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		    </trainings>
+	    </season>
+	    
+	    <season period="2014-2015" startDate="01.09.2014" endDate="01.04.2015" >
+	    	 <matches league="Lillegutt Oslo 03" >
+		        <match type="LEAGUE" date="03.11.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" 	awayTeam="Ready 3" 		  goalsHomeTeam="0" goalsAwayTeam="0" venue="Bergbanen" 		referee="" />
+		        <match type="LEAGUE" date="10.11.2014" startTime="17:00" homeTeam="Ullern" 			awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="0" venue="Ullernbanen" 		referee="" />
+		        <match type="LEAGUE" date="17.11.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" 	awayTeam="Ready 2" 		  goalsHomeTeam="0" goalsAwayTeam="0" venue="Bergbanen" 		referee="" />
+		      	<match type="LEAGUE" date="24.11.2014" startTime="17:00" homeTeam="Røa" 			awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="0" venue="NIH" 				referee="" />
+		        <match type="LEAGUE" date="01.12.2015" startTime="17:00" homeTeam="UIL Knøtt 2003" 	awayTeam="Sarpsborg" 	  goalsHomeTeam="0" goalsAwayTeam="0" venue="Bergbanen" 		referee="" />
+		     	<match type="LEAGUE" date="08.12.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" 	awayTeam="Sagene" 		  goalsHomeTeam="0" goalsAwayTeam="0" venue="Bergbanen" 		referee="" />
+		        <match type="LEAGUE" date="15.12.2014" startTime="17:00" homeTeam="Ready 1" 		awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="0" venue="Gressbanen"	 	referee="" />
+		      	<match type="LEAGUE" date="05.01.2014" startTime="17:00" homeTeam="Ready 2" 		awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="0" venue="Gressbanen" 		referee="" />
+		      	<match type="LEAGUE" date="12.01.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" 	awayTeam="Ullern" 		  goalsHomeTeam="0" goalsAwayTeam="0" venue="Bergbanen" 		referee="" />
+		       	<match type="LEAGUE" date="19.01.2014" startTime="17:00" homeTeam="Ready 2" 		awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="0" venue="Gressbanen" 		referee="" />
+		      	<match type="LEAGUE" date="26.01.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" 	awayTeam="Røa 3" 		  goalsHomeTeam="0" goalsAwayTeam="0" venue="Bergbanen" 		referee="" />
+		        <match type="LEAGUE" date="02.02.2014" startTime="19:00" homeTeam="Sarpsborg" 		awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="0" venue="Sarpsborg Stadion" referee="" />
+		       	<match type="LEAGUE" date="09.02.2014" startTime="18:00" homeTeam="Sagene" 			awayTeam="UIL Knøtt 2003" goalsHomeTeam="0" goalsAwayTeam="0" venue="Voldsløkka" 		referee="" />
+				<match type="LEAGUE" date="23.02.2014" startTime="17:00" homeTeam="UIL Knøtt 2003" 	awayTeam="Ready 1" 		  goalsHomeTeam="0" goalsAwayTeam="0" venue="Bergbanen" 		referee="" />
+		    </matches>
+		    
+	    	<trainings>
+	    		<training date="20.10.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="22.10.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="23.10.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="27.10.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="28.10.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		        <training date="31.10.2014" fromTime="16:30" toTime="18:00" place="Bergbanen" />
+		    </trainings>
+		    
+		</season>
+    </seasons>
+  </team>

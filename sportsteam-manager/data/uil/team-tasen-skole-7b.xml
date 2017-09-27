@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<team name="Tåsen Skole 7B" gender="M" yearOfBirth="2003" league="Lillegutt Oslo 03" version="0.1" releaseDate="22.11.2015">
+    <club name="Ullevål Idretts Lag" department="Bandy"/>
+    <contacts>
+        <contact gender="M" status="active" firstName="Gunnar" middleName="" lastName="Rønneberg"  mobile="+4745465500" email="gunnar_ronneberg@yahoo.no" >
+        	<address streetName="Stavangergata" streetNumber="35" zipCode="0467" city="Oslo" country="Norway" />
+        	<roles>
+            	 <role>teamlead</role>
+             	 <role>coach</role>
+         	</roles>
+        </contact>
+    </contacts>
+    
+    <players>
+    </players>
+	
+    <seasons>
+	    <season period="2015-2016" startDate="01.09.2014" endDate="01.04.2015" >
+	    	 <matches league="Lillegutt Oslo 03" >
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:00" homeTeam="TeamA" 	awayTeam="TeamB" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:18" homeTeam="TeamA" 	awayTeam="TeamC" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:36" homeTeam="TeamA" 	awayTeam="TeamD" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		      	<match type="LEAGUE" date="22.11.2015" startTime="14:52" homeTeam="TeamA" 	awayTeam="TeamE" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="15:16" homeTeam="TeamA" 	awayTeam="TeamF" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+
+				<match type="LEAGUE" date="22.11.2015" startTime="14:00" homeTeam="TeamB" 	awayTeam="TeamA" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:18" homeTeam="TeamB" 	awayTeam="TeamC" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:36" homeTeam="TeamB" 	awayTeam="TeamD" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		      	<match type="LEAGUE" date="22.11.2015" startTime="14:52" homeTeam="TeamB" 	awayTeam="TeamE" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="15:16" homeTeam="TeamB" 	awayTeam="TeamF" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+				
+				<match type="LEAGUE" date="22.11.2015" startTime="14:06" homeTeam="TeamC" 	awayTeam="TeamA" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:24" homeTeam="TeamC" 	awayTeam="TeamB" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:42" homeTeam="TeamC" 	awayTeam="TeamD" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		      	<match type="LEAGUE" date="22.11.2015" startTime="14:58" homeTeam="TeamC" 	awayTeam="TeamE" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="15:22" homeTeam="TeamC" 	awayTeam="TeamF" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+				
+				<match type="LEAGUE" date="22.11.2015" startTime="14:06" homeTeam="TeamD" 	awayTeam="TeamA" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:24" homeTeam="TeamD" 	awayTeam="TeamB" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:42" homeTeam="TeamD" 	awayTeam="TeamC" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		      	<match type="LEAGUE" date="22.11.2015" startTime="15:04" homeTeam="TeamD" 	awayTeam="TeamE" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="15:22" homeTeam="TeamD" 	awayTeam="TeamF" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+				
+				<match type="LEAGUE" date="22.11.2015" startTime="14:12" homeTeam="TeamE" 	awayTeam="TeamA" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:30" homeTeam="TeamE" 	awayTeam="TeamB" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:46" homeTeam="TeamE" 	awayTeam="TeamC" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		      	<match type="LEAGUE" date="22.11.2015" startTime="15:04" homeTeam="TeamE" 	awayTeam="TeamD" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="15:28" homeTeam="TeamE" 	awayTeam="TeamF" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+				
+				<match type="LEAGUE" date="22.11.2015" startTime="14:12" homeTeam="TeamF" 	awayTeam="TeamA" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:30" homeTeam="TeamF" 	awayTeam="TeamB" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="14:46" homeTeam="TeamF" 	awayTeam="TeamC" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		      	<match type="LEAGUE" date="22.11.2015" startTime="15:10" homeTeam="TeamF" 	awayTeam="TeamD" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+		        <match type="LEAGUE" date="22.11.2015" startTime="15:28" homeTeam="TeamF" 	awayTeam="TeamE" goalsHomeTeam="0" goalsAwayTeam="0" venue="Nydalen Cageball" referee="" />
+				
+		    </matches>
+		</season>
+    </seasons>
+  </team>

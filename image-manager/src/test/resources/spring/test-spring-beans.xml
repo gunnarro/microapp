@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	
+	<bean id="httpSessionListener" class="com.gunnarro.imagemanager.listener.HttpSessionListener"/>
+
+	<!-- Definition for image service bean -->
+	<bean id="imageService" class="com.gunnarro.imagemanager.service.impl.ImageServiceImpl">
+		<qualifier value="imageService" />
+	</bean>
+	
+	<bean id="galleryController" class="com.gunnarro.imagemanager.mvc.controller.GalleryController"/>
+	<bean id="fileUploadController" class="com.gunnarro.imagemanager.mvc.controller.FileUploadController"/>
+	<bean id="authenticationFacade" class="com.gunnarro.imagemanager.mvc.controller.AuthenticationFacade"/>
+	
+	<!-- For spring security setup -->
+	<bean id="loginAttemptService" class="com.gunnarro.imagemanager.service.impl.LoginAttemptService"/>
+	
+	<bean id="customUserDetailsService" class="com.gunnarro.imagemanager.service.impl.CustomUserDetailsServiceImpl"/>
+	
+	<bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg type="int" value="13" />
+	</bean>
+	
+	<bean id="authProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="customUserDetailsService" />
+		<property name="passwordEncoder" ref="encoder" />
+	</bean>
+	
+</beans>

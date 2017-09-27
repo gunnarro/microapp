@@ -1,0 +1,150 @@
+.container-custom {
+	padding-top: 10px;
+	margin-left: 50px;
+	width: 700px;
+}
+
+.borderless tbody tr td, .borderless thead tr th {
+	border: none;
+}
+
+.form-horizontal {
+	width: 100%;
+}
+
+.navbar .nav>li>a {
+	color: #000000;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+.checked-color {
+	color: green;
+}
+
+.unchecked-color {
+	color: #babfbe;
+}
+
+.muted-color {
+	color: #babfbe;
+}
+
+.delete-color {
+	color: red;
+}
+
+.edit-color {
+	color: green;
+}
+
+
+.error-color {
+	color: red;
+}
+
+.btn-registrer-width {
+	width: 75px;
+}
+
+.signout {
+	color: red;
+}
+
+.muted {
+	color: #999 !important;
+}
+
+.saturday {
+	color: green !important;
+}
+
+.sunday {
+	color: blue !important;
+}
+
+.monday {
+	color: yellow !important;
+}
+
+.tuesday {
+	color: cyan !important;
+}
+
+.wedensday {
+	color: orange !important;
+}
+
+.thursday {
+	color: brown !important;
+}
+
+.friday {
+	color: gray !important;
+}
+
+.hidden {
+	display: none;
+}
+
+/**
+ ** Labels -  New label color
+*/
+.label-purple {
+	background-color: #9b59b6;
+	border-color: #9b59b6;
+}
+
+.label-muted {
+	background-color: #babfbe;
+	border-color: #babfbe;
+}
+
+.label-yellow {
+	background-color: #5F78A6;
+	border-color: #5F78A6;
+}
+
+.badge-danger {
+  background-color: #d43f3a;
+}
+
+.badge-warning {
+background-color: #d58512;
+}
+
+.badge-success {
+background-color: #398439;
+}
+
+.badge-info {
+background-color: #269abc;
+}
+
+/**
+** login page style
+*/
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+/**  background-color: #fff;*/
+/**  border: 1px solid rgba(0,0,0,0.1); */  
+}
+	
+.form-control-login {
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.profile-img {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}

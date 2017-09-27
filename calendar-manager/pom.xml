@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.gunnarro.enterprise</groupId>
+		<artifactId>enterprise-parent-core</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom-parent-core.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gunnarro.calendar</groupId>
+	<artifactId>calendar-manager</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Calendar application</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<!-- in order to show version number in jsp -->
+		<version.calendarmanagerVersion>${project.version}</version.calendarmanagerVersion>
+		<version.jodatime>2.9.4</version.jodatime>
+		<version.ehcache>2.10.0</version.ehcache>
+		<version.ical4j>2.0-beta1</version.ical4j>
+	</properties>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.mnode.ical4j</groupId>
+			<artifactId>ical4j</artifactId>
+			<version>${version.ical4j}</version>
+			<exclusions>
+        		<exclusion>
+          			<groupId>org.codehaus.groovy</groupId>
+          			<artifactId>groovy-all</artifactId>
+        		</exclusion>
+      		</exclusions> 
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${version.jodatime}</version>
+		</dependency>
+		<!-- For ehcache -->
+		<!-- 
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${version.ehcache}</version>
+		</dependency>
+		 -->
+		 <!-- 
+		<dependency>
+      		<groupId>org.ehcache</groupId>
+      		<artifactId>ehcache</artifactId>
+      		<version>3.1.1</version>
+    	</dependency>      
+		<dependency>
+			<groupId>javax.cache</groupId>
+      		<artifactId>cache-api</artifactId>
+      		<version>1.0.0</version>
+      	</dependency>
+      	 -->
+	</dependencies>
+</project>

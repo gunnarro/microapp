@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<bean id="httpSessionListener" class="com.gunnarro.calendar.listener.HttpSessionListener" />
+
+<!-- 
+	<bean id="cacheHandler" class="com.gunnarro.calendar.cache.CacheHandler">
+		<property name="cacheManager" ref="cacheManager" />
+		<property name="cacheEnabled" value="true"/>
+	</bean>
+ -->
+ 	
+	<!-- Definition for calendar service bean -->
+	<bean id="calendarService" class="com.gunnarro.calendar.service.impl.CalendarServiceImpl">
+		<qualifier value="calendarService" />
+	</bean>
+	
+
+	<!-- For spring security setup -->
+	<bean id="loginAttemptService"
+		class="com.gunnarro.calendar.service.impl.LoginAttemptService" />
+
+	<bean id="customUserDetailsService"
+		class="com.gunnarro.calendar.service.impl.CustomUserDetailsServiceImpl" />
+
+	<bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg type="int" value="13" />
+	</bean>
+
+	<bean id="authProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="customUserDetailsService" />
+		<property name="passwordEncoder" ref="encoder" />
+	</bean>
+
+</beans>

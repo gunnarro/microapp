@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<task:annotation-driven />
+    <util:properties id="taskProps" location="classpath:spring-task.properties" />
+    <context:property-placeholder properties-ref="taskProps" />
+    
+    <bean id="upcomingActivityTask" class="com.gunnarro.sportsteam.task.UpcomingActivityNotificationTask" />
+ 
+    <task:scheduled-tasks>
+        <task:scheduled ref="upcomingActivityTask" method="run" cron="#{taskProps['upcoming.activity.cron']}"></task:scheduled>
+    </task:scheduled-tasks>
+    
+</beans>

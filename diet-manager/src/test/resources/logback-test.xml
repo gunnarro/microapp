@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false" scanPeriod="60 seconds">
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+	<!-- To enable JMX Management -->
+	<jmxConfigurator />
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="debugfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/dietmanager-service-test.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>logs/dietmanager-service-test.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="httpSessionfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/http-session-test.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>logs/dietmanager-http-session-test.log.%d{yyyy-MM-dd}
+			</fileNamePattern>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="com.gunnarro.dietmanager" level="debug" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+
+	<logger name="com.gunnarro.dietmanager.repository.impl" level="debug" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="com.gunnarro.dietmanager.listener.HttpSessionListener" level="info" additivity="false">
+		<appender-ref ref="httpSessionfile" />
+	</logger>
+	
+	<logger name="org.springframework.security" level="debug" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="org.springframework.jdbc" level="error" additivity="false"/>
+	<!-- for logging parameter values -->
+	<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="error" additivity="false" />
+	
+
+	<root level="info">
+		<appender-ref ref="console" />
+		<!-- 
+		<appender-ref ref="debugfile" />
+		 -->
+	</root>
+</configuration>

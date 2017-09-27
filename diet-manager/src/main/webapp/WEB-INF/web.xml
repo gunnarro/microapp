@@ -1,0 +1,85 @@
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	metadata-complete="true">
+
+	<display-name>diet-manager</display-name>
+
+	<!-- Session settings -->
+	<session-config>
+		<session-timeout>45</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+
+	<!-- in order to show version number in jsp, ${initParam.dietmanagerVersion} -->
+	<context-param>
+		<param-name>dietmanagerVersion</param-name>
+		<param-value>${version.dietmanagerVersion}</param-value>
+	</context-param>
+
+	<!-- in order to show build time in jsp, ${initParam.buildTimeStamp} -->
+	<context-param>
+		<param-name>buildTimeStamp</param-name>
+		<param-value>${build.timestamp}</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/spring.xml</param-value>
+	</context-param>
+
+	<!-- Enables Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		 <init-param>
+            <param-name>contextAttribute</param-name>
+            <param-value>org.springframework.web.context.WebApplicationContext.ROOT</param-value>
+        </init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>diet-manager</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- <init-param> <param-name>contextClass</param-name> <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value> 
+			</init-param> -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/jboss-as-spring-mvc-context.xml</param-value>
+		</init-param>
+		<init-param>
+			<!-- In order to allow PUT and DELETE -->
+			<param-name>readonly</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>diet-manager</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- Needed for form method types 'PUT' and 'DELETE, see here: http://static.springsource.org/spring/docs/current/spring-framework-reference/html/view.html#rest-method-conversion -->
+	<filter>
+		<filter-name>httpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>httpMethodFilter</filter-name>
+		<servlet-name>diet-manager</servlet-name>
+	</filter-mapping>
+</web-app>

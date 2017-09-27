@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<security:global-method-security pre-post-annotations="enabled"/>
+
+	<!-- Configuring RoleVoter bean to use custom access roles, by default roles 
+		should be in the form ROLE_{XXX} -->
+	<!-- <beans:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"> 
+		<beans:property name="rolePrefix" value="" /> </beans:bean> <beans:bean id="accessDecisionManager" 
+		class="org.springframework.security.access.vote.AffirmativeBased"> <beans:constructor-arg 
+		name="decisionVoters" ref="roleVoter" /> </beans:bean> -->
+
+	<!-- Access DB directly -->
+	<!-- 
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dietManagerDataSource_local" 
+				users-by-username-query="SELECT username,password,enabled FROM users WHERE username = ?"
+				authorities-by-username-query="SELECT username,role FROM roles WHERE username = ?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+ 	 -->
+ 	 
+ 	<!-- use custom provider, pick one only -->
+	<security:authentication-manager>
+		<!--  <security:authentication-provider user-service-ref="localUserDetailsService" /> -->
+		<!--  <security:authentication-provider ref="customAuthenticationProvider"/> -->
+		<security:authentication-provider ref="authProvider"/>
+	</security:authentication-manager>
+ 
+	<security:http auto-config="true" use-expressions="true">
+		
+		<security:intercept-url pattern="/login" access="hasRole('ROLE_ANONYMOUS')" requires-channel="any"/>
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')"/>
+
+		<!-- If not standard ports are used 
+		<security:port-mappings>
+      		<security:port-mapping http="80" https="443"/>
+    	</security:port-mappings>
+		 -->
+		 
+		<security:form-login login-page="/login" 
+							authentication-failure-url="/login?login_error=1" 
+							default-target-url="/home" 
+							username-parameter="username"
+							password-parameter="password" 
+							login-processing-url="/login.do" 
+							always-use-default-target="true" />
+
+		<security:logout invalidate-session="true"
+						delete-cookies="JSESSIONID" 
+						logout-success-url="/logout"
+						logout-url="/logout" />
+
+		<security:access-denied-handler error-page="/denied" />
+
+		<security:session-management invalid-session-url="/login?cause=invalid-session">
+			<security:concurrency-control  session-registry-alias="sessionRegistry" 
+											max-sessions="1" 
+											expired-url="/login?cause=session-expired" 
+											error-if-maximum-exceeded="true" />
+		</security:session-management>
+
+	</security:http>
+	
+</beans>

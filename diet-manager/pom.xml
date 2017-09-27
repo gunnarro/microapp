@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- Check by sonarcube (ref. https://github.com/SonarSource/sonar-examples/tree/master/projects/languages/java/code-coverage/ut/ut-maven-jacoco) -->
+	<!-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -->
+	<!-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -->
+	<!-- mvn sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=a0323a457d5f1b85b726988d5a5aa9e97a28aa10 -->
+	<!-- https://sonarqube.com/projects/favorite -->
+	<parent>
+		<groupId>com.gunnarro.enterprise</groupId>
+		<artifactId>enterprise-parent-core</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom-parent-core.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gunnarro.dietmanager</groupId>
+	<artifactId>diet-manager</artifactId>
+	<packaging>war</packaging>
+	<version>1.2.2</version>
+	<name>DietManager</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<!-- in order to show version number in jsp -->
+		<version.dietmanagerVersion>${project.version}</version.dietmanagerVersion>
+		<version.jodatime>2.9.6</version.jodatime>
+	</properties>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.gunnarro.usermanager</groupId>
+			<artifactId>user-manager</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${version.jodatime}</version>
+		</dependency>
+		<!-- markdown to html converter -->
+		<dependency>
+			<groupId>com.vladsch.flexmark</groupId>
+			<artifactId>flexmark-all</artifactId>
+			<version>0.20.0</version>
+		</dependency>
+	</dependencies>
+</project>

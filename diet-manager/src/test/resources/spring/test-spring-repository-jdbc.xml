@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/jdbc 
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<bean id="dietManagerDataSource_junit" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<!-- <property name="url" value="jdbc:h2:dietmanager_unit_test" /> -->
+		<property name="url" value="jdbc:h2:mem:dietmanager_unit_test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE" />
+		<property name="username" value="SA" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="dietManagerDataSource_local" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/dietmanager" />
+		<property name="username" value="unittest" />
+		<property name="password" value="test1234" />
+	</bean>
+
+	<bean id="dietManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.9.127.2:3306/dietmanager_unit_test" />
+		<property name="username" value="unittest" />
+		<property name="password" value="test1234" />
+	</bean>
+
+	<!-- JDBC Template bean definition -->
+	<bean id="dietManagerJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	    <property name="dataSource" ref="dietManagerDataSource_junit" /> 
+	   <!-- <property name="dataSource" ref="dietManagerDataSource_local" /> -->
+	</bean>
+
+	<!-- DietManager JDBC Repository bean definition -->
+	<bean id="dietManagerRepository" class="com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl">
+		<qualifier value="dietManagerRepository" />
+		<constructor-arg ref="dietManagerJdbcTemplate" />
+	</bean>
+
+	<!-- User account repository setup -->
+	<bean id="userAccountJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dietManagerDataSource_junit" />
+		<!-- <property name="dataSource" ref="dietManagerDataSource_local" />  -->
+	</bean>
+
+	<bean id="userAccountRepository" class="com.gunnarro.useraccount.repository.impl.UserAccountRepositoryImpl">
+		<qualifier value="userAccountRepository" />
+		<constructor-arg ref="userAccountJdbcTemplate" />
+	</bean>
+
+	<!-- Log event repository setup -->
+	<bean id="logEventJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dietManagerDataSource_junit" />
+		<!-- <property name="dataSource" ref="logEventDataSource_local" />  -->
+	</bean>
+
+	<bean id="logEventRepository" class="com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl">
+		<qualifier value="logEventRepository" />
+		<constructor-arg ref="logEventJdbcTemplate" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dietManagerDataSource_junit" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<jdbc:initialize-database data-source="dietManagerDataSource_junit">
+		<jdbc:script location="classpath:database/dietmanager-1.0-SNAPSHOT-mysql-table.sql" />
+	 	<jdbc:script location="classpath:database/dietmanager-1.0-SNAPSHOT-mysql-data.sql" />
+	</jdbc:initialize-database>
+</beans>

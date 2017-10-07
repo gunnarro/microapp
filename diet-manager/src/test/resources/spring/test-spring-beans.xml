@@ -20,7 +20,6 @@
           p:resourceLoaderPath="classpath:/org/springbyexample/email" 
           p:preferFileSystemAccess="false"/>
 	 -->
-
 	
 	<!-- Definition for dietManager service bean -->
 	<bean id="dietManagerService" class="com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl">
@@ -48,10 +47,6 @@
 	
 	<bean id="registrationUserDetailsService" class="com.gunnarro.dietmanager.service.impl.RegistrationUserDetailsServiceImpl">
 		<qualifier value="registrationUserDetailsService" />
-	</bean>
-	
-	<bean id="pwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-		<constructor-arg type="int" value="13" />
 	</bean>
 	
 	<!-- 

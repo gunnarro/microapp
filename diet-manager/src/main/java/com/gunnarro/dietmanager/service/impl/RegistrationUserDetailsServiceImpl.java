@@ -20,7 +20,7 @@ import com.gunnarro.useraccount.service.UserAccountService;
  * register into application.
  *
  */
-@Service()
+@Service
 public class RegistrationUserDetailsServiceImpl implements UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RegistrationUserDetailsServiceImpl.class);

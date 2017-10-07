@@ -10,30 +10,33 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gunnarro.dietmanager.config.DataSourceConfiguration;
+import com.gunnarro.dietmanager.config.SecurityConfiguration;
 import com.gunnarro.dietmanager.domain.diet.MenuItem;
 import com.gunnarro.dietmanager.domain.statistic.Key;
 import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
 import com.gunnarro.dietmanager.endpoint.rest.ChartData;
+import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
+import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes={DataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
 @Transactional
-// @TransactionConfiguration(defaultRollback = true)
-// @Ignore
+@Rollback
 public class DietManagerServiceTest {
 
     @Autowired
-    @Qualifier("dietManagerService")
+//    @Qualifier("dietManagerService")
     protected DietManagerService dietManagerService;
 
     @Before

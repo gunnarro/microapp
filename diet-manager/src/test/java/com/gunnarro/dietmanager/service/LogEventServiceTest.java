@@ -6,24 +6,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gunnarro.dietmanager.config.DataSourceConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
+import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
+import com.gunnarro.dietmanager.service.impl.LogEventServiceImpl;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes={DataSourceConfiguration.class, LogEventRepositoryImpl.class, LogEventServiceImpl.class })
 @Transactional(timeout = 10)
-// @TransactionConfiguration(defaultRollback = true)
 public class LogEventServiceTest {
 
     @Autowired
-    @Qualifier("logEventService")
     protected LogEventService logEventService;
 
     @Before

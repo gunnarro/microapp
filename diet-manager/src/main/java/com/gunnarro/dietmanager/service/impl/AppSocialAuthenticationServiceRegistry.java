@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.social.security.SocialAuthenticationServiceRegistry;
 import org.springframework.social.security.provider.SocialAuthenticationService;
+import org.springframework.stereotype.Service;
 
 /**
  * AppSocialAuthenticationServiceRegistry is inherited from SocialAuthenticationServiceRegistry.This bean is used to register different Social authentication services.
@@ -18,6 +19,7 @@ import org.springframework.social.security.provider.SocialAuthenticationService;
  * SocialAuthenticationServiceRegistry will maintains connection repositories per provider.Connection repository handles connection persistence methods across all users; this will be a normal singleton bean in your application context.
  *
  */
+@Service
 public class AppSocialAuthenticationServiceRegistry extends SocialAuthenticationServiceRegistry {
 
     private List<SocialAuthenticationService<?>> authenticationServices;
@@ -29,7 +31,7 @@ public class AppSocialAuthenticationServiceRegistry extends SocialAuthentication
     @PostConstruct
     public void init() {
         if (authenticationServices != null) {
-            for (SocialAuthenticationService authenticationService : authenticationServices) {
+            for (SocialAuthenticationService<?> authenticationService : authenticationServices) {
                 super.addAuthenticationService(authenticationService);
             }
         }

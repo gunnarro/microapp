@@ -11,7 +11,9 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.web.session.HttpSessionCreatedEvent;
 import org.springframework.security.web.session.HttpSessionDestroyedEvent;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HttpSessionListener implements ApplicationListener<ApplicationEvent> {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpSessionListener.class);
@@ -22,6 +24,7 @@ public class HttpSessionListener implements ApplicationListener<ApplicationEvent
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
+    	LOG.debug("start session...");
         // Care only about Http session events
         if (applicationEvent instanceof HttpSessionCreatedEvent) {
             counter++;

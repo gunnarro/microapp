@@ -19,6 +19,7 @@ public class AuthenticationFacade implements AuthenticationFacadeInterface {
 
     @Override
     public Authentication getAuthentication() {
+    	LOG.debug(".....getAuth...");
         Authentication authentication = null;
         if (SecurityContextHolder.getContext() != null) {
             authentication = SecurityContextHolder.getContext().getAuthentication();

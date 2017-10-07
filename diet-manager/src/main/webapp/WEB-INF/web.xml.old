@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>dietmanager</display-name>
+
+    <session-config>
+        <session-timeout>45</session-timeout>
+    </session-config>
+   
+  	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+
+	<!-- in order to show version number in jsp, ${initParam.dietmanagerVersion} -->
+	<context-param>
+		<param-name>dietmanagerVersion</param-name>
+		<param-value>${version.dietmanagerVersion}</param-value>
+	</context-param>
+
+	<!-- in order to show build time in jsp, ${initParam.buildTimeStamp} -->
+	<context-param>
+		<param-name>buildTimeStamp</param-name>
+		<param-value>${build.timestamp}</param-value>
+	</context-param>
+
+    <!-- Spring root -->
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>
+        	org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>com.gunnarro.dietmanager</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- Spring child -->
+    <servlet>
+        <servlet-name>dietmanager</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dietmanager</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- <welcome-file-list> -->
+    <!-- <welcome-file>index.html</welcome-file> -->
+    <!-- </welcome-file-list> -->
+
+</web-app>

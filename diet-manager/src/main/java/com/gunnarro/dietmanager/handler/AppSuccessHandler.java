@@ -15,12 +15,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import com.gunnarro.dietmanager.mvc.controller.AppAuthenticationEntryPoint;
 import com.gunnarro.useraccount.repository.table.user.RolesTable.RolesEnum;
 
 /**
  */
+@Component
 public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppAuthenticationEntryPoint.class);
@@ -29,7 +31,8 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        String targetUrl = determineTargetUrl(authentication);
+        LOG.debug("authentication: " + authentication.toString());
+    	String targetUrl = determineTargetUrl(authentication);
         if (LOG.isDebugEnabled()) {
             LOG.debug("redirect to: " + targetUrl);
         }

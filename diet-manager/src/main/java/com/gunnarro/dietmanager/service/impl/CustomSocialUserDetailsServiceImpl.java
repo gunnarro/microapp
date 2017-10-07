@@ -3,7 +3,6 @@ package com.gunnarro.dietmanager.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.social.security.SocialAuthenticationException;
@@ -19,13 +18,12 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
  * verify whether social user exist in local database.
  *
  */
-@Service("socialUserDetailsService")
+@Service
 public class CustomSocialUserDetailsServiceImpl implements SocialUserDetailsService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomSocialUserDetailsServiceImpl.class);
 
     @Autowired
-    @Qualifier(value = "localUserDetailsService")
     private UserDetailsService localUserDetailsService;
 
     @Override

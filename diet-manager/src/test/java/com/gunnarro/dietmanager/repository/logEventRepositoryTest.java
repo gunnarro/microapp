@@ -15,25 +15,26 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gunnarro.dietmanager.config.DataSourceConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
+import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.utility.Utility;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes={LogEventRepositoryImpl.class, DataSourceConfiguration.class})
 @Transactional
-@TransactionConfiguration(defaultRollback = true)
+@Rollback
+//@TestPropertySource(locations="classpath:test-application.properties")
 // @Ignore
 public class logEventRepositoryTest {
 
     @Autowired
-    @Qualifier("logEventRepository")
     private LogEventRepository logEventRepository;
 
     @Before

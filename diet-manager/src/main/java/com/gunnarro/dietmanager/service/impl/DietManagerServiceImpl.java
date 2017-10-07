@@ -11,8 +11,8 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.gunnarro.dietmanager.domain.diet.DietMenu;
 import com.gunnarro.dietmanager.domain.diet.DietPlan;
@@ -41,11 +41,9 @@ public class DietManagerServiceImpl implements DietManagerService {
     private static final Logger LOG = LoggerFactory.getLogger(DietManagerServiceImpl.class);
 
     @Autowired
-    @Qualifier("dietManagerRepository")
     private DietManagerRepository dietManagerRepository;
 
     @Autowired
-    @Qualifier("logEventRepository")
     private LogEventRepository logEventRepository;
 
     @Override
@@ -477,4 +475,9 @@ public class DietManagerServiceImpl implements DietManagerService {
     public List<String> getSelectedMealNamesForDate(Date forDate) {
         return dietManagerRepository.getSelecedMealNamesForDate(forDate);
     }
+    
+    protected void doAfterPropertiesSet() throws Exception {
+		Assert.notNull(this.dietManagerRepository, "A diet manager repository must be set");
+		Assert.notNull(this.logEventRepository, "A log event repository must be set");
+	}
 }

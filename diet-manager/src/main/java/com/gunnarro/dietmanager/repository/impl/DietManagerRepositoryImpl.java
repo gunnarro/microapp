@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -77,8 +80,9 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         super(null);
     }
 
-    public DietManagerRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate);
+    @Autowired
+    public DietManagerRepositoryImpl(@Qualifier("dietManagerDataSource") DataSource dataSource) {
+        super(dataSource);
     }
 
     @Override

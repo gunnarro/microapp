@@ -8,17 +8,17 @@
 	<!-- https://sonarqube.com/projects/favorite -->
 	<parent>
 		<groupId>com.gunnarro.enterprise</groupId>
-		<artifactId>enterprise-parent-core</artifactId>
+		<artifactId>enterprise-parent-spring-boot</artifactId>
 		<version>1.0</version>
-		<relativePath>../pom-parent-core.xml</relativePath>
+		<relativePath>../pom-parent-spring-boot.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gunnarro.dietmanager</groupId>
-	<artifactId>diet-manager</artifactId>
-	<packaging>war</packaging>
-	<version>1.2.2</version>
-	<name>DietManager</name>
+	<artifactId>dietmanager</artifactId>
+	<version>1.3.0</version>
+	<name>dietmanager</name>
+	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,9 +29,40 @@
 	</properties>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<pluginManagement>
 			<plugins>
+				<plugin> 
+					<groupId>org.springframework.boot</groupId> 
+					<artifactId>spring-boot-maven-plugin</artifactId> 
+					<configuration>
+			        	<addResources>true</addResources>
+			        	<mainClass>com.gunnarro.dietmanager.app.DietManagerApp</mainClass>
+			        </configuration>
+			        <executions>
+	        			<execution>
+				          <goals>
+				            <goal>repackage</goal>
+				          </goals>
+				        </execution>
+			      	</executions>
+				</plugin>
+				<!-- 
+				<plugin>
+        			<groupId>org.apache.maven.plugins</groupId>
+        			<artifactId>maven-jar-plugin</artifactId>
+			        <configuration>
+			          <includeSystemScope>true</includeSystemScope>
+			          <archive>
+			            <manifest>
+			              <addClasspath>true</addClasspath>
+			              <classpathPrefix>lib/</classpathPrefix>
+			              <mainClass>com.gunnarro.dietmanager.app.DietManagerApp</mainClass>
+			            </manifest>
+			          </archive>
+			        </configuration>
+			      </plugin>
+			       -->
 			</plugins>
 		</pluginManagement>
 	</build>

@@ -49,24 +49,28 @@
 	<logger name="com.gunnarro.dietmanager.repository.impl.DietManagerRowMapper" level="error" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
+
+	<logger name="org.springframework.web.servlet.mvc" level="trace" >
+		<appender-ref ref="debugfile" />
+	</logger>
 		
 	<logger name="com.gunnarro.dietmanager.listener.HttpSessionListener" level="info" additivity="false">
 		<appender-ref ref="httpSessionfile" />
 	</logger>
 
-	<logger name="org.springframework" level="warn" additivity="false">
+	<logger name="org.springframework" level="trace" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="org.springframework.security" level="warn" additivity="false">
+	<logger name="org.springframework.security" level="trace" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="org.springframework.social" level="debug" additivity="false">
+	<logger name="org.springframework.social" level="trace" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="org.springframework.security.web.authentication" level="debug" additivity="false">
+	<logger name="org.springframework.security.web.authentication" level="trace" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
@@ -74,7 +78,7 @@
 	<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="error" additivity="false" />
 
 	<root level="info">
-		<!-- <appender-ref ref="console" /> -->
+		<appender-ref ref="console" />
 		<appender-ref ref="debugfile" />
 	</root>
 </configuration>

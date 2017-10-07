@@ -108,8 +108,8 @@
         <constructor-arg>
             <list>
                 <ref bean="facebookAuthenticationService"/>
-                <ref bean="githubAuthenticationService"/>
                 <!-- 
+                <ref bean="githubAuthenticationService"/>
                 <ref bean="twitterAuthenticationService"/>
                 <ref bean="linkedInAuthenticationService"/>
                 <ref bean="googleAuthenticationService"/>
@@ -123,11 +123,13 @@
         <constructor-arg name="appSecret" value="789d646ff18505732c3a2b591662a700"/>
     </bean>
 
+	<!-- 
 	<bean id="githubAuthenticationService" class="org.springframework.social.github.security.GitHubAuthenticationService">
         <constructor-arg name="apiKey" value="95d67154b86b4ee2bb06"/>
         <constructor-arg name="appSecret" value="86bf0714e877559c58a1113e0d0278729e5b5dea"/>
     </bean>
-<!-- 
+     -->
+	<!-- 
     <bean id="twitterAuthenticationService" class="org.springframework.social.twitter.security.TwitterAuthenticationService">
         <constructor-arg name="apiKey" value="${twitter.api.key}"/>
         <constructor-arg name="appSecret" value="${twitter.api.secret}"/>
@@ -145,5 +147,8 @@
  -->
  
     <bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
-
+	
+	<bean id="pwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg type="int" value="13" />
+	</bean>
 </beans>

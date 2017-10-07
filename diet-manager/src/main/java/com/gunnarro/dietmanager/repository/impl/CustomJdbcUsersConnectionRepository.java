@@ -23,7 +23,7 @@ import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.jdbc.JdbcConnectionRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * {@link UsersConnectionRepository} that uses the JDBC API to persist
@@ -32,6 +32,7 @@ import org.springframework.social.connect.jdbc.JdbcConnectionRepository;
  * 
  * @author Keith Donald
  */
+@Repository
 public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomJdbcUsersConnectionRepository.class);
@@ -52,10 +53,10 @@ public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepos
         this.textEncryptor = textEncryptor;
     }
 
-    @Override
-    public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
-        this.connectionSignUp = connectionSignUp;
-    }
+//    @Override
+//    public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
+//        this.connectionSignUp = connectionSignUp;
+//    }
 
     /**
      * Sets a table name prefix. This will be prefixed to all the table names
@@ -118,7 +119,7 @@ public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepos
         if (userId == null) {
             throw new IllegalArgumentException("userId cannot be null");
         }
-        return new JdbcConnectionRepository(userId, jdbcTemplate, connectionFactoryLocator, textEncryptor, tablePrefix);
+        return null;// new JdbcConnectionRepository(userId, jdbcTemplate, connectionFactoryLocator, textEncryptor, tablePrefix);
     }
 
 }

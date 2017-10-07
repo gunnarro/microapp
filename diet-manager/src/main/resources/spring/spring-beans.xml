@@ -43,11 +43,9 @@
 		<constructor-arg type="int" value="13" />
 	</bean>
 
-<!-- 
-	<bean id="authProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	<bean id="authProvider" class="com.gunnarro.dietmanager.handler.CustomAuthProvider">
 		<property name="userDetailsService" ref="localUserDetailsService" />
-		<property name="passwordEncoder" ref="encoder" />
+		<property name="passwordEncoder" ref="pwdEncoder" />
 	</bean>
- -->
 
 </beans>

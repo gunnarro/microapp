@@ -3,7 +3,6 @@ package com.gunnarro.dietmanager.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,18 +19,17 @@ import com.gunnarro.useraccount.repository.UserAccountRepository;
  * @author admin
  *
  */
-@Service("localUserDetailsService")
+@Service
 @Transactional
 public class LocalUserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalUserDetailsServiceImpl.class);
 
     @Autowired
-    @Qualifier("userAccountRepository")
     private UserAccountRepository userAccountRepository;
 
-    @Autowired
-    private LoginAttemptServiceImpl loginAttemptService;
+//    @Autowired
+//    private LoginAttemptServiceImpl loginAttemptService;
 
     // @Autowired
     // private HttpServletRequest request;

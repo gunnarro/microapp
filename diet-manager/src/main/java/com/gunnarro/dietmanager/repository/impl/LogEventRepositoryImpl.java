@@ -2,11 +2,15 @@ package com.gunnarro.dietmanager.repository.impl;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
@@ -15,19 +19,21 @@ import com.gunnarro.dietmanager.repository.table.log.EventLogTable;
 import com.gunnarro.dietmanager.repository.table.log.LogCommentTable;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
 
+@Repository
 public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEventRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(LogEventRepositoryImpl.class);
 
+    @Autowired
+    public LogEventRepositoryImpl(@Qualifier("logEventDataSource") DataSource dataSource) {
+        super(dataSource);
+    }
+    
     /**
      * Needed by spring framework
      */
     public LogEventRepositoryImpl() {
         super(null);
-    }
-
-    public LogEventRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate);
     }
 
     @Override

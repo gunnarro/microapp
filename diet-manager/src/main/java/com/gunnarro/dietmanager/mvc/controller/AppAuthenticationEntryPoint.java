@@ -36,7 +36,9 @@ public class AppAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoin
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        // redirect to login page. Use https if forceHttps true
+        LOG.debug("start redirect...: " + request.toString());
+        LOG.debug("start redirect ex: " + authException.getMessage());
+    	// redirect to login page. Use https if forceHttps true
         String redirectUrl = buildRedirectUrlToLoginPage(request, response, authException);
         if (LOG.isDebugEnabled()) {
             LOG.debug("redirect url: " + redirectUrl);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UserProfile;
+import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.mvc.dto.UserRegistrationForm;
 import com.gunnarro.dietmanager.service.UserService;
@@ -19,6 +20,7 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
  * @since 27/3/16
  */
+@Service
 public class AppConnectionSignUp implements ConnectionSignUp {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppConnectionSignUp.class);

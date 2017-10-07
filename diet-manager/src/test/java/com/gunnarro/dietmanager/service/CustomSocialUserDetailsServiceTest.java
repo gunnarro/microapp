@@ -7,22 +7,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.social.security.SocialAuthenticationException;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
-@TransactionConfiguration(defaultRollback = true)
+import com.gunnarro.dietmanager.config.DataSourceConfiguration;
+import com.gunnarro.dietmanager.service.impl.CustomSocialUserDetailsServiceImpl;
+import com.gunnarro.dietmanager.service.impl.LocalUserDetailsServiceImpl;
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes={CustomSocialUserDetailsServiceImpl.class, LocalUserDetailsServiceImpl.class, DataSourceConfiguration.class })
+@Rollback
 //@Ignore
 public class CustomSocialUserDetailsServiceTest {
 
     @Autowired
-    @Qualifier("socialUserDetailsService")
     protected SocialUserDetailsService socialUserDetailsService;
 
 //    @Mock

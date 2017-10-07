@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	metadata-complete="true">
 
-	<display-name>diet-manager</display-name>
+	<display-name>dietmanager</display-name>
 
 	<!-- Session settings -->
 	<session-config>
@@ -36,10 +36,12 @@
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<!--
 		 <init-param>
             <param-name>contextAttribute</param-name>
             <param-value>org.springframework.web.context.WebApplicationContext.ROOT</param-value>
         </init-param>
+        -->
 	</filter>
 
 	<filter-mapping>
@@ -52,13 +54,11 @@
 	</listener>
 
 	<servlet>
-		<servlet-name>diet-manager</servlet-name>
+		<servlet-name>dietmanager</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- <init-param> <param-name>contextClass</param-name> <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value> 
-			</init-param> -->
 		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/jboss-as-spring-mvc-context.xml</param-value>
+			<param-name>contextClass</param-name> 
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value> 
 		</init-param>
 		<init-param>
 			<!-- In order to allow PUT and DELETE -->
@@ -69,7 +69,7 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>diet-manager</servlet-name>
+		<servlet-name>dietmanager</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
@@ -80,6 +80,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>httpMethodFilter</filter-name>
-		<servlet-name>diet-manager</servlet-name>
+		<servlet-name>dietmanager</servlet-name>
 	</filter-mapping>
 </web-app>

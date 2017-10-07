@@ -16,12 +16,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gunnarro.dietmanager.config.DataSourceConfiguration;
 import com.gunnarro.dietmanager.domain.diet.DietMenu;
 import com.gunnarro.dietmanager.domain.diet.DietPlan;
 import com.gunnarro.dietmanager.domain.diet.FoodProduct;
@@ -36,16 +36,17 @@ import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
 import com.gunnarro.dietmanager.domain.view.KeyValuePairList;
 import com.gunnarro.dietmanager.endpoint.rest.ChartData;
+import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes={DietManagerRepositoryImpl.class, DataSourceConfiguration.class})
 @Transactional
-@TransactionConfiguration(defaultRollback = true)
+@Rollback(value=true)
 // @Ignore
 public class DietManagerRepositoryTest {
 
     @Autowired
-    @Qualifier("dietManagerRepository")
     private DietManagerRepository dietManagerRepository;
 
     @Before

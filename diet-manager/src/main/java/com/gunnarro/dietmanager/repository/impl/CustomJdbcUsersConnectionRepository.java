@@ -32,7 +32,7 @@ import org.springframework.stereotype.Repository;
  * 
  * @author Keith Donald
  */
-@Repository
+//@Repository
 public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomJdbcUsersConnectionRepository.class);

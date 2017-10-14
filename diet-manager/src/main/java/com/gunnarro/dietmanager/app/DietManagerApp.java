@@ -6,10 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
 
 /**
  * Tutorial: https://developers.redhat.com/blog/2017/02/23/getting-started-with-
@@ -29,7 +28,7 @@ import org.springframework.context.annotation.ImportResource;
  *
  */
 @SpringBootApplication()
-@ImportResource("spring/spring.xml")
+//@ImportResource("spring/spring.xml")
 @ComponentScan("com.gunnarro.dietmanager.*")
 @EnableAutoConfiguration(exclude = SocialWebAutoConfiguration.class)
 public class DietManagerApp 
@@ -43,7 +42,7 @@ public class DietManagerApp
 //			SpringApplicationBuilder application) {
 //		return application.sources(DietManagerApp.class);
 //	}
-
+	
 	public static void main(String[] args) {
 		LOG.info("Start dietmanager ....");
 		SpringApplication.run(DietManagerApp.class, args);

@@ -18,7 +18,7 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
  * verify whether social user exist in local database.
  *
  */
-@Service
+//@Service
 public class CustomSocialUserDetailsServiceImpl implements SocialUserDetailsService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomSocialUserDetailsServiceImpl.class);

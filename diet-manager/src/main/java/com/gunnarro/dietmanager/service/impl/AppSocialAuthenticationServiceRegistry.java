@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * SocialAuthenticationServiceRegistry will maintains connection repositories per provider.Connection repository handles connection persistence methods across all users; this will be a normal singleton bean in your application context.
  *
  */
-@Service
+//@Service
 public class AppSocialAuthenticationServiceRegistry extends SocialAuthenticationServiceRegistry {
 
     private List<SocialAuthenticationService<?>> authenticationServices;

@@ -3,7 +3,6 @@ package com.gunnarro.dietmanager.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -20,17 +19,15 @@ import com.gunnarro.useraccount.service.UserAccountService;
  * register into application.
  *
  */
-@Service
+//@Service
 public class RegistrationUserDetailsServiceImpl implements UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RegistrationUserDetailsServiceImpl.class);
 
     @Autowired
-    @Qualifier(value = "localUserDetailsService")
     private UserDetailsService localUserDetailsService;
 
     @Autowired
-    @Qualifier(value = "userAccountService")
     private UserAccountService userAccountService;
 
     @Override

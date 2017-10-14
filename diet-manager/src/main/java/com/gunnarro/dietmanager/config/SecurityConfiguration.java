@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/resources/**", "/webjars/**", "/login", "/access-denied", "/signup", "/register/**").permitAll()
-				.antMatchers("/dietmanageer/**").hasRole("USER_ROLE")
+				.antMatchers("/dietmanager/**").hasRole("USER_ROLE")
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()

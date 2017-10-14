@@ -13,13 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gunnarro.dietmanager.config.DataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.LogEventServiceImpl;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={DataSourceConfiguration.class, LogEventRepositoryImpl.class, LogEventServiceImpl.class })
+@ContextConfiguration(classes={TestDataSourceConfiguration.class, LogEventRepositoryImpl.class, LogEventServiceImpl.class })
 @Transactional(timeout = 10)
 public class LogEventServiceTest {
 

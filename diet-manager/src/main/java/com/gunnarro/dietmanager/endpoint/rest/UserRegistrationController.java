@@ -50,8 +50,8 @@ public class UserRegistrationController {
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
-    @Autowired
-    @Qualifier("registrationUserDetailsService")
+//    @Autowired
+//    @Qualifier("localUserDetailsService")
     private UserService userService;
 
     /**

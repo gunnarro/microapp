@@ -34,11 +34,9 @@ public class BaseController {
     protected AuthenticationFacade authenticationFacade;
 
     @Autowired
-    @Qualifier("dietManagerService")
     protected DietManagerService dietManagerService;
 
     @Autowired
-    @Qualifier("logEventService")
     protected LogEventService logEventService;
 
     public AuthenticationFacade getAuthenticationFacade() {

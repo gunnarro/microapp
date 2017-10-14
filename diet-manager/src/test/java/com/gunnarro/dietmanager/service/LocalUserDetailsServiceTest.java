@@ -14,11 +14,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.gunnarro.dietmanager.config.DataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.dietmanager.service.impl.LocalUserDetailsServiceImpl;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={LocalUserDetailsServiceImpl.class, DataSourceConfiguration.class })
+@ContextConfiguration(classes={LocalUserDetailsServiceImpl.class, TestDataSourceConfiguration.class })
 @Rollback
 //@Ignore
 public class LocalUserDetailsServiceTest {

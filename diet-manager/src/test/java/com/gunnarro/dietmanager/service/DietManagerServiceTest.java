@@ -18,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gunnarro.dietmanager.config.DataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.dietmanager.config.SecurityConfiguration;
 import com.gunnarro.dietmanager.domain.diet.MenuItem;
 import com.gunnarro.dietmanager.domain.statistic.Key;
@@ -30,7 +30,7 @@ import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={DataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
+@ContextConfiguration(classes={TestDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
 @Transactional
 @Rollback
 public class DietManagerServiceTest {

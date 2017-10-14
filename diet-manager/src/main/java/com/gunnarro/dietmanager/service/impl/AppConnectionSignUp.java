@@ -20,7 +20,7 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
  * @since 27/3/16
  */
-@Service
+//@Service
 public class AppConnectionSignUp implements ConnectionSignUp {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppConnectionSignUp.class);

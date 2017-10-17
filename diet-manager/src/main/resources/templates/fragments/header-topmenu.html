@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <div class="navbar navbar-default" th:fragment="header-topmenu">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" th:href="@{/home}">Pepilie</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/mystatus}"><i class="icon-happy2"></i><span th:text="#{topmenu.status}" ></span></a></li>
+            <li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/dietplan/current}"><i class="glyphicon glyphicon-list"></i> <span th:text="#{topmenu.dietplan}"></span></a></li>
+			
+			<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/menu/current}"><i class="glyphicon glyphicon-list"></i> <span th:text="#{topmenu.menu}"></span></a></li>
+			<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/recipes}"><i class="glyphicon glyphicon-list"></i> <span th:text="#{topmenu.recipes}"></span></a></li>
+			<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/changelist}"><i class="glyphicon glyphicon-list"></i> <span th:text="#{topmenu.changelist}"></span></a></li>
+			<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/mychoices}"><i class="glyphicon glyphicon-check"></i> <span th:text="#{topmenu.mychoices}"></span></a></li>
+			<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/body/measurement/log}"><i class="glyphicon glyphicon-stats"></i> <span th:text="#{topmenu.measurements}"></span></a></li>
+			
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li th:if="${#authorization.expression('!isAuthenticated()')}">
+              <a href="/signin" th:href="@{/signin}">
+                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+              </a>
+            </li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}">
+              <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+              </a>
+             <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

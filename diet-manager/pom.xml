@@ -30,11 +30,12 @@
 
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
-		<pluginManagement>
 			<plugins>
 				<plugin> 
 					<groupId>org.springframework.boot</groupId> 
 					<artifactId>spring-boot-maven-plugin</artifactId> 
+					<version>1.5.7.RELEASE</version>
+					<!-- 
 					<configuration>
 			        	<addResources>true</addResources>
 			        	<mainClass>com.gunnarro.dietmanager.app.DietManagerApp</mainClass>
@@ -46,6 +47,7 @@
 				          </goals>
 				        </execution>
 			      	</executions>
+					-->
 				</plugin>
 				<!-- 
 				<plugin>
@@ -64,13 +66,18 @@
 			      </plugin>
 			       -->
 			</plugins>
-		</pluginManagement>
 	</build>
 	<dependencies>
 		<dependency>
 			<groupId>com.gunnarro.usermanager</groupId>
 			<artifactId>user-manager</artifactId>
 			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>

@@ -14,13 +14,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.dietmanager.domain.diet.DietMenu;
 import com.gunnarro.dietmanager.domain.diet.DietPlan;
@@ -39,13 +38,12 @@ import com.gunnarro.dietmanager.endpoint.rest.ChartData;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 
 
-@RunWith(SpringRunner.class)
 @ContextConfiguration(classes={DietManagerRepositoryImpl.class, TestDataSourceConfiguration.class})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
 //@Rollback(value=true)
- @Ignore
-public class DietManagerRepositoryTest {
+// @Ignore
+public class DietManagerRepositoryTest extends DefaultTestConfig {
 
     @Autowired
     private DietManagerRepository dietManagerRepository;

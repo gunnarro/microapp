@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import junit.framework.Assert;
 
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.joda.time.DateTime;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,7 +27,7 @@ import com.gunnarro.dietmanager.service.DietManagerService;
 
 public class UtilityTest {
 
-    private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+    private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
     @Test
     public void convertMarkdown() {
@@ -107,9 +108,15 @@ public class UtilityTest {
 
     @Test
     public void generatePassword() {
-        String pwd = "guest";
+        String pwd = "";
         String cryptedPassword = passwordEncoder.encode(pwd);
         System.out.println("CryptedPwd: " + cryptedPassword);
+        System.out.println("equal     : " +  passwordEncoder.matches(pwd, cryptedPassword));
+//        
+//        StandardPBEStringEncryptor crypt = new StandardPBEStringEncryptor();
+//        crypt.setPassword("duMMY-enCrypT-pwd-x3");
+//        crypt.setAlgorithm("PBEWithMD5AndTripleDES");
+//        System.out.println("CryptedPwd: " + crypt.encrypt(pwd));
     }
 
     public String getTimeDiff(Date dateOne, Date dateTwo) {

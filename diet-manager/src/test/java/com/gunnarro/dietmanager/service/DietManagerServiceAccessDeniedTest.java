@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,20 +11,20 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.BeanConfiguration;
+import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.SecurityConfiguration;
+import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes={ SecurityConfiguration.class ,TestDataSourceConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
+@ContextConfiguration(classes={ BeanConfiguration.class, TestDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
 @Transactional(timeout=10)
 @Rollback
-public class DietManagerServiceAccessDeniedTest {
+public class DietManagerServiceAccessDeniedTest  extends DefaultTestConfig {
 
 	@Autowired
 //	@Qualifier("dietManagerService")

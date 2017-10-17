@@ -19,15 +19,14 @@ import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AuthenticationFacade.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
 
     @Override
     public void handle(HttpServletRequest httpServletRequest,
                        HttpServletResponse httpServletResponse,
                        AccessDeniedException e) throws IOException, ServletException {
 
-        Authentication auth
-                = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
             if (LOG.isInfoEnabled()) {
@@ -37,6 +36,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             }
         }
 
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403");
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403?requesturi=" + httpServletRequest.getRequestURI());
     }
 }

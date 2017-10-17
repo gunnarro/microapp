@@ -8,18 +8,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
-import com.gunnarro.dietmanager.config.SecurityConfiguration;
 import com.gunnarro.dietmanager.domain.diet.MenuItem;
 import com.gunnarro.dietmanager.domain.statistic.Key;
 import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
@@ -29,11 +27,10 @@ import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes={TestDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
+@ContextConfiguration(classes={TestDataSourceConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
 @Transactional
 @Rollback
-public class DietManagerServiceTest {
+public class DietManagerServiceTest  extends DefaultTestConfig {
 
     @Autowired
 //    @Qualifier("dietManagerService")

@@ -10,7 +10,7 @@
 	
 	<style type="text/css">
 	.jumbotron {
-	    background: #fff url("/diet-manager/resources/images/background.jpg") no-repeat center center fixed;;
+	    background: #fff url("images/background.jpg") no-repeat center center fixed;;
 		background-size: cover;
 	    -moz-background-size: cover;
 	    -webkit-background-size: cover;

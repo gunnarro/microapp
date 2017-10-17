@@ -3,30 +3,29 @@ package com.gunnarro.useraccount.service;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.BeanConfiguration;
+import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.SecurityConfiguration;
+import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.useraccount.domain.user.LocalUser;
 import com.gunnarro.useraccount.service.impl.UserAccountServiceImpl;
 
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes={SecurityConfiguration.class ,TestDataSourceConfiguration.class, UserAccountServiceImpl.class })
+@ContextConfiguration(classes={BeanConfiguration.class, TestDataSourceConfiguration.class, UserAccountServiceImpl.class, SecurityConfiguration.class })
 @Transactional(timeout = 10)
-public class UserAccountServiceAccessDeniedTest {
+public class UserAccountServiceAccessDeniedTest  extends DefaultTestConfig {
 
 	@Autowired
 	protected UserAccountService userAccountService;
-
+ 
 	@Before
 	public void setUp() throws Exception {
 		// Because of security we have to set user and pwd before every unit

@@ -2,12 +2,15 @@ package com.gunnarro.dietmanager.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.gunnarro.useraccount.repository.UserAccountRepository;
@@ -24,15 +27,27 @@ import com.gunnarro.useraccount.repository.impl.UserAccountRepositoryImpl;
 @EnableTransactionManagement
 public class DataSourceConfiguration {
 
+	@Autowired
+	private BCryptPasswordEncoder pwdEncoder;
+	
+	@Value( "${jdbc.url}" )
+	private String jdbcUrl;
+	
+	@Value( "${jdbc.user}" )
+	private String jdbcUser;
+	
+	@Value( "${jdbc.pwd}" )
+	private String jdbcPwd;
+	
 	// bean is singleton as default
 	@Bean(name = "dietManagerDataSource")
 	 @Primary
 	public DataSource dietManagerDataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://127.9.127.2:3306/dietmanager");
-		ds.setUsername("web");
-		ds.setPassword("wEbt0t3");
+		ds.setUrl(jdbcUrl);
+		ds.setUsername(jdbcUser);
+		ds.setPassword(jdbcPwd);
 		return ds;
 	}
 

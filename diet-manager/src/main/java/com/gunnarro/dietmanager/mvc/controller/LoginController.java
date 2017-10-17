@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,11 +24,6 @@ public class LoginController extends BaseController {
     public static final String LOGIN_PAGE = "/login";
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
-
-    @RequestMapping(value = "/access-denied")
-    public String denied() {
-        return "access-denied";
-    }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home() {
@@ -69,11 +65,31 @@ public class LoginController extends BaseController {
     /**
      * @return the login page
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public String login() {
-        return "login";
+        return "/login";
+    }
+    
+    /**
+     * @return the login page
+     */
+    @GetMapping("/error")
+    public String error() {
+    	LOG.debug("return error page...");
+        return "/error";
     }
 
+    @GetMapping("/403")
+    public String error403() {
+        return "/error/403";
+    }
+    
+    @GetMapping("/access-denied")
+    public String denied() {
+        return "/access-denied";
+    }
+
+    
     /**
      * Log out user and redirects to the login page
      * 
@@ -117,7 +133,7 @@ public class LoginController extends BaseController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/perform-logout-user", method = RequestMethod.GET)
+    @GetMapping("/perform-logout-user")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         logoutLocalUser(request, response);
 //        logoutFaceBook();
@@ -159,9 +175,9 @@ public class LoginController extends BaseController {
 //        return "redirect:/login?loggedout";
 //    }
 
-    @RequestMapping(value = "/releasenotes")
+    @GetMapping("/releasenotes")
     public String releasenotes() {
-        return "release-notes";
+        return "/release-notes";
     }
 
 }

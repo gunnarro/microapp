@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.gunnarro.useraccount.domain.user.UserLog;
 import com.gunnarro.useraccount.repository.table.user.RolesTable.RolesEnum;
 
@@ -27,7 +25,7 @@ public class UserDto implements Serializable {
     private String passwordRepeat;
     private String socialProvider;
     @NotNull
-    @NotEmpty
+//    @NotEmpty
     // @ValidEmail
     private String email;
 

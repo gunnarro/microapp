@@ -5,23 +5,21 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.dietmanager.service.impl.LocalUserDetailsServiceImpl;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes={LocalUserDetailsServiceImpl.class, TestDataSourceConfiguration.class })
+@ContextConfiguration(classes={LocalUserDetailsServiceImpl.class, TestDataSourceConfiguration.class})
 @Rollback
 //@Ignore
-public class LocalUserDetailsServiceTest {
+public class LocalUserDetailsServiceTest  extends DefaultTestConfig {
 
     @Autowired
     protected UserDetailsService userService;

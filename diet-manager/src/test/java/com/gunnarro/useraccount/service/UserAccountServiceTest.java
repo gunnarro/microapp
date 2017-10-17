@@ -7,25 +7,22 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
-import com.gunnarro.dietmanager.config.SecurityConfiguration;
 import com.gunnarro.useraccount.domain.user.LocalUser;
 import com.gunnarro.useraccount.domain.user.Role;
 import com.gunnarro.useraccount.service.impl.UserAccountServiceImpl;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes={SecurityConfiguration.class ,TestDataSourceConfiguration.class, UserAccountServiceImpl.class })
+@ContextConfiguration(classes={TestDataSourceConfiguration.class, UserAccountServiceImpl.class })
 @Transactional(timeout = 10)
-public class UserAccountServiceTest {
+public class UserAccountServiceTest  extends DefaultTestConfig {
 
     @Autowired
     protected UserAccountService userAccountService;

@@ -43,6 +43,7 @@
 	</appender>
 
 	<logger name="com.gunnarro.dietmanager" level="debug" additivity="false">
+		<appender-ref ref="console" />
 		<appender-ref ref="debugfile" />
 	</logger>
 	
@@ -58,11 +59,11 @@
 		<appender-ref ref="httpSessionfile" />
 	</logger>
 
-	<logger name="org.springframework" level="trace" additivity="false">
+	<logger name="org.springframework" level="info" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="org.springframework.security" level="trace" additivity="false">
+	<logger name="org.springframework.security" level="debug" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	

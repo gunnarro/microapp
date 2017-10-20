@@ -48,11 +48,14 @@
 		<version.standard.taglibs>1.1.2</version.standard.taglibs>
 		<version.commons.logging>1.1.1</version.commons.logging>
 
+		<version.jasypt>1.9.2</version.jasypt>
+
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>3.3.7</webjars-bootstrap.version>
 <!--		<webjars-bootstrap.version>4.0.0-alpha.3</webjars-bootstrap.version> -->
 		<webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
 		<webjars-jquery.version>3.1.1</webjars-jquery.version>
+
 
 		<!-- Logging -->
 		<logback.version>1.1.3</logback.version>
@@ -86,27 +89,29 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			
 			<!-- if using wildfly app server, exclude tomcat -->
-			
+			<!--
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-tomcat</artifactId>
 				</exclusion>
 			</exclusions>
-			
+			-->
 		</dependency>
-		
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jetty</artifactId>
 		</dependency>
+		-->
 		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+		-->
+		<!--
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -117,6 +122,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		
+		<!-- do you like thymeleaf? -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+		<!-- optional, it brings userful tags to display spring security stuff -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -146,20 +163,45 @@
 			<scope>test</scope>
         </dependency>
 		
+		<dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>${version.jasypt}</version>
+		</dependency>
+		
 		<!-- Javax servlet -->
+		<!--
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-			<scope>runtime</scope>
+			<scope>provided</scope>	
 		</dependency>
-
+		-->
+		<!--
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		-->
+		<!--
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		-->
+		
+		
+		
 		<!-- Spring framework -->
 		<!-- Spring social -->
 		<!--
@@ -392,25 +434,6 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.1.0.Final</version>
-		</dependency>
-		<!-- javax validation needs the hibernate reference implementation -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.1.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.web</groupId>
-			<artifactId>el-impl</artifactId>
-			<version>2.2</version>
-			<!--
-			<exclusions>
-				<exclusion>
-					<groupId>javax.el</groupId>
-					<artifactId>el-api</artifactId>
-				</exclusion>
-			</exclusions>
-			-->
 		</dependency>
 		<dependency>
 			<groupId>com.newrelic.agent.java</groupId>

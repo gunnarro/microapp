@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+        <!-- this is header-css -->
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+    	<!-- markdown import -->
+    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"/>
+		<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+<style type="text/css">
+.page-header { 
+	border-bottom:none; 
+}
+.panel-heading a:after {
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";
+	float: right;
+	color: grey;
+}
+
+.panel-heading a.collapsed:after {
+	content: "\e080";
+}
+
+.panel-heading-sm, .panel-footer-sm {
+	height: 28px;
+	padding: 4px 10px;
+}
+pre {
+  font-family: "Times New Roman", Georgia, Serif;
+  white-space: pre-wrap;
+  word-break: normal;
+  color: #333;
+  background-color: #FFFFFF; 
+  padding: 1px;
+  margin: 0 0 1px;
+  font-size: 12px;
+  border: none;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#txtSearchPage").keyup(function() {
+	    var search = $(this).val();
+	    $(".panel").show();
+	    if (search) {
+	        $(".panel").not(":containsNoCase(" + search + ")").hide();
+	    }
+	});
+});
+
+$.expr[":"].containsNoCase = function (el, i, m) {
+	var search = m[3];
+	if (!search) { return false };
+	console.log("search: " + search + ", el: " + el);
+	return new RegExp(search,"i").test($(el).text());
+};
+
+	var options = {
+		  valueNames: [ 'panel-title' ]
+	};
+
+	var userList = new List('loglist', options);
+
+	function closeAll() {
+		$('.panel-collapse.in').collapse('hide');
+	}
+	function openAll() {
+		$('.panel-collapse:not(".in")').collapse('show');
+	};
+</script>
+</head>
+
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"/> 
+
+	<div class="container-fluid">
+
+		<div class="page-header">
+			<h4>Event Log</h4>
+			<!-- 
+			<form action="/diet-manager/diet/log/events/filter" method="GET" id="event-log-filter-form" enctype="application/x-www-form-urlencoded">
+					<select class="form-control" id="filterBy" name="filterBy">
+						<option value="type" label="Type" />
+						<option value="title" label="Tittel" />
+						<option value="content" label="Innhold" />
+					</select>
+					<input id="filterValue" name="filterValue" class="search" placeholder="filter value" />
+	  				<input type="submit" class="btn btn-primary" />
+  			</form>
+  			
+			<div class="btn-group btn-group-xs" role="group">
+				<button onclick="openAll();" type="button" class="btn btn-default">Lukk alle</button>
+				<button onclick="closeAll();" type="button" class="btn btn-default">Åpne alle</button>
+			</div>
+			 -->
+			<div class="input-group input-group-margin" >
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-search"></i>
+				</span>
+				<label for="txtSearchPage" class="sr-only">Filter log</label>
+				<input id="txtSearchPage" type="text" class="form-control" placeholder="Filter text" />
+			</div>
+			<p></p>
+			<div class="pull-right">
+				<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs">Ny logg</a>
+				<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs">Vis tekst</a>
+			</div>
+		</div>
+		<!-- End page header -->
+		
+		<div class="list panel-group" id="accordion">
+			<div th:each="log, iter : ${logs}">
+				<div th:if="${log.level != 'ALL'}" id="panel-child" class="panel panel-default">
+						<div class="panel-heading panel-heading-sm">
+							<h6 class="panel-title">
+								<small> 
+									<span th:text="${iter.count} + '. '"></span>
+								    <span th:text="${#dates.format(log.createdDate, 'EEEE dd.MM.yy')}"></span>
+								    <span th:text="${#dates.format(log.createdDate, 'HH:mm')}"></span>	
+
+									<span th:if="${log.level == 'INFO'}" th:text="${log.level}" class="label label-info" ></span>
+									<span th:if="${log.level == 'ACTIVITY'}" th:text="${log.level}" class="label label-success" ></span> 
+									<span th:if="${log.level == 'REPORT'}" th:text="${log.level}" class="label label-warning" ></span> 
+									<span th:if="${log.level == 'CONFLICT'}" th:text="${log.level}" class="label label-danger" ></span> 
+
+									<span> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{'#collapse_' + ${iter.index}}" th:text="${log.title}"></a></span>
+								</small>
+							</h6>
+						</div>
+						<div th:id="'#collapse_' + ${iter.index}" class="panel-collapse collapse in">
+							<div class="panel-body" th:utext="${log.contentHtml}"></div>
+							<div class="panel-footer clearfix panel-footer-sm">
+								<div class="pull-left">
+									<small><span th:text="'Created by' + ${log.createdByUser}"></span></small>
+								</div>
+								<div class="pull-right">
+									<sec:authentication var="user" property="principal" />
+									<c:set var="linkCls" value="btn btn-default btn-xs disabled" />
+								
+									<a th:href="@{/diet/log/event/view(logId=${log.id})}" class="btn btn-default btn-xs"><small th:text="'View Comments(' + ${log.numberOfComments} + ')'"></small>)</a>
+																		
+									<c:if test="${log.fkUserId == user.id}">
+										<c:set var="linkCls" value="btn btn-default btn-xs" />
+									</c:if>
+										
+									<a th:href="@{/diet/log/event/edit(logEventId=${log.id})}" class="${log.fkUserId == user.id}? 'btn btn-default btn-xs' : 'btn btn-default btn-xs disabled'"><i class="glyphicon glyphicon-edit"></i></a>
+									<a th:href="@{/diet/log/event/delete(logEventId=${log.id})}" class="${linkCls}"><i class="glyphicon glyphicon-trash"></i></a>
+								</div>
+							</div>
+					</div>
+				</div> <!-- panel child -->
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

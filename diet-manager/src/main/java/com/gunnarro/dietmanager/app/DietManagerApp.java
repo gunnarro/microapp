@@ -11,17 +11,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Tutorial: https://developers.redhat.com/blog/2017/02/23/getting-started-with-
- * openshift-java-s2i
+ * Tutorial: 
+ * https://developers.redhat.com/blog/2017/02/23/getting-started-with-openshift-java-s2i
  * 
  * Spring boot example: https://github.com/redhat-helloworld-msa/ola
  * 
  * Openshift reference architecture:
  * https://access.redhat.com/documentation/en-us/reference_architectures/2017/html-single/spring_boot_microservices_on_red_hat_openshift_container_platform_3/
  * 
+ * Deploy to openshift:
+ * https://blog.codecentric.de/en/2016/03/deploy-spring-boot-applications-openshift/
+ *
+ * Download openshift tools oc:
+ * https://www.openshift.org/download.html
  * Run: mvn clean compile spring-boot:run
  * 
- * Deploy to openshift: mvn clean package docker:build fabric8:json
+ * Deploy to openshift: 
+ * mvn clean package docker:build fabric8:json
  * fabric8:apply
  * 
  * @author admin

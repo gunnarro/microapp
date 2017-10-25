@@ -10,7 +10,7 @@
 		<groupId>com.gunnarro.enterprise</groupId>
 		<artifactId>enterprise-parent-spring-boot</artifactId>
 		<version>1.0</version>
-		<relativePath>../pom-parent-spring-boot.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -26,46 +26,58 @@
 		<!-- in order to show version number in jsp -->
 		<version.dietmanagerVersion>${project.version}</version.dietmanagerVersion>
 		<version.jodatime>2.9.6</version.jodatime>
+		<fabric8.generator.from>fabric8/s2i-java</fabric8.generator.from>
 	</properties>
 
 	<build>
-		<finalName>${project.artifactId}-${project.version}</finalName>
-			<plugins>
-				<plugin> 
-					<groupId>org.springframework.boot</groupId> 
-					<artifactId>spring-boot-maven-plugin</artifactId> 
-					<version>1.5.7.RELEASE</version>
-					<!-- 
-					<configuration>
-			        	<addResources>true</addResources>
-			        	<mainClass>com.gunnarro.dietmanager.app.DietManagerApp</mainClass>
-			        </configuration>
-			        <executions>
-	        			<execution>
-				          <goals>
-				            <goal>repackage</goal>
-				          </goals>
-				        </execution>
-			      	</executions>
-					-->
-				</plugin>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.5.7.RELEASE</version>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>fabric8-maven-plugin</artifactId>
+				<version>3.5.30</version>
 				<!-- 
-				<plugin>
-        			<groupId>org.apache.maven.plugins</groupId>
-        			<artifactId>maven-jar-plugin</artifactId>
-			        <configuration>
-			          <includeSystemScope>true</includeSystemScope>
-			          <archive>
-			            <manifest>
-			              <addClasspath>true</addClasspath>
-			              <classpathPrefix>lib/</classpathPrefix>
-			              <mainClass>com.gunnarro.dietmanager.app.DietManagerApp</mainClass>
-			            </manifest>
-			          </archive>
-			        </configuration>
-			      </plugin>
-			       -->
-			</plugins>
+				<configuration>
+					<resources>
+						<labels>
+							<all>
+								<property>
+									<name>app</name>
+									<value>dietmanager</value>
+								</property>
+								<property>
+									<name>hystrix.enabled</name>
+									<value>false</value>
+								</property>
+							</all>
+						</labels>
+					</resources>
+					<enricher>
+						<config>
+							<spring-boot-health-check>
+								<port>4444</port>
+							</spring-boot-health-check>
+						</config>
+					</enricher>
+				</configuration>
+				 -->
+				<executions>
+					<execution>
+						<id>fmp</id>
+						<goals>
+							<goal>resource</goal>
+							<goal>helm</goal>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 	<dependencies>
 		<dependency>

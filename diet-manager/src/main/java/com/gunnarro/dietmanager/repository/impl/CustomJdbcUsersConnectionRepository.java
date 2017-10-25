@@ -122,4 +122,10 @@ public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepos
         return null;// new JdbcConnectionRepository(userId, jdbcTemplate, connectionFactoryLocator, textEncryptor, tablePrefix);
     }
 
+	@Override
+	public void setConnectionSignUp(ConnectionSignUp arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

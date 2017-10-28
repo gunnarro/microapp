@@ -70,6 +70,14 @@
 		<version.junit>4.12</version.junit>
 	</properties>
 
+
+	<scm>
+    		<url>https://github.com/gunnarro/microapp</url>
+    		<connection>scm:git:git://github.com/gunnarro/microapp.git</connection>
+    		<developerConnection>scm:git:ssh://git@github.com/gunnarro/microapp.git</developerConnection>
+    		<tag>HEAD</tag>
+  	</scm>
+
 	<!-- mvn assembly:assembly -DdescriptorId=project -->
 	<modules>
 		<!-- <module>calendar-manager</module> -->

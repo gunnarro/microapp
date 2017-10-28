@@ -16,19 +16,29 @@ Facebook Register and Configure an App https://developers.facebook.com/docs/apps
 
 ## Build :
 
-If running docker daemon and kubernetes locally 
+### If running docker daemon and kubernetes locally 
 mvn clean install
 
 
-Openshift, use SourceToImage build (S2I)
-For bulid docker image with on openshift
-mvn clean install -Dfabric8.mode=openshift
+### Openshift, use SourceToImage build (S2I)
+For bulid docker image with openshift
+- mvn clean install -Dfabric8.mode=openshift
 
 Deploy to openshift
-mvn fabric8:deploy -Dfabric8.mode=openshift
+- mvn fabric8:deploy -Dfabric8.mode=openshift
 
 Note! OpenShift tools (oc) must be installed (require 64 bit operating system)
 
 
+### Add new app by oc -tools
+ ref: https://blog.codecentric.de/en/2016/03/deploy-spring-boot-applications-openshift/
+ 
+- oc new-app codecentric/springboot-maven3-centos~https://github.com/gunnarro/microapp.git
+- oc expose service microapp --hostname=microapp.api.starter-us-west-2.openshift.com
+ 
+
 ## Deploy :
+
+
+
 

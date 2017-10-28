@@ -3,10 +3,11 @@
 
 	<parent>
 		<groupId>com.gunnarro.enterprise</groupId>
-		<artifactId>enterprise-parent-core</artifactId>
+		<artifactId>enterprise-parent-spring-boot</artifactId>
 		<version>1.0</version>
-		<relativePath>../pom-parent-core.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
+
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gunnarro.usermanager</groupId>

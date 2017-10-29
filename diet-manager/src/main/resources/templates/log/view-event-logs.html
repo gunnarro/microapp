@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
         <!-- this is header-css -->
         <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
     	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+    	<link href="../static/css/icomoon-icon-font.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
     	<!-- markdown import -->
     	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"/>
 		<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
@@ -75,7 +75,7 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 </head>
 
 <body>
-	<div th:replace="fragments/header-topmenu :: header-topmenu"/> 
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div> 
 
 	<div class="container-fluid">
 
@@ -94,7 +94,7 @@ $.expr[":"].containsNoCase = function (el, i, m) {
   			
 			<div class="btn-group btn-group-xs" role="group">
 				<button onclick="openAll();" type="button" class="btn btn-default">Lukk alle</button>
-				<button onclick="closeAll();" type="button" class="btn btn-default">Åpne alle</button>
+				<button onclick="closeAll();" type="button" class="btn btn-default">ï¿½pne alle</button>
 			</div>
 			 -->
 			<div class="input-group input-group-margin" >
@@ -118,15 +118,11 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 						<div class="panel-heading panel-heading-sm">
 							<h6 class="panel-title">
 								<small> 
-									<span th:text="${iter.count} + '. '"></span>
-								    <span th:text="${#dates.format(log.createdDate, 'EEEE dd.MM.yy')}"></span>
-								    <span th:text="${#dates.format(log.createdDate, 'HH:mm')}"></span>	
-
+								    <span th:text="${#dates.format(log.createdDate, 'EEEE dd.MM.yy') + ' ' + #dates.format(log.createdDate, 'HH:mm')}" class="label label-default" ></span>
 									<span th:if="${log.level == 'INFO'}" th:text="${log.level}" class="label label-info" ></span>
 									<span th:if="${log.level == 'ACTIVITY'}" th:text="${log.level}" class="label label-success" ></span> 
 									<span th:if="${log.level == 'REPORT'}" th:text="${log.level}" class="label label-warning" ></span> 
 									<span th:if="${log.level == 'CONFLICT'}" th:text="${log.level}" class="label label-danger" ></span> 
-
 									<span> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{'#collapse_' + ${iter.index}}" th:text="${log.title}"></a></span>
 								</small>
 							</h6>
@@ -135,20 +131,18 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 							<div class="panel-body" th:utext="${log.contentHtml}"></div>
 							<div class="panel-footer clearfix panel-footer-sm">
 								<div class="pull-left">
-									<small><span th:text="'Created by' + ${log.createdByUser}"></span></small>
+									<small><span th:text="'Created by ' + ${log.createdByUser}"></span></small>
 								</div>
 								<div class="pull-right">
-									<sec:authentication var="user" property="principal" />
-									<c:set var="linkCls" value="btn btn-default btn-xs disabled" />
-								
 									<a th:href="@{/diet/log/event/view(logId=${log.id})}" class="btn btn-default btn-xs"><small th:text="'View Comments(' + ${log.numberOfComments} + ')'"></small>)</a>
-																		
-									<c:if test="${log.fkUserId == user.id}">
-										<c:set var="linkCls" value="btn btn-default btn-xs" />
-									</c:if>
-										
-									<a th:href="@{/diet/log/event/edit(logEventId=${log.id})}" class="${log.fkUserId == user.id}? 'btn btn-default btn-xs' : 'btn btn-default btn-xs disabled'"><i class="glyphicon glyphicon-edit"></i></a>
-									<a th:href="@{/diet/log/event/delete(logEventId=${log.id})}" class="${linkCls}"><i class="glyphicon glyphicon-trash"></i></a>
+									<span th:if="${#authentication.name == log.createdByUser}">
+										<a th:href="@{/diet/log/event/edit(logEventId=${log.id})}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
+										<a th:href="@{/diet/log/event/delete(logEventId=${log.id})}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+									</span>
+									<span th:if="${#authentication.name != log.createdByUser}">
+										<a th:href="@{/diet/log/event/edit(logEventId=${log.id})}" class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-edit"></i></a>
+										<a th:href="@{/diet/log/event/delete(logEventId=${log.id})}" class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-trash"></i></a>
+									</span>
 								</div>
 							</div>
 					</div>
@@ -156,6 +150,6 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 			</div>
 		</div>
 	</div>
-	<div th:replace="fragments/footer :: footer"/>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

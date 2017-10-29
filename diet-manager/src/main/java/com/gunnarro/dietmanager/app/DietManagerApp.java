@@ -24,11 +24,17 @@ import org.springframework.context.annotation.ComponentScan;
  *
  * Download openshift tools oc:
  * https://www.openshift.org/download.html
+ * 
  * Run: mvn clean compile spring-boot:run
  * 
  * Deploy to openshift: 
  * mvn clean package docker:build fabric8:json
  * fabric8:apply
+ * 
+ * 
+ * Run mysql at local host:
+ *  sudo service mysqld start
+ *  sudo service mysqld stop
  * 
  * @author admin
  *

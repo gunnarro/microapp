@@ -7,7 +7,7 @@
     	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-	<div th:replace="fragments/header-topmenu :: header-topmenu"/>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 
 	<div class="container-fluid">
 		<div class="panel panel-default">
@@ -21,14 +21,14 @@
 			    <h4 class="panel-title">Min Status</h4>
 			    <div>
 				<dl class="dl-horizontal">
-					<tr th:each="keyValuePair : ${myStatusItemList}">
+					<div th:each="keyValuePair : ${myStatusItemList}">
 						<dt th:text="${keyValuePair.key}"></dt>
 						<dd th:if="${keyValuePair.count} == -2"><i class="icon-angry2 color-satisfaction-1"></i></dd>
 						<dd th:if="${keyValuePair.count} == -1"><i class="icon-angry2 color-satisfaction-2"></i></dd>
 						<dd th:if="${keyValuePair.count} == 0"><i class="icon-angry2 color-satisfaction-3"></i></dd>
 						<dd th:if="${keyValuePair.count} == 1"><i class="icon-angry2 color-satisfaction-4"></i></dd>
 						<dd th:if="${keyValuePair.count} == 2"><i class="icon-angry2 color-satisfaction-5"></i></dd>
-					</tr>
+					</div>
 				</dl>
 				</div>
 				<div th:if="${myStatusReportItemList != null}" >
@@ -63,7 +63,7 @@
 		<!-- end panel -->
 	</div>
 	<!-- end container -->
-	<div th:replace="fragments/footer :: footer"/>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
 

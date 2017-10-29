@@ -1,5 +1,7 @@
 package com.gunnarro.dietmanager.config;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,9 @@ public class DataSourceConfiguration {
 		ds.setUrl(jdbcUrl);
 		ds.setUsername(jdbcUser);
 		ds.setPassword(jdbcPwd);
+		Properties p = new Properties();
+		p.put("useSSL", "false");
+		ds.setConnectionProperties(p);
 		return ds;
 	}
 

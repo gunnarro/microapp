@@ -1,20 +1,14 @@
 <!DOCTYPE html>
-
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<jsp:include page="../public/head-includes.jsp" />
+	<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
 	<!-- Bootstrap Date-Picker Plugin -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </head>
 <body>
-	<jsp:include page="../public/body-header.jsp" />
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 	      var date_input=$('input[name="logDate"]');
@@ -32,7 +26,7 @@
 	<div class="container-fluid">
 		
 		<ul class="breadcrumb">
-			<li><a href="<spring:url value="/diet/body/measurement/log" htmlEscape="true" />" >Mine data</a></li>
+			<li><a th:href="@{/diet/body/measurement/log}" >Mine data</a></li>
         	<li class="active">Ny Log</li>
     	</ul>
 		
@@ -47,26 +41,21 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
-				<c:if test="${not empty log.id}">
-					<div class="pull-right">
+					<div th:if="${log.id} != null" class="pull-right">
 						<div class="pull-right">
-							<spring:url value="/diet/body/measurement/delete/{logEntryId}" var="deleteUrl">
-								<spring:param name="logEntryId" value="${log.id}" />
-							</spring:url>
-							<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">delete</a>
+							<a th:href="${/diet/body/measurement/delete/${logEntryId}}" class="btn btn-danger btn-xs">delete</a>
 						</div>
 					</div>
-				</c:if>
 				<h3 class="panel-title">
-					<c:if test="${log['new']}">Log vekt </c:if>
+					<span th:if="${log['new']}">Log vekt </span>
 				    for bruker ${userId}
 				</h3>
 			</div>
 			<!-- end panel header -->
 
 			<div class="panel-body">
-				<form:form modelAttribute="log" method="${method}" id="diet-weight-form">
-					<form:hidden path="userId" value="${log.userId}" />
+				<form action="#" th:action="@{/}" th:object="${log}" method="post" >
+					<hidden path="userId" value="${log.userId}" />
 					
 					<!-- only for debug -->
 					<!-- 
@@ -76,7 +65,7 @@
 					 -->
 					
 					 <fmt:formatDate var="formattedLogDate" value="${log.logDate}" pattern="dd.MM.yyyy" />
-					 <div class="form-group ${status.error ? 'has-error' : ''}"">
+					 <div th:class="${status.error} ? 'form-group has-error' : 'form-group'">
 						<label for="logDate" class="control-label">Dato</label>
 						<div class="controls">
 							<div class="input-group">
@@ -86,7 +75,7 @@
 								</label>
 							</div>
 						</div>
-						<form:errors path="logDate" cssClass="help-block error-color" />
+						<errors path="logDate" class="help-block error-color" />
 					</div>
 					
 					<!-- 
@@ -99,40 +88,31 @@
 					 -->
 					
 					<div class="form-group">
-						<form:label path="weight">Min vekt (kg)</form:label>
-						<form:input cssClass="form-control" path="weight" value="${log.weight}" placeholder="0.0" size="5" />
-						<form:errors path="weight" cssClass="help-block" />
+						<label path="weight">Min vekt (kg)</label>
+						<input class="form-control" path="weight" value="${log.weight}" placeholder="0.0" size="5" />
+						<errors path="weight" class="help-block" />
 					</div>
 					
 					<div class="form-group">
-						<form:label path="height">Min Høyde (cm)</form:label>
-						<form:input cssClass="form-control" path="height" value="${log.height}" placeholder="0.0" size="5" />
-						<form:errors path="height" cssClass="help-block" />
+						<label path="height">Min HÃ¸yde (cm)</label>
+						<input class="form-control" path="height" value="${log.height}" placeholder="0.0" size="5" />
+						<errors path="height" class="help-block" />
 					</div>
 					
 					<div class="form-group">
-						<form:label path="comment">Kommentar</form:label>
-						<form:input cssClass="form-control" path="comment" value="${log.comment}" />
+						<label path="comment">Kommentar</label>
+						<input class="form-control" path="comment" value="${log.comment}" />
 					</div>
 					<p />
-
-					<c:choose>
-						<c:when test="${log['new']}">
-							<button type="submit" class="btn btn-primary">Legg til</button>
-						</c:when>
-						<c:otherwise>
-							<button type="submit" class="btn btn-primary">Update log</button>
-						</c:otherwise>
-					</c:choose>
-				</form:form>
+						<button th:if="${log['new']}" type="submit" class="btn btn-primary">Legg til</button>
+						<button th:if="${!log['new']}" type="submit" class="btn btn-primary">Update log</button>
+				</form>
 			</div>
 			<!-- end panel body -->
 
 			<div class="panel-footer clearfix">
 				<div class="pull-right">
-					<spring:url value="/diet/body/measurement/log" var="cancelUrl">
-					</spring:url>
-					<a href="${fn:escapeXml(cancelUrl)}" class="btn btn-primary btn-sm"><spring:message code="btn.cancel"/></a>
+					<a th:href="@{/diet/body/measurement/log}" class="btn btn-primary btn-sm"><span th:text="#{btn.cancel}"></span></a>
 				</div>
 			</div>
 
@@ -141,7 +121,6 @@
 		<!-- end panel -->
 	</div>
 	<!-- end container -->
-
-	<jsp:include page="../public/footer.jsp" />
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

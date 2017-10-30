@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
         <!-- this is header-css -->
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+        <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
     	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
     	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
 </head>
@@ -33,9 +33,10 @@
 				<dt th:text="#{weightlog.label.geneticheight}" ></dt>
 				<dd>166</dd>
 				<dt th:text="#{weightlog.label.age}" ></dt>
-				<dd th:text="${referenceData.ageYears}"> <span th:text="#{label.year}" ></span>
-					<div th:if="${referenceData.ageMonths > 0}"> 
-						<span  th:text="#{label.and}" ></span> ${referenceData.ageMonths} <span th:text="#{label.months}" ></span> 
+				<dd> 
+					<span th:text="${referenceData.ageYears} + ' ' + #{label.year}"></span>
+					<div th:if="${referenceData.ageMonths} &gt; 0"> 
+						<span th:text="#{label.and} + ' ' + ${referenceData.ageMonths} + ' ' + #{label.months}"  ></span> 
 					</div>
 				</dd>
 				<dt th:text="#{weightlog.label.weightkg}" ></dt>
@@ -62,23 +63,23 @@
 				<dt>Nåværende vekt/høyde</dt>
 				<dd th:text="${myStatistic.weight + ' ' + myStatistic.weightMetric + '/' + myStatistic.height + ' ' + myStatistic.heightMetric}"></dd>
 				<dt th:text="#{weightlog.label.weightaverage}" ></dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeight,3,3)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfMeasurements}"></span></dd>
+				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeight,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfMeasurements}"></span></dd>
 				<dt>Vektøking gj pr uke</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightUp,3,3)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' +  myStatistic.numberOfUp}"></span></dd>
+				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightUp,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' +  myStatistic.numberOfUp}"></span></dd>
 				<dt>Vektreduksjon gj pr uke</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightDown,3,3)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDown}"></span></dd>
+				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightDown,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDown}"></span></dd>
 				<dt>Vektøking gj pr mnd</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightUpStep,3,3)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfUpStep}"></span></dd>
+				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightUpStep,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfUpStep}"></span></dd>
 				<dt>Vektreduksjon gj pr mnd</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightDownStep,3,3)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDownStep}"></span></dd>
+				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightDownStep,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDownStep}"></span></dd>
 				<dt th:text="#{weightlog.label.heightaverage}" ></dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageHeight,3,3)}"><span th:text="#{myStatistic.heightMetric}"></span></dd>
+				<dd th:text="${#numbers.formatDecimal(myStatistic.averageHeight,2,1)}"><span th:text="#{myStatistic.heightMetric}"></span></dd>
 				<dt>Min/Max vekt</dt>
 				<dd th:text="${myStatistic.minWeight + ' / ' + myStatistic.maxWeight}"></dd>
 				<dt>Min/Max høyde</dt>
 				<dd th:text="${myStatistic.minHeight + ' / ' + myStatistic.maxHeight}"></dd>
 				<dt>Max nedgang/Max oppgang vekt</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.maxWeightDecrease,3,3) + ' / ' + #numbers.formatDecimal(myStatistic.maxWeightIncrease,3,3)}" ></dd>
+				<dd th:text="${#numbers.formatDecimal(myStatistic.maxWeightDecrease,2,1) + ' / ' + #numbers.formatDecimal(myStatistic.maxWeightIncrease,2,1)}" ></dd>
 				<dt>Antall målinger</dt>
 				<dd th:text="${myStatistic.numberOfMeasurementsStep + '  mnd'}"></dd>
 				<dt>Antall økninger</dt>
@@ -90,7 +91,7 @@
 			</dl>
 		</div>
 		
-		
+		<div th:replace="log/list-log-data :: log-data-table"></div>
 		
 	</div>
 	<!-- end container -->

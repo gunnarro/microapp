@@ -1,54 +1,34 @@
 <!DOCTYPE html>
-
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<jsp:include page="../public/head-includes.jsp" />
-	<style type="text/css">
-		.table-condensed>thead>tr>th, 
-		.table-condensed>tbody>tr>th,
-		.table-condensed>tfoot>tr>th, 
-		.table-condensed>thead>tr>td,
-		.table-condensed>tbody>tr>td, 
-		.table-condensed>tfoot>tr>td {padding: 3px;}
-	</style>
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-	<jsp:include page="../public/body-header.jsp" />
-
-	<jsp:useBean id="toDay" class="java.util.Date" />
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 
 	<div class="container-fluid">
 
 		<ul class="breadcrumb">
-        	<li><a href="<spring:url value="/diet/listdietplans" htmlEscape="true" />" >Diet Plans</a></li>
-        	<li class="active">Diet Plan</li>
+        	<li><a th:href="@{/diet/listdietplans}" th:text="Diet Plans"></a></li>
+        	<li class="active" th:text="Diet Plan"></li>
     	</ul>
     	
 		<div class="page-header">
-			<h4>${dietPlan.name} ${dietPlan.periode}</h4>
-			<h5>
-				<c:set var="status" value="Ikke aktiv" />
-				<c:if test="${dietPlan.active}" >
-					<c:set var="status" value="Aktiv" />
-				</c:if>
-				${status}
-			</h5>
+			<h4 th:text="${dietPlan.name} + ' ' + ${dietPlan.periode}"></h4>
+			<h5 th:if="${dietPlan.active}" th:text="Aktiv"></h5>
+			<h5 th:if="! ${dietPlan.active}" th:text="Ikke aktiv"></h5>
 		</div>
 
 		<table id="dietPlanTbl" class="table table-condensed">
 			<c:set var="editIcon" value="glyphicon glyphicon-edit edit-color" />
 			<c:set var="deleteIcon" value="glyphicon glyphicon-remove-circle delete-color" />
+			
 			<caption class="text-right">
-				<small>Last updated: <fmt:formatDate value="${toDay}" pattern="dd.MM.yy HH:mm:ss" /></small>
+				<small th:text="#{lbl.lastupdated} + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}"></small>
 			</caption>
-
+			
 			<thead>
 				<tr class="info">
 					<th colspan="2" class="text-left">${dietPlan.description}</th>
@@ -109,37 +89,31 @@
 			<tfoot>
 				<tr class="active">
 						<td colspan="2" class="text-left">
-							<span class="label label-default">Generelt/Regler</span>
+							<span class="label label-default" th:text="Generelt/Regler"></span>
 						</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<small>
-							<ul>
-								<c:forEach var="keyValuePair" items="${dietPlan.dietPlanRules}">
-									<li><span class="${txtColor}">${keyValuePair.value}</span></li>
-								</c:forEach>
+							<ul th:each="keyValuePair : ${dietPlan.dietPlanRules}">
+								<li><span class="${txtColor}" th:text="${keyValuePair.value}"></span></li>
 							</ul>
 						</small>
-							<spring:url value="/diet/changelist" var="changeListUrl" htmlEscape="true">
-								<spring:param name="dietPlanId" value="${dietPlan.id}" />
-							</spring:url> 
 							<small>
-								Se <a href="${fn:escapeXml(changeListUrl)}" >bytteliste</a> for bytte av mat. 
+								Se <a th:href="@{/diet/changelist/} + ${dietPlan.id}" th:text="bytteliste"></a> for bytte av mat. 
 						</small>
 					</td>
 				</tr>
 				<tr class="info">
 					<td colspan="2" class="text-right">
-						<spring:url value="/diet/listdietplans" var="backUrl" >
-						</spring:url>
-						<a href="${fn:escapeXml(backUrl)}" class="btn btn-primary btn-sm"><spring:message code="btn.cancel"/></a>
+						<a th:href="@{/diet/listdietplans}" class="btn btn-primary btn-sm" th:text=#{btn.cancel}></a>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
 
-		<jsp:include page="../public/footer.jsp" />
+		<!-- end container -->
+		<div th:replace="fragments/footer :: footer"></div>
 	</div>
 </body>
 </html>

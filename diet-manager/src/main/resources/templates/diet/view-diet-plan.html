@@ -11,19 +11,17 @@
 	<div class="container-fluid">
 
 		<ul class="breadcrumb">
-        	<li><a th:href="@{/diet/listdietplans}" th:text="Diet Plans"></a></li>
-        	<li class="active" th:text="Diet Plan"></li>
+        	<li><a th:href="@{/diet/listdietplans}">Diet Plans</a></li>
+        	<li class="active">Diet Plan</li>
     	</ul>
     	
 		<div class="page-header">
-			<h4 th:text="${dietPlan.name} + ' ' + ${dietPlan.periode}"></h4>
-			<h5 th:if="${dietPlan.active}" th:text="Aktiv"></h5>
-			<h5 th:if="! ${dietPlan.active}" th:text="Ikke aktiv"></h5>
+			<h4 th:text="${dietPlan.name}"></h4>
+			<h5 th:if="${dietPlan.active}">Aktiv</h5>
+			<h5 th:if="! ${dietPlan.active}">Ikke aktiv</h5>
 		</div>
 
 		<table id="dietPlanTbl" class="table table-condensed">
-			<c:set var="editIcon" value="glyphicon glyphicon-edit edit-color" />
-			<c:set var="deleteIcon" value="glyphicon glyphicon-remove-circle delete-color" />
 			
 			<caption class="text-right">
 				<small th:text="#{lbl.lastupdated} + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}"></small>
@@ -31,82 +29,51 @@
 			
 			<thead>
 				<tr class="info">
-					<th colspan="2" class="text-left">${dietPlan.description}</th>
-					<%--
-					<th class="text-right"><spring:url value="/diet/dietplan/edit/{dietPlanId}" var="editUrl" htmlEscape="true">
-							<spring:param name="dietPlanId" value="${dietPlan.id}" />
-						</spring:url> <a href="${fn:escapeXml(editUrl)}" class="btn btn-default btn-xs">
-							<span class="${editIcon}"></span>
-					</a></th>
-					 --%>
+					<th colspan="2" class="text-left" th:text="${dietPlan.description}"></th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="keyValuePair" items="${dietPlan.planItems}">
-					<c:set var="nameColor" value="label label-primary" />
-					<c:set var="txtColor" value="text-primary" />
-					<c:set var="eventIcon" value="glyphicon glyphicon-user" />
-					<c:set var="editIcon" value="glyphicon glyphicon-edit edit-color" />
-					<c:set var="deleteIcon" value="glyphicon glyphicon-remove-circle delete-color" />
-
-					<c:choose>
-						<c:when test="${fn:startsWith(keyValuePair.key, 'Frokost')}">
-							<c:set var="nameColor" value="label label-danger" />
-						</c:when>
-						<c:when test="${fn:startsWith(keyValuePair.key, 'Lunsj')}">
-							<c:set var="nameColor" value="label label-primary" />
-						</c:when>
-						<c:when test="${fn:startsWith(keyValuePair.key, 'Middag')}">
-							<c:set var="nameColor" value="label label-success" />
-						</c:when>
-						<c:when test="${fn:startsWith(keyValuePair.key, 'Kvelds')}">
-							<c:set var="nameColor" value="label label-info" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="nameColor" value="label label-warning" />
-						</c:otherwise>
-					</c:choose>
-
-					<tr id="date_${agenda.id}" class="active">
-						<td colspan="2" class="text-left">
-							<span class="${nameColor}">${keyValuePair.key}</span>
+				<th:block th:each="keyValuePair : ${dietPlan.planItems}">
+					<tr th:id="'date_'" class="active">
+						<td th:switch="${keyValuePair.name}"  colspan="2" class="text-left">
+							<span th:case="'Frokost'" class="label label-danger" th:text="${keyValuePair.key}"></span>
+							<span th:case="'Lunsj'" class="label label-primary" th:text="${keyValuePair.key}"></span>
+							<span th:case="'Middag'" class="label label-success" th:text="${keyValuePair.key}"></span>
+							<span th:case="'Kvelds'" class="label label-info" th:text="${keyValuePair.key}"></span>
+							<span th:case="*" class="label label-warning" th:text="${keyValuePair.key}"></span>
 						</td>
 					</tr>
 
-					<c:forEach var="agendaItem" items="${keyValuePair.value}">
-						<c:set var="txtColor" value="text-muted" />
-						<c:set var="playedIcon" value="glyphicon glyphicon-check" />
-						<c:set var="editIcon" value="glyphicon glyphicon-edit muted-color" />
-						<c:set var="deleteIcon" value="glyphicon glyphicon-remove-circle muted-color" />
-						<tr id="row_${agenda.id}">
+					<th:block th:each="agendaItem : ${keyValuePair.value}">
+						<tr th:id="'row_'">
 							<td colspan="2" class="text-left" style="border-top: none;">
-								<small><i class="${playedIcon}"></i><span class="${txtColor}">&nbsp;${agendaItem}</span></small>
+								<small><i class="glyphicon glyphicon-check"></i><span class="text-muted" th:text="${agendaItem}">&nbsp;</span></small>
 							</td>
 						</tr>
-					</c:forEach>
-				</c:forEach>
+					</th:block>
+				</th:block>
 			</tbody>
 			<tfoot>
 				<tr class="active">
 						<td colspan="2" class="text-left">
-							<span class="label label-default" th:text="Generelt/Regler"></span>
+							<span class="label label-default">Generelt/Regler</span>
 						</td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<small>
 							<ul th:each="keyValuePair : ${dietPlan.dietPlanRules}">
-								<li><span class="${txtColor}" th:text="${keyValuePair.value}"></span></li>
+								<li><span class="text-muted" th:text="${keyValuePair.value}"></span></li>
 							</ul>
 						</small>
 							<small>
-								Se <a th:href="@{/diet/changelist/} + ${dietPlan.id}" th:text="bytteliste"></a> for bytte av mat. 
+								Se <a th:href="@{/diet/changelist/}">bytteliste</a> for bytte av mat. 
 						</small>
 					</td>
 				</tr>
 				<tr class="info">
 					<td colspan="2" class="text-right">
-						<a th:href="@{/diet/listdietplans}" class="btn btn-primary btn-sm" th:text=#{btn.cancel}></a>
+						<a th:href="@{/diet/listdietplans}" class="btn btn-primary btn-sm" th:text="#{btn.cancel}"></a>
 					</td>
 				</tr>
 			</tfoot>

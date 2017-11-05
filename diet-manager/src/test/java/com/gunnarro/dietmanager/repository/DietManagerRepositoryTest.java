@@ -304,6 +304,9 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
         assertFalse(dietPlan.isActive());
         assertNotNull(dietPlan.getPlanItems());
         assertTrue(dietPlan.getPlanItems().size() > 1);
+        assertNotNull(dietPlan.getPlanItems().get(0).getKey());
+        assertNotNull(dietPlan.getPlanItems().get(0).getValue());
+        assertNotNull(dietPlan.getPlanItems().get(0).getName());
         assertNotNull(dietPlan.getDietPlanRules());
         assertEquals(7, dietPlan.getDietPlanRules().size());
         // for (KeyValuePairList p : dietPlan.getPlanItems()) {

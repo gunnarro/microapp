@@ -4,147 +4,162 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class KeyValuePair implements Serializable {
-    private static final long serialVersionUID = 5162452282598219646L;
+	private static final long serialVersionUID = 5162452282598219646L;
 
-    private Integer id;
-    private Integer count;
-    private Integer totalCount;
-    private Integer keyId;
-    private Integer valueId;
-    private String key;
-    private String periode;
-    private String value;
-    private Date createdDate;
-    private Date toDate;
-    private Date fromDate;
+	private Integer id;
+	private String name;
+	private Integer count;
+	private Integer totalCount;
+	private Integer keyId;
+	private Integer valueId;
+	private String key;
+	private String periode;
+	private String value;
+	private Date createdDate;
+	private Date toDate;
+	private Date fromDate;
 
-    public KeyValuePair(String key, String value) {
-        this.key = key;
-        this.value = value;
-    }
+	public KeyValuePair(String key, String value) {
+		this.key = key;
+		this.value = value;
+	}
 
-    public KeyValuePair(String key, String value, Integer count) {
-        this.key = key;
-        this.value = value;
-        this.count = count;
-    }
+	public KeyValuePair(String key, String value, Integer count) {
+		this(key, value);
+		this.count = count;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public KeyValuePair(String name, String key, String value) {
+		this(key, value);
+		this.name = name;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Integer getCount() {
-        return count;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Date getFromDate() {
-        return fromDate;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getKey() {
-        return key;
-    }
+	public Integer getCount() {
+		return count;
+	}
 
-    public Integer getKeyId() {
-        return keyId;
-    }
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-    public String getPeriode() {
-        return periode;
-    }
+	public Date getFromDate() {
+		return fromDate;
+	}
 
-    public Date getToDate() {
-        return toDate;
-    }
+	public String getKey() {
+		return key;
+	}
 
-    public Integer getTotalCount() {
-        return totalCount;
-    }
+	public Integer getKeyId() {
+		return keyId;
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public String getPeriode() {
+		return periode;
+	}
 
-    public Integer getValueId() {
-        return valueId;
-    }
+	public Date getToDate() {
+		return toDate;
+	}
 
-    public void setCount(Integer count) {
-        this.count = count;
-    }
+	public Integer getTotalCount() {
+		return totalCount;
+	}
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
-    }
+	public Integer getValueId() {
+		return valueId;
+	}
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 
-    public void setKeyId(Integer keyId) {
-        this.keyId = keyId;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public void setPeriode(String periode) {
-        this.periode = periode;
-    }
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
 
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
+	public void setKey(String key) {
+		this.key = key;
+	}
 
-    public void setTotalCount(Integer totalCount) {
-        this.totalCount = totalCount;
-    }
+	public void setKeyId(Integer keyId) {
+		this.keyId = keyId;
+	}
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+	public void setPeriode(String periode) {
+		this.periode = periode;
+	}
 
-    public void setValueId(Integer valueId) {
-        this.valueId = valueId;
-    }
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
+	public void setTotalCount(Integer totalCount) {
+		this.totalCount = totalCount;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        KeyValuePair other = (KeyValuePair) obj;
-        if (key == null) {
-            if (other.key != null)
-                return false;
-        } else if (!key.equals(other.key))
-            return false;
-        return true;
-    }
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    @Override
-    public String toString() {
-        return "KeyValuePair [fromDate=" + fromDate + ", toDate=" + toDate + ", key=" + key + ", value=" + value + ", count=" + count + ", totalCount=" + totalCount + "]";
-    }
+	public void setValueId(Integer valueId) {
+		this.valueId = valueId;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		KeyValuePair other = (KeyValuePair) obj;
+		if (key == null) {
+			if (other.key != null)
+				return false;
+		} else if (!key.equals(other.key))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "KeyValuePair [fromDate=" + fromDate + ", toDate=" + toDate
+				+ ", key=" + key + ", value=" + value + ", count=" + count
+				+ ", totalCount=" + totalCount + "]";
+	}
 
 }

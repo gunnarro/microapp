@@ -3,19 +3,16 @@
 <head>
 </head>
 <body>
-<div th:fragment="menu-item-list">
+<th:block th:fragment="menu-item-list">
     <tr th:each="menuItem, iter : ${menuItems}" >
 			<!-- Hack for jquery filter so the row will apear in the result set when searching for meal type -->
 			<td hidden="" th:text="*{type}"></td>
 			<td class="text-left" style="border-top: none;">
-				<spring:url value="/diet/menuitem/view/{menuItemId}" var="viewUrl" htmlEscape="true">
-						<spring:param name="menuItemId" value="${menuItem.id}" />
-				</spring:url>
 				<a th:href="@{/diet/menuitem/edit/} + ${menuItem.id}" title="Edit">
 					<i class="glyphicon glyphicon-edit"></i>
 				</a>
 				<a th:href="@{/diet/menuitem/view/} + ${menuItem.id}" title="View">
-					<span class="${txtColor}" th:text="${menuItem.description}"></span>
+					<span th:text="${menuItem.description}"></span>
 				</a>
 			</td>
 			<td class="text-left" style="border-top: none;">
@@ -34,6 +31,6 @@
 					</div>
 			</td>
     </tr>
-</div>
+</th:block>
 </body>
 </html>

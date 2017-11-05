@@ -868,7 +868,7 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
             if (!map.containsKey(p.getKey())) {
                 List<String> list = new ArrayList<>();
                 list.add(p.getValue());
-                map.put(p.getKey(), new KeyValuePairList(p.getKey(), list));
+                map.put(p.getKey(), new KeyValuePairList(p.getName(), p.getKey(), list));
             } else {
                 List<String> list = map.get(p.getKey()).getValue();
                 list.add(p.getValue());

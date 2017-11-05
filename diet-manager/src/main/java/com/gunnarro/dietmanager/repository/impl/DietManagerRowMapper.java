@@ -140,8 +140,8 @@ public class DietManagerRowMapper {
         return new RowMapper<KeyValuePair>() {
             @Override
             public KeyValuePair mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-                String name = resultSet.getString("meal_name") + " " + resultSet.getString("meal_period");
-                return new KeyValuePair(name, resultSet.getString("meal_item_description"));
+                String key = resultSet.getString("meal_name") + " " + resultSet.getString("meal_period");
+                return new KeyValuePair(resultSet.getString("meal_name"), key, resultSet.getString("meal_item_description"));
             }
         };
     }

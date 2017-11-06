@@ -57,7 +57,7 @@
 						</td>
 						<td class="text-left" style="border-top: none;"><small><span class="${txtColor}" th:text="${log.comment}"></span></small></td>
 						<td class="text-left" style="border-top: none;">
-							<a th:href="@{/diet/body/measurement/delete/${log.id}}" >
+							<a th:href="@{/diet/body/measurement/delete/__${log.id}__}" >
 								<i class="glyphicon glyphicon-trash" ></i>
 							</a>
 						</td>
@@ -66,7 +66,7 @@
 			<tfoot>
 				<tr class="info">
 					<td colspan="7" class="text-right">
-						<a th:href="@{/home}">Tilbake</a>
+						<a th:href="@{/home}" th:text="#{btn.back}"></a>
 					</td>
 				</tr>
 			</tfoot>

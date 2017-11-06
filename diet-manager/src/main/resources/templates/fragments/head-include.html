@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head-include">
-        <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
-    	<script type="text/javascript" th:href="@{/js/google-chart-loader.js}"></script>
-    	<script type="text/javascript" src="/dietmanager/webjars/jquery/3.1.1/jquery.min.js"></script>
-		<script type="text/javascript" src="/dietmanager/webjars/jquery-ui/1.12.1/jquery-ui.js"></script>
+	<meta charset="UTF-8"></meta>
+	<!-- mobile friendly style -->
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<!-- For search engines -->
+	<meta name="description" content="private web app for logging personal data." ></meta>
+	<meta name="author" content="gunnarro"></meta>
+    <!-- css -->
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
+ 	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/css/icomoon-icon-font.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+    <!-- scripts -->
+    <script type="text/javascript" th:href="@{/js/google-chart-loader.js}"></script>
+    <script type="text/javascript" src="/dietmanager/webjars/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/dietmanager/webjars/jquery-ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="/dietmanager/webjars/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" th:href="@{/js/google-chart-loader.js}"></script>
 </head>
 <body></body>
 </html>

@@ -16,7 +16,7 @@
 		<file>${OPENSHIFT_LOG_DIR}/dietmanager-service.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${OPENSHIFT_LOG_DIR}/dietmanager-service.log.%d{yyyy-MM-dd}
+			<fileNamePattern>logs/dietmanager-service.log.%d{yyyy-MM-dd}
 			</fileNamePattern>
 			<maxHistory>2</maxHistory>
 		</rollingPolicy>
@@ -28,10 +28,10 @@
 	</appender>
 
 	<appender name="httpSessionfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${OPENSHIFT_LOG_DIR}/dietmanager-http-session.log</file>
+		<file>logs/dietmanager-http-session.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${OPENSHIFT_LOG_DIR}/dietmanager-http-session.log.%d{yyyy-MM-dd}
+			<fileNamePattern>logs/dietmanager-http-session.log.%d{yyyy-MM-dd}
 			</fileNamePattern>
 			<maxHistory>2</maxHistory>
 		</rollingPolicy>
@@ -42,6 +42,54 @@
 		</encoder>
 	</appender>
 
+	<appender name="requestLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/dietmanager-request.log</file>
+		 <!-- Use size based policy in order to avoid hugh log files -->
+		 <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      		<fileNamePattern>logs/dietmanager-request.log.%i</fileNamePattern>
+      		<minIndex>1</minIndex>
+      		<maxIndex>5</maxIndex>
+    	</rollingPolicy>
+		 
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      		<maxFileSize>5MB</maxFileSize>
+    	</triggeringPolicy>
+		
+		<encoder>
+			<pattern>[%date{ISO8601}] [%thread] [%-5level] [%logger.%M:%L] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="performanceLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/dietmanager-performance.log</file>
+		 <!-- Use size based policy in order to avoid hugh log files -->
+		 <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      		<fileNamePattern>logs/dietmanager-performance.log.%i</fileNamePattern>
+      		<minIndex>1</minIndex>
+      		<maxIndex>5</maxIndex>
+    	</rollingPolicy>
+		 
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      		<maxFileSize>5MB</maxFileSize>
+    	</triggeringPolicy>
+		
+		<encoder>
+			<pattern>[%date{ISO8601}] [%thread] [%-5level] [%logger.%M:%L] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" >
+		<appender-ref ref="requestLogFile" />
+	</logger>
+	
+	<logger name="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor" level="TRACE" >
+		<appender-ref ref="performanceLogFile" />
+	</logger>
+	
+	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" >
+		<appender-ref ref="requestLogFile" />
+	</logger>
+	
 	<logger name="com.gunnarro.dietmanager" level="debug" additivity="false">
 		<appender-ref ref="console" />
 		<appender-ref ref="debugfile" />

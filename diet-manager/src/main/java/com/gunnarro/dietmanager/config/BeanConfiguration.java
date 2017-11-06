@@ -17,10 +17,9 @@ public class BeanConfiguration {
 
 	@Bean
 	public SimpleUrlAuthenticationFailureHandler failureHandler() {
-		return  new SimpleUrlAuthenticationFailureHandler("/access-denied");
+		return new SimpleUrlAuthenticationFailureHandler("/access-denied");
 	}
-	
-	
+
 	@Bean
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
 		return new HttpSessionEventPublisher();
@@ -33,20 +32,20 @@ public class BeanConfiguration {
 		crypt.setAlgorithm("PBEWithMD5AndTripleDES");
 		return crypt;
 	}
-	
-	@Bean
-	@Qualifier(value="pwdEncoder")
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(13);
-    }
-	
-	 @Bean
-	 public CustomAccessDeniedHandler accessDeniedHandler() {
-		 return new CustomAccessDeniedHandler();
-	 }
 
-	 @Bean
+	@Bean
+	@Qualifier(value = "pwdEncoder")
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder(13);
+	}
+
+	@Bean
+	public CustomAccessDeniedHandler accessDeniedHandler() {
+		return new CustomAccessDeniedHandler();
+	}
+
+	@Bean
 	public UserDetailsService userDetailsService() {
-			return new LocalUserDetailsServiceImpl();
-		}
+		return new LocalUserDetailsServiceImpl();
+	}
 }

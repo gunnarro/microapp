@@ -1,38 +1,26 @@
 <!DOCTYPE html>
-
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<jsp:include page="../public/head-includes.jsp" />
+	<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
 </head>
 <body>
-	<jsp:include page="../public/body-header.jsp" />
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 
 	<div class="container-fluid">
 		
 		<ul class="breadcrumb">
-			<li><a href="<spring:url value="/diet/log/events" htmlEscape="true" />" >Log</a></li>
-			<li><a href="<spring:url value="/diet/log/event/view/${log.id}" htmlEscape="true" />" >Hendelse</a></li>
+			<li><a th:href="@{/diet/log/events}" >Log</a></li>
+			<li><a th:href="@{/diet/log/event/view/} + ${log.id}" >Hendelse</a></li>
         	<li class="active">Legg til kommentar</li>
     	</ul>
 		
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
-				<c:if test="${not empty comment.id}">
+				<div th:if="${comment.id} != null" class="pull-right">
 					<div class="pull-right">
-						<div class="pull-right">
-							<spring:url value="/diet/log/event/comment/delete/{logCommentId}" var="deleteUrl">
-								<spring:param name="logCommentId" value="${comment.id}" />
-							</spring:url>
-							<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-danger btn-xs">delete</a>
-						</div>
+						<a th:href="${/diet/log/event/comment/delete/} + ${comment.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}">delete</a>
 					</div>
-				</c:if>
+				</div>
 				<h3 class="panel-title">
 					Legg til ny kommentar
 				</h3>
@@ -41,36 +29,24 @@
 
 			<div class="panel-body">
 				<!-- View log -->
-				
-				<form:form modelAttribute="comment" method="POST" id="event-comment-log-form">
-					<form:hidden path="id" value="${comment.id}" />
-					<!-- only for debug -->
-					<!-- 
-					<div class="form-group has-error">
-						<form:errors path="*" />
-					</div>
-					 -->
+				<form action="#" th:action="@{/diet/log/event/comment/new}" th:object="${comment}" method="post" >
+					<input type="hidden" th:field="*{id}" />
 					 
-					<fmt:formatDate var="formattedCreatedDate" value="${comment.createdDate}" pattern="dd.MM.yyyy HH:mm" />
-
 					<div class="form-group">
-						<form:label path="content">Kommentar</form:label>
-						<form:textarea cssClass="form-control" path="content" value="${comment.contentHtml}" />
-						<form:errors path="content" cssClass="help-block" />
+						<label th:text="#{editweightlog.label.comment}"></label>
+						<textarea class="form-control" th:field="*{contentHtml}" ></textarea>
+						<label th:each="err : ${#fields.errors('comment')}" th:text="${err}" class="help-block" ></label>
 					</div>
 					
 					<p />
-
-					<button type="submit" class="btn btn-primary">Legg til</button>
-				</form:form>
+					<button type="submit" class="btn btn-primary" th:text="#{btn.new}"></button>
+				</form>
 			</div>
 			<!-- end panel body -->
 
 			<div class="panel-footer clearfix">
 				<div class="pull-right">
-					<spring:url value="/diet/log/events" var="cancelUrl">
-					</spring:url>
-					<a href="${fn:escapeXml(cancelUrl)}" class="btn btn-primary btn-sm"><spring:message code="btn.cancel"/></a>
+					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.cancel}"></span></a>
 				</div>
 			</div>
 
@@ -79,6 +55,6 @@
 		<!-- end panel -->
 	</div>
 	<!-- end container -->
-	<jsp:include page="../public/footer.jsp" />
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

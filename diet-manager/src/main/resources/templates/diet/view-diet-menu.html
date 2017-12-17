@@ -104,21 +104,21 @@
 
 					<tr class="active">
 						<td colspan="3" class="text-left">
-							<span class="label meal-between-bgcolor">Mellom Måltid</span>
+							<span class="label meal-between-bgcolor">Mellom MÃ¥ltid</span>
 						</td>
 					</tr>
 					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.mealBetweenMenuItems},isMenu=true)"></div>
 
 					<tr class="active">
 						<td colspan="3" class="text-left">
-							<span class="label dinner-accessories-bgcolor">Middag Tilbehør</span>
+							<span class="label dinner-accessories-bgcolor">Middag TilbehÃ¸r</span>
 						</td>
 					</tr>
 					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.dinnerAccessoriesMenuItems},isMenu=false)"></div>
 					
 					<tr class="active">
 						<td colspan="3" class="text-left">
-							<span class="label dinner-portions-bgcolor">Middag Prosjoner</span>
+							<span class="label dinner-portions-bgcolor">Middag Porsjoner</span>
 						</td>
 					</tr>
 					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.dinnerPortionMenuItems},isMenu=false)"></div>

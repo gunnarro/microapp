@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<jsp:include page="../public/head-includes.jsp" />
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-	<jsp:include page="../public/body-header.jsp" />
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 
 	<div class="container-fluid">
-		
+	
 	<ul class="breadcrumb">
-		<li><a href="<spring:url value="/diet/menu/1" htmlEscape="true" />" >Diet Menu</a></li>
-       	<li class="active">Måltid</li>
-   	</ul>
+        <li><a th:href="@{/diet/menu/1}">Diet Menu</a></li>
+        <li class="active">MÃ¥ltid</li>
+    </ul>	
     	
 	<div class="panel panel-default">
 		<div class="panel-heading clearfix">
@@ -47,18 +44,18 @@
 					<dd><fmt:formatDate value="${menuItem.createdDate}" pattern="dd.MM.yyyy HH:mm" /></dd>
 					<dt>Sist endret</dt>
 					<dd><fmt:formatDate value="${menuItem.lastModifiedDate}" pattern="dd.MM.yyyy HH:mm" /></dd>
-					<dt>Måltid</dt>
-					<dd>${menuItem.name}</dd>
+					<dt>MÃ¥ltid</dt>
+					<dd th:text="${menuItem.name}"></dd>
 					<dt>Kategori</dt>
-					<dd>${menuItem.category}</dd>
+					<dd th:text="${menuItem.category}"></dd>
 					<dt>Beskrivelse</dt>
-					<dd>${menuItem.description}</dd>
+					<dd th:text="${menuItem.description}"></dd>
 					<dt>Energi (KCal)</dt>
-					<dd>${menuItem.energy}</dd>
+					<dd th:text="${menuItem.energy}"></dd>
 					<dt>Valgt</dt>
-					<dd>${menuItem.selectedCount} </dd>
+					<dd th:text="${menuItem.selectedCount}"></dd>
 					<dt>Trend siste 7 dager</dt>
-					<dd>${menuItem.selectionTrends} </dd>
+					<dd th:text="${menuItem.selectionTrends}"></dd>
 				</dl>
 			  </div>
 			</div>
@@ -67,17 +64,15 @@
 		<!-- end panel body -->
 		<div class="panel-footer clearfix">
 			<div class="pull-right">
-				<spring:url value="/diet/menu/1" var="cancelUrl">
-				</spring:url>
-				<a href="${fn:escapeXml(cancelUrl)}" class="btn btn-primary btn-sm"><spring:message code="btn.cancel"/></a>
+				<a th:href="@{/diet/menu/1}" class="btn btn-primary btn-sm" th:text="#{btn.cancel}"></a>
 			</div>
 		</div>
 		<!-- end panel footer -->
      </div>
      <!-- end panel -->
-	</div>
 	<!-- end container -->
-	 <jsp:include page="../public/footer.jsp" />
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
 </body>
 </html>
 

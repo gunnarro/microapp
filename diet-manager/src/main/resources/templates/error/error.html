@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-</head>
+	<div th:replace="fragments/header :: header-css"></div>
 <body>
 
 <div th:replace="fragments/header :: header"></div>
@@ -9,13 +8,11 @@
 <div class="container">
 
     <div class="starter-template">
-        <h1>Error</h1>
-        <div th:inline="text">Resource not found '[[${#httpServletRequest.requestURI}]]'</div>
+        <h3>Application Error</h3>
+        <div th:text="${#httpServletRequest.requestURI}">Resource not found '[[]]'</div>
     </div>
 	
-	<div class="panel-body center-block">
-		<div class="alert alert-danger" th:inline="text">${#exception.msg}</div>
-	</div>
+	
 	
 	<div class="panel-footer clearfix">
 		<div class="pull-right">

@@ -124,8 +124,8 @@ $(document).ready(function () {
 						<td colspan="1" class="text-left" style="border-top: none;">
 								<small>Trend:</small>
 								<th:block th:each="keyValuePair : ${menuItem.selectionTrends}">
-										<small th:if="${keyValuePair.value == 'false'}"><a href="#" title="Ikke valgt"><i class="glyphicon glyphicon-stop unchecked-color"></i></a></small>
-										<small th:if="${keyValuePair.value == 'true'}"><a href="#"><i class="glyphicon glyphicon-stop checked-color" th:title="'Valgt ' + ${keyValuePair.key}"></i></a></small>
+										<small th:if="${keyValuePair.value == 'false'}" ><a href="#" title="Ikke valgt"><i class="glyphicon glyphicon-stop unchecked-color"></i></a></small>
+										<small th:if="${keyValuePair.value == 'true'}" ><a href="#"><i class="glyphicon glyphicon-stop checked-color" th:title="'Valgt ' + ${keyValuePair.key}"></i></a></small>
 								</th:block>
 						</td>
 						<td colspan="2" style="border-top: none;"></td>

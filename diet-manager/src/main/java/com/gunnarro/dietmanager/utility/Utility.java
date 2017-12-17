@@ -40,8 +40,7 @@ public class Utility {
 	public static final String REGEXP_DATE = "";
 
 	public static final String REGEXP_TIME_24 = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
-	public static final String REGEXP_DATE_TIME = REGEXP_DATE + " "
-			+ REGEXP_TIME_24;
+	public static final String REGEXP_DATE_TIME = REGEXP_DATE + " " + REGEXP_TIME_24;
 
 	public static final String TIME_PATTERN = "HH:mm";
 	public static final String TIME24HOURS_REGEXP_PATTERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
@@ -54,8 +53,11 @@ public class Utility {
 	static final HtmlRenderer HTML_RENDERER = HtmlRenderer.builder(OPTIONS).build();
 
 	public static String convertMarkdownToHtml(String markdownTxt) {
-		Node doc = PARSER.parse(markdownTxt);
-		return HTML_RENDERER.render(doc);
+		if (markdownTxt != null) {
+			Node doc = PARSER.parse(markdownTxt);
+			return HTML_RENDERER.render(doc);
+		}
+		return null;
 	}
 
 	public static String capitalizationWord(String s) {
@@ -64,8 +66,7 @@ public class Utility {
 		}
 		StringBuilder sb = new StringBuilder();
 		for (String w : s.toLowerCase().split(" ")) {
-			sb.append(w.substring(0, 1).toUpperCase())
-					.append(w.substring(1, w.length())).append(" ");
+			sb.append(w.substring(0, 1).toUpperCase()).append(w.substring(1, w.length())).append(" ");
 		}
 		return sb.toString().trim();
 	}
@@ -102,29 +103,21 @@ public class Utility {
 
 	public static String getWeekInfo(int weekNumber) {
 		DateTimeZone timeZone = DateTimeZone.forID("Europe/Paris");
-		DateTime weekStartDate = new DateTime(timeZone)
-				.withWeekOfWeekyear(weekNumber);
-		DateTime weekStart = weekStartDate.withDayOfWeek(
-				DateTimeConstants.MONDAY).withTimeAtStartOfDay();
-		DateTime weekEnd = weekStartDate
-				.withDayOfWeek(DateTimeConstants.SUNDAY).withTimeAtStartOfDay();
-		return "Week " + weekStartDate.getWeekOfWeekyear() + ", "
-				+ Utility.formatTime(weekStart.getMillis(), "EEE d") + " - "
-				+ Utility.formatTime(weekEnd.getMillis(), "EEE d MMM yyyy");
+		DateTime weekStartDate = new DateTime(timeZone).withWeekOfWeekyear(weekNumber);
+		DateTime weekStart = weekStartDate.withDayOfWeek(DateTimeConstants.MONDAY).withTimeAtStartOfDay();
+		DateTime weekEnd = weekStartDate.withDayOfWeek(DateTimeConstants.SUNDAY).withTimeAtStartOfDay();
+		return "Week " + weekStartDate.getWeekOfWeekyear() + ", " + Utility.formatTime(weekStart.getMillis(), "EEE d")
+				+ " - " + Utility.formatTime(weekEnd.getMillis(), "EEE d MMM yyyy");
 	}
 
 	public static String getWeekInfo(Date date) {
 		DateTimeZone timeZone = DateTimeZone.forID("Europe/Paris");
 		int weekNumber = new DateTime(date).getWeekOfWeekyear();
-		DateTime weekStartDate = new DateTime(date, timeZone)
-				.withWeekOfWeekyear(weekNumber);
-		DateTime weekStart = weekStartDate.withDayOfWeek(
-				DateTimeConstants.MONDAY).withTimeAtStartOfDay();
-		DateTime weekEnd = weekStartDate
-				.withDayOfWeek(DateTimeConstants.SUNDAY).withTimeAtStartOfDay();
-		return "Week " + weekStartDate.getWeekOfWeekyear() + ", "
-				+ Utility.formatTime(weekStart.getMillis(), "EEE d") + " - "
-				+ Utility.formatTime(weekEnd.getMillis(), "EEE d MMM yyyy");
+		DateTime weekStartDate = new DateTime(date, timeZone).withWeekOfWeekyear(weekNumber);
+		DateTime weekStart = weekStartDate.withDayOfWeek(DateTimeConstants.MONDAY).withTimeAtStartOfDay();
+		DateTime weekEnd = weekStartDate.withDayOfWeek(DateTimeConstants.SUNDAY).withTimeAtStartOfDay();
+		return "Week " + weekStartDate.getWeekOfWeekyear() + ", " + Utility.formatTime(weekStart.getMillis(), "EEE d")
+				+ " - " + Utility.formatTime(weekEnd.getMillis(), "EEE d MMM yyyy");
 	}
 
 	public static Date resetTime(Date date) {
@@ -142,8 +135,7 @@ public class Utility {
 			if (StringUtils.isEmpty(time)) {
 				return null;
 			}
-			SimpleDateFormat sdf = new SimpleDateFormat(DATE_DEFAULT_PATTERN,
-					Locale.UK);
+			SimpleDateFormat sdf = new SimpleDateFormat(DATE_DEFAULT_PATTERN, Locale.UK);
 			sdf.setTimeZone(TimeZone.getTimeZone("Europe/Oslo"));
 			if (!StringUtils.isEmpty(pattern)) {
 				sdf = new SimpleDateFormat(pattern, Locale.UK);
@@ -155,8 +147,7 @@ public class Utility {
 		}
 	}
 
-	public static boolean validateValue(final String value,
-			final String regexpPattern) {
+	public static boolean validateValue(final String value, final String regexpPattern) {
 		if (StringUtils.isEmpty(value) || StringUtils.isEmpty(regexpPattern)) {
 			return false;
 		}

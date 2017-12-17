@@ -44,7 +44,7 @@ public class logEventRepositoryTest extends DefaultTestConfig {
         LogEntry newLog = new LogEntry();
         newLog.setFkUserId(userId);
         newLog.setTitle("title...");
-        newLog.setContent("content...");
+        newLog.setContent("content");
         newLog.setLevel("INFO");
         // Create
         Integer id = logEventRepository.createLogEvent(newLog);
@@ -56,7 +56,8 @@ public class logEventRepositoryTest extends DefaultTestConfig {
         assertTrue(newLog.getCreatedDate().equals(newLog.getLastModifiedDate()));
         assertEquals("INFO", logEvent.getLevel());
         assertEquals("title...", logEvent.getTitle());
-        assertEquals("content...", logEvent.getContent());
+        assertEquals("content", logEvent.getContent());
+        assertEquals("<p>content</p>\n", logEvent.getContentHtml());
         assertEquals(5, logEvent.getFkUserId().intValue());
         assertEquals("pappa", logEvent.getCreatedByUser());
         // Update

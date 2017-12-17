@@ -36,6 +36,8 @@ Note! OpenShift tools (oc) must be installed (require 64 bit operating system)
 - oc new-app codecentric/springboot-maven3-centos~https://github.com/gunnarro/microapp.git
 - oc expose service microapp --hostname=microapp.api.starter-us-west-2.openshift.com
  
+due to a bug we have to set tag manually:
+ - oc tag microapp microapp:latest
 
 ## Deploy :
 

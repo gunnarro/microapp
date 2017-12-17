@@ -33,7 +33,7 @@ public class DietManagerSql {
         sqlQuery.append(" WHERE l.created_date_time >= CURRENT_DATE - INTERVAL ? DAY");
         sqlQuery.append(" GROUP BY DATE_FORMAT(created_date_time, '%d.%m.%Y')");
         sqlQuery.append(" HAVING meals < 5");
-        sqlQuery.append(" ORDER BY l.created_date_time DESC");
+//        sqlQuery.append(" ORDER BY l.created_date_time DESC");
         return sqlQuery.toString();
     }
 

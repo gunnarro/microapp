@@ -111,9 +111,15 @@ public class LogEventController extends BaseController {
 
     @RequestMapping(value = "/diet/log/event/new", method = RequestMethod.GET)
     public String initNewLogEventForm(Map<String, Object> model) {
+    	 LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+         if (loggedInUser == null) {
+             throw new ApplicationException("Not logged in!");
+         }
         LogEntry log = new LogEntry();
         log.setLevel("INFO");
         log.setCreatedDate(new Date());
+        log.setLastModifiedTime(System.currentTimeMillis());
+        log.setCreatedByUser(loggedInUser.getUsername());
         model.put("log", log);
         return "log/edit-event-log";
     }
@@ -159,8 +165,29 @@ public class LogEventController extends BaseController {
      * Use PUT for updates
      * 
      */
-    @RequestMapping(value = "/diet/log/event/edit/{logEventId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/diet/log/event/edit", method = RequestMethod.PUT)
     public String processUpdateLogEventForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result, SessionStatus status) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(log.toString());
+        }
+        if (result.hasErrors()) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(result.toString());
+            }
+            return "log/edit-event-log";
+        } else {
+            logEventService.saveLogEvent(log);
+            status.setComplete();
+            return "redirect:/diet/log/events";
+        }
+    }
+    
+    /**
+     * Use PUT for updates
+     * 
+     */
+    @RequestMapping(value = "/diet/log/event/edit/{logEventId}", method = RequestMethod.PUT)
+    public String processUpdateLogEventIdForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result, SessionStatus status) {
         if (LOG.isDebugEnabled()) {
             LOG.debug(log.toString());
         }

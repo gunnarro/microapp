@@ -77,14 +77,15 @@
 						<label th:each="err : ${#fields.errors('comment')}" th:text="${err}" class="help-block" ></label>
 					</div>
 					<p />
-						<button th:if="${log['new']}" type="submit" class="btn btn-primary" th:text="#{btn.new}"></button>
+					<button th:if="${log['new']}" type="submit" class="btn btn-primary" th:text="#{btn.new}"></button>
+					<a th:href="@{/diet/body/measurement/log}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
 				</form>
 			</div>
 			<!-- end panel body -->
 
 			<div class="panel-footer clearfix">
 				<div class="pull-right">
-					<a th:href="@{/diet/body/measurement/log}" class="btn btn-primary btn-sm"><span th:text="#{btn.cancel}"></span></a>
+					<a th:href="@{/diet/body/measurement/log}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
 				</div>
 			</div>
 

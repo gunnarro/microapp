@@ -3,19 +3,21 @@
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- this is header-css -->
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" ></link>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen" ></link>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen" ></link>		
 		
-	<style type="text/css">
+		<style >
+		table.table thead tr th { background-color:#f5f5f5 !important;}
+		table.table tfoot tr { background-color:#f5f5f5 !important;}
 		.table-condensed>thead>tr>th, 
 		.table-condensed>tbody>tr>th,
 		.table-condensed>tfoot>tr>th, 
 		.table-condensed>thead>tr>td,
 		.table-condensed>tbody>tr>td, 
-		.table-condensed>tfoot>tr>td {padding: 1px;}		
-		.col-icon-fixed {width: 25px;}
-	</style>
+		.table-condensed>tfoot>tr>td {padding: 3px;}
+		</style>
+		
 <script type="text/javascript">
 $(document).ready(function () {
     (function ($) {
@@ -63,16 +65,17 @@ $(document).ready(function () {
 				<label for="filterInputId" class="sr-only">Filter</label>
 				<input id="filterInputId" type="text" class="form-control" placeholder="Filter text" />
 		</div>
+	
 		
 		<table id="myChoicesTbl" class="table table-condensed">
 			<caption class="text-right">
 				<small th:text="#{lbl.lastupdated} + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}"></small>
 			</caption>
-			<thead>
-				<tr class="info">
-					<th colspan="4" class="text-left"><small>Mine valg fra ${period}</small></th>
-					<th colspan="2" class="text-right">
-						<a th:href="@{/diet/mychoices/new/} + ${menuId} + '/' + ${forDate} + '/'" class="btn btn-primary btn-xs">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col" colspan="4" class="text-left"><small>Mine valg fra </small><small th:text="${period}"></small></th>
+					<th scope="col" colspan="2" class="text-right">
+						<a th:href="@{/diet/mychoices/new/1/today}" class="btn btn-primary btn-sm">
 							<span>Legg til</span>
 						</a>
 					</th>
@@ -82,20 +85,20 @@ $(document).ready(function () {
 				<th:block th:each="mapEntry, iter : ${menuItemMap}" >	
 				<tr th:id="'title-row_' + ${iter.index}" class="active-row">
 					<td colspan="5" class="text-left">
-			            <span th:if="${#strings.startsWith(#dates.format(mapEntry.key, 'EEEE dd.MM.yy'), 'lør')} " class="label label-danger" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.startsWith(#dates.format(mapEntry.key, 'EEEE dd.MM.yy'), 'søn')} " class="label label-primary" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.startsWith(#dates.format(mapEntry.key, 'EEEE dd.MM.yy'), 'man')} " class="label label-success" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.startsWith(#dates.format(mapEntry.key, 'EEEE dd.MM.yy'), 'tir')} " class="label label-info" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.startsWith(#dates.format(mapEntry.key, 'EEEE dd.MM.yy'), 'ons')} " class="label label-warning" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.startsWith(#dates.format(mapEntry.key, 'EEEE dd.MM.yy'), 'tor')} " class="label label-yellow" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.startsWith(#dates.format(mapEntry.key, 'EEEE dd.MM.yy'), 'fre')} " class="label label-purple" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+			            <span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Saturday')}" class="label label-danger" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Sunday')}" class="label label-primary" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Monday')}" class="label label-success" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Tuesday')}" class="label label-info" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Wednesday')}" class="label label-warning" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Thursday')}" class="label label-yellow" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Friday')}" class="label label-purple" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
 					</td>
 					<!-- hack for jquery filter in order to link tilte to data row in search result -->
 					<td hidden="true" th:text="${mapEntry.value}"></td>    
 				</tr>
 				<th:block th:each="menuItem, iter : ${mapEntry.value}">
 					<tr th:id="'data-row_' + ${iter.index}">
-						<!-- hack for jquery filter in order to link data row to tiltle in search result-->
+						<!-- hack for jquery filter in order to link data row to title in search result-->
 						<td hidden="true" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></td> 
 						
 						<td class="col-icon-fixed" style="border-top: none;">
@@ -136,7 +139,7 @@ $(document).ready(function () {
 			<tfoot>
 				<tr>
 				</tr>
-				<tr class="info">
+				<tr>
 					<td colspan="4">
 						<small>
 							<span><i class="glyphicon glyphicon-king king-color"></i> for Pappa, </span>
@@ -146,7 +149,7 @@ $(document).ready(function () {
 						</small>
 					</td>
 					<td colspan="2" class="text-right">
-						<a th:href="@{/diet/menu/1}" class="btn btn-primary btn-sm" th:text="#{btn.cancel}"></a>
+						<a th:href="@{/diet/menu/1}" class="btn btn-primary btn-sm" th:text="#{btn.back}"></a>
 					</td>
 				</tr>
 			</tfoot>

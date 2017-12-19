@@ -51,14 +51,13 @@ public class MenuItem extends BaseDomain {
 		setSortByValue(name);
 	}
 
-	public static List<KeyValuePair> generateDefaltSelectionTrends(int days,
-			String datePattern) {
+	public static List<KeyValuePair> generateDefaltSelectionTrends(int days, String datePattern) {
 		List<KeyValuePair> list = new ArrayList<>();
 		for (int d = days - 1; d >= 0; d--) {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DATE, -d);
-			list.add(new KeyValuePair(Utility.formatTime(cal.getTimeInMillis(),
-					datePattern), Boolean.FALSE.toString()));
+			list.add(
+					new KeyValuePair(Utility.formatTime(cal.getTimeInMillis(), datePattern), Boolean.FALSE.toString()));
 		}
 		return list;
 	}
@@ -67,8 +66,7 @@ public class MenuItem extends BaseDomain {
 		if (selectionTrends == null) {
 			selectionTrends = new ArrayList<>();
 		}
-		KeyValuePair keyValuePair = new KeyValuePair(selectedDate,
-				Boolean.TRUE.toString());
+		KeyValuePair keyValuePair = new KeyValuePair(selectedDate, Boolean.TRUE.toString());
 		int index = selectionTrends.indexOf(keyValuePair);
 		if (index != -1) {
 			selectionTrends.get(index).setValue(Boolean.TRUE.toString());
@@ -210,18 +208,16 @@ public class MenuItem extends BaseDomain {
 		this.selectionTrends = selectionTrends;
 	}
 
-	public static MenuItem createMenuItem(int id, int dietMenuId,
-			Date createdDate, int controlledByUserId, int preparedByUserId,
-			int causedConflict, int logId) {
-		MenuItem menuItem = createMenuItem(dietMenuId, createdDate,
-				controlledByUserId, preparedByUserId, causedConflict, logId);
+	public static MenuItem createMenuItem(int id, int dietMenuId, Date createdDate, int controlledByUserId,
+			int preparedByUserId, int causedConflict, int logId) {
+		MenuItem menuItem = createMenuItem(dietMenuId, createdDate, controlledByUserId, preparedByUserId,
+				causedConflict, logId);
 		menuItem.setId(id);
 		return menuItem;
 	}
 
-	public static MenuItem createMenuItem(int dietMenuId, Date createdDate,
-			int controlledByUserId, int preparedByUserId, int causedConflict,
-			int logId) {
+	public static MenuItem createMenuItem(int dietMenuId, Date createdDate, int controlledByUserId,
+			int preparedByUserId, int causedConflict, int logId) {
 		MenuItem menuItem = new MenuItem();
 		menuItem.setId(dietMenuId);
 		menuItem.setCreatedDate(createdDate);
@@ -234,12 +230,10 @@ public class MenuItem extends BaseDomain {
 
 	@Override
 	public String toString() {
-		return "MenuItem [id=" + getId() + ", fkDietMenuId=" + fkDietMenuId
-				+ ", controlledByUserId=" + controlledByUserId
-				+ ", causedConflict=" + causedConflict
-				+ ", conflictDescription=" + conflictDescription + ", name="
-				+ name + ", description=" + description + ", createdDate="
-				+ getCreatedTime() + "]";
+		return "MenuItem [causedConflict=" + causedConflict + ", notFollowedRule=" + notFollowedRule
+				+ ", conflictDescription=" + conflictDescription + ", controlledByUserId=" + controlledByUserId
+				+ ", fkDietMenuId=" + fkDietMenuId + ", imageLink=" + imageLink + ", preparedByUserId="
+				+ preparedByUserId + ", primaryKeyId=" + primaryKeyId + "]";
 	}
 
 }

@@ -78,53 +78,53 @@
 		</encoder>
 	</appender>
 	
-	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" >
+	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="ERROR" >
 		<appender-ref ref="requestLogFile" />
 	</logger>
 	
-	<logger name="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor" level="TRACE" >
+	<logger name="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor" level="ERROR" >
 		<appender-ref ref="performanceLogFile" />
 	</logger>
 	
-	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" >
+	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="ERROR" >
 		<appender-ref ref="requestLogFile" />
 	</logger>
 	
-	<logger name="com.gunnarro.dietmanager" level="debug" additivity="false">
+	<logger name="com.gunnarro.dietmanager" level="DEBUG" additivity="false">
 		<appender-ref ref="console" />
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="com.gunnarro.dietmanager.repository.impl.DietManagerRowMapper" level="error" additivity="false">
+	<logger name="com.gunnarro.dietmanager.repository.impl.DietManagerRowMapper" level="ERROR" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 
-	<logger name="org.springframework.web.servlet.mvc" level="trace" >
+	<logger name="org.springframework.web.servlet.mvc" level="ERROR" >
 		<appender-ref ref="debugfile" />
 	</logger>
 		
-	<logger name="com.gunnarro.dietmanager.listener.HttpSessionListener" level="info" additivity="false">
+	<logger name="com.gunnarro.dietmanager.listener.HttpSessionListener" level="INFO" additivity="false">
 		<appender-ref ref="httpSessionfile" />
 	</logger>
 
-	<logger name="org.springframework" level="info" additivity="false">
+	<logger name="org.springframework" level="ERROR" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="org.springframework.security" level="debug" additivity="false">
+	<logger name="org.springframework.security" level="ERROR" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="org.springframework.social" level="trace" additivity="false">
+	<logger name="org.springframework.social" level="ERROR" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
-	<logger name="org.springframework.security.web.authentication" level="trace" additivity="false">
+	<logger name="org.springframework.security.web.authentication" level="ERROR" additivity="false">
 		<appender-ref ref="debugfile" />
 	</logger>
 	
 	<!-- for logging parameter values -->
-	<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="error" additivity="false" />
+	<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="ERROR" additivity="false" />
 
 	<root level="info">
 		<appender-ref ref="console" />

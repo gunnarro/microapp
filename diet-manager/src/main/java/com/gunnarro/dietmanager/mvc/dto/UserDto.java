@@ -42,7 +42,16 @@ public class UserDto implements Serializable {
     public UserDto() {
     }
 
-    /**
+    
+    
+    public UserDto(Integer id, String username) {
+		this.id = id;
+		this.username = username;
+	}
+
+
+
+	/**
      * 
      * @param userName
      * @param password

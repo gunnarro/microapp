@@ -142,7 +142,7 @@ public class Utility {
 			}
 			return sdf.parse(time);
 		} catch (Exception e) {
-			LOG.warn("time: " + time + ", pattern: " + pattern + ", return null", e);
+			LOG.warn("time: " + time + ", pattern: " + pattern + ", return null", e.getMessage());
 			return null;
 		}
 	}

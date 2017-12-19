@@ -34,10 +34,13 @@ import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.domain.statistic.Key;
 import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
+import com.gunnarro.dietmanager.mvc.dto.UserDto;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 import com.gunnarro.dietmanager.utility.Utility;
 import com.gunnarro.useraccount.domain.user.LocalUser;
+import com.gunnarro.useraccount.domain.user.Profile;
+import com.gunnarro.useraccount.service.UserAccountService;
 
 @Controller
 // @RequestMapping("/user")
@@ -59,6 +62,14 @@ public class MyChoicesController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
     }
 
+    private List<UserDto> getUsersWithControllerRights() {
+    	List<UserDto> users = new ArrayList<UserDto>();
+    	users.add(new UserDto(5,"pappa"));
+    	users.add(new UserDto(6,"mamma"));
+    	users.add(new UserDto(4,"pepilie"));
+    	return users;
+    }
+    
     /**
      * Use PUT for updates
      * 
@@ -103,17 +114,22 @@ public class MyChoicesController extends BaseController {
         menuItem.setControlledByUserId(loggedInUser.getId());
         menuItem.setPreparedByUserId(loggedInUser.getId());
         menuItem.setControlledByUsername(loggedInUser.getUsername());
+        // caused no conflict as default
+        menuItem.setCausedConflict(0);
         // Do not return meal items for already selected meals
         List<String> mealNames = dietManagerService.getSelectedMealNamesForDate(menuItem.getCreatedDate());
         model.put("menuItem", menuItem);
         model.put("userId", loggedInUser.getId());
+        model.put("users",getUsersWithControllerRights());
         model.put("breakfastMenuItems", mealNames.contains("Frokost") ? null : dietMenu.getBreakfastMenuItems());
         model.put("lunchMenuItems", mealNames.contains("Lunsj") ? null : dietMenu.getLunchMenuItems());
         model.put("dinnerMenuItems", mealNames.contains("Middag") ? null : dietMenu.getDinnerMenuItems());
         model.put("dessertMenuItems", mealNames.contains("Dessert") ? null : dietMenu.getDessertMenuItems());
         model.put("eveningMenuItems", mealNames.contains("Kveldsmat") ? null : dietMenu.getEveningMenuItems());
         model.put("mealBetweenMenuItems", mealNames.contains("Mellom måltid") ? null : dietMenu.getMealBetweenMenuItems());
-        LOG.debug("dietrules: " + dietManagerService.getDietRules(1));
+        if (LOG.isDebugEnabled()) {
+        	LOG.debug("dietrules: " + dietManagerService.getDietRules(1));
+        }
         model.put("dietRules", dietManagerService.getDietRules(1));
         return "diet/edit-diet-mychoice";
     }

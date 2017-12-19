@@ -20,7 +20,7 @@
 			<div class="panel-heading clearfix">
 				<div th:if="${log.id} != null" class="pull-right">
 					<div class="pull-right">
-						<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}">delete</a>
+						<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
 					</div>
 				</div>
 				<h3 class="panel-title">
@@ -85,13 +85,14 @@
 
 					<button type="submit" class="btn btn-primary" th:if="${log.id} == null" th:text="#{btn.new}"></button>
 					<button type="submit" class="btn btn-primary" th:if="${log.id} != null" th:text="#{btn.update}"></button>
+					<a th:href="@{/diet/log/events}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
 				</form>
 			</div>
 			<!-- end panel body -->
 
 			<div class="panel-footer clearfix">
 				<div class="pull-right">
-					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.cancel}"></span></a>
+					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
 				</div>
 			</div>
 

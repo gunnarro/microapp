@@ -40,13 +40,14 @@
 					
 					<p />
 					<button type="submit" class="btn btn-primary" th:text="#{btn.new}"></button>
+					<a th:href="@{/diet/log/events}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
 				</form>
 			</div>
 			<!-- end panel body -->
 
 			<div class="panel-footer clearfix">
 				<div class="pull-right">
-					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.cancel}"></span></a>
+					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
 				</div>
 			</div>
 

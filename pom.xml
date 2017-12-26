@@ -593,6 +593,13 @@
 
 	<profiles>
 		<profile>
+			<id>openshift</id>
+			<properties>
+                                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                                <db.url>jdbc:mysql://172.30.169.124:3306/dietmanager</db.url>
+                                <db.username>web</db.username>
+                                <db.password>wEbt0t3</db.password>
+                        </properties>
 		</profile>
 
 		<profile>

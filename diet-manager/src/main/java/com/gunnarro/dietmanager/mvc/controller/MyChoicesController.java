@@ -39,8 +39,6 @@ import com.gunnarro.dietmanager.service.exception.ApplicationException;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 import com.gunnarro.dietmanager.utility.Utility;
 import com.gunnarro.useraccount.domain.user.LocalUser;
-import com.gunnarro.useraccount.domain.user.Profile;
-import com.gunnarro.useraccount.service.UserAccountService;
 
 @Controller
 // @RequestMapping("/user")

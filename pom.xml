@@ -594,6 +594,9 @@
 	<profiles>
 		<profile>
 			<id>openshift</id>
+			<build>
+            			<directory>/tmp/src/target</directory>
+        		</build>
 			<properties>
                                 <db.driver>com.mysql.jdbc.Driver</db.driver>
                                 <db.url>jdbc:mysql://172.30.169.124:3306/dietmanager</db.url>

@@ -62,7 +62,7 @@
 		<slf4j.version>1.7.12</slf4j.version>
 
 		<db.driver>com.mysql.jdbc.Driver</db.driver>
-		<db.url>jdbc:mysql://localhost:3306/sportsteam</db.url>
+		<db.url>jdbc:mysql://localhost:3306/dietmanager</db.url>
 		<db.username>root</db.username>
 		<db.password>mysql</db.password>
 		
@@ -594,9 +594,11 @@
 	<profiles>
 		<profile>
 			<id>openshift</id>
+			<!--
 			<build>
             			<directory>/tmp/src/target</directory>
-        		</build>
+			</build>
+			-->
 			<properties>
                                 <db.driver>com.mysql.jdbc.Driver</db.driver>
                                 <db.url>jdbc:mysql://172.30.169.124:3306/dietmanager</db.url>

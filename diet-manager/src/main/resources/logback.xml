@@ -126,6 +126,10 @@
 	<!-- for logging parameter values -->
 	<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="ERROR" additivity="false" />
 
+	<logger name="org.thymeleaf" level="TRACE" additivity="false">
+		<appender-ref ref="debugfile" />
+	</logger>
+
 	<root level="info">
 		<appender-ref ref="console" />
 		<appender-ref ref="debugfile" />

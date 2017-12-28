@@ -23,8 +23,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
-		<!-- in order to show version number in jsp -->
-		<version.dietmanagerVersion>${project.version}</version.dietmanagerVersion>
 		<version.jodatime>2.9.6</version.jodatime>
 		<fabric8.generator.from>fabric8/s2i-java</fabric8.generator.from>
 	</properties>

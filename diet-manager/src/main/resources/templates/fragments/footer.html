@@ -5,20 +5,18 @@
 <body>
 <div th:fragment="footer">
     <div class="pull-right">
-        <footer>
+        <footer class="container-fluid">
 			<div>
-					<small>
+				<small>
 					<a th:href="@{/releasenotes}">
-						<font style="color:green">Diet</font><font style="color:blue">Manager_v</font>${initParam.dietmanagerVersion}
+						<span class="text-muted" th:inline="text">[[${@environment.getProperty('application.name')}]]_v[[${@environment.getProperty('application.version')}]]</span>
 					</a>
-					</small>
-				</div>
-				<div>
-					<small><label class="text-muted">Powered by gunnarro</label></small>
-				</div>
-
-				
-
+					<span class="text-muted" th:inline="text"> [[${@environment.getProperty('application.build.time')}]]</span>
+				</small>
+			</div>
+			<div>
+				<small><label class="text-muted">Powered by gunnarro</label></small>
+			</div>
         </footer>
     </div>
 </div>

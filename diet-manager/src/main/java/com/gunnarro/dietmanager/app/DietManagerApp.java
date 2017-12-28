@@ -6,8 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -56,7 +54,7 @@ public class DietManagerApp
 //	}
 	
 	public static void main(String[] args) {
-		LOG.info("Start dietmanager ....");
+		LOG.info("Start dietmanager ...." );
 		SpringApplication.run(DietManagerApp.class, args);
 	}
 }

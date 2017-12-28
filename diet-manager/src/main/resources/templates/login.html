@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="fragments/header :: header-css"></div> 
+  
+  <title>DietManager</title>
+	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" th:href="@{/css/dietmanager.css}" href="../../css/dietmanager.css" />
     
     <style type="text/css">
 	.jumbotron {
@@ -15,7 +17,6 @@
 	.input-group-margin {
 		margin-bottom: 10px;
 	}
-	
 	</style>
 </head>
 <body>

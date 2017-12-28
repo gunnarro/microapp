@@ -180,11 +180,12 @@ public class MenuController extends BaseController {
         try {
             id = Integer.parseInt(menuId);
         } catch (Exception e) {
-            // ignore exception, set default menuId,
-            if (LOG.isWarnEnabled() ){
-                LOG.warn("Invalid id: " + id, e);
-            }
-            id = 1;
+//            // ignore exception, set default menuId,
+//            if (LOG.isWarnEnabled() ){
+//                LOG.warn("Invalid id: " + id, e);
+//            }
+//            id = 1;
+            throw new ApplicationException(e.getMessage());
         }
         DietMenu dietMenu = dietManagerService.getDietMenu(id);
         ModelAndView modelView = new ModelAndView("diet/view-diet-menu");

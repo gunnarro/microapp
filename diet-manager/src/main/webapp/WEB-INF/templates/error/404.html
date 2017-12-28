@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>DietManager</title>
+<link rel="stylesheet" type="text/css" href="/dietmanager/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/dietmanager.css}" href="../../css/dietmanager.css" />
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<h1>404 - Not Found</h1>
+			<div th:inline="text">Resource not found: [[${#httpServletRequest.requestURI}]]</div>
+		</div>
+
+	</div>
+	<!-- container -->
+
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

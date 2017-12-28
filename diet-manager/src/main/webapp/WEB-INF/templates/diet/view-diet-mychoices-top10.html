@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+        <!-- this is header-css -->
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+		
+		<style type="text/css">
+		.table-condensed>thead>tr>th, 
+		.table-condensed>tbody>tr>th,
+		.table-condensed>tfoot>tr>th, 
+		.table-condensed>thead>tr>td,
+		.table-condensed>tbody>tr>td, 
+		.table-condensed>tfoot>tr>td {padding: 3px;}
+	</style>
+</head>
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+
+	<div class="container-fluid">
+		
+		<ul class="breadcrumb">
+			<li><a th:href="@{/diet/mychoices}" >Mine Valg</a></li>
+        	<li class="active">Mine Valg Top 10</li>
+    	</ul>
+    	
+		<div class="page-header">
+			<h4>Mine Valg - Top 10</h4>
+		</div>
+		
+		<table id="top10TblId" class="table table-condensed">
+			<caption class="text-right">
+				<small th:text="#{lbl.lastupdated} + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}"></small>
+			</caption>
+			<thead>
+				<tr class="info">
+					<th class="text-left" style="border-buttom: 1;"><small>Måltid</small></th>
+					<th class="text-left" style="border-buttom: 1;"><small>Beskrivelse</small></th>
+					<th class="text-left" style="border-buttom: 1;"><small>Antall</small></th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:with="index=0, previousName=default">
+					<th:block th:each="keyValuePair, iter : ${top10List}">	
+						<tr th:if="${keyValuePair.key} == ${previousName}" class="active">
+							<td colspan="3" class="text-left" th:with="previousName=${keyValuePair.key}, index=${index + 1}">
+								<span class="label label-primary" th:text="${keyValuePair.key} + ' ' + ${previousName}"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left" style="border-top: none;" th:text="${index}">.</td>
+							<td class="text-left" style="border-top: none;">
+							<a th:href="@{/diet/menuitem/view/} + ${keyValuePair.id}">
+								<small><span th:text="${keyValuePair.value}"></span></small>
+							</a>
+							</td>
+							<td class="text-left" style="border-top: none;" th:text="${keyValuePair.count}"></td>
+						</tr>
+					</th:block>
+				</th:block>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+					</td>
+				</tr>
+				<tr class="info">
+					<td colspan="2" class="text-right">
+						<a th:href="@{/diet/diet/mychoices}" class="btn btn-primary btn-sm" th:text="#{btn.cancel}"></a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<!-- end container -->
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>

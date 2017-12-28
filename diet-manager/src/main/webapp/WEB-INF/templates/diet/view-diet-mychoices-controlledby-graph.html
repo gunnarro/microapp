@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+        <!-- this is header-css -->
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+	
+	<div class="container-fluid">
+    	<ul class="breadcrumb">
+        	<li><a th:href="@{/diet/mychoices}">Mine valg</a></li>
+        	<li class="active">Graf kontrollerte måltider</li>
+    	</ul>
+    	
+		<div class="page-header">
+			<h4>Graf for måltider</h4>
+		</div>
+		<jsp:include page="../chart/google-chart-meals-controlledby-view.jsp" /> 
+		<jsp:include page="../chart/google-chart-meals-preparedby-view.jsp" /> 
+		<jsp:include page="../chart/google-chart-meals-caused-conflict-view.jsp" />
+		<jsp:include page="../chart/google-chart-meal-types-view.jsp" /> 
+	</div>
+	<!-- end container -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

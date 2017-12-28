@@ -1,0 +1,261 @@
+:root {
+        --breakfast-color: #004d00;
+        --lunch-color: #660033;
+        --dinner-color: #ff6600;
+        --dessert-color: #cc0066;
+        --evening-color: #0066cc;
+        --meal-between-color: #999900;
+        --dinner-accessories-color: #800000;
+        --dinner-portions-color: #993d00;
+}
+
+.container-custom {
+	padding-top: 10px;
+	margin-left: 50px;
+	width: 700px;
+}
+
+.borderless tbody tr td, .borderless thead tr th {
+	border: none;
+}
+
+.form-horizontal {
+	width: 100%;
+}
+
+.navbar .nav>li>a {
+	color: #000000;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+.checked-color {
+	color: #000FC4;
+}
+
+.unchecked-color {
+	color: #BABFBE;
+}
+
+.muted-color {
+	color: #BABFBE;
+}
+
+.delete-color {
+	color: red;
+}
+
+.edit-color {
+	color: green;
+}
+
+.error-color {
+	color: red !important;
+}
+
+.king-color {
+	color: #010101;
+}
+
+.queen-color {
+	color: #bb33ff;
+}
+
+.pawn-color {
+	color: #0c3bfc;
+}
+
+.btn-registrer-width {
+	width: 75px;
+}
+
+.signout {
+	color: red;
+}
+
+.muted {
+	color: #999 !important;
+}
+
+.saturday {
+	color: green !important;
+}
+
+.sunday {
+	color: blue !important;
+}
+
+.monday {
+	color: yellow !important;
+}
+
+.tuesday {
+	color: cyan !important;
+}
+
+.wedensday {
+	color: orange !important;
+}
+
+.thursday {
+	color: brown !important;
+}
+
+.friday {
+	color: gray !important;
+}
+
+.hidden {
+	display: none;
+}
+
+/**
+ ** Labels -  New label color
+*/
+.label-purple {
+	background-color: #9b59b6;
+	border-color: #9b59b6;
+}
+
+.label-muted {
+	background-color: #babfbe;
+	border-color: #babfbe;
+}
+
+.label-yellow {
+	background-color: #5F78A6;
+	border-color: #5F78A6;
+}
+
+.badge-danger {
+  background-color: #d43f3a;
+}
+
+.badge-warning {
+background-color: #d58512;
+}
+
+.badge-success {
+background-color: #398439;
+}
+
+.badge-info {
+background-color: #269abc;
+}
+
+/**
+** login page style
+*/
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+ // background-color: #fff;
+ // border: 1px solid rgba(0,0,0,0.1);  
+}
+
+.form-social {
+  max-width: 380px;
+  padding: 1px 35px 1px;
+  margin: 0 auto;
+}
+	
+.form-control-login {
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.profile-img {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.bg-color-row-even {
+	background-color: #e6e6e6;	
+}
+
+.color-muted {
+	color: #babfbe;
+}
+
+.color-satisfaction-6 {
+	color: #109502;
+}
+.color-satisfaction-5 {
+	color: #109502;
+}
+.color-satisfaction-4 {
+	color: #19DA04;
+}
+.color-satisfaction-3 {
+	color: #E6D40D;
+}
+.color-satisfaction-2 {
+	color: #FFBF00;
+}
+.color-satisfaction-1 {
+	color: #DF0101;
+}
+
+.breakfast-bgcolor {
+	background-color: var(--breakfast-color);
+}
+.lunch-bgcolor {
+	background-color: var(--lunch-color);
+}
+.dinner-bgcolor {
+	background-color: var(--dinner-color);
+}
+.dessert-bgcolor {
+	background-color: var(--dessert-color);
+}
+.evening-bgcolor {
+	background-color: var(--evening-color);
+}
+.meal-between-bgcolor {
+	background-color: var(--meal-between-color);
+}
+.dinner-accessories-bgcolor {
+	background-color: var(--dinner-accessories-color);
+}
+.dinner-portions-bgcolor {
+	background-color: var(--dinner-portions-color);
+}
+
+.breakfast-color {
+	color: var(--breakfast-color);
+}
+.lunch-color {
+	color: var(--lunch-color);
+}
+.dinner-color {
+	color: var(--dinner-color);
+}
+.dessert-color {
+	color: var(--dessert-color);
+}
+.evening-color {
+	color: var(--evening-color);
+}
+.meal-between-color {
+	color: var(--meal-between-color);
+}
+.dinner-accessories-color {
+	color: var(--dinner-accessories-color);
+}
+.dinner-portions-color {
+	color: var(--dinner-portions-color);
+}
+.default-txt-color {
+	color: black;	
+}
+.span-checked-mark {
+  content: "\2713";
+} 

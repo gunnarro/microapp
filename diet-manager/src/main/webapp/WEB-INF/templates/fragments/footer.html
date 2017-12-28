@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="footer">
+    <div class="pull-right">
+        <footer class="container-fluid">
+			<div>
+				<small>
+					<a th:href="@{/releasenotes}">
+						<span class="text-muted" th:inline="text">[[${@environment.getProperty('application.name')}]]_v[[${@environment.getProperty('application.version')}]]</span>
+					</a>
+					<span class="text-muted" th:inline="text"> [[${@environment.getProperty('application.build.time')}]]</span>
+				</small>
+			</div>
+			<div>
+				<small><label class="text-muted">Powered by gunnarro</label></small>
+			</div>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

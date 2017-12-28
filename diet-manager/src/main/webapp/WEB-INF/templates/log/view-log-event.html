@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
+	<!-- Bootstrap Date-Picker Plugin -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+</head>
+<body>
+	<script type="text/javascript">
+	 $(document).ready(function(){
+    	 var simplemde = new SimpleMDE({ element: $("#logCommentMsgInputId")[0] });
+     })
+	</script>
+	
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+	
+	<div class="container-fluid">
+		
+	<ul class="breadcrumb">
+		<li><a th:href="@{/diet/log/events}" >Log</a></li>
+        <li class="active">Hendelse</li>
+    </ul>	
+   
+	<div class="panel panel-default">
+		<div class="panel-heading clearfix">
+			<div class="pull-right">
+				<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="glyphicon glyphicon-edit"></a>
+				<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="glyphicon glyphicon-trash"></a>
+			</div>
+			<h3 th:text="${#dates.format(log.createdDate, 'EEEE dd.MM.yy') + ' ' + #dates.format(log.createdDate, 'HH:mm')}" class="label label-default" ></h3>
+			<h3  th:if="${log.level == 'INFO'}" class="panel-title"><span class="label label-info" th:text="${log.level}"></span><span th:text="${log.title}"></span></h3>
+			<h3  th:if="${log.level == 'ACTIVITY'}" class="panel-title"><span class="label label-success" th:text="${log.level}"></span><span th:text="${log.title}"></span></h3>
+			<h3  th:if="${log.level == 'REPORT'}" class="panel-title"><span class="label label-warning" th:text="${log.level}"></span><span th:text="${log.title}"></span></h3>
+			<h3  th:if="${log.level == 'CONFLICT'}" class="panel-title"><span class="label label-danger" th:text="${log.level}"></span><span th:text="${log.title}"></span></h3>
+		</div>
+		<!-- end panel header -->
+		
+		<div class="panel-body center-block">
+			<ul class="list-group">
+			  <li class="list-group-item list-group-item-success" style="margin: 0px 0px 10px 0px;">
+			  	<h5><small>Created <small th:text="${#dates.format(log.createdDate, 'EEEE dd.MM.yyyy HH:mm:ss')}"></small> by <small th:text="${log.createdByUser}"></small></small></h5>
+				<p class="text-left" th:text="${log.contentHtml}"></p>
+			  </li>
+  
+			   <th:block th:if="${!log.logComments.isEmpty()}" th:eache="comment, iter : ${log.logComments}">
+				     <li class="list-group-item list-group-item-info" style="margin: 0px 0px 10px 25px;">
+			    		<h5><small>Created <small th:text="${#dates.format(comment.createdDate, 'EEEE dd.MM.yyyy HH:mm:ss')}"></small> by <small th:text="${comment.createdByUser}"></small></small></h5>
+						<p class="text-left" th:text="*{contentHtml}"></p>
+			  		</li>
+			  </th:block>
+			</ul> 
+
+			<!-- add comment -->
+			<form method="POST" th:action="@{/diet/log/event/comment/add}" >
+					<input type="hidden" name="logId" id="logId" th:value="${log.id}" />
+					<div class="form-group">
+						<label for="comment">Kommentar</label>
+						<textarea th:required="required" class="form-control" id="logCommentMsgInputId" name="comment" th:value="*{comment}" ></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary" th:text="#{btn.add}"></button>
+					<a th:href="@{/diet/log/events}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
+			</form>
+	    </div>
+	    
+		<!-- end panel body -->
+			<div class="panel-footer clearfix">
+				<div class="pull-right">
+					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
+				</div>
+			</div>
+		<!-- end panel footer -->
+     </div>
+   <!-- end panel -->
+	</div>
+	<!-- end container -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

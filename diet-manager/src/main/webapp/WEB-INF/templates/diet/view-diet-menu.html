@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+		<script type="text/javascript" src="/dietmanager/js/dietmanager.js"></script>
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
+    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+
+	<style type="text/css">
+		.table-condensed>thead>tr>th, 
+		.table-condensed>tbody>tr>th,
+		.table-condensed>tfoot>tr>th, 
+		.table-condensed>thead>tr>td,
+		.table-condensed>tbody>tr>td, 
+		.table-condensed>tfoot>tr>td {padding: 3px;}
+	</style>
+	
+	<script type="text/javascript">
+	$(document).ready(function () {
+	    (function ($) {
+	        $('#filterInputId').keyup(function () {
+	            var rex = new RegExp($(this).val(), 'i');
+	            $('.table-tbody tr').hide();
+	            //console.log("id: " + $('.table-tbody tr').attr('id'));
+	            $('.table-tbody tr').filter(function () {
+	                return rex.test($(this).text());
+	            }).show();
+	        })
+	    }(jQuery));
+	});
+	</script>
+</head>
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+
+	<div class="container-fluid">
+		
+		<ul class="breadcrumb">
+			<li><a th:href="@{/diet/dietplan/current}" th:text="${'Diet Plan'}" ></a></li>
+        	<li class="active" th:text="${'Meny'}"></li>
+    	</ul>
+    	
+		<div class="page-header">
+			<h4 th:text="${'Meny'}"></h4>
+			<h5><a th:href="@{/diet/mychoices}" th:text="${'Mine valg'}"></a></h5>
+			<h5><a th:href="@{/diet/menu/gallery/} + ${dietMenu.id}" th:text="${'Gallery'}"></a></h5>
+		</div>
+		
+		<div class="input-group input-group-margin" >
+			<span class="input-group-addon">
+				<i class="glyphicon glyphicon-search"></i>
+			</span>
+			<label for="filterInputId" class="sr-only" th:text="${'Filter'}"></label>
+			<input id="filterInputId" type="text" class="form-control" placeholder="Filter text" />
+		</div>
+		
+		<table id="dietMenuTbl" class="table table-condensed">
+			<caption class="text-right">
+				<small th:text="#{lbl.lastupdated} + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}"></small>
+			</caption>
+			<thead>
+				<tr class="info">
+					<th colspan="2" class="text-left" th:text="${'Meny'}"></th>
+					<th class="text-right">
+						<a th:href="@{/diet/menuitem/new/} + ${dietMenu.id}" class="btn btn-primary btn-xs"><span th:text="${'Legg til'}"></span></a>
+					</th>
+				</tr>
+			</thead>
+			<tbody class="table-tbody">
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label breakfast-bgcolor">Frokost</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.breakfastMenuItems},isMenu=true)"></div>
+					
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label lunch-bgcolor">Lunsj</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.lunchMenuItems},isMenu=true)"></div>
+
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label dinner-bgcolor">Middag</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.dinnerMenuItems},isMenu=true)"></div>
+
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label dessert-bgcolor">Dessert</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.dessertMenuItems},isMenu=true)"></div>
+						
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label evening-bgcolor">Kveldsmat</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.eveningMenuItems},isMenu=true)"></div>
+
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label meal-between-bgcolor">Mellom Måltid</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.mealBetweenMenuItems},isMenu=true)"></div>
+
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label dinner-accessories-bgcolor">Middag Tilbehør</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.dinnerAccessoriesMenuItems},isMenu=false)"></div>
+					
+					<tr class="active">
+						<td colspan="3" class="text-left">
+							<span class="label dinner-portions-bgcolor">Middag Porsjoner</span>
+						</td>
+					</tr>
+					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.dinnerPortionMenuItems},isMenu=false)"></div>
+																									
+			</tbody>
+			<tfoot>
+				<tr class="info">
+					<td colspan="3" class="text-right">
+						<a th:href="@{/diet/listdietplans}" class="btn btn-primary btn-sm" th:text="#{btn.cancel}"></a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<!-- end container -->
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>

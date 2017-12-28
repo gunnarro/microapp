@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
+	<!-- Bootstrap Date-Picker Plugin -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+</head>
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+	
+	<div class="container-fluid">
+		
+		<ul class="breadcrumb">
+			<li><a th:href="@{/diet/log/events}" >Log</a></li>
+        	<li class="active">Hendelse</li>
+    	</ul>
+    	
+		<div class="panel panel-default">
+			<div class="panel-heading clearfix">
+				<div th:if="${log.id} != null" class="pull-right">
+					<div class="pull-right">
+						<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
+					</div>
+				</div>
+				<h3 class="panel-title">
+					Legg til ny hendelse
+				</h3>
+			</div>
+		
+			<!-- end panel header -->
+
+			<div class="panel-body">
+				<form action="#" th:object="${log}" th:action="@{${log.id == null ? '/diet/log/event/new' : '/diet/log/event/edit'}}" th:attr="method=${log.id == null ? 'POST' : 'PUT'}" >
+					<input th:if="${log.id} != null" type="hidden" th:field="*{id}" />
+					
+					<div th:class="form-group">
+						<label th:text="#{editweightlog.label.logdate}" class="control-label"></label>
+						<div class="controls">
+							<div class="input-group">
+								<input id="createdDate" name="createdDate" type="text" class="date-picker form-control" th:field="*{createdDate}" placeholder="dd.MM.yyyy" />
+								<label for="createdDate" class="input-group-addon btn">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+							
+					<div class="form-group">
+						<label>Opprettet av</label>
+						<p class="form-control-static" th:text="${log.createdByUser}"></p> 
+					</div>
+					<div class="form-group">
+						<label>Opprettet dato</label>
+						<p class="form-control-static" th:text="${#dates.format(log.createdDate, 'dd MMM yyyy HH:mm:ss')}"></p> 
+					</div>
+					<div class="form-group">
+						<label>Sist endret</label>
+						<p class="form-control-static" th:text="${#dates.format(log.lastModifiedDate, 'dd MMM yyyy HH:mm:ss')}"></p>
+					</div>
+					
+					<div class="form-group">
+						<label>Type</label>
+						<select class="form-control" th:field="*{level}" name="level" id="level">
+							<option th:value="INFO" th:text="Informasjon" ></option>
+							<option th:value="CONFLICT" th:text="Konflikt"></option>
+							<option th:value="ACTIVITY" th:text="Aktivitet"></option>
+							<option th:value="REPORT" th:text="Rapport"></option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label th:text="#{lable.title}"></label>
+						<input  th:required="required" class="form-control" type="text" th:field="*{title}" />
+						<label th:each="err : ${#fields.errors('title')}" th:text="${err}" class="help-block" ></label>
+					</div>
+					
+					<div class="form-group">
+						<label th:text="#{editweightlog.label.comment}"></label>
+						<textarea th:required="required" class="form-control" th:field="*{content}" ></textarea> 
+						<label th:each="err : ${#fields.errors('content')}" th:text="${err}" class="help-block" ></label>
+					</div>
+					
+					<p />
+
+					<button type="submit" class="btn btn-primary" th:if="${log.id} == null" th:text="#{btn.new}"></button>
+					<button type="submit" class="btn btn-primary" th:if="${log.id} != null" th:text="#{btn.update}"></button>
+					<a th:href="@{/diet/log/events}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
+				</form>
+			</div>
+			<!-- end panel body -->
+
+			<div class="panel-footer clearfix">
+				<div class="pull-right">
+					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
+				</div>
+			</div>
+
+			<!-- end panel footer -->
+		</div>
+		<!-- end panel -->
+	</div>
+	<!-- end container -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

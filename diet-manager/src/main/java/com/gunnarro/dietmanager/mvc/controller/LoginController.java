@@ -75,8 +75,8 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/error")
     public String error() {
-    	LOG.debug("return error page...");
-        return "/error/application-error";
+    	LOG.debug("return application error page...");
+        return "/application-error";
     }
 
     @GetMapping("/403")

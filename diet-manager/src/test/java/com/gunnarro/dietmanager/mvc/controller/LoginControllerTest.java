@@ -39,7 +39,7 @@ public class LoginControllerTest extends SpringTestSetup {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setRequestURI("/home");
         ModelAndView mv = controller.handleApplicationException(request, new ApplicationException("test handle application exception"));
-        Assert.assertEquals("application-error", mv.getViewName());
+        Assert.assertEquals("error", mv.getViewName());
         Assert.assertNotNull(mv.getModel().get("exception"));
         Assert.assertEquals("test handle application exception", ((Exception)mv.getModel().get("exception")).getMessage());
         Assert.assertEquals("/home", mv.getModel().get("requestUrl"));
@@ -51,7 +51,7 @@ public class LoginControllerTest extends SpringTestSetup {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setRequestURI("/home");
         ModelAndView mv = controller.handleSecurityException(request, new SecurityException("test handle security exception"));
-        Assert.assertEquals("application-error", mv.getViewName());
+        Assert.assertEquals("error", mv.getViewName());
         Assert.assertNotNull(mv.getModel().get("exception"));
         Assert.assertEquals("Access Denied. test handle security exception", ((Exception)mv.getModel().get("exception")).getMessage());
         Assert.assertEquals("/home", mv.getModel().get("requestUrl"));

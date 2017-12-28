@@ -50,6 +50,11 @@
 
 		<version.jasypt>1.9.2</version.jasypt>
 
+		<!-- cause sec:authorize="isAuthenticated()" problems in the top menu
+		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
+        	<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
+		-->
+
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>3.3.7</webjars-bootstrap.version>
 <!--		<webjars-bootstrap.version>4.0.0-alpha.3</webjars-bootstrap.version> -->

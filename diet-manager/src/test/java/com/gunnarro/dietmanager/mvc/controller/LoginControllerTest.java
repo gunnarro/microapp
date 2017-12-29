@@ -55,7 +55,7 @@ public class LoginControllerTest extends SpringTestSetup {
         Assert.assertNotNull(mv.getModel().get("exception"));
         Assert.assertEquals("Access Denied. test handle security exception", ((Exception)mv.getModel().get("exception")).getMessage());
         Assert.assertEquals("/home", mv.getModel().get("requestUrl"));
-        Assert.assertEquals("/diet-manager/home", mv.getModel().get("backUrl"));
+        Assert.assertEquals("/dietmanager/home", mv.getModel().get("backUrl"));
     }
     
     @Test

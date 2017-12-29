@@ -7,8 +7,8 @@
 # Server version: 5.5.52
 # PHP Version: 5.3.3
 
-DROP DATABASE dietmanager;
-CREATE DATABASE IF NOT EXISTS dietmanager;
+# DROP DATABASE dietmanager;
+# CREATE DATABASE IF NOT EXISTS dietmanager;
 USE dietmanager;
 
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';

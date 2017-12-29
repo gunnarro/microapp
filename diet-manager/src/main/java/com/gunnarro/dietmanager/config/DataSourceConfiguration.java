@@ -31,19 +31,19 @@ public class DataSourceConfiguration {
 
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
-	
-	@Value( "${jdbc.url}" )
+
+	@Value("${jdbc.url}")
 	private String jdbcUrl;
-	
-	@Value( "${jdbc.user}" )
+
+	@Value("${jdbc.user}")
 	private String jdbcUser;
-	
-	@Value( "${jdbc.pwd}" )
+
+	@Value("${jdbc.pwd}")
 	private String jdbcPwd;
-	
+
 	// bean is singleton as default
 	@Bean(name = "dietManagerDataSource")
-	 @Primary
+	@Primary
 	public DataSource dietManagerDataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
@@ -56,20 +56,21 @@ public class DataSourceConfiguration {
 		return ds;
 	}
 
-	
 	/**
 	 * same as dietmanager data source
+	 * 
 	 * @return
 	 */
 	@Bean(name = "logEventDataSource")
-	//	@Primary
+	// @Primary
 	public DataSource logEventDataSource() {
 		return dietManagerDataSource();
 	}
 
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
-		final DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dietManagerDataSource());
+		final DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(
+				dietManagerDataSource());
 		return transactionManager;
 	}
 

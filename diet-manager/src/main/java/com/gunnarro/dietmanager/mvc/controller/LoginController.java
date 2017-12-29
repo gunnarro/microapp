@@ -10,8 +10,6 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
 import com.gunnarro.useraccount.domain.user.LocalUser;
@@ -25,7 +23,7 @@ public class LoginController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @GetMapping("/home")
     public String home() {
         String redirectUrl = null;
         try {
@@ -67,7 +65,7 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/login")
     public String login() {
-        return "/login";
+        return "login";
     }
     
     /**
@@ -76,17 +74,17 @@ public class LoginController extends BaseController {
     @GetMapping("/error")
     public String error() {
     	LOG.debug("return application error page...");
-        return "/application-error";
+        return "application-error";
     }
 
     @GetMapping("/403")
     public String error403() {
-        return "/error/403";
+        return "error/403";
     }
     
     @GetMapping("/access-denied")
     public String denied() {
-        return "/access-denied";
+        return "access-denied";
     }
 
     
@@ -137,7 +135,7 @@ public class LoginController extends BaseController {
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         logoutLocalUser(request, response);
 //        logoutFaceBook();
-        return "redirect:/login?loggedout";
+        return "redirect:login?loggedout";
     }
 
     private void logoutLocalUser(HttpServletRequest request, HttpServletResponse response) {
@@ -177,7 +175,7 @@ public class LoginController extends BaseController {
 
     @GetMapping("/releasenotes")
     public String releasenotes() {
-        return "/release-notes";
+        return "release-notes";
     }
 
 }

@@ -37,10 +37,10 @@ import org.springframework.context.annotation.ComponentScan;
  * @author admin
  *
  */
-@SpringBootApplication
+@SpringBootApplication(exclude=SocialWebAutoConfiguration.class)
 //@ImportResource("spring/spring.xml")
 @ComponentScan("com.gunnarro.dietmanager.*")
-@EnableAutoConfiguration(exclude = SocialWebAutoConfiguration.class)
+//@EnableAutoConfiguration(exclude = SocialWebAutoConfiguration.class)
 public class DietManagerApp 
 //extends SpringBootServletInitializer 
 {

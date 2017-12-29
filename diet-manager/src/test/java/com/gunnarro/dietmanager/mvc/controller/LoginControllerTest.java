@@ -31,19 +31,19 @@ public class LoginControllerTest extends SpringTestSetup {
 
     @Test
     public void denied() throws Exception {
-        Assert.assertEquals("/access-denied", controller.denied());
+        Assert.assertEquals("access-denied", controller.denied());
     }
 
     @Test
     public void handleApplicationException() {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRequestURI("/home");
+        request.setRequestURI("home");
         ModelAndView mv = controller.handleApplicationException(request, new ApplicationException("test handle application exception"));
         Assert.assertEquals("error", mv.getViewName());
         Assert.assertNotNull(mv.getModel().get("exception"));
         Assert.assertEquals("test handle application exception", ((Exception)mv.getModel().get("exception")).getMessage());
-        Assert.assertEquals("/home", mv.getModel().get("requestUrl"));
-        Assert.assertEquals("/home", mv.getModel().get("backUrl"));
+        Assert.assertEquals("home", mv.getModel().get("requestUrl"));
+        Assert.assertEquals("home", mv.getModel().get("backUrl"));
     }
     
     @Test
@@ -74,7 +74,7 @@ public class LoginControllerTest extends SpringTestSetup {
     
     @Test
     public void login() throws Exception {
-        Assert.assertEquals("/login", controller.login());
+        Assert.assertEquals("login", controller.login());
     }
     
     @Test
@@ -86,7 +86,7 @@ public class LoginControllerTest extends SpringTestSetup {
         Authentication auth = new UsernamePasswordAuthenticationToken(principal, principal.getAuthorities());
         when(authenticationFacadeMock.getAuthentication()).thenReturn(auth);
         request.addParameter("parameterName", "someValue");
-        Assert.assertEquals("redirect:/login?loggedout", controller.logout(request, null));
+        Assert.assertEquals("redirect:login?loggedout", controller.logout(request, null));
     }
     
     @Test
@@ -98,7 +98,7 @@ public class LoginControllerTest extends SpringTestSetup {
         principal.setRoles(new ArrayList<Role>());
         Authentication auth = new UsernamePasswordAuthenticationToken(principal, principal.getAuthorities());
         when(authenticationFacadeMock.getAuthentication()).thenReturn(auth);
-        Assert.assertEquals("redirect:/login?loggedout", controller.logout(request, null));
+        Assert.assertEquals("redirect:login?loggedout", controller.logout(request, null));
     }
 
 }

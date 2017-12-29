@@ -79,7 +79,7 @@ public class BaseController {
 
 	@ExceptionHandler(SecurityException.class)
 	public ModelAndView handleSecurityException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), "/diet-manager/home", ex, "Access Denied. " + ex.getMessage());
+		return handleException(request.getRequestURI(), "/dietmanager/home", ex, "Access Denied. " + ex.getMessage());
 	}
 
 	@ExceptionHandler(SQLException.class)

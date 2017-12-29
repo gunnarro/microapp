@@ -13,7 +13,7 @@
 	</appender>
 
 	<appender name="debugfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${OPENSHIFT_LOG_DIR}/dietmanager-service.log</file>
+		<file>logs/dietmanager-service.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
 			<fileNamePattern>logs/dietmanager-service.log.%d{yyyy-MM-dd}

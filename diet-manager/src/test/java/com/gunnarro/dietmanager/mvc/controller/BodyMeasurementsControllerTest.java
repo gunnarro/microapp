@@ -46,6 +46,24 @@ public class BodyMeasurementsControllerTest extends SpringTestSetup {
         assertNotNull(modelAndView.getModel());
     }
 
+
+    @Test
+    public void viewWeightDetails() throws Exception {
+        ArrayList<HealthLogEntry> logList = new ArrayList<HealthLogEntry>();
+        logList.add(new HealthLogEntry(new Date(), 160.0, 45.3));
+        logList.add(new HealthLogEntry(new Date(), 160.1, 46.3));
+        logList.add(new HealthLogEntry(new Date(), 160.2, 44.3));
+        when(dietManagerServiceMock.getBodyMeasurementLogs(99)).thenReturn(logList);
+        when(dietManagerServiceMock.getGrowthReferenceDataForDateOfBirth(99)).thenReturn(new ReferenceData());
+        when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(99));
+        ModelAndView modelAndView = controller.getWeightDetails();
+        assertEquals("log/view-weight-details", modelAndView.getViewName());
+        assertNotNull(modelAndView.getModel());
+        assertNotNull(modelAndView.getModel().get("referenceData"));
+        assertNotNull(modelAndView.getModel().get("myStatistic"));
+    }
+
+    
     @Test
     public void viewWeightLog() throws Exception {
         ArrayList<HealthLogEntry> logList = new ArrayList<HealthLogEntry>();
@@ -58,14 +76,10 @@ public class BodyMeasurementsControllerTest extends SpringTestSetup {
         ModelAndView modelAndView = controller.getLog();
         assertEquals("log/view-weight-log", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
-        assertNotNull(modelAndView.getModel().get("referenceData"));
-        assertNotNull(modelAndView.getModel().get("myStatistic"));
         List<HealthLogEntry> list = (List<HealthLogEntry>) modelAndView.getModel().get("logs");
         assertNotNull(list);
         assertEquals(3, list.size());
-        assertEquals(-1, list.get(0).getTrendWeight().intValue());
-        assertEquals(1, list.get(1).getTrendWeight().intValue());
-        assertEquals(0, list.get(2).getTrendWeight().intValue());
+        assertEquals(0, list.get(0).getTrendWeight().intValue());
     }
 
 }

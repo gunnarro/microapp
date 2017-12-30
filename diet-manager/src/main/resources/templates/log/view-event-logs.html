@@ -80,7 +80,7 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 	<div class="container-fluid">
 
 		<div class="page-header">
-			<h4>Event Log</h4>
+			<h4 th:text="#{eventlog.title}"></h4>
 			<!-- 
 			<form action="/diet-manager/diet/log/events/filter" method="GET" id="event-log-filter-form" enctype="application/x-www-form-urlencoded">
 					<select class="form-control" id="filterBy" name="filterBy">
@@ -94,20 +94,20 @@ $.expr[":"].containsNoCase = function (el, i, m) {
   			
 			<div class="btn-group btn-group-xs" role="group">
 				<button onclick="openAll();" type="button" class="btn btn-default">Lukk alle</button>
-				<button onclick="closeAll();" type="button" class="btn btn-default">�pne alle</button>
+				<button onclick="closeAll();" type="button" class="btn btn-default">åpne alle</button>
 			</div>
 			 -->
 			<div class="input-group input-group-margin" >
 				<span class="input-group-addon">
 					<i class="glyphicon glyphicon-search"></i>
 				</span>
-				<label for="txtSearchPage" class="sr-only">Filter log</label>
-				<input id="txtSearchPage" type="text" class="form-control" placeholder="Filter text" />
+				<label for="txtSearchPage" class="sr-only" th:text="#{eventlog.lbl.filter_log}"></label>
+				<input id="txtSearchPage" type="text" class="form-control" th:placeholder="#{eventlog.lbl.filter_log}" />
 			</div>
 			<p></p>
 			<div class="pull-right">
-				<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs">Ny logg</a>
-				<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs">Vis tekst</a>
+				<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.new_log}" ></a>
+				<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.view_text}" ></a>
 			</div>
 		</div>
 		<!-- End page header -->
@@ -131,10 +131,10 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 							<div class="panel-body" th:utext="${log.contentHtml}"></div>
 							<div class="panel-footer clearfix panel-footer-sm">
 								<div class="pull-left">
-									<small><span th:text="'Created by ' + ${log.createdByUser}"></span></small>
+									<small><span th:text="#{lbl.created_by} + ' ' + ${log.createdByUser}"></span></small>
 								</div>
 								<div class="pull-right">
-									<a th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-default btn-xs"><small th:text="'View Comments(' + ${log.numberOfComments} + ')'"></small>)</a>
+									<a th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-default btn-xs"><small th:text="#{eventlog.btn.view_comments} + ' (' + ${log.numberOfComments} + ')'"></small>)</a>
 									<span th:if="${#authentication.name == log.createdByUser}">
 										<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
 										<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash"></i></a>

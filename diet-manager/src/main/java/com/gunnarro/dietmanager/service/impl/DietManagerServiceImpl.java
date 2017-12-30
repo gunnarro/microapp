@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,8 +137,30 @@ public class DietManagerServiceImpl implements DietManagerService {
 
     @Override
     public List<HealthLogEntry> getBodyMeasurementLogs(Integer userId) {
-        List<HealthLogEntry> bodyMeasurementsLog = dietManagerRepository.getBodyMeasurementLogs(userId);
-        return bodyMeasurementsLog;
+        List<HealthLogEntry> logs = dietManagerRepository.getBodyMeasurementLogs(userId);
+        // set trend
+        DateTime toDate = new DateTime();
+        DateTime lastDays = toDate.minusDays(365 * 5);// last 5 year
+        // The most recent log is at index 0
+        for (int i = 0; i < logs.size() - 1; i++) {
+            if (logs.get(i).getLogDate().before(lastDays.toDate())) {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Reached filter limit of days! Stopped at date: " + lastDays.toString());
+                }
+                break;
+            }
+            
+            // double diffHeight = logs.get(i).getHeight() - logs.get(i + 1).getHeight();
+            double diffWeight = logs.get(i).getWeight() - logs.get(i + 1).getWeight();
+            if (diffWeight > 0) {
+                logs.get(i).setTrendWeight(1);
+            } else if (diffWeight < 0) {
+                logs.get(i).setTrendWeight(-1);
+            } else {
+                logs.get(i).setTrendWeight(0);
+            }
+        } // end loop
+        return logs;
     }
 
     @Override

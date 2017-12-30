@@ -9,21 +9,20 @@
 	<div class="container-fluid">
 		
 		<ul class="breadcrumb">
-			<li><a th:href="@{/diet/log/events}" >Log</a></li>
-			<li><a th:href="@{/diet/log/event/view/} + ${log.id}" >Hendelse</a></li>
-        	<li class="active">Legg til kommentar</li>
+			<li><a th:href="@{/diet/log/events}" th:text="#{topmenu.log}"></a></li>
+			<li><a th:href="@{/diet/log/event/view/} + ${log.id}" th:text="#{lbl.event}"></a></li>
+        	<li class="active" th:text="#{lbl.comment}"></li>
     	</ul>
 		
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
 				<div th:if="${comment.id} != null" class="pull-right">
 					<div class="pull-right">
-						<a th:href="${/diet/log/event/comment/delete/} + ${comment.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}">delete</a>
+						<a th:href="${/diet/log/event/comment/delete/} + ${comment.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
 					</div>
 				</div>
-				<h3 class="panel-title">
-					Legg til ny kommentar
-				</h3>
+				<h3 th:if="${comment.id} == null" class="panel-title" th:text="#{editeventlog.title_comment}"></h3>
+				<h3 th:if="${comment.id} != null" class="panel-title" th:text="#{editeventlog.title_comment_update}"></h3>
 			</div>
 			<!-- end panel header -->
 

@@ -12,11 +12,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import junit.framework.Assert;
-
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.joda.time.DateTime;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,9 +23,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
 import com.gunnarro.dietmanager.service.DietManagerService;
 
+import junit.framework.Assert;
+
 public class UtilityTest {
 
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    
+    @Test
+    public void locale() {
+    	Locale locale = Locale.ENGLISH;
+    	System.out.println(locale.toLanguageTag());
+    	System.out.println(locale.getISO3Country());
+    	System.out.println(locale.getISO3Language());
+    }
     
     @Test
     public void convertMarkdown() {

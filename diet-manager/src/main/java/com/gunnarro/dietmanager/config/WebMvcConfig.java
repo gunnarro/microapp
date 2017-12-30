@@ -4,20 +4,35 @@ import java.util.Locale;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+	/**
+	 * <init-param> <param-name>cors.allowed.methods</param-name>
+	 * <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value> </init-param>
+	 * 
+	 * @return
+	 */
+	// @Bean
+	// public EmbeddedServletContainerFactory servletContainer() {
+	// TomcatEmbeddedServletContainerFactory tomcat = new
+	// TomcatEmbeddedServletContainerFactory();
+	// return tomcat;
+	// }
+	//
+
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedMethods("GET", "POST", "HEAD", "PUT", "OPTIONS");
+	}
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -27,7 +42,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver slr = new SessionLocaleResolver();
-		slr.setDefaultLocale(Locale.ENGLISH);
+		slr.setDefaultLocale(new Locale("no"));
 		return slr;
 	}
 
@@ -43,32 +58,33 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(localeChangeInterceptor());
 	}
 
-//	@Bean
-//	@Description("Thymeleaf template resolver serving HTML 5")
-//	public ClassLoaderTemplateResolver templateResolver() {
-//		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-//		templateResolver.setPrefix("templates/");
-//		templateResolver.setCacheable(false);
-//		templateResolver.setSuffix(".html");
-//		templateResolver.setTemplateMode("HTML5");
-//		templateResolver.setCharacterEncoding("UTF-8");
-//		return templateResolver;
-//	}
-//
-//	@Bean
-//	@Description("Thymeleaf template engine with Spring integration")
-//	public SpringTemplateEngine templateEngine() {
-//		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-//		templateEngine.setTemplateResolver(templateResolver());
-//		return templateEngine;
-//	}
-//
-//	@Bean
-//	@Description("Thymeleaf view resolver")
-//	public ViewResolver viewResolver() {
-//		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-//		viewResolver.setTemplateEngine(templateEngine());
-//		viewResolver.setCharacterEncoding("UTF-8");
-//		return viewResolver;
-//	}
+	// @Bean
+	// @Description("Thymeleaf template resolver serving HTML 5")
+	// public ClassLoaderTemplateResolver templateResolver() {
+	// ClassLoaderTemplateResolver templateResolver = new
+	// ClassLoaderTemplateResolver();
+	// templateResolver.setPrefix("templates/");
+	// templateResolver.setCacheable(false);
+	// templateResolver.setSuffix(".html");
+	// templateResolver.setTemplateMode("HTML5");
+	// templateResolver.setCharacterEncoding("UTF-8");
+	// return templateResolver;
+	// }
+	//
+	// @Bean
+	// @Description("Thymeleaf template engine with Spring integration")
+	// public SpringTemplateEngine templateEngine() {
+	// SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+	// templateEngine.setTemplateResolver(templateResolver());
+	// return templateEngine;
+	// }
+	//
+	// @Bean
+	// @Description("Thymeleaf view resolver")
+	// public ViewResolver viewResolver() {
+	// ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+	// viewResolver.setTemplateEngine(templateEngine());
+	// viewResolver.setCharacterEncoding("UTF-8");
+	// return viewResolver;
+	// }
 }

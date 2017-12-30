@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
-<style type="text/css">
-	.table-condensed>thead>tr>th, 
-	.table-condensed>tbody>tr>th,
-	.table-condensed>tfoot>tr>th, 
-	.table-condensed>thead>tr>td,
-	.table-condensed>tbody>tr>td, 
-	.table-condensed>tfoot>tr>td {padding: 3px;}
-</style>
 </head>
 <body>
 		<table th:fragment="log-data-table" id="myWieghtTbl" class="table table-condensed">
@@ -16,14 +8,13 @@
 				<small th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></small>
 			</caption>
 			<thead>
-				<tr class="info">
+				<tr>
 					<th colspan="6" class="text-left">Min Vekt</th>
 					<th class="text-right">
-						<a th:href="@{/diet/body/measurement/new}" class="btn btn-primary btn-xs"><span>Legg til</span>
-						</a>
+						<a th:href="@{/diet/body/measurement/new}" class="btn btn-primary btn-xs"><span>Legg til</span></a>
 					</th>
 				</tr>
-				<tr class="info">
+				<tr>
 					<th><small>#</small></th>
 					<th><small>Dato</small></th>
 					<th><small>Vekt (kg)</small></th>
@@ -64,9 +55,9 @@
 					</tr>
 			</tbody>
 			<tfoot>
-				<tr class="info">
+				<tr>
 					<td colspan="7" class="text-right">
-						<a th:href="@{/home}" th:text="#{btn.back}"></a>
+						<a th:href="@{/home}" class="btn btn-primary btn-xs"><span th:text="#{btn.back}"></span></a>
 					</td>
 				</tr>
 			</tfoot>

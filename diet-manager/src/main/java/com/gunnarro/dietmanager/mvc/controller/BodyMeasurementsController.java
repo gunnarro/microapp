@@ -45,6 +45,13 @@ public class BodyMeasurementsController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BodyMeasurementsController.class);
 
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
+    }
+    
     /**
      * 
      */
@@ -69,13 +76,15 @@ public class BodyMeasurementsController extends BaseController {
         return modelView;
     }
 
-    @RequestMapping(value = "/diet/body/measurement/log", method = RequestMethod.GET)
+    
+    @RequestMapping(value = "/diet/body/measurement/details", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView getLog() {
+    public ModelAndView getWeightDetails() {
         LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
         if (loggedInUser == null) {
             throw new ApplicationException("Not logged in!");
         }
+        
         List<HealthLogEntry> logs = dietManagerService.getBodyMeasurementLogs(loggedInUser.getId());
 
         BodyMeasurementStatistic statistic = new BodyMeasurementStatistic();
@@ -121,14 +130,11 @@ public class BodyMeasurementsController extends BaseController {
                 if (diffWeight > 0) {
                     trend.increaseUp();
                     avgWeightUp = +diffWeight;
-                    logs.get(i).setTrendWeight(1);
                 } else if (diffWeight < 0) {
                     trend.increaseDown();
                     avgWeightDown = +diffWeight;
-                    logs.get(i).setTrendWeight(-1);
                 } else {
                     trend.increaseNeutral();
-                    logs.get(i).setTrendWeight(0);
                 }
                 // collect statistics
                 statistic.setMaxWeight(Math.max(statistic.getMaxWeight(), logs.get(i).getWeight()));
@@ -160,16 +166,26 @@ public class BodyMeasurementsController extends BaseController {
         }
 
         ReferenceData referenceData = dietManagerService.getGrowthReferenceDataForDateOfBirth(loggedInUser.getId());
-        // BodyMeasurementStatistic statistic =
-        // dietManagerService.getBodyMeasurementStatistic(loggedInUser.getId(),
-        // 90);
+        
+        ModelAndView modelView = new ModelAndView("log/view-weight-details");
+        modelView.getModel().put("referenceData", referenceData);
+        modelView.getModel().put("myStatistic", statistic);
+        return modelView;
+    }
+    
+    @RequestMapping(value = "/diet/body/measurement/log", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView getLog() {
+        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+        if (loggedInUser == null) {
+            throw new ApplicationException("Not logged in!");
+        }
+        List<HealthLogEntry> logs = dietManagerService.getBodyMeasurementLogs(loggedInUser.getId());
         if (LOG.isDebugEnabled()) {
             LOG.debug("number of log entries: " + logs.size());
         }
         ModelAndView modelView = new ModelAndView("log/view-weight-log");
         modelView.getModel().put("logs", logs);
-        modelView.getModel().put("referenceData", referenceData);
-        modelView.getModel().put("myStatistic", statistic);
         return modelView;
     }
 
@@ -214,13 +230,6 @@ public class BodyMeasurementsController extends BaseController {
             status.setComplete();
             return "redirect:/diet/body/measurement/log";
         }
-    }
-
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
     }
 
 }

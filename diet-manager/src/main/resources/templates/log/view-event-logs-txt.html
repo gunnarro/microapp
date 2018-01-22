@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-        <!-- this is header-css -->
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
+<head th:include="fragments/head-include :: head-include">
 </head>
 <body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>

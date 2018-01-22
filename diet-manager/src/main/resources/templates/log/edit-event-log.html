@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-<head>
-	<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
-	<!-- Bootstrap Date-Picker Plugin -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<head th:include="fragments/head-include :: head-include">
 </head>
 <body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
@@ -65,6 +61,7 @@
 							<option th:value="CONFLICT" th:text="Konflikt"></option>
 							<option th:value="ACTIVITY" th:text="Aktivitet"></option>
 							<option th:value="REPORT" th:text="Rapport"></option>
+							<option th:value="GAMING" th:text="Spilling"></option>
 						</select>
 					</div>
 					

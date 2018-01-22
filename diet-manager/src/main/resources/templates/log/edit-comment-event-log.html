@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-<head>
-	<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
+<head th:include="fragments/head-include :: head-include">
 </head>
 <body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>

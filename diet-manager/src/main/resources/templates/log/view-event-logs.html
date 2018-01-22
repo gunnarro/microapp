@@ -1,84 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" >
-<head>
-        <!-- this is header-css -->
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	<link href="../static/css/icomoon-icon-font.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
-    	<!-- markdown import -->
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"/>
-		<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-
-<style type="text/css">
-.page-header { 
-	border-bottom:none; 
-}
-.panel-heading a:after {
-	font-family: 'Glyphicons Halflings';
-	content: "\e114";
-	float: right;
-	color: grey;
-}
-
-.panel-heading a.collapsed:after {
-	content: "\e080";
-}
-
-.panel-heading-sm, .panel-footer-sm {
-	height: 28px;
-	padding: 4px 10px;
-}
-pre {
-  font-family: "Times New Roman", Georgia, Serif;
-  white-space: pre-wrap;
-  word-break: normal;
-  color: #333;
-  background-color: #FFFFFF; 
-  padding: 1px;
-  margin: 0 0 1px;
-  font-size: 12px;
-  border: none;
-}
-</style>
-
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#txtSearchPage").keyup(function() {
-	    var search = $(this).val();
-	    $(".panel").show();
-	    if (search) {
-	        $(".panel").not(":containsNoCase(" + search + ")").hide();
-	    }
-	});
-});
-
-$.expr[":"].containsNoCase = function (el, i, m) {
-	var search = m[3];
-	if (!search) { return false };
-	console.log("search: " + search + ", el: " + el);
-	return new RegExp(search,"i").test($(el).text());
-};
-
-	var options = {
-		  valueNames: [ 'panel-title' ]
-	};
-
-	var userList = new List('loglist', options);
-
-	function closeAll() {
-		$('.panel-collapse.in').collapse('hide');
-	}
-	function openAll() {
-		$('.panel-collapse:not(".in")').collapse('show');
-	};
-</script>
+<head th:replace="fragments/head-include :: head-include">
 </head>
-
 <body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div> 
-
-	<div class="container-fluid">
-
+	<div class="container-fluid" >
 		<div class="page-header">
 			<h4 th:text="#{eventlog.title}"></h4>
 			<!-- 
@@ -123,6 +49,7 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 									<span th:if="${log.level == 'ACTIVITY'}" th:text="${log.level}" class="label label-success" ></span> 
 									<span th:if="${log.level == 'REPORT'}" th:text="${log.level}" class="label label-warning" ></span> 
 									<span th:if="${log.level == 'CONFLICT'}" th:text="${log.level}" class="label label-danger" ></span> 
+									<span th:if="${log.level == 'GAMING'}" th:text="${log.level}" class="label label-default" ></span> 
 									<span> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{'#collapse_' + ${iter.index}}" th:text="${log.title}"></a></span>
 								</small>
 							</h6>
@@ -146,10 +73,44 @@ $.expr[":"].containsNoCase = function (el, i, m) {
 								</div>
 							</div>
 					</div>
-				</div> <!-- panel child -->
+				</div>
 			</div>
-		</div>
-	</div>
+		</div> <!-- end panel group -->
+	</div> <!-- end container -->
+	
 	<div th:replace="fragments/footer :: footer"></div>
+	
+	<!-- Put java script at end of document -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#txtSearchPage").keyup(function() {
+	    var search = $(this).val();
+	    $(".panel").show();
+	    if (search) {
+	        $(".panel").not(":containsNoCase(" + search + ")").hide();
+	    }
+	});
+});
+
+$.expr[":"].containsNoCase = function (el, i, m) {
+	var search = m[3];
+	if (!search) { return false };
+	console.log("search: " + search + ", el: " + el);
+	return new RegExp(search,"i").test($(el).text());
+};
+
+var options = {
+	  valueNames: [ 'panel-title' ]
+};
+
+var userList = new List('loglist', options);
+
+function closeAll() {
+	$('.panel-collapse.in').collapse('hide');
+}
+function openAll() {
+	$('.panel-collapse:not(".in")').collapse('show');
+};
+</script>	
 </body>
 </html>

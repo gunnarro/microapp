@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-  
-  <title>DietManager</title>
-	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-	<link rel="stylesheet" th:href="@{/css/dietmanager.css}" href="../../css/dietmanager.css" />
-    
-    <style type="text/css">
-	.jumbotron {
-	    background: #fff url("/images/background.jpg") no-repeat center center fixed;
-		background-size: cover;
-	    -moz-background-size: cover;
-	    -webkit-background-size: cover;
-	    -o-background-size: cover;
-	}
-	.input-group-margin {
-		margin-bottom: 10px;
-	}
-	</style>
+<head th:replace="fragments/head-include :: head-include">
 </head>
 <body>
 

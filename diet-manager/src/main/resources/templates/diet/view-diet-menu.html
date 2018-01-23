@@ -1,21 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-		<script type="text/javascript" src="/dietmanager/js/dietmanager.js"></script>
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
-
-	<style type="text/css">
-		.table-condensed>thead>tr>th, 
-		.table-condensed>tbody>tr>th,
-		.table-condensed>tfoot>tr>th, 
-		.table-condensed>thead>tr>td,
-		.table-condensed>tbody>tr>td, 
-		.table-condensed>tfoot>tr>td {padding: 3px;}
-	</style>
-	
-	<script type="text/javascript">
+<head th:include="fragments/head-include :: head-include">
+</head>
+<body>
+<script type="text/javascript">
 	$(document).ready(function () {
 	    (function ($) {
 	        $('#filterInputId').keyup(function () {
@@ -29,8 +17,6 @@
 	    }(jQuery));
 	});
 	</script>
-</head>
-<body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 
 	<div class="container-fluid">
@@ -104,14 +90,14 @@
 
 					<tr class="active">
 						<td colspan="3" class="text-left">
-							<span class="label meal-between-bgcolor">Mellom Måltid</span>
+							<span class="label meal-between-bgcolor">Mellom M��ltid</span>
 						</td>
 					</tr>
 					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.mealBetweenMenuItems},isMenu=true)"></div>
 
 					<tr class="active">
 						<td colspan="3" class="text-left">
-							<span class="label dinner-accessories-bgcolor">Middag Tilbehør</span>
+							<span class="label dinner-accessories-bgcolor">Middag Tilbeh��r</span>
 						</td>
 					</tr>
 					<div th:replace="fragments/menu-item-list :: menu-item-list(menuItems=${dietMenu.dinnerAccessoriesMenuItems},isMenu=false)"></div>

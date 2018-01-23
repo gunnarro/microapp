@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-        <!-- this is header-css -->
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	<link href="../static/css/dietmanager.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/>
-		
-		<style type="text/css">
-		.table-condensed>thead>tr>th, 
-		.table-condensed>tbody>tr>th,
-		.table-condensed>tfoot>tr>th, 
-		.table-condensed>thead>tr>td,
-		.table-condensed>tbody>tr>td, 
-		.table-condensed>tfoot>tr>td {padding: 3px;}
-	</style>
+<head th:include="fragments/head-include :: head-include">
 </head>
 <body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>

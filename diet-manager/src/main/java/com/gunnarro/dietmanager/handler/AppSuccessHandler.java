@@ -21,14 +21,20 @@ import com.gunnarro.dietmanager.mvc.controller.AppAuthenticationEntryPoint;
 import com.gunnarro.useraccount.repository.table.user.RolesTable.RolesEnum;
 
 /**
+ * 
+ * @author mentos
+ *
  */
 @Component
 public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AppAuthenticationEntryPoint.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AppSuccessHandler.class);
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         LOG.debug("authentication: " + authentication.toString());
@@ -42,6 +48,7 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
             }
             return;
         }
+        LOG.debug("redirect to: " + targetUrl);
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
@@ -56,7 +63,6 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         for (GrantedAuthority a : authorities) {
             roles.add(a.getAuthority());
         }
-
         if (isAdmin(roles) || isUser(roles)) {
             url = "/home";
         } else {
@@ -82,11 +88,17 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;

@@ -447,7 +447,9 @@ VALUES
 DELETE FROM event_log_comment WHERE id > 0;
 INSERT INTO `event_log_comment` 
 VALUES 
-(1,now(),now(), 6, 1, 'title mamma', 'added comment');
+(1,now(),now(), 6, 1, 'title mamma', 'added comment'),
+(2,now(),now(), 5, 4, 'title pappa 1', 'added comment 1'),
+(3,now(),now(), 5, 4, 'title pappa 2', 'added comment 2');
 /*!40000 ALTER TABLE `event_log_comment` ENABLE KEYS */;
 
 /*!40000 ALTER TABLE `childeren` DISABLE KEYS */;

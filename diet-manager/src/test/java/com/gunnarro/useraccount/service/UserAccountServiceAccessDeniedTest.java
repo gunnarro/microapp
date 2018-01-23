@@ -15,11 +15,12 @@ import com.gunnarro.dietmanager.config.BeanConfiguration;
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.SecurityConfiguration;
 import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.handler.AppSuccessHandler;
 import com.gunnarro.useraccount.domain.user.LocalUser;
 import com.gunnarro.useraccount.service.impl.UserAccountServiceImpl;
 
 
-@ContextConfiguration(classes={BeanConfiguration.class, TestDataSourceConfiguration.class, UserAccountServiceImpl.class, SecurityConfiguration.class })
+@ContextConfiguration(classes={BeanConfiguration.class, TestDataSourceConfiguration.class, UserAccountServiceImpl.class, SecurityConfiguration.class, AppSuccessHandler.class })
 @Transactional(timeout = 10)
 public class UserAccountServiceAccessDeniedTest  extends DefaultTestConfig {
 

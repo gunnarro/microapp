@@ -42,10 +42,10 @@
 				<p class="text-left" th:text="${log.contentHtml}"></p>
 			  </li>
   
-			   <th:block th:if="${!log.logComments.isEmpty()}" th:eache="comment, iter : ${log.logComments}">
+			   <th:block th:if="${!log.logComments.isEmpty()}" th:each="comment : ${log.logComments}">
 				     <li class="list-group-item list-group-item-info" style="margin: 0px 0px 10px 25px;">
-			    		<h5><small th:inline="text">[[#{lbl.created_date}]] [[${#dates.format(comment.createdDate, 'EEEE dd.MM.yyyy HH:mm:ss')}]] [[#{lbl.by}]] [[${comment.createdByUser}]]</small></h5>
-						<p class="text-left" th:text="*{contentHtml}"></p>
+				     	<h5><small th:inline="text">[[#{lbl.created_date}]] [[${#dates.format(comment.createdDate, 'EEEE dd.MM.yyyy HH:mm:ss')}]] [[#{lbl.by}]] [[${comment.createdByUser}]]</small></h5>
+						<p class="text-left" th:text="${comment.content}"></p>
 			  		</li>
 			  </th:block>
 			</ul> 

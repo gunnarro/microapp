@@ -86,6 +86,7 @@ public class LogEventController extends BaseController {
             throw new ApplicationException("Not logged in!");
         }
         LogEntry logEvent = logEventService.getLogEvent(loggedInUser.getId(), logId);
+        LOG.debug(logEvent.toString());
         ModelAndView modelView = new ModelAndView("log/view-log-event");
         modelView.getModel().put("log", logEvent);
         return modelView;
@@ -165,7 +166,7 @@ public class LogEventController extends BaseController {
      * Use PUT for updates
      * 
      */
-    @RequestMapping(value = "/diet/log/event/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/diet/log/event/edit", method = RequestMethod.POST)
     public String processUpdateLogEventForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result, SessionStatus status) {
         if (LOG.isDebugEnabled()) {
             LOG.debug(log.toString());
@@ -186,7 +187,7 @@ public class LogEventController extends BaseController {
      * Use PUT for updates
      * 
      */
-    @RequestMapping(value = "/diet/log/event/edit/{logEventId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/diet/log/event/edit/{logEventId}", method = RequestMethod.POST)
     public String processUpdateLogEventIdForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result, SessionStatus status) {
         if (LOG.isDebugEnabled()) {
             LOG.debug(log.toString());

@@ -17,11 +17,12 @@ import com.gunnarro.dietmanager.config.BeanConfiguration;
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.SecurityConfiguration;
 import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.handler.AppSuccessHandler;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
-@ContextConfiguration(classes={ BeanConfiguration.class, TestDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class})
+@ContextConfiguration(classes={ BeanConfiguration.class, TestDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class, AppSuccessHandler.class})
 @Transactional(timeout=10)
 @Rollback
 public class DietManagerServiceAccessDeniedTest  extends DefaultTestConfig {

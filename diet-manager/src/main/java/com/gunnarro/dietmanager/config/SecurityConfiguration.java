@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.gunnarro.dietmanager.handler.AppSuccessHandler;
 import com.gunnarro.dietmanager.handler.CustomAccessDeniedHandler;
 
 /**
@@ -21,6 +22,9 @@ import com.gunnarro.dietmanager.handler.CustomAccessDeniedHandler;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
+	@Autowired
+	private AppSuccessHandler successHandler;
+	
 	@Autowired
 	private CustomAccessDeniedHandler accessDeniedHandler;
 	
@@ -56,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").hasAnyRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                	.formLogin()
+                	.formLogin().successHandler(successHandler)
                 	.loginPage("/login")
                 	.permitAll()
                 .and()

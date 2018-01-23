@@ -67,4 +67,10 @@ public class LogComment extends BaseDomain {
 		this.isPrivate = isPrivate;
 	}
 
+	@Override
+	public String toString() {
+		return "LogComment [id=" + getId() +  ", content=" + content + ", createdByUser=" + createdByUser + "]";
+	}
+
+	
 }

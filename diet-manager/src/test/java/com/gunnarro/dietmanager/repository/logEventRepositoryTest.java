@@ -79,6 +79,14 @@ public class logEventRepositoryTest extends DefaultTestConfig {
     }
 
     @Test
+    public void getLogComments() {
+    	assertEquals(2, logEventRepository.getLogComments(4).size());
+//    	for ( LogComment comment: logEventRepository.getLogComments(4)) {
+//    		System.out.println(comment);
+//    	}
+    }
+    
+    @Test
     public void createLogComment() {
         int userId = 5;
         LogEntry newLog = new LogEntry();
@@ -99,6 +107,7 @@ public class logEventRepositoryTest extends DefaultTestConfig {
         assertEquals(id, logEntry.getId());
         assertEquals(1, logEntry.getNumberOfComments());
         assertEquals("guest", logEntry.getLogComments().get(0).getCreatedByUser());
+        assertNotNull(logEntry.getLogComments().get(0).getCreatedDate());
         assertEquals("comment 1", logEntry.getLogComments().get(0).getContent());
         assertEquals(3, logEntry.getLogComments().get(0).getFkUserId().intValue());
     }

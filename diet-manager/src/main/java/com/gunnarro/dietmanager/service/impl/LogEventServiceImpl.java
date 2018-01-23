@@ -34,6 +34,7 @@ public class LogEventServiceImpl implements LogEventService {
      */
     @Override
     public LogEntry getLogEvent(Integer userId, int logEntryId) {
+    	LOG.debug("userId=" + userId + ", logEntryId=" + logEntryId);
         return logEventRepository.getLogEvent(userId, logEntryId);
     }
 

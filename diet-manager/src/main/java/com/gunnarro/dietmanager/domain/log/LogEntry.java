@@ -122,8 +122,9 @@ public class LogEntry extends BaseDomain {
 
 	@Override
 	public String toString() {
-		return "LogEntry [title=" + title + ", content=" + content + ", level="
-				+ level + ", getFkUserId()=" + getFkUserId()
-				+ ", number of comments=" + this.numberOfComments + "]";
+		return "LogEntry [id=" + getId() + ", content=" + content + ", level=" + level + ", title=" + title + ", logComments=" + logComments
+				+ ", numberOfComments=" + numberOfComments + "]";
 	}
+
+	
 }

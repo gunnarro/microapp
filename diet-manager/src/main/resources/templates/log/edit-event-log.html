@@ -26,7 +26,7 @@
 			<!-- end panel header -->
 
 			<div class="panel-body">
-				<form action="#" th:object="${log}" th:action="@{${log.id == null ? '/diet/log/event/new' : '/diet/log/event/edit'}}" th:attr="method=${log.id == null ? 'POST' : 'PUT'}" >
+				<form action="#" th:object="${log}" th:action="@{${log.id == null ? '/diet/log/event/new' : '/diet/log/event/edit'}}" th:attr="method=${log.id == null ? 'POST' : 'POST'}" >
 					<input th:if="${log.id} != null" type="hidden" th:field="*{id}" />
 					
 					<div th:class="form-group">

@@ -134,7 +134,5 @@ public class LogEventServiceImpl implements LogEventService {
 	public void setAuthenticationFacade(AuthenticationFacade authenticationFacade) {
 		this.authenticationFacade = authenticationFacade;
 	}
-	
-	
 
 }

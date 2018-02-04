@@ -78,7 +78,9 @@ public class LogEventController extends BaseController {
 		}
 		ModelAndView modelView = new ModelAndView("log/view-event-logs");
 		modelView.getModel().put("logs", logs);
-		modelView.getModel().put("number_of_logs", logs.size());
+		modelView.getModel().put("numberOfLogs", logs.size());
+		modelView.getModel().put("logsFromDate", !logs.isEmpty() ? logs.get(logs.size()-1).getCreatedDate() : new Date());
+		modelView.getModel().put("logsToDate", !logs.isEmpty() ? logs.get(0).getCreatedDate() : new Date());
 		return modelView;
 	}
 

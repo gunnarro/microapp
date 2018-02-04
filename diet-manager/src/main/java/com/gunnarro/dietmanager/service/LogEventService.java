@@ -57,7 +57,8 @@ public interface LogEventService {
      * @param id
      * @return
      */
-    @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE') and @logEventService.hasAccess(#log.id, authentication.name)")
+//  Bug, bean not found  @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE') and @logEventService.hasAccess(#log.id, authentication.name)")
+    @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE')")
     public int deleteLogEvent(Integer userId, Integer id);
     
     /**

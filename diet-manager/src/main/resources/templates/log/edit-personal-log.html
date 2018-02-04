@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="fragments/head-include :: head-include">
+</head>
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+	
+	<script type="text/javascript">
+	function selectUserNew(elementName, userId) {
+		 var currentValue = $("#" + elementName + "InputId").val();
+		 if (currentValue != userId) {
+			// uncheck all buttons
+			$("#" + elementName + "BtnGroupId I").each(function (index, value) { 
+				 // alert('div' + index + ':' + $(this).attr('id')); 
+				  $(this).removeClass("glyphicon-check").addClass("glyphicon-unchecked");
+				});
+			// check the selected button only
+		 	$("#" + elementName + "InputId").val(userId);
+		 	$('#' + elementName + 'Btn' + userId).toggleClass("glyphicon-unchecked glyphicon-check");
+		 }
+	}
+	
+	function selectConflict(btnId, value) {
+		 var currentValue = $("#conflictInputId").val();
+		 if (currentValue != value) {
+		 	$("#conflictInputId").val(value);
+		 	$('#icoBtn4').toggleClass("glyphicon-unchecked glyphicon-check");
+		 	$('#icoBtn5').toggleClass("glyphicon-unchecked glyphicon-check");
+
+		 	if (value == 0) {
+		 		 $('#conflictDescriptInputId').attr('disabled', 'disabled');
+			 } else {
+		 		 $('#conflictDescriptInputId').removeAttr('disabled');
+			 }
+		 }
+	}   
+
+	function refreshMealSelectionList() {
+		var selectedDate = $("#createdDate").val(); 
+		$("#meal-selection-id").load(getBaseUrl() + "/diet-manager/diet/mychoices/new/1/" + selectedDate + "/ #meal-selection-id");
+	}
+	
+	function getBaseUrl() {
+	    return window.location.href.split("/diet-manager")[0];
+	}
+	
+	function calendarDateSelection() {
+		 var date_input=$('input[name="createdDate"]');
+	      var container=$('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+	      var options={
+	        format: 'dd.mm.yyyy',
+	        container: container,
+	        todayHighlight: true,
+	        autoclose: true,
+	      };
+	      date_input.datepicker(options);
+	}
+	
+	$(document).ready(function(){
+		calendarDateSelection();
+    })
+	</script>
+	
+	<div class="container-fluid">
+		
+		<ul class="breadcrumb">
+			<li><a th:href="@{/diet/mychoices}" th:text="#{topmenu.mychoices}" ></a></li>
+        	<li class="active" th:text="#{mychoice.label.newchoice}"></li>
+    	</ul>
+    	
+		<div class="panel panel-default">
+		
+			<div class="panel-heading clearfix">
+				<div th:if="${menuItem.id} != null" class="pull-right">
+					<div class="pull-right">
+						<a th:href="@{/log/personal/delete/ + ${menuItem.id} + / + ${menuItem.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
+					</div>
+				</div>
+				<h3 class="panel-title" th:text="#{mychoice.label.mealforuser}">
+				</h3>
+			</div>
+			
+			<!-- end panel header -->
+			
+			<div class="panel-body">
+				<form action="#" th:object="${menuItem}" th:action="@{${menuItem.id == null ? '/diet/mychoices/new/__*{fkDietMenuId}__/today' : '/diet/mychoices/edit/__*{id}'}}" th:attr="method=${menuItem.id == null ? 'POST' : 'PUT'}" >
+					<input th:if="${menuItem.id} != null" type="hidden" th:field="*{id}" />
+					<input th:if="${menuItem.fkDietMenuId} != null" type="hidden" th:field="*{fkDietMenuId}" />
+					<input th:if="${menuItem.name} != null" type="hidden" th:field="*{name}" />
+					<input th:if="${menuItem.description} != null" type="hidden" th:field="*{description}" />
+				
+					<div th:class="form-group">
+						<label th:text="#{lbl.createddate}" class="control-label"></label>
+						<div class="controls">
+							<div class="input-group">
+								<input id="createdDate" name="createdDate" type="text" class="date-picker form-control" th:field="*{createdDate}" placeholder="dd.MM.yyyy" onchange="refreshMealSelectionList();" />
+								<label for="createdDate" class="input-group-addon btn">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</label>
+							</div>
+						</div>
+					</div>	
+
+					<div id="meal-selection-id" class="form-group">
+						<label th:text="#{mychoice.label.choosemeal}" ></label>
+						<select class="form-control" th:field="*{id}" >
+							<optgroup th:label="${breakfastMenuItems} == null ? '&#x2714;&nbsp; Frokost' : ' Frokost'" class="breakfast-color" >
+								<option th:each="breakfastItem : ${breakfastMenuItems}" th:value="${breakfastItem.id}" th:text="${breakfastItem.description}" class="default-txt-color"></option>
+						 	</optgroup>
+						 	<optgroup th:label="${lunchMenuItems} == null ? '&#x2714;&nbsp; Lunsj' : ' Lunsj'" class="lunch-color">
+								<option th:each="lunchItem : ${lunchMenuItems}" th:value="${lunchItem.id}" th:text="${lunchItem.description}" class="default-txt-color"></option>
+						 	</optgroup>
+						 	<optgroup th:label="${dinnerMenuItems} == null ? '&#x2714;&nbsp; Middag' : ' Middag'" class="dinner-color">
+								<option th:each="dinnerItem : ${dinnerMenuItems}" th:value="${dinnerItem.id}" th:text="${dinnerItem.description}" class="default-txt-color"></option>
+							</optgroup>
+							<optgroup th:label="${dessertMenuItems} == null ? '&#x2714;&nbsp; Dessert' : ' Dessert'" class="dessert-color">
+								<option th:each="dessertItem : ${dessertMenuItems}" th:value="${dessertItem.id}" th:text="${dessertItem.description}" class="default-txt-color"></option>
+							</optgroup>
+							<optgroup th:label="${eveningMenuItems} == null ? '&#x2714;&nbsp; Kveldsmat' : ' Kveldsmat'" class="evening-color">
+								<option th:each="eveningItem : ${eveningMenuItems}" th:value="${eveningItem.id}" th:text="${eveningItem.description}" class="default-txt-color"></option>
+						 	</optgroup>
+						 	<optgroup th:label="${mealBetweenMenuItems} == null ? '&#x2714;&nbsp; Mellom måltid' : ' Mellom måltid'" class="meal-between-color">
+								<option th:each="mealbetweenItem : ${mealBetweenMenuItems}" th:value="${mealbetweenItem.id}" th:text="${mealbetweenItem.description}" class="default-txt-color"></option>
+						 	</optgroup>
+						</select>
+						<label th:each="err : ${#fields.errors('id')}" th:text="${err}" class="help-block" ></label>
+					</div>
+										
+					<label th:text="#{personal.log.lbl.togetherness}"></label>
+					<div class="form-group">
+						<div class="btn-group" data-toggle="buttons" id="preparedByBtnGroupId">
+	    					<label th:each="p : ${persons}" class="btn btn-default" th:onclick="'javascript:selectUserNew(' + '\'preparedBy\',' + ${p.id} + ');'">
+								<i th:id="'preparedByBtn' + ${p.id}" th:class="${menuItem.preparedByUserId == p.id} ? 'glyphicon glyphicon-check' : 'glyphicon glyphicon-unchecked'" ></i>
+	        					<input type="radio" name="options" /><span th:text="${p.name}"></span>
+	    					</label>
+						</div>
+						<input id="preparedByInputId" type="hidden" th:field="*{preparedByUserId}" />
+					</div>
+					
+					<label>Get up/in bed</label>
+						up - bedtime
+					<label>togetherness</label>
+					
+					<label>Activity</label>
+						activity
+						time
+					
+					<label>Gaming</label>
+						game name:
+						device - pc - mobile - console
+						from - to
+					
+					<label th:text="#{mychoice.label.atschool}"></label>					
+					<div class="form-group">
+						<div class="btn-group" data-toggle="buttons">
+	    					<label class="btn btn-default" onclick="selectConflict('icoBtn4','1');">
+								<i id="icoBtn4" class="glyphicon glyphicon-unchecked"></i>
+	        					<input type="radio" name="options" id="option10" value="1" /><span th:text="#{label.yes}"></span>
+	    					</label>
+						    <label class="btn btn-default" onclick="selectConflict('icoBtn5','0');">
+						        <i id="icoBtn5" class="glyphicon glyphicon-check"></i>
+						        <input type="radio" name="options" id="option11" value="0" /><span th:text="#{label.no}"></span>
+						    </label>
+						</div>
+						<input type="hidden" id="atSchoolId" th:field="*{atSchool}" />
+					</div>	
+						
+					<label>School home work</label>	
+					<div class="form-group">
+						<div class="checkbox" th:each="rule : ${homeworks}">
+						  	<label>
+						  		<input type="checkbox" value="${rule.name}" />
+						  		<span th:text="${rule.description}"></span>
+						  	</label>
+						</div>
+					</div>
+					
+					<label th:text="#{mychoice.label.causedconflict}"></label>					
+					<div class="form-group">
+						<div class="btn-group" data-toggle="buttons">
+	    					<label class="btn btn-default" onclick="selectConflict('icoBtn4','1');">
+								<i id="icoBtn4" class="glyphicon glyphicon-unchecked"></i>
+	        					<input type="radio" name="options" id="option10" value="1" /><span th:text="#{label.yes}"></span>
+	    					</label>
+						    <label class="btn btn-default" onclick="selectConflict('icoBtn5','0');">
+						        <i id="icoBtn5" class="glyphicon glyphicon-check"></i>
+						        <input type="radio" name="options" id="option11" value="0" /><span th:text="#{label.no}"></span>
+						    </label>
+						</div>
+						<input type="hidden" id="conflictInputId" th:field="*{causedConflict}" />
+					</div>
+					
+					<div class="form-group">
+						<label th:text="#{mychoice.label.conflictdescription}"></label>
+						<textarea class="form-control" th:field="*{conflictDescription}" ></textarea> 
+						<label th:each="err : ${#fields.errors('conflictDescription')}" th:text="${err}" class="help-block" ></label>
+					</div>
+					
+					<p />
+
+					<button type="submit" class="btn btn-primary" th:if="${menuItem.id} == null" th:text="#{btn.new}"></button>
+					<button type="submit" class="btn btn-primary" th:if="${menuItem.id} != null" th:text="#{btn.update}"></button>
+					<a th:href="@{/diet/mychoices}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
+					
+				</form>
+			</div>
+			<!-- end panel body -->
+
+			<div class="panel-footer clearfix">
+				<div class="pull-right">
+					<a th:href="@{/diet/mychoices}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
+				</div>
+			</div>
+
+			<!-- end panel footer -->
+		</div>
+		<!-- end panel -->
+	</div>
+	<!-- end container -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

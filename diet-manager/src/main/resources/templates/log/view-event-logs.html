@@ -32,6 +32,8 @@
 			</div>
 			<p></p>
 			<div class="pull-right">
+				<span th:text="#{lbl.period}"></span>: <span th:text="${#dates.format(logsFromDate, 'dd-MM-yyyy')}" ></span> - <span th:text="${#dates.format(logsToDate, 'dd-MM-yyyy')}"></span>
+			    <span th:text="#{eventlog.number_of_logs}"></span>: <span class="badge badge-info" th:text="${numberOfLogs}" ></span>
 				<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.new_log}" ></a>
 				<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.view_plain}" ></a>
 			</div>
@@ -43,13 +45,24 @@
 				<div th:if="${log.level != 'ALL'}" id="panel-child" class="panel panel-default">
 						<div class="panel-heading panel-heading-sm">
 							<h6 class="panel-title">
-								<small> 
-								    <span th:text="${#dates.format(log.createdDate, 'EEEE dd.MM.yy') + ' ' + #dates.format(log.createdDate, 'HH:mm')}" class="label label-default" ></span>
-									<span th:if="${log.level == 'INFO'}" th:text="${log.level}" class="label label-info" ></span>
-									<span th:if="${log.level == 'ACTIVITY'}" th:text="${log.level}" class="label label-success" ></span> 
-									<span th:if="${log.level == 'REPORT'}" th:text="${log.level}" class="label label-warning" ></span> 
-									<span th:if="${log.level == 'CONFLICT'}" th:text="${log.level}" class="label label-danger" ></span> 
-									<span th:if="${log.level == 'GAMING'}" th:text="${log.level}" class="label label-default" ></span> 
+								<small th:with="logWeekDay=${#dates.dayOfWeekNameShort(log.createdDate)}, logDate=${#dates.format(log.createdDate, 'EEEE dd.MM.yy')}, logTime=${#dates.format(log.createdDate, 'HH:mm')}"> 
+									<span th:switch="${#dates.dayOfWeekName(log.createdDate)}">
+										<span th:case="'mandag'" class="label label-danger" th:text="${logDate} + ' ' + ${logTime}"></span>
+										<span th:case="'tirsdag'" class="label label-primary" th:text="${logDate} + ' ' + ${logTime}"></span>
+										<span th:case="'onsdag'" class="label label-success" th:text="${logDate} + ' ' + ${logTime}"></span>
+										<span th:case="'torsdag'" class="label label-info" th:text="${logDate} + ' ' + ${logTime}"></span>
+										<span th:case="'fredag'" class="label label-warning" th:text="${logDate} + ' ' + ${logTime}"></span>
+										<span th:case="'lørdag'" class="label label-yellow" th:text="${logDate} + ' ' + ${logTime}"></span>
+										<span th:case="'søndag'" class="label label-purple" th:text="${logDate} + ' ' + ${logTime}"></span>
+									</span>
+
+									<span th:switch="${log.level}">
+										<span th:case="'INFO'" th:text="${log.level}" class="label label-info" ></span>
+										<span th:case="'ACTIVITY'" th:text="${log.level}" class="label label-success" ></span> 
+										<span th:case="'REPORT'" th:text="${log.level}" class="label label-warning" ></span> 
+										<span th:case="'CONFLICT'" th:text="${log.level}" class="label label-danger" ></span> 
+										<span th:case="'GAMING'" th:text="${log.level}" class="label label-default" ></span> 
+									</span>
 									<span> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{'#collapse_' + ${iter.index}}" th:text="${log.title}"></a></span>
 								</small>
 							</h6>

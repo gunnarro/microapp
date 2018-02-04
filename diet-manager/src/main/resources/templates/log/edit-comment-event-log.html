@@ -15,7 +15,7 @@
 		
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
-				<div th:if="${comment.id} != null" class="pull-right">
+				<div th:if="${#authentication.name == log.createdByUser} && ${comment.id} != null" class="pull-right">
 					<div class="pull-right">
 						<a th:href="${/diet/log/event/comment/delete/} + ${comment.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
 					</div>

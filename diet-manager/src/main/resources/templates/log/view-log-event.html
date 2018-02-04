@@ -20,10 +20,17 @@
    
 	<div class="panel panel-default">
 		<div class="panel-heading clearfix">
-			<div class="pull-right">
-				<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="glyphicon glyphicon-edit"></a>
-				<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="glyphicon glyphicon-trash"></a>
+			<div th:if="${log.id} != null" class="pull-right">
+				<span th:if="${#authentication.name == log.createdByUser}">
+					<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="glyphicon glyphicon-edit"></a>
+					<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="glyphicon glyphicon-trash"></a>
+				</span>
+				<span th:if="${#authentication.name != log.createdByUser}">
+					<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-edit"></i></a>
+					<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-trash"></i></a>
+				</span>
 			</div>
+			
 			<h3 class="panel-title">
 				<span th:text="${#dates.format(log.createdDate, 'EEEE dd.MM.yy') + ' ' + #dates.format(log.createdDate, 'HH:mm')}" class="label label-default" ></span>
 				<span th:if="${log.level == 'INFO'}" class="label label-info" th:text="${log.level}"></span> 

@@ -35,4 +35,6 @@ public interface LogEventRepository {
 
     public List<LogComment> getLogComments(Integer logEntryId);
 
+	public boolean hasPermission(Integer logEventId, String username);
+
 }

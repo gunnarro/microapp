@@ -15,7 +15,7 @@ public class LogEntry extends BaseDomain {
 	}
 
 	private static final long serialVersionUID = 3799683509174086447L;
-
+	
 	private String content;
 	private String contentHtml;
 	private String createdByUser;

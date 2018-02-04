@@ -52,6 +52,7 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     public void setUp() throws Exception {
     }
 
+    
     /**
      * Manual
      */

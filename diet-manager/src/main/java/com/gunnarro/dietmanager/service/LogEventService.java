@@ -3,6 +3,7 @@ package com.gunnarro.dietmanager.service;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
@@ -14,15 +15,8 @@ import com.gunnarro.dietmanager.domain.log.LogEntry;
  * @author admin
  *
  */
+@Service(value = "logEventService")
 public interface LogEventService {
-
-    /**
-     * 
-     * @param id
-     * @return
-     */
-    @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE')")
-    public int deleteLogEvent(Integer userId, Integer id);
 
     /**
      * 
@@ -53,9 +47,19 @@ public interface LogEventService {
      * @param log
      * @return
      */
-    @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE')")
-    public int saveLogEvent(LogEntry log);
+//    @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE') and #log.fkUserId == authentication.name")
+    @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE')")
+    public int saveLogEvent(LogEntry logEntry);
 
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE') and @logEventService.hasAccess(#log.id, authentication.name)")
+    public int deleteLogEvent(Integer userId, Integer id);
+    
     /**
      * 
      * @param userId

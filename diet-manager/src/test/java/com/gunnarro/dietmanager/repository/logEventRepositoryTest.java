@@ -37,7 +37,17 @@ public class logEventRepositoryTest extends DefaultTestConfig {
     @Before
     public void setUp() throws Exception {
     }
+    
+    @Test
+    public void hasPermission_access_denied() {
+    	assertFalse(logEventRepository.hasPermission(200, "per"));
+    }
 
+    @Test
+    public void hasPermission_access_ok() {
+    	assertTrue(logEventRepository.hasPermission(3, "pepilie"));
+    }
+    
     @Test
     public void CRUDEventLog() {
         int userId = 5;

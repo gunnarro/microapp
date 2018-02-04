@@ -3,6 +3,7 @@ package com.gunnarro.dietmanager.service;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.mvc.dto.UserDto;
 
@@ -13,6 +14,7 @@ import com.gunnarro.dietmanager.mvc.dto.UserDto;
  * @author admin
  *
  */
+@Service
 public interface UserAccountService {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")

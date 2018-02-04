@@ -1,9 +1,13 @@
 package com.gunnarro.dietmanager.service;
 
+import static org.mockito.Mockito.when;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -14,16 +18,20 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
+import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.LogEventServiceImpl;
+import com.gunnarro.useraccount.domain.user.LocalUser;
 
-@ContextConfiguration(classes = { TestDataSourceConfiguration.class, LogEventRepositoryImpl.class,
-		LogEventServiceImpl.class })
+@ContextConfiguration(classes = { TestDataSourceConfiguration.class, LogEventRepositoryImpl.class, LogEventServiceImpl.class, AuthenticationFacade.class })
 @Transactional(timeout = 10)
 public class LogEventServiceTest extends DefaultTestConfig {
 
 	@Autowired
-	protected LogEventService logEventService;
+	protected LogEventServiceImpl logEventService;
+
+	@Mock
+	private AuthenticationFacade authenticationFacadeMock;
 
 	@Before
 	public void setUp() throws Exception {
@@ -33,6 +41,14 @@ public class LogEventServiceTest extends DefaultTestConfig {
 		SecurityContext ctx = SecurityContextHolder.createEmptyContext();
 		SecurityContextHolder.setContext(ctx);
 		ctx.setAuthentication(authRequest);
+		
+//		logEventService.setAuthenticationFacade(authenticationFacadeMock);
+		
+		// create mock
+		LocalUser user = new LocalUser();
+        user.setId(1);
+        user.setUsername("admin");
+        when(authenticationFacadeMock.getLoggedInUser()).thenReturn(user);
 	}
 
 	@After
@@ -40,19 +56,30 @@ public class LogEventServiceTest extends DefaultTestConfig {
 		SecurityContextHolder.clearContext();
 	}
 
+	// @Test(expected = SecurityException.class)
+	// public void hasPermission_access_denied() {
+	// logEventService.checkPermission(3, "guest");
+	// Assert.assertTrue(false);
+	// }
+	//
+	// @Test
+	// public void hasPermission_access_ok() {
+	// Assert.assertTrue(logEventService.checkPermission(3, "pepilie"));
+	// }
+
 	@Test
 	public void getLogEventsWithComments() {
 		LogEntry logEvent = logEventService.getLogEvent(5, 4);
 		Assert.assertNotNull(logEvent);
-		Assert.assertEquals(5,logEvent.getFkUserId().intValue());
-		Assert.assertEquals(4,logEvent.getId().intValue());
-		Assert.assertEquals("INFO",logEvent.getLevel());
-		Assert.assertEquals("title pappa",logEvent.getTitle());
-		Assert.assertEquals("log event created by pappa",logEvent.getContent());
-		Assert.assertEquals(2,logEvent.getLogComments().size());
-		Assert.assertEquals(2,logEvent.getLogComments().get(0).getId().intValue());
+		Assert.assertEquals(5, logEvent.getFkUserId().intValue());
+		Assert.assertEquals(4, logEvent.getId().intValue());
+		Assert.assertEquals("INFO", logEvent.getLevel());
+		Assert.assertEquals("title pappa", logEvent.getTitle());
+		Assert.assertEquals("log event created by pappa", logEvent.getContent());
+		Assert.assertEquals(2, logEvent.getLogComments().size());
+		Assert.assertEquals(2, logEvent.getLogComments().get(0).getId().intValue());
 		Assert.assertNotNull(logEvent.getLogComments().get(0).getCreatedDate());
-		Assert.assertEquals("added comment 1",logEvent.getLogComments().get(0).getContent());
+		Assert.assertEquals("added comment 1", logEvent.getLogComments().get(0).getContent());
 	}
 
 	@Test
@@ -91,6 +118,10 @@ public class LogEventServiceTest extends DefaultTestConfig {
 		Assert.assertEquals(0, logEventService.getLogEvents(99, "content", "*").size());
 	}
 
+	/**
+	 * users must see each other log events
+	 */
+	@Ignore
 	@Test
 	public void noLogEventesForUser() {
 		int userId = 3;

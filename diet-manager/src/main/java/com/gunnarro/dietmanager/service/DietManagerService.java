@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.domain.diet.DietMenu;
 import com.gunnarro.dietmanager.domain.diet.DietPlan;
@@ -28,6 +29,7 @@ import com.gunnarro.dietmanager.endpoint.rest.ChartData;
  * @author admin
  *
  */
+@Service
 public interface DietManagerService {
 
     @PreAuthorize("hasAuthority('READ_PRIVILEGE')")

@@ -17,12 +17,12 @@ import com.gunnarro.dietmanager.endpoint.rest.RestResponse;
 public abstract class BaseDomain extends RestResponse implements Serializable {
 
     private static final long serialVersionUID = -4340377387275807526L;
-    private long createdTime;
+    private long createdTime = System.currentTimeMillis();
+    private long lastModifiedTime = System.currentTimeMillis();
     // All foreign keys used in the DB model
+    private Integer id;
     private Integer fkUserId;
     private Integer fkLogId;
-    private Integer id;
-    private long lastModifiedTime;
     private String sortByValue;
     protected String description;
     protected String name;
@@ -41,7 +41,11 @@ public abstract class BaseDomain extends RestResponse implements Serializable {
     }
 
     public Date getCreatedDate() {
-        return new Date(createdTime);
+        if (this.createdTime > 0) {
+            return new Date(this.createdTime);
+        } else {
+            return null;
+        }
     }
 
     public long getCreatedTime() {
@@ -131,8 +135,8 @@ public abstract class BaseDomain extends RestResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "BaseDomain [createdTime=" + createdTime + ", fkUserId=" + fkUserId + ", fkLogId=" + fkLogId + ", id=" + id + ", lastModifiedTime=" + lastModifiedTime
-                + ", sortByValue=" + sortByValue + ", description=" + description + ", name=" + name + ", enabled=" + enabled + "]";
+        return "BaseDomain [createdTime=" + createdTime + ", fkUserId=" + fkUserId + ", fkLogId=" + fkLogId + ", id=" + id + ", lastModifiedTime="
+                + lastModifiedTime + ", sortByValue=" + sortByValue + ", description=" + description + ", name=" + name + ", enabled=" + enabled + "]";
     }
 
 }

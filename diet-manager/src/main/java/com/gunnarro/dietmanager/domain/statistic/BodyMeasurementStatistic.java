@@ -168,7 +168,7 @@ public class BodyMeasurementStatistic {
     public void increaseNumberOfMeasurements() {
         numberOfMeasurements++;
     }
-    
+
     public int getNumberOfMeasurementsStep() {
         return numberOfMeasurementsStep;
     }

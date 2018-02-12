@@ -29,13 +29,14 @@ public class TableHelper {
         list.add(ColumnsDefaultEnum.last_modified_date_time.name());
         for (Enum<T> e : values) {
             list.add(e.name());
-        };
+        }
+        ;
         return list.toArray(new String[list.size()]);
     };
-    
+
     // deprecated
     // Common database table columns
-    public static final String COLUMN_ID = "id";
+    private static final String COLUMN_ID = "id";
     public static final String COLUMN_CREATED_DATETIME = "created_date_time";
     public static final String COLUMN_LAST_MODIFIED_DATETIME = "last_modified_date_time";
 
@@ -63,17 +64,6 @@ public class TableHelper {
                 throw new ApplicationException("Wrong input! Array contains null values!");
             }
         }
-    }
-
-    public static String[] createColumns(String[] columns) {
-        ArrayList<String> columnNames = new ArrayList<String>();
-        columnNames.add(COLUMN_ID);
-        columnNames.add(COLUMN_CREATED_DATETIME);
-        columnNames.add(COLUMN_LAST_MODIFIED_DATETIME);
-        for (String name : columns) {
-            columnNames.add(name);
-        }
-        return columnNames.toArray(new String[columnNames.size()]);
     }
 
     public static PreparedStatementCreator createInsertPreparedStatement(final String query, final Object[] values) {
@@ -133,11 +123,11 @@ public class TableHelper {
         return query.toString();
     }
 
-    public static String defaultContentValues() {
-        StringBuilder query = new StringBuilder();
-        query.append(COLUMN_LAST_MODIFIED_DATETIME);
-        return query.toString();
-    }
+    // public static String defaultContentValues() {
+    // StringBuilder query = new StringBuilder();
+    // query.append(COLUMN_LAST_MODIFIED_DATETIME);
+    // return query.toString();
+    // }
 
     public static Date getCurrentDate() {
         return new Date(System.currentTimeMillis());

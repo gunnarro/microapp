@@ -19,13 +19,13 @@ import com.gunnarro.dietmanager.repository.table.TableHelper;
  * 
  */
 public class ProductTable {
-    
+
     // Database table
     public static final String TABLE_NAME = "products";
-    
+
     private enum ColumnsEnum {
         name, type, category, description, amount, weight_g, kcal, fat, carbohydrates, fibre, protein, img_link;
-        
+
         public static String[] updateValues() {
             String[] s = new String[4];
             s[0] = TableHelper.ColumnsDefaultEnum.last_modified_date_time.name();
@@ -35,7 +35,7 @@ public class ProductTable {
             return s;
         }
     }
-    
+
     /**
      * In order to hide public constructor
      */
@@ -77,7 +77,7 @@ public class ProductTable {
     public static String createUpdateQuery() {
         return TableHelper.createUpdateQuery(TABLE_NAME, ColumnsEnum.updateValues());
     }
-   
+
     public static RowMapper<Product> mapToProductRM() {
         return new RowMapper<Product>() {
             @Override

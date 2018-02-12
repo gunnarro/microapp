@@ -23,7 +23,7 @@ public class LoginControllerTest extends SpringTestSetup {
 
     @Mock
     private AuthenticationFacade authenticationFacadeMock;
-    
+
     private LoginController controller;
 
     @Mock
@@ -41,11 +41,11 @@ public class LoginControllerTest extends SpringTestSetup {
         ModelAndView mv = controller.handleApplicationException(request, new ApplicationException("test handle application exception"));
         Assert.assertEquals("error", mv.getViewName());
         Assert.assertNotNull(mv.getModel().get("exception"));
-        Assert.assertEquals("test handle application exception", ((Exception)mv.getModel().get("exception")).getMessage());
+        Assert.assertEquals("test handle application exception", ((Exception) mv.getModel().get("exception")).getMessage());
         Assert.assertEquals("home", mv.getModel().get("requestUrl"));
         Assert.assertEquals("home", mv.getModel().get("backUrl"));
     }
-    
+
     @Test
     public void handleSecurityException() {
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -53,17 +53,17 @@ public class LoginControllerTest extends SpringTestSetup {
         ModelAndView mv = controller.handleSecurityException(request, new SecurityException("test handle security exception"));
         Assert.assertEquals("error", mv.getViewName());
         Assert.assertNotNull(mv.getModel().get("exception"));
-        Assert.assertEquals("Access Denied. test handle security exception", ((Exception)mv.getModel().get("exception")).getMessage());
+        Assert.assertEquals("Access Denied. test handle security exception", ((Exception) mv.getModel().get("exception")).getMessage());
         Assert.assertEquals("/home", mv.getModel().get("requestUrl"));
         Assert.assertEquals("/dietmanager/home", mv.getModel().get("backUrl"));
     }
-    
+
     @Test
     public void home() throws Exception {
         when(authenticationFacadeMock.getLoggedInUser()).thenReturn(null);
         Assert.assertEquals("redirect:" + LoginController.HOME_PAGE, controller.home());
     }
-    
+
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
@@ -71,12 +71,12 @@ public class LoginControllerTest extends SpringTestSetup {
         controller.setDietManagerService(dietManagerServiceMock);
         controller.setAuthenticationFacade(authenticationFacadeMock);
     }
-    
+
     @Test
     public void login() throws Exception {
         Assert.assertEquals("login", controller.login());
     }
-    
+
     @Test
     public void logout() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -88,7 +88,7 @@ public class LoginControllerTest extends SpringTestSetup {
         request.addParameter("parameterName", "someValue");
         Assert.assertEquals("redirect:login?loggedout", controller.logout(request, null));
     }
-    
+
     @Test
     public void logoutUser() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();

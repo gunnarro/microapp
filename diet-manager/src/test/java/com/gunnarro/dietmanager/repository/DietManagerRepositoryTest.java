@@ -15,12 +15,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
-import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.domain.diet.DietMenu;
 import com.gunnarro.dietmanager.domain.diet.DietPlan;
 import com.gunnarro.dietmanager.domain.diet.FoodProduct;
@@ -37,11 +39,10 @@ import com.gunnarro.dietmanager.domain.view.KeyValuePairList;
 import com.gunnarro.dietmanager.endpoint.rest.ChartData;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 
-
-@ContextConfiguration(classes={DietManagerRepositoryImpl.class, TestDataSourceConfiguration.class})
+@ContextConfiguration(classes = { DietManagerRepositoryImpl.class, TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })
 @Transactional
+//@Rollback(value = true)
 @TransactionConfiguration(defaultRollback = true)
-//@Rollback(value=true)
 // @Ignore
 public class DietManagerRepositoryTest extends DefaultTestConfig {
 
@@ -52,7 +53,6 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     public void setUp() throws Exception {
     }
 
-    
     /**
      * Manual
      */
@@ -241,10 +241,11 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
         // assertEquals(0,
         // bodyMeasurementsLogs.get(0).getReferenceHeight().intValue());
         // assertEquals(0,
-//         bodyMeasurementsLogs.get(0).getReferenceWeight().intValue());
-//         for (HealthLogEntry h : bodyMeasurementsLogs) {
-//             System.out.println("UnitTest getBodyMesuarementsLog: " + h.getTrendWeight());
-//         }
+        // bodyMeasurementsLogs.get(0).getReferenceWeight().intValue());
+        // for (HealthLogEntry h : bodyMeasurementsLogs) {
+        // System.out.println("UnitTest getBodyMesuarementsLog: " +
+        // h.getTrendWeight());
+        // }
     }
 
     @Test
@@ -271,7 +272,7 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
         assertTrue(dietMenu.getEveningMenuItems().size() > 0);
         assertEquals("Kveldsmat", dietMenu.getEveningMenuItems().get(0).getName());
 
-        // problem with å and ø when running from maven
+        // problem with ������ and ������ when running from maven
         // assertTrue(dietMenu.getMealBetweenMenuItems().size() > 0);
         // assertTrue(dietMenu.getDinnerAccessoriesMenuItems().size() > 0);
         // Set<Entry<String, List<MenuItem>>> entrySet =
@@ -351,13 +352,13 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     @Ignore
     @Test
     public void getMenuItemSelectionTrend() {
-        dietManagerRepository.createUserDietMenuItemLnk(1, MenuItem.createMenuItem(1, 10, null, 4, 4, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(1, 10, null, 4, 4, 1, getLogEventId()));
         List<String> menuItemSelectionTrend = dietManagerRepository.getMenuItemSelectionTrend(1, 10, 7);
         assertTrue(menuItemSelectionTrend.size() == 1);
         // System.out.println("Selected menu items: " + menuItemSelectionTrend);
     }
 
-    @Ignore
+    // @Ignore
     @Test
     public void getMissingMealsForUser() {
         Map<Date, List<String>> map = dietManagerRepository.getMissingMealsForUser(23, 7);
@@ -373,35 +374,34 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
         assertEquals(22, products.size());
     }
 
-    @Ignore
     @Test
     public void getNumberOfActivitiesLastDays() {
         int numberOfActivitiesLastDays = dietManagerRepository.getNumberOfActivitiesLastDays(1);
         assertEquals(0, numberOfActivitiesLastDays);
     }
 
-    @Ignore
     @Test
     public void getNumberOfConflictsLastDays() {
         int numberOfConflictsLastDays = dietManagerRepository.getNumberOfConflictsLastDays(1);
         assertEquals(0, numberOfConflictsLastDays);
     }
 
-    @Ignore
     @Test
     public void getNumberOfMealsLastDays() {
         int numberOfMealsLastDays = dietManagerRepository.getNumberOfMealsLastDays(1);
         assertEquals(0, numberOfMealsLastDays);
     }
 
+    //FIXME
+    @Ignore
     @Test
     public void getSelectedMenuItemCountForUser() {
         int userId = 1;
         int menuItemId = 2;
         Integer userSelectedMenuItemCount = dietManagerRepository.getUserSelectedMenuItemCount(userId, menuItemId);
         assertTrue(userSelectedMenuItemCount == 0);
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(menuItemId, null, 4, 4, 1, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(menuItemId, null, 4, 4, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(1, menuItemId, null, 4, 4, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(2, 3, null, 4, 4, 1, getLogEventId()));
         userSelectedMenuItemCount = dietManagerRepository.getUserSelectedMenuItemCount(userId, menuItemId);
         assertEquals(2, userSelectedMenuItemCount.intValue());
         // seems like that hsql do not support order by in delete statement
@@ -413,14 +413,14 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
 
     @Test
     public void getSelectedMenuItemsForUser() {
-        dietManagerRepository.createUserDietMenuItemLnk(1, MenuItem.createMenuItem(1, 35, null, 4, 4, 1, getLogEventId()));// breakfast
-        dietManagerRepository.createUserDietMenuItemLnk(1, MenuItem.createMenuItem(2, 38, null, 4, 4, 1, getLogEventId())); // lunch
-        dietManagerRepository.createUserDietMenuItemLnk(1, MenuItem.createMenuItem(3, 45, null, 4, 4, 1, getLogEventId())); // meal
+        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(1, 35, new Date(), 4, 4, 1, getLogEventId()));// breakfast
+        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(2, 38, new Date(), 4, 4, 1, getLogEventId())); // lunch
+        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(3, 45, new Date(), 4, 4, 1, getLogEventId())); // meal
         // between
-        dietManagerRepository.createUserDietMenuItemLnk(1, MenuItem.createMenuItem(4, 4, null, 4, 4, 1, getLogEventId())); // dinner
-        dietManagerRepository.createUserDietMenuItemLnk(1, MenuItem.createMenuItem(5, 33, null, 4, 4, 1, getLogEventId())); // dinner
+        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(4, 4, new Date(), 4, 4, 1, getLogEventId())); // dinner
+        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(5, 33, new Date(), 4, 4, 1, getLogEventId())); // dinner
         // dessert
-        dietManagerRepository.createUserDietMenuItemLnk(1, MenuItem.createMenuItem(6, 42, null, 4, 4, 1, getLogEventId())); // evening
+        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(6, 42, new Date(), 4, 4, 1, getLogEventId())); // evening
         List<MenuItem> menuItems = dietManagerRepository.getSelectedMenuItemsForUser(1, 60);
         assertEquals(6, menuItems.size());
         assertNotNull(menuItems.get(0).getId());
@@ -438,19 +438,28 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
         Integer controlledByuserId = 4;
         Integer preparedByuserId = 4;
         Integer causedConfict = 1;
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(1, 1, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(2, 2, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(3, 3, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(4, 4, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(5, 5, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(6, 6, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(7, 7, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(8, 8, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(9, 9, null, controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(1, 1, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(2, 2, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(3, 3, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(4, 4, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(5, 5, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(6, 6, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(7, 7, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(8, 8, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(userId,
+                createMenuItem(9, 9, new Date(), controlledByuserId, preparedByuserId, causedConfict, getLogEventId()));
         List<MenuItem> list = dietManagerRepository.getMenuSelctionTrendForUser(1, 7);
         assertTrue(list.size() == 7);
         assertNotNull(list);
-        
+
         // for (MenuItem m : list) {
         // System.out.println(m);
         // }
@@ -459,14 +468,24 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     /**
      * use date_format which is not supported by hsql
      */
-    @Ignore
     @Test
     public void isMealRegistered() {
         Date date = new Date();
         int userId = 4;
-        String mealName = "Frokost";
+        int dietMenuId = 2;
+        int id = 1;
+        String mealName = "Middag";
+        MenuItem selectedMenuItem = createMenuItem(id, dietMenuId, null, 5, 5, 0, getLogEventId());
+        assertTrue(selectedMenuItem.getCreatedTime() > 0);
+        assertNotNull(selectedMenuItem.getCreatedDate());
         assertEquals(0, dietManagerRepository.checkUserDietMenuItemLnk(userId, date, mealName));
-        dietManagerRepository.createUserDietMenuItemLnk(userId, MenuItem.createMenuItem(1, 1, date, 5, 5, 0, getLogEventId()));
+        assertTrue(dietManagerRepository.createUserDietMenuItemLnk(userId, selectedMenuItem) > 0);
+        List<MealStatistic> mealStatistic = dietManagerRepository.getMealStatistic(userId, 2);
+        System.out.println(dietManagerRepository.getSelecedMealNamesForDate(date));
+        for (MealStatistic s : mealStatistic) {
+            System.out.println(s);
+        }
+
         assertTrue(dietManagerRepository.checkUserDietMenuItemLnk(userId, date, mealName) > 0);
     }
 
@@ -477,10 +496,10 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
      */
     @Test
     public void mealsManagedByUserStatistic() {
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(1, 12, new Date(), 4, 4, 1, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(3, 14, new Date(), 6, 6, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(4, 32, new Date(), 4, 4, 0, getLogEventId())); // dinner
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(1, 12, new Date(), 4, 4, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(3, 14, new Date(), 6, 6, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(4, 32, new Date(), 4, 4, 0, getLogEventId())); // dinner
         // desert,
         // should
         // not
@@ -499,17 +518,17 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
 
     @Test
     public void mealsPreparedByUserStatistic() {
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(1, 12, new Date(), 4, 4, 1, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(3, 14, new Date(), 6, 6, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(4, 32, new Date(), 4, 4, 0, getLogEventId())); // dinner
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(1, 12, new Date(), 4, 4, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(3, 14, new Date(), 6, 6, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(4, 32, new Date(), 4, 4, 0, getLogEventId())); // dinner
         // desert,
         // should
         // not
         // be
         // counted
         List<KeyValuePair> list = dietManagerRepository.getMealsPreparedByUserStatistic(30);
-//        assertEquals(3, list.size());
+        // assertEquals(3, list.size());
         assertNotNull(list.get(0).getKey());// weeknumber
         assertEquals("mamma", list.get(0).getValue());
         assertEquals(1, list.get(0).getCount().intValue());
@@ -537,9 +556,9 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
 
     @Test
     public void mealTypeStatistic() {
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(1, 12, new Date(), 4, 4, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(3, 14, new Date(), 6, 6, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(1, 12, new Date(), 4, 4, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(3, 14, new Date(), 6, 6, 1, getLogEventId()));
         List<KeyValuePair> list = dietManagerRepository.getMealTypesStatistic(30);
         assertEquals("Middag", list.get(0).getKey());
         assertEquals(3, list.get(0).getCount().intValue());
@@ -555,10 +574,10 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     @Test
     public void selectedMealsStatistic() {
         // System.out.println(DietManagerSql.createSelectedMealsQuery());
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(1, 12, new Date(), 4, 4, 1, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(2, 12, new Date(), 5, 5, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(3, 14, new Date(), 6, 6, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(4, 32, new Date(), 4, 4, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(1, 12, new Date(), 4, 4, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(2, 12, new Date(), 5, 5, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(3, 14, new Date(), 6, 6, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(4, 32, new Date(), 4, 4, 0, getLogEventId()));
         List<KeyValuePair> list = dietManagerRepository.getSelectedMealsStatistic(30);
         assertNotNull(list);
         // for (KeyValuePair kv : list) {
@@ -571,9 +590,9 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
      */
     @Test
     public void summaryStatistic() {
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(1, 12, new Date(), 4, 4, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
-        dietManagerRepository.createUserDietMenuItemLnk(4, MenuItem.createMenuItem(3, 14, new Date(), 6, 6, 1, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(1, 12, new Date(), 4, 4, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(2, 13, new Date(), 5, 5, 0, getLogEventId()));
+        dietManagerRepository.createUserDietMenuItemLnk(4, createMenuItem(3, 14, new Date(), 6, 6, 1, getLogEventId()));
         List<KeyValuePair> list = dietManagerRepository.getSummaryStatistic(30);
         assertEquals(3, list.size());
         assertEquals("mamma", list.get(0).getKey());
@@ -600,7 +619,7 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     /**
      * hsql do not support date function that is used in this query
      */
-    @Ignore
+    // @Ignore
     @Test
     public void getConflictStatistic() {
         List<KeyValuePair> conflictStatistic = dietManagerRepository.getConflictStatistic(7);
@@ -613,7 +632,7 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
         assertNotNull(menus);
     }
 
-    @Ignore
+    // @Ignore
     @Test
     public void getBodyMeasurementsLogAverage() {
         HealthLogEntry newLog = new HealthLogEntry();
@@ -667,14 +686,29 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     /**
      * date_fomat function not supported by hsql da
      */
-    @Ignore
+    // @Ignore
     @Test
     public void getSelectedMealNamesForDate() {
         List<String> list = dietManagerRepository.getSelecedMealNamesForDate(new Date());
         assertEquals(0, list.size());
     }
-    
+
     @After
     public void tearDown() throws Exception {
+    }
+
+    // Test data
+
+    private static MenuItem createMenuItem(int id, int dietMenuId, Date createdDate, int controlledByUserId, int preparedByUserId, int causedConflict,
+            int logId) {
+        MenuItem menuItem = new MenuItem();
+        menuItem.setId(id);
+        menuItem.setFkDietMenuId(dietMenuId);
+        menuItem.setCreatedDate(createdDate);
+        menuItem.setControlledByUserId(controlledByUserId);
+        menuItem.setPreparedByUserId(preparedByUserId);
+        menuItem.setCausedConflict(causedConflict);
+        menuItem.setFkLogId(logId);
+        return menuItem;
     }
 }

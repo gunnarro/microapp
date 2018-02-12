@@ -6,7 +6,7 @@ import java.util.Map;
 import com.gunnarro.dietmanager.domain.BaseDomain;
 
 public class DietMenu extends BaseDomain {
-   
+
     private static final long serialVersionUID = 1L;
 
     public static final String BREAKFAST = "Frokost";
@@ -31,12 +31,15 @@ public class DietMenu extends BaseDomain {
     public static String getBreakfast() {
         return BREAKFAST;
     }
+
     public static String getDessert() {
         return DESSERT;
     }
+
     public static String getDinner() {
         return DINNER;
     }
+
     public static String getDinnerAccessories() {
         return DINNER_ACCESSORIES;
     }

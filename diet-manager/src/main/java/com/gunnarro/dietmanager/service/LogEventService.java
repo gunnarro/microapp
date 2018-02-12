@@ -47,20 +47,22 @@ public interface LogEventService {
      * @param log
      * @return
      */
-//    @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE') and #log.fkUserId == authentication.name")
+    // @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE') and #log.fkUserId ==
+    // authentication.name")
     @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE')")
     public int saveLogEvent(LogEntry logEntry);
-
 
     /**
      * 
      * @param id
      * @return
      */
-//  Bug, bean not found  @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE') and @logEventService.hasAccess(#log.id, authentication.name)")
+    // Bug, bean not found @PreAuthorize(value =
+    // "hasAuthority('BLOGG_WRITE_PRIVILEGE') and
+    // @logEventService.hasAccess(#log.id, authentication.name)")
     @PreAuthorize(value = "hasAuthority('BLOGG_WRITE_PRIVILEGE')")
     public int deleteLogEvent(Integer userId, Integer id);
-    
+
     /**
      * 
      * @param userId

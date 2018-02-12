@@ -23,16 +23,15 @@ public class HealthLogEntryTest {
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         this.validator = vf.getValidator();
     }
-    
+
     @Test
-    public void trend(){
+    public void trend() {
         Double prev = new Double(1.3);
         Double curr = new Double(1.2);
         System.out.println("curr trend: " + curr.compareTo(prev));
-        int size = Math.abs((4-3)*(2-4));
+        int size = Math.abs((4 - 3) * (2 - 4));
     }
-    
-    
+
     @Test
     public void heightInvalidValue() {
         HealthLogEntry log = new HealthLogEntry();
@@ -58,7 +57,7 @@ public class HealthLogEntryTest {
         Set<ConstraintViolation<HealthLogEntry>> violations = validator.validate(log);
         assertEquals(1, violations.size());
         assertEquals("height", violations.iterator().next().getPropertyPath().toString());
-        assertEquals("may not be null", violations.iterator().next().getMessage());
+        assertEquals("must be greater than or equal to 10", violations.iterator().next().getMessage());
     }
 
     @Test
@@ -66,6 +65,7 @@ public class HealthLogEntryTest {
         HealthLogEntry log = new HealthLogEntry();
         log.setWeight(23.0);
         log.setHeight(170d);
+        log.setLogDate(null);
         Set<ConstraintViolation<HealthLogEntry>> violations = validator.validate(log);
         assertEquals(1, violations.size());
         assertEquals("logDate", violations.iterator().next().getPropertyPath().toString());
@@ -111,7 +111,7 @@ public class HealthLogEntryTest {
         Set<ConstraintViolation<HealthLogEntry>> violations = validator.validate(log);
         assertEquals(1, violations.size());
         assertEquals("weight", violations.iterator().next().getPropertyPath().toString());
-        assertEquals("may not be null", violations.iterator().next().getMessage());
+        assertEquals("must be greater than or equal to 1", violations.iterator().next().getMessage());
     }
 
     @Test

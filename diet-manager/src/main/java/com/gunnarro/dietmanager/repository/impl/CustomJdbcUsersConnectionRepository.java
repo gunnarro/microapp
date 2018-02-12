@@ -23,7 +23,6 @@ import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * {@link UsersConnectionRepository} that uses the JDBC API to persist
@@ -32,7 +31,7 @@ import org.springframework.stereotype.Repository;
  * 
  * @author Keith Donald
  */
-//@Repository
+// @Repository
 public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomJdbcUsersConnectionRepository.class);
@@ -53,10 +52,10 @@ public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepos
         this.textEncryptor = textEncryptor;
     }
 
-//    @Override
-//    public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
-//        this.connectionSignUp = connectionSignUp;
-//    }
+    // @Override
+    // public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
+    // this.connectionSignUp = connectionSignUp;
+    // }
 
     /**
      * Sets a table name prefix. This will be prefixed to all the table names
@@ -70,13 +69,15 @@ public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepos
         this.tablePrefix = tablePrefix;
     }
 
+    @Override
     public List<String> findUserIdsWithConnection(Connection<?> connection) {
         ConnectionKey key = connection.getKey();
         if (LOG.isDebugEnabled()) {
             LOG.debug("providerUrl: " + key.getProviderId() + ", providerUserId: " + key.getProviderUserId());
         }
-        List<String> localUserIds = jdbcTemplate.queryForList("select userId from " + tablePrefix + "UserConnection where providerId = ? and providerUserId = ?", String.class,
-                key.getProviderId(), key.getProviderUserId());
+        List<String> localUserIds = jdbcTemplate.queryForList(
+                "select userId from " + tablePrefix + "UserConnection where providerId = ? and providerUserId = ?", String.class, key.getProviderId(),
+                key.getProviderUserId());
         if (localUserIds.size() == 0 && connectionSignUp != null) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("local user id not found, direct to signup!");
@@ -93,6 +94,7 @@ public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepos
         return localUserIds;
     }
 
+    @Override
     public Set<String> findUserIdsConnectedTo(String providerId, Set<String> providerUserIds) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("providerId", providerId);
@@ -101,31 +103,35 @@ public class CustomJdbcUsersConnectionRepository implements UsersConnectionRepos
             LOG.debug("providerUrl: " + providerId + ", providerUserId: " + providerUserIds);
         }
         final Set<String> localUserIds = new HashSet<String>();
-        return new NamedParameterJdbcTemplate(jdbcTemplate).query("select userId from " + tablePrefix
-                + "UserConnection where providerId = :providerId and providerUserId in (:providerUserIds)", parameters, new ResultSetExtractor<Set<String>>() {
-            public Set<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                while (rs.next()) {
-                    localUserIds.add(rs.getString("userId"));
-                }
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("localUserIds: " + localUserIds);
-                }
-                return localUserIds;
-            }
-        });
+        return new NamedParameterJdbcTemplate(jdbcTemplate).query(
+                "select userId from " + tablePrefix + "UserConnection where providerId = :providerId and providerUserId in (:providerUserIds)", parameters,
+                new ResultSetExtractor<Set<String>>() {
+                    @Override
+                    public Set<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                        while (rs.next()) {
+                            localUserIds.add(rs.getString("userId"));
+                        }
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("localUserIds: " + localUserIds);
+                        }
+                        return localUserIds;
+                    }
+                });
     }
 
+    @Override
     public ConnectionRepository createConnectionRepository(String userId) {
         if (userId == null) {
             throw new IllegalArgumentException("userId cannot be null");
         }
-        return null;// new JdbcConnectionRepository(userId, jdbcTemplate, connectionFactoryLocator, textEncryptor, tablePrefix);
+        return null;// new JdbcConnectionRepository(userId, jdbcTemplate,
+                    // connectionFactoryLocator, textEncryptor, tablePrefix);
     }
 
-	@Override
-	public void setConnectionSignUp(ConnectionSignUp arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setConnectionSignUp(ConnectionSignUp arg0) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

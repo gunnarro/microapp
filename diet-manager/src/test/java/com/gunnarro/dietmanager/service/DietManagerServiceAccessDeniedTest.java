@@ -16,84 +16,85 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gunnarro.dietmanager.config.BeanConfiguration;
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.SecurityConfiguration;
-import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
 import com.gunnarro.dietmanager.handler.AppSuccessHandler;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
-@ContextConfiguration(classes={ BeanConfiguration.class, TestDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class, DietManagerRepositoryImpl.class, LogEventRepositoryImpl.class, AppSuccessHandler.class})
-@Transactional(timeout=10)
+@ContextConfiguration(classes = { BeanConfiguration.class, TestMariDBDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class,
+        DietManagerRepositoryImpl.class, AppSuccessHandler.class })
+@Transactional(timeout = 10)
 @Rollback
-public class DietManagerServiceAccessDeniedTest  extends DefaultTestConfig {
+public class DietManagerServiceAccessDeniedTest extends DefaultTestConfig {
 
-	@Autowired
-//	@Qualifier("dietManagerService")
-	protected DietManagerService dietManagerService;
+    @Autowired
+    // @Qualifier("dietManagerService")
+    protected DietManagerService dietManagerService;
 
-	@Before
-	public void setUp() throws Exception {
-		// Because of security we have to set user and pwd before every unit
-		// test
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken("guest", "guest");
-		SecurityContext ctx = SecurityContextHolder.createEmptyContext();
-		SecurityContextHolder.setContext(ctx);
-		ctx.setAuthentication(authRequest);
-	}
+    @Before
+    public void setUp() throws Exception {
+        // Because of security we have to set user and pwd before every unit
+        // test
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken("guest", "guest");
+        SecurityContext ctx = SecurityContextHolder.createEmptyContext();
+        SecurityContextHolder.setContext(ctx);
+        ctx.setAuthentication(authRequest);
+    }
 
-	@After
-	public void terminate() {
-		SecurityContextHolder.clearContext();
-	}
+    @After
+    public void terminate() {
+        SecurityContextHolder.clearContext();
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void deleteBodyMeasurementLog() {
-		dietManagerService.deleteBodyMeasurementLog(null);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void deleteBodyMeasurementLog() {
+        dietManagerService.deleteBodyMeasurementLog(null);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void deleteDietMenuItem() {
-		dietManagerService.deleteDietMenuItem(3);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void deleteDietMenuItem() {
+        dietManagerService.deleteDietMenuItem(3);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void saveSelectedFoodForUser() {
-		dietManagerService.saveSelectedFoodForUser(1, null);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void saveSelectedFoodForUser() {
+        dietManagerService.saveSelectedFoodForUser(1, null);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void saveBodyMeasurementLog() {
-		dietManagerService.saveBodyMeasurementLog(null);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void saveBodyMeasurementLog() {
+        dietManagerService.saveBodyMeasurementLog(null);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	@Ignore
-	public void checkIfSelectedMealAlreadyRegistered() {
-		dietManagerService.checkIfSelectedMealAlreadyRegistered(1, null, null);
-	}
+    @Test(expected = AccessDeniedException.class)
+    @Ignore
+    public void checkIfSelectedMealAlreadyRegistered() {
+        dietManagerService.checkIfSelectedMealAlreadyRegistered(1, null, null);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void deleteDietMenu() {
-		dietManagerService.deleteDietMenu(3);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void deleteDietMenu() {
+        dietManagerService.deleteDietMenu(3);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void saveDietMenu() {
-		dietManagerService.saveDietMenu(null);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void saveDietMenu() {
+        dietManagerService.saveDietMenu(null);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void saveDietMenuItem() {
-		dietManagerService.saveDietMenuItem(null);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void saveDietMenuItem() {
+        dietManagerService.saveDietMenuItem(null);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void saveDietPlan() {
-		dietManagerService.saveDietPlan(null);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void saveDietPlan() {
+        dietManagerService.saveDietPlan(null);
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	public void deleteSelectedFoodForUser() {
-		dietManagerService.deleteSelectedFoodForUser(2);
-	}
+    @Test(expected = AccessDeniedException.class)
+    public void deleteSelectedFoodForUser() {
+        dietManagerService.deleteSelectedFoodForUser(2);
+    }
 }

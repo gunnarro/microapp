@@ -61,13 +61,13 @@ public class MyChoicesController extends BaseController {
     }
 
     private List<UserDto> getUsersWithControllerRights() {
-    	List<UserDto> users = new ArrayList<UserDto>();
-    	users.add(new UserDto(5,"pappa"));
-    	users.add(new UserDto(6,"mamma"));
-    	users.add(new UserDto(4,"pepilie"));
-    	return users;
+        List<UserDto> users = new ArrayList<>();
+        users.add(new UserDto(5, "pappa"));
+        users.add(new UserDto(6, "mamma"));
+        users.add(new UserDto(4, "pepilie"));
+        return users;
     }
-    
+
     /**
      * Use PUT for updates
      * 
@@ -82,13 +82,15 @@ public class MyChoicesController extends BaseController {
         return "redirect:/diet/mychoices";
     }
 
-   /**
-    * 
-    * @param menuId
-    * @param forDate must be on date format dd.MM.yyyy. if not set or wrong format this parameter is ignored, and we use current date instead
-    * @param model
-    * @return
-    */
+    /**
+     * 
+     * @param menuId
+     * @param forDate must be on date format dd.MM.yyyy. if not set or wrong
+     *            format this parameter is ignored, and we use current date
+     *            instead
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/diet/mychoices/new/{menuId}/{forDate}", method = RequestMethod.GET)
     public String initNewDietMyChoicesForm(@PathVariable("menuId") int menuId, @PathVariable("forDate") String forDate, Map<String, Object> model) {
         LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
@@ -118,7 +120,7 @@ public class MyChoicesController extends BaseController {
         List<String> mealNames = dietManagerService.getSelectedMealNamesForDate(menuItem.getCreatedDate());
         model.put("menuItem", menuItem);
         model.put("userId", loggedInUser.getId());
-        model.put("users",getUsersWithControllerRights());
+        model.put("users", getUsersWithControllerRights());
         model.put("breakfastMenuItems", mealNames.contains("Frokost") ? null : dietMenu.getBreakfastMenuItems());
         model.put("lunchMenuItems", mealNames.contains("Lunsj") ? null : dietMenu.getLunchMenuItems());
         model.put("dinnerMenuItems", mealNames.contains("Middag") ? null : dietMenu.getDinnerMenuItems());
@@ -126,7 +128,7 @@ public class MyChoicesController extends BaseController {
         model.put("eveningMenuItems", mealNames.contains("Kveldsmat") ? null : dietMenu.getEveningMenuItems());
         model.put("mealBetweenMenuItems", mealNames.contains("Mellom måltid") ? null : dietMenu.getMealBetweenMenuItems());
         if (LOG.isDebugEnabled()) {
-        	LOG.debug("dietrules: " + dietManagerService.getDietRules(1));
+            LOG.debug("dietrules: " + dietManagerService.getDietRules(1));
         }
         model.put("dietRules", dietManagerService.getDietRules(1));
         return "diet/edit-diet-mychoice";
@@ -143,12 +145,13 @@ public class MyChoicesController extends BaseController {
             throw new ApplicationException(ApplicationException.NOT_LOGGED_IN);
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("for date: " + menuItem.getCreatedDate() + ", id: " + menuItem.getId() + ", controlledBy: " + menuItem.getControlledByUserId() + ", hasConflict: "
-                    + menuItem.hasConflict());
+            LOG.debug("for date: " + menuItem.getCreatedDate() + ", id: " + menuItem.getId() + ", controlledBy: " + menuItem.getControlledByUserId()
+                    + ", hasConflict: " + menuItem.hasConflict());
         }
 
         // Do not double register meal type for a day
-        boolean isMealAlreadyRegistered = dietManagerService.checkIfSelectedMealAlreadyRegistered(loggedInUser.getId(), menuItem.getCreatedDate(), menuItem.getId());
+        boolean isMealAlreadyRegistered = dietManagerService.checkIfSelectedMealAlreadyRegistered(loggedInUser.getId(), menuItem.getCreatedDate(),
+                menuItem.getId());
         if (isMealAlreadyRegistered) {
             String mealName = dietManagerService.getDietMenuItem(menuItem.getId()).getName();
             String errMsg = mealName + " er allerede registrert for valgt dato: " + Utility.formatTime(menuItem.getCreatedTime(), Utility.DATE_PATTERN);
@@ -211,6 +214,7 @@ public class MyChoicesController extends BaseController {
             throw new ApplicationException(ApplicationException.NOT_LOGGED_IN);
         }
         List<MenuItem> menuItems = dietManagerService.getSelectedMenuItemsForUser(loggedInUser.getId(), forLastDays);
+
         Comparator<Long> asendingComparator = new Comparator<Long>() {
             @Override
             public int compare(Long v1, Long v2) {

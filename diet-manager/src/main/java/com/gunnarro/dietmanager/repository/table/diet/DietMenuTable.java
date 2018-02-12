@@ -23,17 +23,18 @@ public class DietMenuTable {
     // Database table
     public static final String TABLE_NAME = "diet_menus";
 
-    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_MENU_NAME,
-            COLUMN_MENU_DESCRIPTION, COLUMN_MENU_ACTIVE };
+    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME,
+            COLUMN_MENU_NAME, COLUMN_MENU_DESCRIPTION, COLUMN_MENU_ACTIVE };
 
-    private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_MENU_NAME, COLUMN_MENU_DESCRIPTION, COLUMN_MENU_ACTIVE };
+    private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_MENU_NAME, COLUMN_MENU_DESCRIPTION,
+            COLUMN_MENU_ACTIVE };
 
     /**
      * In order to hide public constructor
      */
     private DietMenuTable() {
     }
-    
+
     public static PreparedStatementCreator createInsertPreparedStatement(final DietMenu dietMenu) {
         return new PreparedStatementCreator() {
             @Override
@@ -54,7 +55,8 @@ public class DietMenuTable {
     }
 
     public static Object[] createUpdateParam(DietMenu dietMenu) {
-        return new Object[] { new Timestamp(TableHelper.getToDay()), dietMenu.getName().trim(), dietMenu.getDescription().trim(), dietMenu.isActive() ? 1 : 0, dietMenu.getId() };
+        return new Object[] { new Timestamp(TableHelper.getToDay()), dietMenu.getName().trim(), dietMenu.getDescription().trim(), dietMenu.isActive() ? 1 : 0,
+                dietMenu.getId() };
     }
 
     public static String createUpdateQuery() {

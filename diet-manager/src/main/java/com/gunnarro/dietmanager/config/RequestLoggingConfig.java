@@ -9,27 +9,27 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 public class RequestLoggingConfig {
 
-	@Bean
-	public CommonsRequestLoggingFilter logFilter() {
-		CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
-		filter.setIncludeQueryString(true);
-		filter.setIncludePayload(true);
-		filter.setMaxPayloadLength(10000);
-		filter.setIncludeHeaders(true);
-		filter.setAfterMessagePrefix("REQUEST DATA : ");
-		return filter;
-	}
-	
-	@Bean
+    @Bean
+    public CommonsRequestLoggingFilter logFilter() {
+        CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
+        filter.setIncludeQueryString(true);
+        filter.setIncludePayload(true);
+        filter.setMaxPayloadLength(10000);
+        filter.setIncludeHeaders(true);
+        filter.setAfterMessagePrefix("REQUEST DATA : ");
+        return filter;
+    }
+
+    @Bean
     public CustomizableTraceInterceptor customizableTraceInterceptor() {
         CustomizableTraceInterceptor cti = new CustomizableTraceInterceptor();
-        cti.setExitMessage("class=" + CustomizableTraceInterceptor.PLACEHOLDER_TARGET_CLASS_NAME + " method=" + CustomizableTraceInterceptor.PLACEHOLDER_METHOD_NAME + "("
-                + CustomizableTraceInterceptor.PLACEHOLDER_ARGUMENTS + ")" + " responsetime=" + CustomizableTraceInterceptor.PLACEHOLDER_INVOCATION_TIME + "ms" + " response="
-                + CustomizableTraceInterceptor.PLACEHOLDER_RETURN_VALUE);
+        cti.setExitMessage("class=" + CustomizableTraceInterceptor.PLACEHOLDER_TARGET_CLASS_NAME + " method="
+                + CustomizableTraceInterceptor.PLACEHOLDER_METHOD_NAME + "(" + CustomizableTraceInterceptor.PLACEHOLDER_ARGUMENTS + ")" + " responsetime="
+                + CustomizableTraceInterceptor.PLACEHOLDER_INVOCATION_TIME + "ms" + " response=" + CustomizableTraceInterceptor.PLACEHOLDER_RETURN_VALUE);
         return cti;
     }
-	
-	/**
+
+    /**
      * Endpoint response/request logging with response time
      * 
      * @return

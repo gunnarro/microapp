@@ -93,7 +93,7 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         query.append(" WHERE date_format(l.created_date_time, '%d.%m.%Y') = ?");
         query.append(" AND l.fk_diet_menu_item_id = i.id");
         String forDateStr = Utility.formatTime(forDate.getTime(), "dd.MM.yyyy");
-        return getJdbcTemplate().query(query.toString(), new Object[] {forDateStr}, DietManagerRowMapper.mapToStringValueRM("meal_name"));
+        return getJdbcTemplate().query(query.toString(), new Object[] { forDateStr }, DietManagerRowMapper.mapToStringValueRM("meal_name"));
     }
 
     /**
@@ -110,6 +110,7 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
             sqlQuery.append(" AND i.menu_item_name = ?");
             sqlQuery.append(" LIMIT 1");
             String createdDateStr = Utility.formatTime(createdDate.getTime(), "dd.MM.yyyy");
+            LOG.debug("created date: " + createdDateStr);
             return getJdbcTemplate().queryForObject(sqlQuery.toString(), new Object[] { createdDateStr, mealName }, Integer.class);
         } catch (EmptyResultDataAccessException erae) {
             if (LOG.isDebugEnabled()) {
@@ -200,13 +201,14 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
      */
     @Override
     public int createUserDietMenuItemLnk(Integer userId, MenuItem menuItem) {
-        if (menuItem.getCreatedDate() == null) {
-            return createLink(
-                    UserDietMenuItemLnkTable.TABLE_NAME,
-                    UserDietMenuItemLnkTable.getFKColumnNames(),
-                    new Object[] { userId, menuItem.getId(), menuItem.getControlledByUserId(), menuItem.getPreparedByUserId(), menuItem.getCausedConflict(), menuItem.getFkLogId() });
+        if (menuItem.isNew()) {
+            return createLink(UserDietMenuItemLnkTable.TABLE_NAME, UserDietMenuItemLnkTable.getFKColumnNames(), new Object[] { userId, menuItem.getId(),
+                    menuItem.getControlledByUserId(), menuItem.getPreparedByUserId(), menuItem.getCausedConflict(), menuItem.getFkLogId() });
         } else {
             try {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Update link: {}", menuItem);
+                }
                 KeyHolder keyHolder = new GeneratedKeyHolder();
                 getJdbcTemplate().update(UserDietMenuItemLnkTable.createInsertPreparedStatement(userId, menuItem), keyHolder);
                 return keyHolder.getKey().intValue();
@@ -221,7 +223,7 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
     public int deleteDietMenu(int dietMenuId) {
         int rows = getJdbcTemplate().update("DELETE FROM diet_menus WHERE id = ?", new Object[] { dietMenuId });
         if (LOG.isDebugEnabled()) {
-            LOG.debug("deleted diet menu id=" + dietMenuId + ", deleted rows=" + rows);
+            LOG.debug("deleted diet menu id = {}, deleted rows = {}", dietMenuId, rows);
         }
         return rows;
     }
@@ -317,7 +319,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
     @Override
     public HealthLogEntry getBodyMeasurementLog(Integer logEntryId) {
         try {
-            return getJdbcTemplate().queryForObject("SELECT *, TIMESTAMPDIFF(MONTH, '2002-01-22', l.log_date) AS months_old FROM body_measurements_log l WHERE l.id = ?",
+            return getJdbcTemplate().queryForObject(
+                    "SELECT *, TIMESTAMPDIFF(MONTH, '2002-01-22', l.log_date) AS months_old FROM body_measurements_log l WHERE l.id = ?",
                     new Object[] { logEntryId }, DietManagerRowMapper.mapToHealthLogEntryRM());
         } catch (org.springframework.dao.EmptyResultDataAccessException erae) {
             if (LOG.isDebugEnabled()) {
@@ -378,8 +381,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
     @Override
     public HealthLogEntry getBodyMeasurementLog(Integer userId, Date logDate) {
         try {
-            return getJdbcTemplate().queryForObject("SELECT * FROM body_measurements_log l WHERE l.fk_user_id = ? AND l.log_date = ?", new Object[] { userId, logDate },
-                    DietManagerRowMapper.mapToHealthLogEntryRM());
+            return getJdbcTemplate().queryForObject("SELECT * FROM body_measurements_log l WHERE l.fk_user_id = ? AND l.log_date = ?",
+                    new Object[] { userId, logDate }, DietManagerRowMapper.mapToHealthLogEntryRM());
         } catch (org.springframework.dao.EmptyResultDataAccessException erae) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Error: " + erae.toString());
@@ -445,7 +448,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
     @Override
     public MenuItem getDietMenuItem(Integer menuItemId) {
         try {
-            return getJdbcTemplate().queryForObject("SELECT * FROM diet_menu_items WHERE id = ?", new Object[] { menuItemId }, DietManagerRowMapper.mapToDietMenuItemRM());
+            return getJdbcTemplate().queryForObject("SELECT * FROM diet_menu_items WHERE id = ?", new Object[] { menuItemId },
+                    DietManagerRowMapper.mapToDietMenuItemRM());
         } catch (org.springframework.dao.EmptyResultDataAccessException erae) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Error: " + erae.toString());
@@ -456,7 +460,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
 
     @Override
     public List<Type> getDietMenuItemTypes() {
-        return getJdbcTemplate().query("SELECT DISTINCT menu_item_name AS name, 0 AS id FROM diet_menu_items", new Object[] {}, DietManagerRowMapper.mapToTypeRM());
+        return getJdbcTemplate().query("SELECT DISTINCT menu_item_name AS name, 0 AS id FROM diet_menu_items", new Object[] {},
+                DietManagerRowMapper.mapToTypeRM());
     }
 
     @Override
@@ -490,7 +495,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         if (LOG.isDebugEnabled()) {
             LOG.debug("meals query: " + mealsQuery.toString());
         }
-        List<KeyValuePair> mealItems = getJdbcTemplate().query(mealsQuery.toString(), new Object[] { dietPlan.getId() }, DietManagerRowMapper.mapToDietPlanMealRM());
+        List<KeyValuePair> mealItems = getJdbcTemplate().query(mealsQuery.toString(), new Object[] { dietPlan.getId() },
+                DietManagerRowMapper.mapToDietPlanMealRM());
         dietPlan.setPlanItems(mapToKeyValuePairList(mealItems));
         dietPlan.setDietPlanRules(getDietPlanMealRules(dietPlan.getId()));
         return dietPlan;
@@ -509,10 +515,11 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         query.append(" WHERE p.id = i.fk_diet_product_id");
         query.append(" ORDER BY p.id ASC");
 
-        List<FoodProduct> products = getJdbcTemplate().query("SELECT * from diet_products ORDER BY id", new Object[] {}, DietManagerRowMapper.mapToFoodProductRM());
+        List<FoodProduct> products = getJdbcTemplate().query("SELECT * from diet_products ORDER BY id", new Object[] {},
+                DietManagerRowMapper.mapToFoodProductRM());
         for (FoodProduct p : products) {
-            List<KeyValuePair> productEquivalents = getJdbcTemplate().query("SELECT * from diet_product_equivalent_items WHERE fk_diet_product_id = ?", new Object[] { p.getId() },
-                    DietManagerRowMapper.mapToKeyValueRM("product_equivalent_name", "product_equivalent_description"));
+            List<KeyValuePair> productEquivalents = getJdbcTemplate().query("SELECT * from diet_product_equivalent_items WHERE fk_diet_product_id = ?",
+                    new Object[] { p.getId() }, DietManagerRowMapper.mapToKeyValueRM("product_equivalent_name", "product_equivalent_description"));
             p.setProductEquivalents(productEquivalents);
         }
         return products;
@@ -543,8 +550,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         query.append(" FROM food_recipes r, food_recipe_items i");
         query.append(" WHERE r.id = i.fk_food_recipe_id");
         query.append(" ORDER BY i.recipe_item_name, i.recipe_item_description ASC");
-        List<KeyValuePair> recipes = getJdbcTemplate()
-                .query(query.toString(), new Object[] {}, DietManagerRowMapper.mapToKeyValueRM("recipe_item_name", "recipe_item_description"));
+        List<KeyValuePair> recipes = getJdbcTemplate().query(query.toString(), new Object[] {},
+                DietManagerRowMapper.mapToKeyValueRM("recipe_item_name", "recipe_item_description"));
         // have to map to unique key pair
         return mapToKeyValuePairList(recipes);
     }
@@ -575,7 +582,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         query.append(" WHERE l.fk_diet_menu_item_id = i.id");
         query.append(" GROUP BY i.menu_item_name");
         query.append(" ORDER BY count DESC");
-        return getJdbcTemplate().query(query.toString(), new Object[] {}, DietManagerRowMapper.mapToKeyValueRM(FIELD_MENU_ITEM_NAME, FIELD_MENU_ITEM_DESCRIPTION, FIELD_COUNT));
+        return getJdbcTemplate().query(query.toString(), new Object[] {},
+                DietManagerRowMapper.mapToKeyValueRM(FIELD_MENU_ITEM_NAME, FIELD_MENU_ITEM_DESCRIPTION, FIELD_COUNT));
     }
 
     @Override
@@ -601,7 +609,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
     @Override
     public List<MenuItem> getMenuSelctionTrendForUser(Integer userId, Integer days) {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT l.created_date_time, l.last_modified_date_time, l.fk_diet_menu_item_id, i.id, i.menu_item_name, i.menu_item_category, i.menu_item_description, i.menu_item_energy_kcal, i.menu_item_enabled, i.fk_diet_menu_id");
+        query.append(
+                "SELECT l.created_date_time, l.last_modified_date_time, l.fk_diet_menu_item_id, i.id, i.menu_item_name, i.menu_item_category, i.menu_item_description, i.menu_item_energy_kcal, i.menu_item_enabled, i.fk_diet_menu_id");
         query.append(" FROM  user_diet_menu_item_lnk l, diet_menu_items i");
         query.append(" WHERE l.fk_user_id IN(1,2,3,4,5,6)");
         query.append(" AND l.fk_diet_menu_item_id = i.id");
@@ -622,7 +631,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         }
         // Loop through all days with missing meals
         for (KeyValuePair k : list) {
-            List<MenuItem> thisDayMeals = getJdbcTemplate().query(DietManagerSql.createGetMealsForDate(), new Object[] { k.getKey() }, DietManagerRowMapper.mapToMenuItemRM());
+            List<MenuItem> thisDayMeals = getJdbcTemplate().query(DietManagerSql.createGetMealsForDate(), new Object[] { k.getKey() },
+                    DietManagerRowMapper.mapToMenuItemRM());
             if (LOG.isDebugEnabled()) {
                 LOG.debug("missing meals for: " + thisDayMeals);
             }
@@ -645,12 +655,14 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
 
     @Override
     public int getNumberOfActivitiesLastDays(Integer days) {
-        return getJdbcTemplate().queryForObject(DietManagerSql.createLogLevelCountQuery(), new Object[] { days, "ACTIVITY" }, DietManagerRowMapper.mapCountRM());
+        return getJdbcTemplate().queryForObject(DietManagerSql.createLogLevelCountQuery(), new Object[] { days, "ACTIVITY" },
+                DietManagerRowMapper.mapCountRM());
     }
 
     @Override
     public int getNumberOfConflictsLastDays(Integer days) {
-        return getJdbcTemplate().queryForObject(DietManagerSql.createLogLevelCountQuery(), new Object[] { days, "CONFLICT" }, DietManagerRowMapper.mapCountRM());
+        return getJdbcTemplate().queryForObject(DietManagerSql.createLogLevelCountQuery(), new Object[] { days, "CONFLICT" },
+                DietManagerRowMapper.mapCountRM());
 
     }
 
@@ -715,8 +727,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         countQuery.append(" AND l.fk_diet_menu_item_id = i.id");
         countQuery.append(" LIMIT ?");
         StringBuilder mealsQuery = new StringBuilder();
-        mealsQuery
-                .append("SELECT i.id, i.fk_diet_menu_id, i.menu_item_name, i.menu_item_category, i.menu_item_description, i.menu_item_energy_kcal, i.menu_item_enabled, l.id AS primary_key_id, l.created_date_time, l.last_modified_date_time, l.fk_controlled_by_user_id, l.caused_conflict, l.fk_log_id, m.meal_order");
+        mealsQuery.append(
+                "SELECT i.id, i.fk_diet_menu_id, i.menu_item_name, i.menu_item_category, i.menu_item_description, i.menu_item_energy_kcal, i.menu_item_enabled, l.id AS primary_key_id, l.created_date_time, l.last_modified_date_time, l.fk_controlled_by_user_id, l.caused_conflict, l.fk_log_id, m.meal_order");
         mealsQuery.append(",(").append(countQuery.toString()).append(") AS selection_count");
         mealsQuery.append(",(SELECT m.id FROM diet_plan_meals m WHERE i.menu_item_name = m.meal_name) AS fk_menu_item_name_id");
         mealsQuery.append(" FROM user_diet_menu_item_lnk l, diet_menu_items i, diet_plan_meals m");
@@ -812,22 +824,24 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
                 for (Object o : values) {
                     sb.append(o).append(",");
                 }
-                LOG.debug("query=" + query + ", " + sb.toString());
+                LOG.debug("query = {} , {}", query, sb.toString());
             }
             KeyHolder keyHolder = new GeneratedKeyHolder();
             getJdbcTemplate().update(TableHelper.createInsertPreparedStatement(query, values), keyHolder);
-            LOG.debug("Created new link in table: " + tableName + " whith id " + keyHolder.getKey().intValue() + " for " + values[0] + ", " + values[1]);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Created new link in table: {} whith id: {}, for {}, {}", tableName, keyHolder.getKey().intValue(), values[0], values[1]);
+            }
             runQuery("SELECT * FROM " + tableName, Type.class);
             return keyHolder.getKey().intValue();
         } catch (DuplicateKeyException e) {
             // Ignore it, the entry already exist
             LOG.warn(null, e);
-            LOG.warn("Duplicate entry! table: " + tableName + " " + columnNames[0] + " = " + values[0] + ", " + columnNames[1] + " = " + values[1]);
+            LOG.warn("Duplicate entry! table: {}, {} = {}, {} = {}", tableName, columnNames[0], values[0], columnNames[1], values[1]);
             return 0;
         } catch (Exception sqle) {
-            LOG.error("Error creating link! table: " + tableName + " " + columnNames[0] + " = " + values[0] + ", " + columnNames[1] + " = " + values[1]);
-            throw new ApplicationException("Error creating link! table=" + tableName + " " + columnNames[0] + " = " + values[0] + ", " + columnNames[1] + " = " + values[1] + "\n"
-                    + sqle);
+            LOG.error("Error creating link! table: {}, {} = {}, {} = {}", tableName, columnNames[0], values[0], columnNames[1], values[1]);
+            throw new ApplicationException("Error creating link! table=" + tableName + " " + columnNames[0] + " = " + values[0] + ", " + columnNames[1] + " = "
+                    + values[1] + "\n" + sqle);
         }
     }
 
@@ -859,7 +873,8 @@ public class DietManagerRepositoryImpl extends BaseJdbcRepository implements Die
         query.append(" WHERE i.fk_diet_plan_id = ?");
         query.append(" AND i.meal_item_name LIKE 'Regler%'");
         query.append(" ORDER BY i.meal_item_description ASC");
-        return getJdbcTemplate().query(query.toString(), new Object[] { dietPlanId }, DietManagerRowMapper.mapToKeyValueRM("meal_item_name", "meal_item_description"));
+        return getJdbcTemplate().query(query.toString(), new Object[] { dietPlanId },
+                DietManagerRowMapper.mapToKeyValueRM("meal_item_name", "meal_item_description"));
     }
 
     private List<KeyValuePairList> mapToKeyValuePairList(List<KeyValuePair> keyValuePairs) {

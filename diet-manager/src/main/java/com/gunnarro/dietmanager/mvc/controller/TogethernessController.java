@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.domain.togetherness.TogethernessLog;
 import com.gunnarro.dietmanager.service.TogethernessService;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
@@ -49,7 +48,7 @@ public class TogethernessController extends BaseController {
 
     @Autowired
     private TogethernessService togethernessService;
-    
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat(Utility.DATE_TIME_PATTERN);
@@ -57,8 +56,6 @@ public class TogethernessController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
     }
 
-  
-    
     @RequestMapping(value = "/togetherness/log", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView gettogethernesssLog() {

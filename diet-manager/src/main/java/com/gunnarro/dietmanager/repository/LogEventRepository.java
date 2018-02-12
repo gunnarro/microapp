@@ -30,11 +30,13 @@ public interface LogEventRepository {
     public int deleteLogEvent(Integer userId, Integer id);
 
     public int createLogComment(LogComment logComment);
-    
+
     public int deleteLogComment(Integer userId, Integer id);
 
     public List<LogComment> getLogComments(Integer logEntryId);
 
-	public boolean hasPermission(Integer logEventId, String username);
+    public boolean hasPermission(Integer logEventId, String username);
+
+    public int updateLogEventLastModifiedDate(Integer logEntryId);
 
 }

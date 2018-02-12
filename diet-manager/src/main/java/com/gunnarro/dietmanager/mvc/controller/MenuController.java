@@ -59,8 +59,7 @@ public class MenuController extends BaseController {
         model.put("menu", new DietMenu());
         return "diet/edit-diet-menu";
     }
-    
-    
+
     /**
      * 
      * @param menuItemId
@@ -80,11 +79,10 @@ public class MenuController extends BaseController {
         return "diet/edit-diet-menu";
     }
 
-    
     // ---------------------------------------------
     // New and update menu
     // ---------------------------------------------
-    
+
     /**
      * 
      * @param userId
@@ -163,6 +161,7 @@ public class MenuController extends BaseController {
         view.setViewName("diet/view-diet-menu-gallery");
         return view;
     }
+
     /**
      * 
      * @param userId
@@ -180,11 +179,11 @@ public class MenuController extends BaseController {
         try {
             id = Integer.parseInt(menuId);
         } catch (Exception e) {
-//            // ignore exception, set default menuId,
-//            if (LOG.isWarnEnabled() ){
-//                LOG.warn("Invalid id: " + id, e);
-//            }
-//            id = 1;
+            // // ignore exception, set default menuId,
+            // if (LOG.isWarnEnabled() ){
+            // LOG.warn("Invalid id: " + id, e);
+            // }
+            // id = 1;
             throw new ApplicationException(e.getMessage());
         }
         DietMenu dietMenu = dietManagerService.getDietMenu(id);

@@ -20,11 +20,11 @@ public class ReferenceData {
     public int getAgeYears() {
         return month / 12;
     }
-    
+
     public int getAgeMonths() {
         return month % 12;
     }
-    
+
     public Integer getId() {
         return id;
     }

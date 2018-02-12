@@ -23,7 +23,7 @@ public class DietManagerRestEndpointTest extends SpringTestSetup {
 
     @Mock
     private AuthenticationFacade authenticationFacadeMock;
-    
+
     @Mock
     private DietManagerService sportsTeamServiceMock;
 
@@ -32,7 +32,7 @@ public class DietManagerRestEndpointTest extends SpringTestSetup {
         MockitoAnnotations.initMocks(this);
         restEndpoint = new DietManagerRestEndpoint(sportsTeamServiceMock, authenticationFacadeMock);
     }
-    
+
     @Test
     public void getChartDataBmi() {
         when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(1));
@@ -53,14 +53,14 @@ public class DietManagerRestEndpointTest extends SpringTestSetup {
         List<ChartData> list = restEndpoint.getChartData("controlledby");
         Assert.assertEquals(0, list.size());
     }
-    
+
     @Test
     public void getChartDataNoHit() {
         when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(1));
         List<ChartData> list = restEndpoint.getChartData("unkown");
         Assert.assertEquals(0, list.size());
     }
-    
+
     @Test
     public void menuSelectionDeRegistrer() {
         when(sportsTeamServiceMock.deleteSelectedFoodForUser(99, 2)).thenReturn(1);

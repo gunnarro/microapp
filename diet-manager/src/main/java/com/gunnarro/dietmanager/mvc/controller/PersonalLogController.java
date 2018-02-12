@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,7 +49,7 @@ public class PersonalLogController extends BaseController {
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
     }
-    
+
     @RequestMapping(value = "/personal/logs", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getLogEvents() {
@@ -78,7 +77,6 @@ public class PersonalLogController extends BaseController {
         return modelView;
     }
 
-    
     @RequestMapping(value = "/personal/logs/txt", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView viewLogEventsAsPlainText() {
@@ -98,10 +96,10 @@ public class PersonalLogController extends BaseController {
 
     @RequestMapping(value = "/personal/log/new", method = RequestMethod.GET)
     public String initNewLogEventForm(Map<String, Object> model) {
-    	 LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-         if (loggedInUser == null) {
-             throw new ApplicationException("Not logged in!");
-         }
+        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+        if (loggedInUser == null) {
+            throw new ApplicationException("Not logged in!");
+        }
         LogEntry log = new LogEntry();
         log.setLevel("INFO");
         log.setCreatedDate(new Date());
@@ -168,7 +166,7 @@ public class PersonalLogController extends BaseController {
             return "redirect:/diet/log/events";
         }
     }
-    
+
     /**
      * Use PUT for updates
      * 
@@ -203,5 +201,5 @@ public class PersonalLogController extends BaseController {
         logEventService.deleteLogEvent(loggedInUser.getId(), logEntryId);
         return "redirect:/diet/log/events";
     }
-    
+
 }

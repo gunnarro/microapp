@@ -19,13 +19,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
-import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.utility.Utility;
 
-@ContextConfiguration(classes={LogEventRepositoryImpl.class, TestDataSourceConfiguration.class})
+@ContextConfiguration(classes = { TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })
 @Transactional
 @Rollback
 // @Ignore
@@ -37,17 +38,17 @@ public class logEventRepositoryTest extends DefaultTestConfig {
     @Before
     public void setUp() throws Exception {
     }
-    
+
     @Test
     public void hasPermission_access_denied() {
-    	assertFalse(logEventRepository.hasPermission(200, "per"));
+        assertFalse(logEventRepository.hasPermission(200, "per"));
     }
 
     @Test
     public void hasPermission_access_ok() {
-    	assertTrue(logEventRepository.hasPermission(3, "pepilie"));
+        assertTrue(logEventRepository.hasPermission(3, "pepilie"));
     }
-    
+
     @Test
     public void CRUDEventLog() {
         int userId = 5;
@@ -90,12 +91,12 @@ public class logEventRepositoryTest extends DefaultTestConfig {
 
     @Test
     public void getLogComments() {
-    	assertEquals(2, logEventRepository.getLogComments(4).size());
-//    	for ( LogComment comment: logEventRepository.getLogComments(4)) {
-//    		System.out.println(comment);
-//    	}
+        assertEquals(2, logEventRepository.getLogComments(4).size());
+        // for ( LogComment comment: logEventRepository.getLogComments(4)) {
+        // System.out.println(comment);
+        // }
     }
-    
+
     @Test
     public void createLogComment() {
         int userId = 5;
@@ -121,7 +122,7 @@ public class logEventRepositoryTest extends DefaultTestConfig {
         assertEquals("comment 1", logEntry.getLogComments().get(0).getContent());
         assertEquals(3, logEntry.getLogComments().get(0).getFkUserId().intValue());
     }
-    
+
     @Test
     public void eventLogLogDateNotToday() {
         int userId = 5;
@@ -152,9 +153,9 @@ public class logEventRepositoryTest extends DefaultTestConfig {
         List<LogEntry> logs = logEventRepository.getAllLogEvents(1);
         assertNotNull(logs);
         assertEquals(1, logs.get(0).getNumberOfComments());
-//         for (LogEntry l : logs) {
-//         System.out.println("UnitTest EventLog: " + l);
-//         }
+        // for (LogEntry l : logs) {
+        // System.out.println("UnitTest EventLog: " + l);
+        // }
     }
 
     @Ignore
@@ -184,22 +185,27 @@ public class logEventRepositoryTest extends DefaultTestConfig {
         assertNull(allLogEvents.get(0).getLogComments());
     }
 
-//    @Test
-//    public void followersGetLog() {
-//        int followerId = 6; // mamma user id
-//        List<LogEntry> allLogEvents = logEventRepository.getAllLogEvents(followerId);
-//        assertEquals(1, allLogEvents.size());
-//        assertEquals("log event created by mamma", allLogEvents.get(0).getContent());
-//        // add so mamma can see log events for pepilie
-//        logEventRepository.createFollowerForUser(4, 6);
-//        List<Integer> grantedUserIdsForFollower = logEventRepository.getGrantedUserIdsForFollower(followerId);
-//        assertEquals("[4]", grantedUserIdsForFollower.toString());
-//        allLogEvents = logEventRepository.getAllLogEvents(followerId);
-//        System.out.println(allLogEvents);
-//        assertEquals(2, allLogEvents.size());
-//        assertEquals("log event created by pepilie", allLogEvents.get(0).getContent());
-//        assertEquals("log event created by mamma", allLogEvents.get(1).getContent());
-//    }
+    // @Test
+    // public void followersGetLog() {
+    // int followerId = 6; // mamma user id
+    // List<LogEntry> allLogEvents =
+    // logEventRepository.getAllLogEvents(followerId);
+    // assertEquals(1, allLogEvents.size());
+    // assertEquals("log event created by mamma",
+    // allLogEvents.get(0).getContent());
+    // // add so mamma can see log events for pepilie
+    // logEventRepository.createFollowerForUser(4, 6);
+    // List<Integer> grantedUserIdsForFollower =
+    // logEventRepository.getGrantedUserIdsForFollower(followerId);
+    // assertEquals("[4]", grantedUserIdsForFollower.toString());
+    // allLogEvents = logEventRepository.getAllLogEvents(followerId);
+    // System.out.println(allLogEvents);
+    // assertEquals(2, allLogEvents.size());
+    // assertEquals("log event created by pepilie",
+    // allLogEvents.get(0).getContent());
+    // assertEquals("log event created by mamma",
+    // allLogEvents.get(1).getContent());
+    // }
 
     @After
     public void tearDown() throws Exception {

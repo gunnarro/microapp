@@ -36,6 +36,11 @@ import com.gunnarro.dietmanager.service.DietManagerService;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
 import com.gunnarro.dietmanager.utility.Utility;
 
+/**
+ * 
+ * @author mentos
+ *
+ */
 @Service
 public class DietManagerServiceImpl implements DietManagerService {
 
@@ -149,8 +154,9 @@ public class DietManagerServiceImpl implements DietManagerService {
                 }
                 break;
             }
-            
-            // double diffHeight = logs.get(i).getHeight() - logs.get(i + 1).getHeight();
+
+            // double diffHeight = logs.get(i).getHeight() - logs.get(i +
+            // 1).getHeight();
             double diffWeight = logs.get(i).getWeight() - logs.get(i + 1).getWeight();
             if (diffWeight > 0) {
                 logs.get(i).setTrendWeight(1);
@@ -443,7 +449,7 @@ public class DietManagerServiceImpl implements DietManagerService {
             s.setPeriod(Utility.getWeekInfo(s.getCreatedDate()));
             Key key = new Key(s.sortBy(), s.getPeriod());
             if (!map.containsKey(key)) {
-                List<MealStatistic> list = new ArrayList<MealStatistic>();
+                List<MealStatistic> list = new ArrayList<>();
                 list.add(s);
                 map.put(key, list);
             } else {
@@ -457,7 +463,7 @@ public class DietManagerServiceImpl implements DietManagerService {
         // int totalMealsCausedConflictCount = 0;
         // int totalMealsControlledByUserCount = 0;
         // int totalMealsPreparedByUserCount = 0;
-        SortedMap<String, MealStatistic> map = new TreeMap<String, MealStatistic>(Collections.reverseOrder());
+        SortedMap<String, MealStatistic> map = new TreeMap<>(Collections.reverseOrder());
         for (MealStatistic s : mealStatisticList) {
             if (!map.containsKey(s.getUserName())) {
                 map.put(s.getUserName(), s);
@@ -482,7 +488,7 @@ public class DietManagerServiceImpl implements DietManagerService {
         // total.setMealsControlledByUserCount(totalMealsControlledByUserCount);
         // total.setMealsPreparedByUserCount(totalMealsPreparedByUserCount);
         // map.put("Total", total);
-        return new ArrayList<MealStatistic>(map.values());
+        return new ArrayList<>(map.values());
     }
 
     @Override
@@ -498,9 +504,9 @@ public class DietManagerServiceImpl implements DietManagerService {
     public List<String> getSelectedMealNamesForDate(Date forDate) {
         return dietManagerRepository.getSelecedMealNamesForDate(forDate);
     }
-    
+
     protected void doAfterPropertiesSet() throws Exception {
-		Assert.notNull(this.dietManagerRepository, "A diet manager repository must be set");
-		Assert.notNull(this.logEventRepository, "A log event repository must be set");
-	}
+        Assert.notNull(this.dietManagerRepository, "A diet manager repository must be set");
+        Assert.notNull(this.logEventRepository, "A log event repository must be set");
+    }
 }

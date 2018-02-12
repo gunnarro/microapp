@@ -24,19 +24,19 @@ public class HealthLogEntry extends BaseDomain {
     @NotNull
     @Min(10)
     @Max(220)
-    private Double height;
+    private Double height = 0d;
     private Double referenceHeight;
     private String heightMetric = "cm";
     @NotNull
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private Date logDate;
+    private Date logDate = new Date();
     private Integer monthsOld;
     private int userId;
     @NotNull
     @Min(1)
     @Max(150)
     @NumberFormat(style = Style.NUMBER, pattern = "###.#")
-    private Double weight;
+    private Double weight = 0d;
     private Double referenceWeight;
     private String weightMetric = "kg";
     private Integer trendWeight = 0;
@@ -177,8 +177,8 @@ public class HealthLogEntry extends BaseDomain {
 
     @Override
     public String toString() {
-        return "HealthLogEntry [userId=" + userId + ", logDate=" + logDate + ", weight=" + weight + ", height=" + height + ", monthsOld=" + monthsOld + ", weightMetric="
-                + weightMetric + ", heightMetric=" + heightMetric + ", comment=" + comment + "]";
+        return "HealthLogEntry [userId=" + userId + ", logDate=" + logDate + ", weight=" + weight + ", height=" + height + ", monthsOld=" + monthsOld
+                + ", weightMetric=" + weightMetric + ", heightMetric=" + heightMetric + ", comment=" + comment + "]";
     }
 
 }

@@ -33,11 +33,15 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
 @RequestMapping("/rest")
 public class DietManagerRestEndpoint {
 
+    private static final String USER_DAD = "pappa";
+    private static final String USER_MOM = "mamma";
+    private static final String USER_PEPILIE = "pepilie";
+
     private static final Logger LOG = LoggerFactory.getLogger(DietManagerRestEndpoint.class);
 
     @Autowired
     protected AuthenticationFacade authenticationFacade;
-    
+
     @Autowired
     private DietManagerService dietManagerService;
 
@@ -69,13 +73,14 @@ public class DietManagerRestEndpoint {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("get chart data for type= " + type);
             }
-            List<ChartData> data = new ArrayList<ChartData>();
+            List<ChartData> data = new ArrayList<>();
             if ("bmi".equalsIgnoreCase(type)) {
                 data = dietManagerService.getBmiChartData(loggedInUser.getId());
             } else if ("bodymeasure".equalsIgnoreCase(type)) {
                 List<HealthLogEntry> bodyMeasurementLogs = dietManagerService.getBodyMeasurementLogs(loggedInUser.getId());
                 for (HealthLogEntry log : bodyMeasurementLogs) {
-                    data.add(new ChartData(log.getId(), Utility.formatTime(log.getLogDate().getTime(), Utility.DATE_PATTERN), log.getWeight(), log.getHeight(), log.getBmi()));
+                    data.add(new ChartData(log.getId(), Utility.formatTime(log.getLogDate().getTime(), Utility.DATE_PATTERN), log.getWeight(), log.getHeight(),
+                            log.getBmi()));
                 }
             } else if ("controlledby".equalsIgnoreCase(type)) {
                 List<MealStatistic> mealStatsticList = dietManagerService.getMealStatsticForUsers(loggedInUser.getId(), days);
@@ -124,7 +129,8 @@ public class DietManagerRestEndpoint {
             // delete only meal type for current date
             boolean isMealAlreadyRegistered = dietManagerService.checkIfSelectedMealAlreadyRegistered(userId, new Date(), menuItemId);
             if (!isMealAlreadyRegistered) {
-                LOG.debug("Valgte menuItem id (" + menuItemId + ") er ikke registrert i dag: " + Utility.formatTime(System.currentTimeMillis(), Utility.DATE_PATTERN));
+                LOG.debug("Valgte menuItem id ({}) er ikke registrert i dag: {}", menuItemId,
+                        Utility.formatTime(System.currentTimeMillis(), Utility.DATE_PATTERN));
                 return dietManagerService.getSelectedFoodCountForUser(userId, menuItemId);
             }
 
@@ -156,7 +162,8 @@ public class DietManagerRestEndpoint {
             boolean isMealAlreadyRegistered = dietManagerService.checkIfSelectedMealAlreadyRegistered(userId, new Date(), menuItemId);
             if (isMealAlreadyRegistered) {
                 MenuItem tmpMenuItem = dietManagerService.getDietMenuItem(menuItemId);
-                LOG.debug(tmpMenuItem.getName() + " er allerede registrert i dag: " + Utility.formatTime(tmpMenuItem.getCreatedTime(), Utility.DATE_PATTERN));
+                LOG.debug("{} er allerede registrert i dag: {} ", tmpMenuItem.getName(),
+                        Utility.formatTime(tmpMenuItem.getCreatedTime(), Utility.DATE_PATTERN));
                 return dietManagerService.getSelectedFoodCountForUser(userId, menuItemId);
             }
 
@@ -181,26 +188,27 @@ public class DietManagerRestEndpoint {
         }
     }
 
-//    private ChartData createChartData(Map.Entry<String, List<KeyValuePair>> entry) {
-//        String weekNumber = null;
-//        double pappa = 0;
-//        double mamma = 0;
-//        double pepilie = 0;
-//        for (KeyValuePair kvp : entry.getValue()) {
-//            weekNumber = kvp.getKey();
-//            if ("pappa".equalsIgnoreCase(kvp.getValue())) {
-//                pappa = kvp.getCount();
-//            } else if ("mamma".equalsIgnoreCase(kvp.getValue())) {
-//                mamma = kvp.getCount();
-//            } else if ("pepilie".equalsIgnoreCase(kvp.getValue())) {
-//                pepilie = kvp.getCount();
-//            }
-//        }
-//        return new ChartData(weekNumber, pappa, mamma, pepilie);
-//    }
-    
+    // private ChartData createChartData(Map.Entry<String, List<KeyValuePair>>
+    // entry) {
+    // String weekNumber = null;
+    // double pappa = 0;
+    // double mamma = 0;
+    // double pepilie = 0;
+    // for (KeyValuePair kvp : entry.getValue()) {
+    // weekNumber = kvp.getKey();
+    // if ("pappa".equalsIgnoreCase(kvp.getValue())) {
+    // pappa = kvp.getCount();
+    // } else if ("mamma".equalsIgnoreCase(kvp.getValue())) {
+    // mamma = kvp.getCount();
+    // } else if ("pepilie".equalsIgnoreCase(kvp.getValue())) {
+    // pepilie = kvp.getCount();
+    // }
+    // }
+    // return new ChartData(weekNumber, pappa, mamma, pepilie);
+    // }
+
     private ChartData createChartDataPreparedBy(Map.Entry<Key, List<MealStatistic>> entry) {
-        String key =  null;
+        String key = null;
         String weekNumber = null;
         double pappa = 0;
         double mamma = 0;
@@ -208,19 +216,19 @@ public class DietManagerRestEndpoint {
         for (MealStatistic s : entry.getValue()) {
             key = s.sortBy();
             weekNumber = s.getWeekNumber().toString();
-            if ("pappa".equalsIgnoreCase(s.getUserName())) {
+            if (USER_DAD.equalsIgnoreCase(s.getUserName())) {
                 pappa = s.getMealsPreparedByUserCount();
-            } else if ("mamma".equalsIgnoreCase(s.getUserName())) {
+            } else if (USER_MOM.equalsIgnoreCase(s.getUserName())) {
                 mamma = s.getMealsPreparedByUserCount();
-            } else if ("pepilie".equalsIgnoreCase(s.getUserName())) {
+            } else if (USER_PEPILIE.equalsIgnoreCase(s.getUserName())) {
                 pepilie = s.getMealsPreparedByUserCount();
             }
         }
         return new ChartData(key, weekNumber, pappa, mamma, pepilie);
     }
-    
+
     private ChartData createChartDataControlledBy(Map.Entry<Key, List<MealStatistic>> entry) {
-        String key =  null;
+        String key = null;
         String weekNumber = null;
         double pappa = 0;
         double mamma = 0;
@@ -228,17 +236,17 @@ public class DietManagerRestEndpoint {
         for (MealStatistic s : entry.getValue()) {
             key = s.sortBy();
             weekNumber = s.getWeekNumber().toString();
-            if ("pappa".equalsIgnoreCase(s.getUserName())) {
+            if (USER_DAD.equalsIgnoreCase(s.getUserName())) {
                 pappa = s.getMealsControlledByUserCount();
-            } else if ("mamma".equalsIgnoreCase(s.getUserName())) {
+            } else if (USER_MOM.equalsIgnoreCase(s.getUserName())) {
                 mamma = s.getMealsControlledByUserCount();
-            } else if ("pepilie".equalsIgnoreCase(s.getUserName())) {
+            } else if (USER_PEPILIE.equalsIgnoreCase(s.getUserName())) {
                 pepilie = s.getMealsControlledByUserCount();
             }
         }
         return new ChartData(key, weekNumber, pappa, mamma, pepilie);
     }
-    
+
     private ChartData createChartDataCausedConflict(Map.Entry<Key, List<MealStatistic>> entry) {
         String key = null;
         String weekNumber = null;
@@ -248,11 +256,11 @@ public class DietManagerRestEndpoint {
         for (MealStatistic s : entry.getValue()) {
             key = s.sortBy();
             weekNumber = s.getWeekNumber().toString();
-            if ("pappa".equalsIgnoreCase(s.getUserName())) {
+            if (USER_DAD.equalsIgnoreCase(s.getUserName())) {
                 pappa = s.getMealsCausedConflictCount();
-            } else if ("mamma".equalsIgnoreCase(s.getUserName())) {
+            } else if (USER_MOM.equalsIgnoreCase(s.getUserName())) {
                 mamma = s.getMealsCausedConflictCount();
-            } else if ("pepilie".equalsIgnoreCase(s.getUserName())) {
+            } else if (USER_PEPILIE.equalsIgnoreCase(s.getUserName())) {
                 pepilie = s.getMealsCausedConflictCount();
             }
         }

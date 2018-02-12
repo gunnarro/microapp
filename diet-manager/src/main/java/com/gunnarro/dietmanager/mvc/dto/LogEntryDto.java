@@ -14,13 +14,13 @@ public class LogEntryDto implements Serializable {
     private Integer fkUserId;
     private String createdByUser;
     @NotNull
-    @Size(min = 4, max = 30, message="Tittel må være mellom 4 og 30 tegn.")
-    private String title;
+    @Size(min = 4, max = 30, message = "Tittel må være mellom 4 og 30 tegn.")
+    private String title = "";
     @NotNull
-    @Size(min = 5, max = 4096, message="Beskrivelse må være mellom 5 og 496 tegn.")
-    private String content;
+    @Size(min = 5, max = 4096, message = "Beskrivelse må være mellom 5 og 496 tegn.")
+    private String content = "";
     @NotNull
-    private String level;
+    private String level = "INFO";
 
     private long createdTime;
     private long lastModifiedTime;
@@ -113,8 +113,8 @@ public class LogEntryDto implements Serializable {
 
     @Override
     public String toString() {
-        return "LogEntryDto [id=" + id + ", fkUserId=" + fkUserId + ", createdByUser=" + createdByUser + ", title=" + title + ", content=" + content + ", level=" + level
-                + ", createdTime=" + createdTime + ", lastModifiedTime=" + lastModifiedTime + "]";
+        return "LogEntryDto [id=" + id + ", fkUserId=" + fkUserId + ", createdByUser=" + createdByUser + ", title=" + title + ", content=" + content
+                + ", level=" + level + ", createdTime=" + createdTime + ", lastModifiedTime=" + lastModifiedTime + "]";
     }
 
 }

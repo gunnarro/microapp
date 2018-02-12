@@ -10,19 +10,19 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
 @Service
 public interface UserService {
 
-	/**
-	 * 
-	 * @param UserRegistrationForm
-	 * @return
-	 * @throws UserAlreadyExistAuthenticationException
-	 */
-	public UserDetails registerNewUser(UserRegistrationForm UserRegistrationForm) throws UserAlreadyExistAuthenticationException;
+    /**
+     * 
+     * @param UserRegistrationForm
+     * @return
+     * @throws UserAlreadyExistAuthenticationException
+     */
+    public UserDetails registerNewUser(UserRegistrationForm userRegistrationForm);
 
-	/**
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	public LocalUser findLocalUserById(String userId);
-	    
+    /**
+     * 
+     * @param userId
+     * @return
+     */
+    public LocalUser findLocalUserById(String userId);
+
 }

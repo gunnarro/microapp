@@ -48,10 +48,11 @@ public class MyChoicesControllerTest extends SpringTestSetup {
         Calendar cal2 = Calendar.getInstance();
         cal2.add(Calendar.DATE, +2);
 
-        List<MenuItem> menuItemList = Arrays.asList(new MenuItem(DietMenu.BREAKFAST, "", cal1.getTime()), new MenuItem(DietMenu.LUNCH, "", cal1.getTime()), new MenuItem(
-                DietMenu.DESSERT, "", cal1.getTime()), new MenuItem(DietMenu.MEAL_BETWEEN, "", cal1.getTime()), new MenuItem(DietMenu.DINNER, "", cal1.getTime()), new MenuItem(
-                DietMenu.EVENING, "", cal1.getTime()), new MenuItem(DietMenu.LUNCH, "", cal2.getTime()), new MenuItem(DietMenu.DINNER, "", new Date()), new MenuItem(
-                DietMenu.EVENING, "", new Date()));
+        List<MenuItem> menuItemList = Arrays.asList(new MenuItem(DietMenu.BREAKFAST, "", cal1.getTime()), new MenuItem(DietMenu.LUNCH, "", cal1.getTime()),
+                new MenuItem(DietMenu.DESSERT, "", cal1.getTime()), new MenuItem(DietMenu.MEAL_BETWEEN, "", cal1.getTime()),
+                new MenuItem(DietMenu.DINNER, "", cal1.getTime()), new MenuItem(DietMenu.EVENING, "", cal1.getTime()),
+                new MenuItem(DietMenu.LUNCH, "", cal2.getTime()), new MenuItem(DietMenu.DINNER, "", new Date()),
+                new MenuItem(DietMenu.EVENING, "", new Date()));
 
         when(dietManagerServiceMock.getSelectedMenuItemsForUser(1, 60)).thenReturn(menuItemList);
         when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(1));

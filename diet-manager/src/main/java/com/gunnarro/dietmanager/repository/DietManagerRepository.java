@@ -85,7 +85,7 @@ public interface DietManagerRepository {
     public List<KeyValuePairList> getFoodRecipes();
 
     public List<KeyValuePair> getMealsManagedByUserStatistic(Integer days);
-    
+
     public List<KeyValuePair> getMealsPreparedByUserStatistic(Integer days);
 
     public List<KeyValuePair> getMealTypesStatistic(Integer days);

@@ -51,6 +51,7 @@ public abstract class BaseJdbcRepository {
                 return resultSet.getInt("fk_user_id");
             }
         };
-        return getJdbcTemplate().query("SELECT fk_user_id FROM user_follower_lnk WHERE fk_user_follower_id = ? ORDER BY fk_user_id ASC", new Object[] { userIdFollowerId }, rm);
+        return getJdbcTemplate().query("SELECT fk_user_id FROM user_follower_lnk WHERE fk_user_follower_id = ? ORDER BY fk_user_id ASC",
+                new Object[] { userIdFollowerId }, rm);
     }
 }

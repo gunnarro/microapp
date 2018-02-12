@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-//@ContextConfiguration(classes = MyWebConfig.class)
+// @ContextConfiguration(classes = MyWebConfig.class)
 public class UserRegistrationControllerTest {
 
     @Autowired
@@ -27,30 +27,21 @@ public class UserRegistrationControllerTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setup () {
+    public void setup() {
         DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
         this.mockMvc = builder.build();
     }
 
     @Ignore
     @Test
-    public void testUserController () throws Exception {
+    public void testUserController() throws Exception {
 
-        MockHttpServletRequestBuilder builder =
-                                   MockMvcRequestBuilders.post("/user")
-                                        .header("testHeader",
-                                                "headerValue")
-                                        .contentType(MediaType.APPLICATION_JSON)
-                                        .content(createUserInJson("joe",
-                                                            "joe@example.com"));
-        this.mockMvc.perform(builder)
-                    .andExpect(MockMvcResultMatchers.status()
-                                                    .isOk())
-                    .andDo(MockMvcResultHandlers.print());
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/user").header("testHeader", "headerValue").contentType(MediaType.APPLICATION_JSON)
+                .content(createUserInJson("joe", "joe@example.com"));
+        this.mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 
-    private static String createUserInJson (String name, String email) {
-        return "{ \"name\": \"" + name + "\", " +
-                            "\"emailAddress\":\"" + email + "\"}";
+    private static String createUserInJson(String name, String email) {
+        return "{ \"name\": \"" + name + "\", " + "\"emailAddress\":\"" + email + "\"}";
     }
 }

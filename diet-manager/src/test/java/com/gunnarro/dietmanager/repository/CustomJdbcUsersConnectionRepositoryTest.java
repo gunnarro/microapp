@@ -13,21 +13,22 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gunnarro.dietmanager.config.TestDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.repository.impl.CustomJdbcUsersConnectionRepository;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={DietManagerRepositoryImpl.class, TestDataSourceConfiguration.class})
+@ContextConfiguration(classes = { TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })
 @Transactional
 @Rollback
-@TestPropertySource(locations="classpath:test-application.properties")
+@TestPropertySource(locations = "classpath:test-application.properties")
 @Ignore
 public class CustomJdbcUsersConnectionRepositoryTest {
 
     @Autowired
     private CustomJdbcUsersConnectionRepository jdbcUsersConnectionRepository;
-    
+
     @Test
     public void findConnectedUsers() {
         Set<String> users = jdbcUsersConnectionRepository.findUserIdsConnectedTo("providerId", null);

@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.mvc.dto.UserRegistrationForm;
 import com.gunnarro.dietmanager.service.UserService;
@@ -19,7 +18,7 @@ import com.gunnarro.useraccount.service.UserAccountService;
  * register into application.
  *
  */
-//@Service
+// @Service
 public class RegistrationUserDetailsServiceImpl implements UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RegistrationUserDetailsServiceImpl.class);
@@ -55,7 +54,8 @@ public class RegistrationUserDetailsServiceImpl implements UserService {
             throw new UserAlreadyExistAuthenticationException("User already exist! userId: " + userId);
         }
         // create new user
-        userAccountService.createSocialUser(userId, userRegistrationForm.getPassword(), userRegistrationForm.getEmail(), userRegistrationForm.getSocialProvider());
+        userAccountService.createSocialUser(userId, userRegistrationForm.getPassword(), userRegistrationForm.getEmail(),
+                userRegistrationForm.getSocialProvider());
         try {
             // load and return created user
             return findLocalUserById(userId);

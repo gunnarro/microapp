@@ -9,12 +9,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations = "classpath:test-application.properties")
 public class DefaultTestConfig {
-	
-	@Before
-	public void init() {
-	}
-	
-	@Test
-	public void dummy() {
-	}
+
+    @Before
+    public void init() {
+    }
+
+    @Test
+    public void dummy() {
+    }
 }

@@ -24,14 +24,16 @@ public class AppSocialAuthenticationServiceRegistryTest {
     @Test
     public void checkRegistry() {
         assertNotNull(registry);
-//        assertEquals("[facebook]", registry.registeredAuthenticationProviderIds().toString());
+        // assertEquals("[facebook]",
+        // registry.registeredAuthenticationProviderIds().toString());
         SocialAuthenticationService<?> authenticationService = registry.getAuthenticationService("facebook");
         assertNotNull(authenticationService);
         assertEquals("facebook", authenticationService.getConnectionFactory().getProviderId());
-        
-//        
-//        authenticationService = registry.getAuthenticationService("github");
-//        assertNotNull(authenticationService);
-//        assertEquals("github", authenticationService.getConnectionFactory().getProviderId());
+
+        //
+        // authenticationService = registry.getAuthenticationService("github");
+        // assertNotNull(authenticationService);
+        // assertEquals("github",
+        // authenticationService.getConnectionFactory().getProviderId());
     }
 }

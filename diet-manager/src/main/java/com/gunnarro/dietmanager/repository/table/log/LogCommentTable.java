@@ -17,13 +17,14 @@ import com.gunnarro.dietmanager.repository.table.TableHelper;
  */
 public class LogCommentTable {
 
-	// Database table
-	public static final String TABLE_NAME = "event_log_comment";
+    // Database table
+    public static final String TABLE_NAME = "event_log_comment";
     public static final String COLUMN_FK_USER_ID = "fk_user_id";
     public static final String COLUMN_FK_EVENT_LOG_ID = "fk_event_log_id";
     public static final String COLUMN_CONTENT = "content";
 
-    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_FK_USER_ID, COLUMN_FK_EVENT_LOG_ID, COLUMN_CONTENT };
+    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME,
+            COLUMN_FK_USER_ID, COLUMN_FK_EVENT_LOG_ID, COLUMN_CONTENT };
 
     private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_CONTENT };
 
@@ -32,7 +33,7 @@ public class LogCommentTable {
      */
     private LogCommentTable() {
     }
-    
+
     public static PreparedStatementCreator createInsertPreparedStatement(final LogComment logComment) {
         return new PreparedStatementCreator() {
             @Override

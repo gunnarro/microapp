@@ -15,37 +15,37 @@ import com.gunnarro.dietmanager.service.impl.LocalUserDetailsServiceImpl;
 @Configuration
 public class BeanConfiguration {
 
-	@Bean
-	public SimpleUrlAuthenticationFailureHandler failureHandler() {
-		return new SimpleUrlAuthenticationFailureHandler("/access-denied");
-	}
+    @Bean
+    public SimpleUrlAuthenticationFailureHandler failureHandler() {
+        return new SimpleUrlAuthenticationFailureHandler("/access-denied");
+    }
 
-	@Bean
-	public HttpSessionEventPublisher httpSessionEventPublisher() {
-		return new HttpSessionEventPublisher();
-	}
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
 
-	@Bean
-	public StandardPBEStringEncryptor pwdEncoder() {
-		StandardPBEStringEncryptor crypt = new StandardPBEStringEncryptor();
-		crypt.setPassword("duMMY-enCrypT-pwd-x3");
-		crypt.setAlgorithm("PBEWithMD5AndTripleDES");
-		return crypt;
-	}
+    @Bean
+    public StandardPBEStringEncryptor pwdEncoder() {
+        StandardPBEStringEncryptor crypt = new StandardPBEStringEncryptor();
+        crypt.setPassword("duMMY-enCrypT-pwd-x3");
+        crypt.setAlgorithm("PBEWithMD5AndTripleDES");
+        return crypt;
+    }
 
-	@Bean
-	@Qualifier(value = "pwdEncoder")
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder(13);
-	}
+    @Bean
+    @Qualifier(value = "pwdEncoder")
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder(13);
+    }
 
-	@Bean
-	public CustomAccessDeniedHandler accessDeniedHandler() {
-		return new CustomAccessDeniedHandler();
-	}
+    @Bean
+    public CustomAccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new LocalUserDetailsServiceImpl();
-	}
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new LocalUserDetailsServiceImpl();
+    }
 }

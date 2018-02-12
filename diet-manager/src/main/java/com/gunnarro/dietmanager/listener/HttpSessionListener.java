@@ -24,7 +24,7 @@ public class HttpSessionListener implements ApplicationListener<ApplicationEvent
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
-    	LOG.debug("start session...");
+        LOG.debug("start session...");
         // Care only about Http session events
         if (applicationEvent instanceof HttpSessionCreatedEvent) {
             counter++;
@@ -32,7 +32,8 @@ public class HttpSessionListener implements ApplicationListener<ApplicationEvent
             Date timestamp = new Date(httpSessionCreatedEvent.getTimestamp());
             if (LOG.isInfoEnabled()) {
                 LOG.info("Session created (isNew=" + httpSessionCreatedEvent.getSession().isNew() + "), current number of active sessions: " + counter);
-                LOG.info("sessionId: " + httpSessionCreatedEvent.getSession().getId() + ", created: " + new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(timestamp));
+                LOG.info("sessionId: " + httpSessionCreatedEvent.getSession().getId() + ", created: "
+                        + new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(timestamp));
                 LOG.info("Session Attributes:" + getHttpSessionAttributes(httpSessionCreatedEvent.getSession()));
             }
         } else if (applicationEvent instanceof HttpSessionDestroyedEvent) {
@@ -41,7 +42,8 @@ public class HttpSessionListener implements ApplicationListener<ApplicationEvent
             Date timestamp = new Date(httpSessionDestroyedEvent.getTimestamp());
             if (LOG.isInfoEnabled()) {
                 LOG.info("Session destroyed, current number of active sessions: " + counter);
-                LOG.info("sessionId: " + httpSessionDestroyedEvent.getSession().getId() + ", created: " + new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(timestamp));
+                LOG.info("sessionId: " + httpSessionDestroyedEvent.getSession().getId() + ", created: "
+                        + new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(timestamp));
                 LOG.info("Session Attributes:" + getHttpSessionAttributes(httpSessionDestroyedEvent.getSession()));
             }
         }
@@ -52,7 +54,8 @@ public class HttpSessionListener implements ApplicationListener<ApplicationEvent
         // FIXME cause java.lang.OutOfMemoryError: Java heap space
         // while (httpSession.getAttributeNames().hasMoreElements()) {
         // String attrName = httpSession.getAttributeNames().nextElement();
-        // attributes.append(attrName).append("=").append(httpSession.getAttribute(attrName)).append(", ");
+        // attributes.append(attrName).append("=").append(httpSession.getAttribute(attrName)).append(",
+        // ");
         // }
         return attributes.toString();
     }

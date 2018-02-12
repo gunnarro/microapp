@@ -4,7 +4,7 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Address  {
+public class Address {
 
     private static final long serialVersionUID = -4991551857818703470L;
 
@@ -117,7 +117,7 @@ public class Address  {
     public boolean isAddressValid() {
         return !StringUtils.isEmpty(streetName) && !StringUtils.isEmpty(streetNumber) && !StringUtils.isEmpty(postCode) && !StringUtils.isEmpty(country);
     }
-    
+
     public boolean isAddressEmpty() {
         return StringUtils.isEmpty(streetName) && StringUtils.isEmpty(streetNumber) && StringUtils.isEmpty(postCode) && StringUtils.isEmpty(country);
     }
@@ -126,5 +126,4 @@ public class Address  {
         return new Address(-1, "", "", "", "", "", "");
     }
 
-  
 }

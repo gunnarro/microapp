@@ -17,8 +17,8 @@ public class UserFollowerLnkTable {
     public static final String COLUMN_FK_USER_ID = "fk_user_id";
     public static final String COLUMN_FK_USER_FOLLOWER_ID = "fk_user_follower_id";
 
-    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_FK_USER_ID,
-            COLUMN_FK_USER_FOLLOWER_ID };
+    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME,
+            COLUMN_FK_USER_ID, COLUMN_FK_USER_FOLLOWER_ID };
 
     private static final String[] TABLE_FK_COLUMNS = { COLUMN_FK_USER_ID, COLUMN_FK_USER_FOLLOWER_ID };
 

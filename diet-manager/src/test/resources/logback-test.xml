@@ -41,12 +41,15 @@
 	
 	<logger name="com.gunnarro.dietmanager" level="debug" additivity="false">
 		<appender-ref ref="console" />
+		<appender-ref ref="debugfile" />
 	</logger>
 
+<!-- 
 	<logger name="com.gunnarro.dietmanager.repository.impl" level="debug" additivity="false">
 		<appender-ref ref="console" />
 	</logger>
-	
+ -->
+ 	
 	<logger name="com.gunnarro.dietmanager.listener.HttpSessionListener" level="info" additivity="false">
 		<appender-ref ref="httpSessionfile" />
 	</logger>

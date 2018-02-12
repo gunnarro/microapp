@@ -51,7 +51,7 @@ public class BodyMeasurementsController extends BaseController {
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
     }
-    
+
     /**
      * 
      */
@@ -76,7 +76,6 @@ public class BodyMeasurementsController extends BaseController {
         return modelView;
     }
 
-    
     @RequestMapping(value = "/diet/body/measurement/details", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getWeightDetails() {
@@ -84,7 +83,7 @@ public class BodyMeasurementsController extends BaseController {
         if (loggedInUser == null) {
             throw new ApplicationException("Not logged in!");
         }
-        
+
         List<HealthLogEntry> logs = dietManagerService.getBodyMeasurementLogs(loggedInUser.getId());
 
         BodyMeasurementStatistic statistic = new BodyMeasurementStatistic();
@@ -111,9 +110,9 @@ public class BodyMeasurementsController extends BaseController {
                     }
                     break;
                 }
-                
+
                 statistic.increaseNumberOfMeasurements();
-                
+
                 if (i % step == 0 && (i + step) < logs.size()) {
                     statistic.increaseNumberOfMeasurementsStep();
                     double diffStep = logs.get(i).getWeight() - logs.get(i + step).getWeight();
@@ -147,7 +146,7 @@ public class BodyMeasurementsController extends BaseController {
                 statistic.setMaxWeightIncrease(Math.max(statistic.getMaxWeightIncrease(), diffWeight));
                 statistic.setMaxWeightDecrease(Math.min(statistic.getMaxWeightDecrease(), diffWeight));
             } // end loop
-            
+
             statistic.setStartDate(logs.get(logs.size() - 1).getLogDate());
             statistic.setEndDate(logs.get(0).getLogDate());
             statistic.setWeight(logs.get(0).getWeight());
@@ -166,13 +165,13 @@ public class BodyMeasurementsController extends BaseController {
         }
 
         ReferenceData referenceData = dietManagerService.getGrowthReferenceDataForDateOfBirth(loggedInUser.getId());
-        
+
         ModelAndView modelView = new ModelAndView("log/view-weight-details");
         modelView.getModel().put("referenceData", referenceData);
         modelView.getModel().put("myStatistic", statistic);
         return modelView;
     }
-    
+
     @RequestMapping(value = "/diet/body/measurement/log", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getLog() {

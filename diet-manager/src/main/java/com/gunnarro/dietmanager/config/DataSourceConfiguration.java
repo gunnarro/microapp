@@ -29,53 +29,51 @@ import com.gunnarro.useraccount.repository.impl.UserAccountRepositoryImpl;
 @EnableTransactionManagement
 public class DataSourceConfiguration {
 
-	@Autowired
-	private BCryptPasswordEncoder pwdEncoder;
+    @Autowired
+    private BCryptPasswordEncoder pwdEncoder;
 
-	@Value("${jdbc.url}")
-	private String jdbcUrl;
+    @Value("${jdbc.url}")
+    private String jdbcUrl;
 
-	@Value("${jdbc.user}")
-	private String jdbcUser;
+    @Value("${jdbc.user}")
+    private String jdbcUser;
 
-	@Value("${jdbc.pwd}")
-	private String jdbcPwd;
+    @Value("${jdbc.pwd}")
+    private String jdbcPwd;
 
-	// bean is singleton as default
-	@Bean(name = "dietManagerDataSource")
-	@Primary
-	public DataSource dietManagerDataSource() {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUrl(jdbcUrl);
-		ds.setUsername(jdbcUser);
-		ds.setPassword(jdbcPwd);
-		Properties p = new Properties();
-		p.put("useSSL", "false");
-		ds.setConnectionProperties(p);
-		return ds;
-	}
+    // bean is singleton as default
+    @Bean(name = "dietManagerDataSource")
+    @Primary
+    public DataSource dietManagerDataSource() {
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl(jdbcUrl);
+        ds.setUsername(jdbcUser);
+        ds.setPassword(jdbcPwd);
+        Properties p = new Properties();
+        p.put("useSSL", "false");
+        ds.setConnectionProperties(p);
+        return ds;
+    }
 
-	/**
-	 * same as dietmanager data source
-	 * 
-	 * @return
-	 */
-	@Bean(name = "logEventDataSource")
-	// @Primary
-	public DataSource logEventDataSource() {
-		return dietManagerDataSource();
-	}
+    /**
+     * same as dietmanager data source
+     * 
+     * @return
+     */
+    @Bean(name = "logEventDataSource")
+    // @Primary
+    public DataSource logEventDataSource() {
+        return dietManagerDataSource();
+    }
 
-	@Bean
-	public DataSourceTransactionManager transactionManager() {
-		final DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(
-				dietManagerDataSource());
-		return transactionManager;
-	}
+    @Bean
+    public DataSourceTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dietManagerDataSource());
+    }
 
-	@Bean
-	public UserAccountRepository userAccountRepository() {
-		return new UserAccountRepositoryImpl(new JdbcTemplate(dietManagerDataSource()));
-	}
+    @Bean
+    public UserAccountRepository userAccountRepository() {
+        return new UserAccountRepositoryImpl(new JdbcTemplate(dietManagerDataSource()));
+    }
 }

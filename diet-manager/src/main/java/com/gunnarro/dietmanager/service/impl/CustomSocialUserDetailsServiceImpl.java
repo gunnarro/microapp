@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.social.security.SocialAuthenticationException;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
-import org.springframework.stereotype.Service;
 
 import com.gunnarro.useraccount.domain.user.CustomSocialUser;
 import com.gunnarro.useraccount.domain.user.LocalUser;
@@ -18,7 +17,7 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
  * verify whether social user exist in local database.
  *
  */
-//@Service
+// @Service
 public class CustomSocialUserDetailsServiceImpl implements SocialUserDetailsService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomSocialUserDetailsServiceImpl.class);
@@ -39,7 +38,7 @@ public class CustomSocialUserDetailsServiceImpl implements SocialUserDetailsServ
             socialUser.setUserId(user.getUserId());
             socialUser.setUsername(user.getUsername());
             socialUser.setPassword(user.getPassword());
-//            socialUser.setRoles(user.getRoles());
+            // socialUser.setRoles(user.getRoles());
             socialUser.setEnabled(user.isEnabled());
             socialUser.setAccountNonExpired(user.isAccountNonExpired());
             socialUser.setCredentialsNonExpired(user.isCredentialsNonExpired());

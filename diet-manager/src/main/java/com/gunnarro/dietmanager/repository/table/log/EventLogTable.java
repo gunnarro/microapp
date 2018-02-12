@@ -17,14 +17,15 @@ import com.gunnarro.dietmanager.repository.table.TableHelper;
  */
 public class EventLogTable {
 
-	// Database table
-	public static final String TABLE_NAME = "event_log";
+    // Database table
+    public static final String TABLE_NAME = "event_log";
     public static final String COLUMN_CONTENT = "content";
     public static final String COLUMN_FK_USER_ID = "fk_user_id";
     public static final String COLUMN_LEVEL = "level";
     public static final String COLUMN_TITLE = "title";
 
-    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_FK_USER_ID, COLUMN_LEVEL, COLUMN_TITLE, COLUMN_CONTENT };
+    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME,
+            COLUMN_FK_USER_ID, COLUMN_LEVEL, COLUMN_TITLE, COLUMN_CONTENT };
 
     private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_LEVEL, COLUMN_TITLE, COLUMN_CONTENT };
 
@@ -33,7 +34,7 @@ public class EventLogTable {
      */
     private EventLogTable() {
     }
-    
+
     public static PreparedStatementCreator createInsertPreparedStatement(final LogEntry logEntry) {
         return new PreparedStatementCreator() {
             @Override
@@ -45,6 +46,7 @@ public class EventLogTable {
                     createdTime = logEntry.getCreatedTime();
                 }
                 ps.setTimestamp(1, new Timestamp(createdTime));
+                // last modified is always set equal to current time
                 ps.setTimestamp(2, new Timestamp(TableHelper.getToDay()));
                 ps.setInt(3, logEntry.getFkUserId());
                 ps.setString(4, logEntry.getLevel());
@@ -67,4 +69,11 @@ public class EventLogTable {
         return TableHelper.createUpdateQuery(TABLE_NAME, UPDATE_TABLE_COLUMNS);
     }
 
+    public static String createUpdateLastModifiedQuery() {
+        return TableHelper.createUpdateQuery(TABLE_NAME, new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME });
+    }
+
+    public static Object[] createUpdateLastModifieParam(Integer logEntryId) {
+        return new Object[] { new Timestamp(TableHelper.getToDay()), logEntryId };
+    }
 }

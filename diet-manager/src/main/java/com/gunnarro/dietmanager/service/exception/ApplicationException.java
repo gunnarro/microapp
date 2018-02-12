@@ -1,5 +1,10 @@
 package com.gunnarro.dietmanager.service.exception;
 
+/**
+ * 
+ * @author mentos
+ *
+ */
 public class ApplicationException extends RuntimeException {
 
     public static final String NOT_LOGGED_IN = "Not logged in!";

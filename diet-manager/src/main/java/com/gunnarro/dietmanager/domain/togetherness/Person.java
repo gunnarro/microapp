@@ -9,7 +9,7 @@ public class Person {
     private static final long serialVersionUID = -3520608827932011225L;
 
     public enum GenderEnum {
-        MALE,FEMALE;
+        MALE, FEMALE;
     }
 
     private Integer id;
@@ -118,5 +118,4 @@ public class Person {
         return StringUtils.isEmpty(mobileNumber);
     }
 
-   
 }

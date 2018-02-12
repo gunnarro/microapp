@@ -27,111 +27,110 @@ import com.mysql.jdbc.CommunicationsException;
  */
 public class BaseController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
-	@Autowired
-	protected AuthenticationFacade authenticationFacade;
+    @Autowired
+    protected AuthenticationFacade authenticationFacade;
 
-	@Autowired
-	protected DietManagerService dietManagerService;
+    @Autowired
+    protected DietManagerService dietManagerService;
 
-	@Autowired
-	protected LogEventService logEventService;
+    @Autowired
+    protected LogEventService logEventService;
 
-	public AuthenticationFacade getAuthenticationFacade() {
-		return authenticationFacade;
-	}
+    public AuthenticationFacade getAuthenticationFacade() {
+        return authenticationFacade;
+    }
 
-	public DietManagerService getDietManagerService() {
-		return dietManagerService;
-	}
+    public DietManagerService getDietManagerService() {
+        return dietManagerService;
+    }
 
-	@ExceptionHandler(RuntimeException.class)
-	public ModelAndView handleRuntime(HttpServletRequest request, RuntimeException ex) {
-		return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
-	}
+    @ExceptionHandler(RuntimeException.class)
+    public ModelAndView handleRuntime(HttpServletRequest request, RuntimeException ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
+    }
 
-	@ExceptionHandler(Exception.class)
-	public ModelAndView handleAllException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
-	}
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleAllException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
+    }
 
-	@ExceptionHandler(ApplicationException.class)
-	public ModelAndView handleApplicationException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
-	}
+    @ExceptionHandler(ApplicationException.class)
+    public ModelAndView handleApplicationException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
+    }
 
-	@ExceptionHandler(CommunicationsException.class)
-	public ModelAndView handleCommunicationsException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), request.getRequestURI(), ex,
-				"Database cummunication problems!");
-	}
+    @ExceptionHandler(CommunicationsException.class)
+    public ModelAndView handleCommunicationsException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Database cummunication problems!");
+    }
 
-	@ExceptionHandler(ConnectException.class)
-	public ModelAndView handleConnectException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Database Connect problems!");
-	}
+    @ExceptionHandler(ConnectException.class)
+    public ModelAndView handleConnectException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Database Connect problems!");
+    }
 
-	@ExceptionHandler(CannotGetJdbcConnectionException.class)
-	public ModelAndView handleJDBCConnectionException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Technical Database problems!");
-	}
+    @ExceptionHandler(CannotGetJdbcConnectionException.class)
+    public ModelAndView handleJDBCConnectionException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Technical Database problems!");
+    }
 
-	@ExceptionHandler(SecurityException.class)
-	public ModelAndView handleSecurityException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), "/dietmanager/home", ex, "Access Denied. " + ex.getMessage());
-	}
+    @ExceptionHandler(SecurityException.class)
+    public ModelAndView handleSecurityException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), "/dietmanager/home", ex, "Access Denied. " + ex.getMessage());
+    }
 
-	@ExceptionHandler(SQLException.class)
-	public ModelAndView handleSQLException(HttpServletRequest request, Exception ex) {
-		return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Technical Database problems!");
-	}
+    @ExceptionHandler(SQLException.class)
+    public ModelAndView handleSQLException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Technical Database problems!");
+    }
 
-	/**
-	 * Prevent user form binding the id-field
-	 * dataBinder.setDisallowedFields("id");
-	 * 
-	 * @param dataBinder
-	 */
-	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
-	}
+    /**
+     * Prevent user form binding the id-field
+     * dataBinder.setDisallowedFields("id");
+     * 
+     * @param dataBinder
+     */
+    @InitBinder
+    public void setAllowedFields(WebDataBinder dataBinder) {
+    }
 
-	/**
-	 * for unit testing only
-	 * 
-	 * @param authenticationFacade
-	 */
-	public void setAuthenticationFacade(AuthenticationFacade authenticationFacade) {
-		this.authenticationFacade = authenticationFacade;
-	}
+    /**
+     * for unit testing only
+     * 
+     * @param authenticationFacade
+     */
+    public void setAuthenticationFacade(AuthenticationFacade authenticationFacade) {
+        this.authenticationFacade = authenticationFacade;
+    }
 
-	private ModelAndView handleException(String requestUrl, String backUrl, Exception e, String errorMsg) {
-		LOG.error("Requested URL=" + requestUrl);
-		LOG.error("Exception Raised", e);
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("exception", new Exception(errorMsg));
-		modelAndView.addObject("requestUrl", requestUrl);
-		modelAndView.addObject("backUrl", backUrl);
-		modelAndView.setViewName("error");
-		return modelAndView;
-	}
+    private ModelAndView handleException(String requestUrl, String backUrl, Exception e, String errorMsg) {
+        LOG.error("Requested URL=" + requestUrl);
+        LOG.error("Exception Raised", e);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("exception", new Exception(errorMsg));
+        modelAndView.addObject("requestUrl", requestUrl);
+        modelAndView.addObject("backUrl", backUrl);
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
 
-	/**
-	 * For unit test only, inject mock
-	 * 
-	 * @param dietManagerService
-	 */
-	public void setDietManagerService(DietManagerService dietManagerService) {
-		this.dietManagerService = dietManagerService;
-	}
+    /**
+     * For unit test only, inject mock
+     * 
+     * @param dietManagerService
+     */
+    public void setDietManagerService(DietManagerService dietManagerService) {
+        this.dietManagerService = dietManagerService;
+    }
 
-	/**
-	 * For unit test only, inject mock
-	 * 
-	 * @param logEventService
-	 */
-	public void setLogEventService(LogEventService logEventService) {
-		this.logEventService = logEventService;
-	}
+    /**
+     * For unit test only, inject mock
+     * 
+     * @param logEventService
+     */
+    public void setLogEventService(LogEventService logEventService) {
+        this.logEventService = logEventService;
+    }
 }

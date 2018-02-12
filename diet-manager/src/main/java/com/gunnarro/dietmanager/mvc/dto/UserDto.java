@@ -25,9 +25,9 @@ public class UserDto implements Serializable {
     private String passwordRepeat;
     private String socialProvider;
     @NotNull
-//    @NotEmpty
+    // @NotEmpty
     // @ValidEmail
-    private String email;
+    private String email = "";
 
     boolean activated = true;
 
@@ -42,16 +42,12 @@ public class UserDto implements Serializable {
     public UserDto() {
     }
 
-    
-    
     public UserDto(Integer id, String username) {
-		this.id = id;
-		this.username = username;
-	}
+        this.id = id;
+        this.username = username;
+    }
 
-
-
-	/**
+    /**
      * 
      * @param userName
      * @param password
@@ -194,8 +190,8 @@ public class UserDto implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDto [id=" + id + ", createdDate=" + createdDate + ", lastModifiedDate=" + lastModifiedDate + ", username=" + username + ", password=" + password
-                + ", passwordRepeat=" + passwordRepeat + ", email=" + email + ", activated=" + activated + ", roles=" + getRoles() + "]";
+        return "UserDto [id=" + id + ", createdDate=" + createdDate + ", lastModifiedDate=" + lastModifiedDate + ", username=" + username + ", password="
+                + password + ", passwordRepeat=" + passwordRepeat + ", email=" + email + ", activated=" + activated + ", roles=" + getRoles() + "]";
     }
 
 }

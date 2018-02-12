@@ -14,7 +14,8 @@ public class DietManagerSql {
     public static String createConfictsQuery() {
         String totalMealsCountSubQuery = "(SELECT count(*) FROM user_diet_menu_item_lnk WHERE l.created_date_time >= CURRENT_DATE - INTERVAL ? DAY) AS total_cont";
         StringBuilder sqlQuery = new StringBuilder();
-        sqlQuery.append("SELECT count(l.caused_conflict) AS count, i.menu_item_name, u.username, (CURRENT_DATE - INTERVAL ? DAY) AS from_date, CURRENT_DATE AS to_date,");
+        sqlQuery.append(
+                "SELECT count(l.caused_conflict) AS count, i.menu_item_name, u.username, (CURRENT_DATE - INTERVAL ? DAY) AS from_date, CURRENT_DATE AS to_date,");
         sqlQuery.append(totalMealsCountSubQuery);
         sqlQuery.append(" FROM user_diet_menu_item_lnk l, diet_menu_items i, users u");
         sqlQuery.append(" WHERE l.created_date_time >= CURRENT_DATE - INTERVAL ? DAY");
@@ -33,7 +34,7 @@ public class DietManagerSql {
         sqlQuery.append(" WHERE l.created_date_time >= CURRENT_DATE - INTERVAL ? DAY");
         sqlQuery.append(" GROUP BY DATE_FORMAT(created_date_time, '%d.%m.%Y')");
         sqlQuery.append(" HAVING meals < 5");
-//        sqlQuery.append(" ORDER BY l.created_date_time DESC");
+        // sqlQuery.append(" ORDER BY l.created_date_time DESC");
         return sqlQuery.toString();
     }
 
@@ -44,14 +45,15 @@ public class DietManagerSql {
      */
     /**
      * public static String createSelectedMealsQuery() { StringBuilder sqlQuery
-     * = new StringBuilder(); sqlQuery.append(
-     * "SELECT count(l.fk_diet_menu_item_id) AS count, i.menu_item_name, i.menu_item_description, (CURRENT_DATE - INTERVAL ? DAY) AS from_date, CURRENT_DATE AS to_date"
-     * ); sqlQuery.append(" FROM user_diet_menu_item_lnk l, diet_menu_items i");
-     * sqlQuery
-     * .append(" WHERE l.created_date_time >= CURRENT_DATE - INTERVAL ? DAY");
-     * sqlQuery.append(" AND l.fk_diet_menu_item_id = i.id");
-     * sqlQuery.append(" GROUP BY l.fk_diet_menu_item_id");
-     * sqlQuery.append(" ORDER BY count"); return sqlQuery.toString(); }
+     * = new StringBuilder(); sqlQuery.append( "SELECT
+     * count(l.fk_diet_menu_item_id) AS count, i.menu_item_name,
+     * i.menu_item_description, (CURRENT_DATE - INTERVAL ? DAY) AS from_date,
+     * CURRENT_DATE AS to_date" ); sqlQuery.append(" FROM
+     * user_diet_menu_item_lnk l, diet_menu_items i"); sqlQuery .append(" WHERE
+     * l.created_date_time >= CURRENT_DATE - INTERVAL ? DAY"); sqlQuery.append("
+     * AND l.fk_diet_menu_item_id = i.id"); sqlQuery.append(" GROUP BY
+     * l.fk_diet_menu_item_id"); sqlQuery.append(" ORDER BY count"); return
+     * sqlQuery.toString(); }
      */
 
     public static String createGetMealsForDate() {
@@ -142,7 +144,8 @@ public class DietManagerSql {
 
     public static String createSummaryStatisticQuery() {
         StringBuilder sqlQuery = new StringBuilder();
-        sqlQuery.append("SELECT count(l.fk_controlled_by_user_id) AS meals_controlled_by_user_count, sum(l.caused_conflict = 1) AS total_count, u.id, u.username");
+        sqlQuery.append(
+                "SELECT count(l.fk_controlled_by_user_id) AS meals_controlled_by_user_count, sum(l.caused_conflict = 1) AS total_count, u.id, u.username");
         sqlQuery.append(" FROM user_diet_menu_item_lnk l, users u");
         sqlQuery.append(" WHERE l.fk_controlled_by_user_id = u.id");
         sqlQuery.append(" GROUP BY l.fk_controlled_by_user_id");
@@ -154,7 +157,12 @@ public class DietManagerSql {
         StringBuilder sqlQuery = new StringBuilder();
         sqlQuery.append("SELECT l.created_date_time AS created_date");
         sqlQuery.append(", year(l.created_date_time) AS year");
-        sqlQuery.append(", week(l.created_date_time, 1) AS weeknumber");// 1: week from monday to sunday
+        sqlQuery.append(", week(l.created_date_time, 1) AS weeknumber");// 1:
+                                                                        // week
+                                                                        // from
+                                                                        // monday
+                                                                        // to
+                                                                        // sunday
         sqlQuery.append(", count(IF (l.fk_controlled_by_user_id = ?, 1, null)) AS meals_controlled_by_user_count");
         sqlQuery.append(", count(IF (l.fk_prepared_by_user_id = ?, 1, null)) AS meals_prepared_by_user_count");
         sqlQuery.append(", sum(IF (l.fk_controlled_by_user_id = ? AND l.caused_conflict = 1, 1, null)) AS meals_caused_conflict_count");

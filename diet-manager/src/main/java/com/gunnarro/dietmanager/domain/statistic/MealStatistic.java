@@ -21,9 +21,10 @@ public class MealStatistic implements Serializable, Comparable<MealStatistic> {
 
     public MealStatistic() {
     }
-    
+
     /**
      * only for unit test
+     * 
      * @param year
      * @param weekNumber
      */
@@ -135,9 +136,9 @@ public class MealStatistic implements Serializable, Comparable<MealStatistic> {
 
     @Override
     public String toString() {
-        return "MealStatistic [createdDate=" + createdDate + ", year=" + year + ", weekNumber=" + weekNumber + ", userId=" + userId + ", mealsControlledByUserCount="
-                + mealsControlledByUserCount + ", mealsPreparedByUserCount=" + mealsPreparedByUserCount + ", mealsCausedConflictCount=" + mealsCausedConflictCount + ", userName="
-                + userName + ", period=" + period + "]";
+        return "MealStatistic [createdDate=" + createdDate + ", year=" + year + ", weekNumber=" + weekNumber + ", userId=" + userId
+                + ", mealsControlledByUserCount=" + mealsControlledByUserCount + ", mealsPreparedByUserCount=" + mealsPreparedByUserCount
+                + ", mealsCausedConflictCount=" + mealsCausedConflictCount + ", userName=" + userName + ", period=" + period + "]";
     }
 
 }

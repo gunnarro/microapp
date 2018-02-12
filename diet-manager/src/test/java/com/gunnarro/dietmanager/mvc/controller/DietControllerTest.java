@@ -99,7 +99,7 @@ public class DietControllerTest extends SpringTestSetup {
         List<KeyValuePairList> list = (List<KeyValuePairList>) modelAndView.getModel().get("recipes");
         Assert.assertNotNull(list);
     }
-    
+
     @Test
     public void viewRules() throws Exception {
         ModelAndView modelAndView = controller.viewRules();

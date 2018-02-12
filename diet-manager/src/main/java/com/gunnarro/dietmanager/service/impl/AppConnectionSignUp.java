@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UserProfile;
-import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.mvc.dto.UserRegistrationForm;
 import com.gunnarro.dietmanager.service.UserService;
@@ -20,7 +19,7 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
  * @since 27/3/16
  */
-//@Service
+// @Service
 public class AppConnectionSignUp implements ConnectionSignUp {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppConnectionSignUp.class);
@@ -54,7 +53,8 @@ public class AppConnectionSignUp implements ConnectionSignUp {
             return localUser.getUserId();
         }
         // No local user found, create a new
-        UserRegistrationForm userDetails = mapToUserRegistrationForm(connection.fetchUserProfile(), connection.getDisplayName(), connection.getKey().getProviderId());
+        UserRegistrationForm userDetails = mapToUserRegistrationForm(connection.fetchUserProfile(), connection.getDisplayName(),
+                connection.getKey().getProviderId());
         LocalUser user = (LocalUser) registrationUserDetailsService.registerNewUser(userDetails);
         if (LOG.isDebugEnabled()) {
             LOG.debug("created new social user: " + user);

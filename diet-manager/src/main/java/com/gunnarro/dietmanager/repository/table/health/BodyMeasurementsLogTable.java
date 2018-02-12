@@ -27,8 +27,8 @@ public class BodyMeasurementsLogTable {
     // Database table
     public static final String TABLE_NAME = "body_measurements_log";
 
-    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_LOG_DATE, COLUMN_FK_USER_ID, COLUMN_WEIGHT, COLUMN_HEIGHT,
-            COLUMN_COMMENT, COLUMN_WEIGHT_METRIC, COLUMN_HEIGHT_METRIC };
+    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_LOG_DATE, COLUMN_FK_USER_ID,
+            COLUMN_WEIGHT, COLUMN_HEIGHT, COLUMN_COMMENT, COLUMN_WEIGHT_METRIC, COLUMN_HEIGHT_METRIC };
 
     private static final String[] UPDATE_TABLE_COLUMNS = INSERT_TABLE_COLUMNS;
 
@@ -37,7 +37,7 @@ public class BodyMeasurementsLogTable {
      */
     private BodyMeasurementsLogTable() {
     }
-    
+
     public static PreparedStatementCreator createInsertPreparedStatement(final HealthLogEntry healthLogEntry) {
         return new PreparedStatementCreator() {
             @Override
@@ -61,7 +61,8 @@ public class BodyMeasurementsLogTable {
     }
 
     public static Object[] createUpdateParam(HealthLogEntry healthLogEntry) {
-        return new Object[] { new Timestamp(TableHelper.getToDay()), healthLogEntry.getWeight(), healthLogEntry.getHeight(), healthLogEntry.getComment(), healthLogEntry.getId() };
+        return new Object[] { new Timestamp(TableHelper.getToDay()), healthLogEntry.getWeight(), healthLogEntry.getHeight(), healthLogEntry.getComment(),
+                healthLogEntry.getId() };
     }
 
     public static String createUpdateQuery() {

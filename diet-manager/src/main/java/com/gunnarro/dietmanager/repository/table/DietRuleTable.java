@@ -23,10 +23,11 @@ public class DietRuleTable {
     // Database table
     public static final String TABLE_NAME = "diet_rules";
 
-    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_FK_DIET_PLAN_ID,
-            COLUMN_RULE_NAME, COLUMN_RULE_DESCRIPTION, COLUMN_RULE_ACTIVE };
+    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_CREATED_DATETIME, TableHelper.COLUMN_LAST_MODIFIED_DATETIME,
+            COLUMN_FK_DIET_PLAN_ID, COLUMN_RULE_NAME, COLUMN_RULE_DESCRIPTION, COLUMN_RULE_ACTIVE };
 
-    private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_RULE_DESCRIPTION, COLUMN_RULE_ACTIVE };
+    private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.COLUMN_LAST_MODIFIED_DATETIME, COLUMN_RULE_DESCRIPTION,
+            COLUMN_RULE_ACTIVE };
 
     /**
      * In order to hide public constructor

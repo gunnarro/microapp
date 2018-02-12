@@ -22,8 +22,8 @@ public class UserRegistrationForm extends RestResponse implements Serializable {
     public UserRegistrationForm() {
     }
 
-    public UserRegistrationForm(final String userId, final String firstName, final String lastName, final String phoneno, final String email, final String password,
-            final String socialProvider) {
+    public UserRegistrationForm(final String userId, final String firstName, final String lastName, final String phoneno, final String email,
+            final String password, final String socialProvider) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -91,8 +91,8 @@ public class UserRegistrationForm extends RestResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "UserRegistrationForm [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneno=" + phoneno + ", email=" + email + ", password="
-                + password + ", socialProvider=" + socialProvider + "]";
+        return "UserRegistrationForm [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneno=" + phoneno + ", email=" + email
+                + ", password=" + password + ", socialProvider=" + socialProvider + "]";
     }
 
 }

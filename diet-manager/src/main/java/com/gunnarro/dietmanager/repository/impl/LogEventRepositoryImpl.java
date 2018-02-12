@@ -36,6 +36,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         super(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int createLogEvent(LogEntry logEntry) {
         if (LOG.isDebugEnabled()) {
@@ -51,6 +54,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int createLogComment(LogComment logComment) {
         if (LOG.isDebugEnabled()) {
@@ -66,6 +72,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int deleteLogComment(Integer userId, Integer id) {
         int rows = getJdbcTemplate().update("DELETE FROM event_log_comment WHERE id = ? AND fk_user_id = ?", new Object[] { id, userId });
@@ -75,6 +84,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         return rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int deleteLogEvent(Integer userId, Integer id) {
         int rows = getJdbcTemplate().update("DELETE FROM event_log WHERE id = ? AND fk_user_id = ?", new Object[] { id, userId });
@@ -84,6 +96,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         return rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LogEntry> getAllLogEvents(Integer userId) {
         StringBuffer inQuery = new StringBuffer();
@@ -102,10 +117,14 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         query.append(" FROM event_log l, users u");
         query.append(" WHERE l.fk_user_id ").append(inQuery.toString());
         query.append(" AND l.fk_user_id = u.id");
-        query.append(" ORDER BY l.created_date_time DESC");
+        query.append(" ORDER BY l.last_modified_date_time DESC");
+        // query.append(" LIMIT 50");
         return getJdbcTemplate().query(query.toString(), grantedUserIdsForFollower.toArray(), DietManagerRowMapper.mapToLogEntryRM());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LogEntry getLogEvent(Integer userId, Integer logEntryId) {
         try {
@@ -127,6 +146,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LogComment> getLogComments(Integer logEntryId) {
         StringBuilder query = new StringBuilder();
@@ -138,6 +160,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         return getJdbcTemplate().query(query.toString(), new Object[] { logEntryId }, DietManagerRowMapper.mapToLogCommentRM());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LogEntry> getLogEventsFilteredByType(Integer userId, String type) {
         StringBuilder query = new StringBuilder();
@@ -146,10 +171,13 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         query.append(" WHERE l.fk_user_id = ?");
         query.append(" AND l.fk_user_id = u.id");
         query.append(" AND l.level = ?");
-        query.append(" ORDER BY l.created_date_time DESC");
+        query.append(" ORDER BY l.last_modified_date_time DESC");
         return getJdbcTemplate().query(query.toString(), new Object[] { userId, type.replace("*", "%") }, DietManagerRowMapper.mapToLogEntryRM());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LogEntry> getLogEventsFilteredByTitle(Integer userId, String title) {
         StringBuilder query = new StringBuilder();
@@ -158,10 +186,13 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         query.append(" WHERE l.fk_user_id = ?");
         query.append(" AND l.fk_user_id = u.id");
         query.append(" AND l.title = ?");
-        query.append(" ORDER BY l.created_date_time DESC");
+        query.append(" ORDER BY l.last_modified_date_time DESC");
         return getJdbcTemplate().query(query.toString(), new Object[] { userId, title.replace("*", "%") }, DietManagerRowMapper.mapToLogEntryRM());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LogEntry> searchLogEventsContent(Integer userId, String text) {
         StringBuilder query = new StringBuilder();
@@ -170,10 +201,13 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         query.append(" WHERE l.fk_user_id = ?");
         query.append(" AND l.fk_user_id = u.id");
         query.append(" AND l.content = ?");
-        query.append(" ORDER BY l.created_date_time DESC");
+        query.append(" ORDER BY l.last_modified_date_time DESC");
         return getJdbcTemplate().query(query.toString(), new Object[] { userId, text.replace("*", "%") }, DietManagerRowMapper.mapToLogEntryRM());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LogEntry> getLogEvents(Integer userId) {
         StringBuilder query = new StringBuilder();
@@ -183,10 +217,13 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         query.append(" FROM event_log l, users u");
         query.append(" WHERE l.fk_user_id = ?");
         query.append(" AND l.fk_user_id = u.id");
-        query.append(" ORDER BY l.created_date_time DESC");
+        query.append(" ORDER BY l.last_modified_date_time DESC");
         return getJdbcTemplate().query(query.toString(), new Object[] { userId }, DietManagerRowMapper.mapToLogEntryRM());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LogEntry getMyLastStatusReport(Integer userId) {
         StringBuilder sqlQuery = new StringBuilder();
@@ -194,7 +231,7 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         sqlQuery.append(" FROM event_log");
         sqlQuery.append(" WHERE YEARWEEK(created_date_time) = YEARWEEK(NOW())-1");
         sqlQuery.append(" AND level = ?");
-        sqlQuery.append(" ORDER BY created_date_time DESC");
+        sqlQuery.append(" ORDER BY last_modified_date_time DESC");
         sqlQuery.append(" LIMIT 1");
         try {
             return getJdbcTemplate().queryForObject(sqlQuery.toString(), new Object[] { "REPORT" }, DietManagerRowMapper.mapToLogEntryRM());
@@ -207,6 +244,9 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LogEntry getRecentLogEvent(Integer userId, String type, Integer forLastDays) {
         StringBuilder sqlQuery = new StringBuilder();
@@ -214,7 +254,7 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         sqlQuery.append(" FROM event_log");
         sqlQuery.append(" WHERE created_date_time > CURRENT_DATE - INTERVAL ? DAY");
         sqlQuery.append(" AND level = ?");
-        sqlQuery.append(" ORDER BY created_date_time DESC");
+        sqlQuery.append(" ORDER BY last_modified_date_time DESC");
         sqlQuery.append(" LIMIT 1");
         try {
             return getJdbcTemplate().queryForObject(sqlQuery.toString(), new Object[] { forLastDays, type }, DietManagerRowMapper.mapToLogEntryRM());
@@ -227,15 +267,30 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int updateLogEvent(LogEntry logEntry) {
         if (LOG.isDebugEnabled()) {
             LOG.debug(logEntry.toString());
         }
         return getJdbcTemplate().update(EventLogTable.createUpdateQuery(), EventLogTable.createUpdateParam(logEntry));
-
     }
 
+    /**
+     * If comment is added to a log event, we updates the last modified date for
+     * the log event in order to signal the the conversation thread has been
+     * updated. {@inheritDoc}
+     */
+    @Override
+    public int updateLogEventLastModifiedDate(Integer logEntryId) {
+        return getJdbcTemplate().update(EventLogTable.createUpdateLastModifiedQuery(), EventLogTable.createUpdateLastModifieParam(logEntryId));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasPermission(Integer logEventId, String username) {
         StringBuilder sqlQuery = new StringBuilder();

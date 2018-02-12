@@ -46,7 +46,6 @@ public class BodyMeasurementsControllerTest extends SpringTestSetup {
         assertNotNull(modelAndView.getModel());
     }
 
-
     @Test
     public void viewWeightDetails() throws Exception {
         ArrayList<HealthLogEntry> logList = new ArrayList<HealthLogEntry>();
@@ -63,7 +62,6 @@ public class BodyMeasurementsControllerTest extends SpringTestSetup {
         assertNotNull(modelAndView.getModel().get("myStatistic"));
     }
 
-    
     @Test
     public void viewWeightLog() throws Exception {
         ArrayList<HealthLogEntry> logList = new ArrayList<HealthLogEntry>();

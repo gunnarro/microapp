@@ -17,10 +17,10 @@ import com.gunnarro.dietmanager.service.UserService;
 public class AccountController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
-    
+
     @Autowired
     private UserService userService;
-    
+
     /**
      * User POST for new
      * 

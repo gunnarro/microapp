@@ -17,20 +17,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
 
     @Override
-    public void handle(HttpServletRequest httpServletRequest,
-                       HttpServletResponse httpServletResponse,
-                       AccessDeniedException e) throws IOException, ServletException {
+    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e)
+            throws IOException, ServletException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
             if (LOG.isInfoEnabled()) {
-        	LOG.info("User '" + auth.getName()
-                    + "' attempted to access the protected URL: "
-                    + httpServletRequest.getRequestURI());
+                LOG.info("User '" + auth.getName() + "' attempted to access the protected URL: " + httpServletRequest.getRequestURI());
             }
         }
 

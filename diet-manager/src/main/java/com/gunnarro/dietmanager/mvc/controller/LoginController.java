@@ -17,7 +17,7 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
 @Controller
 public class LoginController extends BaseController {
 
-    public static final String HOME_PAGE = "/diet/mystatus";
+    public static final String HOME_PAGE = "/diet/log/events";
     public static final String ADMIN_PAGE = "/admin";
     public static final String LOGIN_PAGE = "/login";
 
@@ -67,13 +67,13 @@ public class LoginController extends BaseController {
     public String login() {
         return "login";
     }
-    
+
     /**
      * @return the login page
      */
     @GetMapping("/error")
     public String error() {
-    	LOG.debug("return application error page...");
+        LOG.debug("return application error page...");
         return "application-error";
     }
 
@@ -81,13 +81,12 @@ public class LoginController extends BaseController {
     public String error403() {
         return "error/403";
     }
-    
+
     @GetMapping("/access-denied")
     public String denied() {
         return "access-denied";
     }
 
-    
     /**
      * Log out user and redirects to the login page
      * 
@@ -98,35 +97,38 @@ public class LoginController extends BaseController {
      * @param response
      * @return the login page
      */
-//    @RequestMapping(value = "/perform-logout", method = RequestMethod.GET)
-//    public String logout(HttpServletRequest request, HttpServletResponse response) {
-//        LOG.debug("start logout user...");
-//        Authentication auth = authenticationFacade.getAuthentication();
-//        if (LOG.isDebugEnabled()) {
-//            LOG.debug("auth: " + auth);
-//            String clientIp = request.getHeader("X-FORWARDED-FOR") != null ? request.getHeader("X-FORWARDED-FOR") : request.getRemoteAddr();
-//            LOG.debug("clientIp: " + clientIp);
-//        }
-//        if (auth != null) {
-//            // The logout part is configured in spring-security.xml
-//            // SecurityContextLogoutHandler ss = new
-//            // SecurityContextLogoutHandler();
-//            // ss.setClearAuthentication(true);
-//            // ss.setInvalidateHttpSession(true);
-//            // ss.logout(request, response, auth);
-//            if (LOG.isDebugEnabled()) {
-//                LOG.debug("logged out: " + auth.getName());
-//                LOG.debug("logged in user: " + authenticationFacade.getLoggedInUser());
-//            }
-//        }
-//        return "redirect:/login?loggedout";
-//    }
+    // @RequestMapping(value = "/perform-logout", method = RequestMethod.GET)
+    // public String logout(HttpServletRequest request, HttpServletResponse
+    // response) {
+    // LOG.debug("start logout user...");
+    // Authentication auth = authenticationFacade.getAuthentication();
+    // if (LOG.isDebugEnabled()) {
+    // LOG.debug("auth: " + auth);
+    // String clientIp = request.getHeader("X-FORWARDED-FOR") != null ?
+    // request.getHeader("X-FORWARDED-FOR") : request.getRemoteAddr();
+    // LOG.debug("clientIp: " + clientIp);
+    // }
+    // if (auth != null) {
+    // // The logout part is configured in spring-security.xml
+    // // SecurityContextLogoutHandler ss = new
+    // // SecurityContextLogoutHandler();
+    // // ss.setClearAuthentication(true);
+    // // ss.setInvalidateHttpSession(true);
+    // // ss.logout(request, response, auth);
+    // if (LOG.isDebugEnabled()) {
+    // LOG.debug("logged out: " + auth.getName());
+    // LOG.debug("logged in user: " + authenticationFacade.getLoggedInUser());
+    // }
+    // }
+    // return "redirect:/login?loggedout";
+    // }
 
     /**
-     * logout performs
-     * Invalidates HTTP Session ,then unbinds any objects bound to it.
-     * Removes the Authentication from the SecurityContext to prevent issues with concurrent requests.
-     * Explicitly clears the context value from the current thread.
+     * logout performs Invalidates HTTP Session ,then unbinds any objects bound
+     * to it. Removes the Authentication from the SecurityContext to prevent
+     * issues with concurrent requests. Explicitly clears the context value from
+     * the current thread.
+     * 
      * @param request
      * @param response
      * @return
@@ -134,7 +136,7 @@ public class LoginController extends BaseController {
     @GetMapping("/perform-logout-user")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         logoutLocalUser(request, response);
-//        logoutFaceBook();
+        // logoutFaceBook();
         return "redirect:login?loggedout";
     }
 
@@ -145,33 +147,35 @@ public class LoginController extends BaseController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
     }
-    
+
     private void logoutFaceBook() {
         Authentication auth = authenticationFacade.getAuthentication();
         LOG.debug("logout: " + auth.getPrincipal());
         // have to get access token from userConnections table
-//        String accessToken = getAccessToken(auth.getPrincipal());
+        // String accessToken = getAccessToken(auth.getPrincipal());
         FacebookTemplate facebookTemplate = new FacebookTemplate("accessToken");
         boolean authorized = facebookTemplate.isAuthorized();
         if (authorized) {
             facebookTemplate.delete("userId", "permissions");
         }
     }
-    
-//    @RequestMapping(value = { "/perform-logout-user" }, method = RequestMethod.GET)
-//    public String logout(HttpServletRequest request, Model model, Principal principal) throws ServletException {
-//        LOG.debug("logout.... " + principal);
-//        if (null != principal) {
-//            HttpSession session = request.getSession(false);
-//            if (session != null) {
-//                session.invalidate();
-//            }
-//            SecurityContext context = SecurityContextHolder.getContext();
-//            context.setAuthentication(null);
-//            SecurityContextHolder.clearContext();
-//        }
-//        return "redirect:/login?loggedout";
-//    }
+
+    // @RequestMapping(value = { "/perform-logout-user" }, method =
+    // RequestMethod.GET)
+    // public String logout(HttpServletRequest request, Model model, Principal
+    // principal) throws ServletException {
+    // LOG.debug("logout.... " + principal);
+    // if (null != principal) {
+    // HttpSession session = request.getSession(false);
+    // if (session != null) {
+    // session.invalidate();
+    // }
+    // SecurityContext context = SecurityContextHolder.getContext();
+    // context.setAuthentication(null);
+    // SecurityContextHolder.clearContext();
+    // }
+    // return "redirect:/login?loggedout";
+    // }
 
     @GetMapping("/releasenotes")
     public String releasenotes() {

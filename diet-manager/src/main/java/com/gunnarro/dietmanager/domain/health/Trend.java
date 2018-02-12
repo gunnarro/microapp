@@ -64,19 +64,19 @@ public class Trend {
     public void increaseUp() {
         this.numberOfUp++;
     }
-    
+
     public void increaseDownStep() {
         this.numberOfDownStep++;
     }
-    
+
     public void increaseUpStep() {
         this.numberOfUpStep++;
     }
-    
+
     public void increaseDown() {
         this.numberOfDown++;
     }
-    
+
     public void increaseNeutral() {
         this.numberOfNeutral++;
     }
@@ -88,6 +88,5 @@ public class Trend {
     public int getNumberOfDownStep() {
         return numberOfDownStep;
     }
-    
-    
+
 }

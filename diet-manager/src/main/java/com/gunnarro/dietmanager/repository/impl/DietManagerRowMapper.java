@@ -264,7 +264,8 @@ public class DietManagerRowMapper {
         return new RowMapper<KeyValuePair>() {
             @Override
             public KeyValuePair mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-                KeyValuePair keyValuePair = new KeyValuePair(resultSet.getString(keyColName), resultSet.getString(valueColName), resultSet.getInt(countColName));
+                KeyValuePair keyValuePair = new KeyValuePair(resultSet.getString(keyColName), resultSet.getString(valueColName),
+                        resultSet.getInt(countColName));
                 try {
                     keyValuePair.setId(resultSet.getInt("id"));
                     keyValuePair.setTotalCount(resultSet.getInt("total_count"));

@@ -19,7 +19,7 @@ public class AuthenticationFacade implements AuthenticationFacadeInterface {
 
     @Override
     public Authentication getAuthentication() {
-    	LOG.debug(".....getAuth...");
+        LOG.debug(".....getAuth...");
         Authentication authentication = null;
         if (SecurityContextHolder.getContext() != null) {
             authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -56,15 +56,16 @@ public class AuthenticationFacade implements AuthenticationFacadeInterface {
         localUser.setUserId(socialUser.getUserId());
         localUser.setUsername(socialUser.getUsername());
         localUser.setPassword(socialUser.getPassword());
-//        Collection<GrantedAuthority> authorities = socialUser.getAuthorities();
-//        List<Role> roles = new ArrayList<Role>();
-//        Role role = new Role(2, RolesEnum.ROLE_USER.name());
-//        List<Privilege> privileges = new ArrayList<Privilege>();
-//        for (GrantedAuthority auth : authorities) {
-//            privileges.add(new Privilege(1, auth.getAuthority()));
-//        }
-//        role.setPrivileges(privileges);
-//        roles.add(role);
+        // Collection<GrantedAuthority> authorities =
+        // socialUser.getAuthorities();
+        // List<Role> roles = new ArrayList<Role>();
+        // Role role = new Role(2, RolesEnum.ROLE_USER.name());
+        // List<Privilege> privileges = new ArrayList<Privilege>();
+        // for (GrantedAuthority auth : authorities) {
+        // privileges.add(new Privilege(1, auth.getAuthority()));
+        // }
+        // role.setPrivileges(privileges);
+        // roles.add(role);
         localUser.setRoles(socialUser.getRoles());
         if (LOG.isDebugEnabled()) {
             LOG.debug(localUser.toString());

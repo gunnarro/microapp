@@ -17,72 +17,71 @@ import com.gunnarro.dietmanager.mvc.dto.UserDto;
 @Service
 public interface UserAccountService {
 
-	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")
-	public boolean changeUserPassword(Integer userId, String newPassword, String newPasswordRepeat);
+    @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")
+    public boolean changeUserPassword(Integer userId, String newPassword, String newPasswordRepeat);
 
-	/**
-	 * 
-	 * @param username
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
-	public UserDto getUser(String username);
+    /**
+     * 
+     * @param username
+     * @return
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
+    public UserDto getUser(String username);
 
-	/**
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
-	public UserDto getUser(Integer userId);
+    /**
+     * 
+     * @param userId
+     * @return
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
+    public UserDto getUser(Integer userId);
 
-	/**
-	 * 
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
-	public List<UserDto> getUsers();
+    /**
+     * 
+     * @return
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
+    public List<UserDto> getUsers();
 
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")
-	public int saveUser(UserDto user);
+    /**
+     * 
+     * @param user
+     * @return
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")
+    public int saveUser(UserDto user);
 
-	/**
-	 * 
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
-	public List<String> getUserRoles();
+    /**
+     * 
+     * @return
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_READ_PRIVILEGE')")
+    public List<String> getUserRoles();
 
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")
-	public int deleteUser(Integer id);
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")
+    public int deleteUser(Integer id);
 
-	public int createSocialUser(String username, String password, String email,String providerName);
+    public int createSocialUser(String username, String password, String email, String providerName);
 
-	/**
-	 * 
-	 * @param userId
-	 * @param ipAddress
-	 * @param userAgent
-	 */
-	public void loginFailed(Integer userId, String ipAddress, String userAgent);
+    /**
+     * 
+     * @param userId
+     * @param ipAddress
+     * @param userAgent
+     */
+    public void loginFailed(Integer userId, String ipAddress, String userAgent);
 
-	/**
-	 * 
-	 * @param userId
-	 * @param ipAddress
-	 * @param userAgent
-	 */
-	public void loginSucceeded(Integer userId, String ipAddress,
-			String userAgent);
+    /**
+     * 
+     * @param userId
+     * @param ipAddress
+     * @param userAgent
+     */
+    public void loginSucceeded(Integer userId, String ipAddress, String userAgent);
 
 }

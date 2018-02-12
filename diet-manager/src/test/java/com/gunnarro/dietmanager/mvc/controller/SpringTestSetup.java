@@ -8,9 +8,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class SpringTestSetup {
 
-	@Ignore
-	@Test
-	public void dummy() {
-	}
+    @Ignore
+    @Test
+    public void dummy() {
+    }
 
 }

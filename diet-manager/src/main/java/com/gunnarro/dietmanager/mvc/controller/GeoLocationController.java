@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * https://developers.google.com/maps/documentation/javascript/geolocation
+ * 
  * @author admin
  *
  */
 @Controller
 public class GeoLocationController extends BaseController {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(GeoLocationController.class);
 
     /**

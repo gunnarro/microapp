@@ -9,18 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import com.gunnarro.dietmanager.repository.LogEventRepository;
-import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
-import com.gunnarro.useraccount.repository.UserAccountRepository;
-import com.gunnarro.useraccount.repository.impl.UserAccountRepositoryImpl;
 
 import ch.vorburger.exec.ManagedProcessException;
 import ch.vorburger.mariadb4j.DBConfigurationBuilder;
@@ -64,11 +58,19 @@ public class TestMariDBDataSourceConfiguration {
         // Create our database with default root user and no password
         mariaDB4jSpringService.getDB().createDB("dietmanager-unittest");
         DBConfigurationBuilder config = mariaDB4jSpringService.getConfiguration();
-        DataSource ds = DataSourceBuilder.create().username("root").password("").url(config.getURL("dietmanager-unittest"))
+        DataSource ds = DataSourceBuilder
+                .create()
+                .username("root")
+                .password("")
+                .url(config.getURL("dietmanager-unittest"))
                 .driverClassName("org.mariadb.jdbc.Driver").build();
-
-        DatabasePopulatorUtils.execute(createDatabasePopulator(), ds);
-        return ds;
+        try {
+            DatabasePopulatorUtils.execute(createDatabasePopulator(), ds);
+            return ds;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error init datasource: " + e.getMessage());
+        }
     }
 
     @Bean
@@ -76,7 +78,7 @@ public class TestMariDBDataSourceConfiguration {
         return new DataSourceTransactionManager(datasource);
     }
 
-    private DatabasePopulator createDatabasePopulator() {
+    private ResourceDatabasePopulator createDatabasePopulator() {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.setContinueOnError(true);
         databasePopulator.addScript(new ClassPathResource("schema.sql"));

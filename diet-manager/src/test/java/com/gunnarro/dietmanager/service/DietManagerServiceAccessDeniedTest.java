@@ -17,12 +17,12 @@ import com.gunnarro.dietmanager.config.BeanConfiguration;
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
 import com.gunnarro.dietmanager.config.SecurityConfiguration;
 import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
+import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.handler.AppSuccessHandler;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
-import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
-@ContextConfiguration(classes = { BeanConfiguration.class, TestMariDBDataSourceConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class,
+@ContextConfiguration(classes = { BeanConfiguration.class, TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class,
         DietManagerRepositoryImpl.class, AppSuccessHandler.class })
 @Transactional(timeout = 10)
 @Rollback

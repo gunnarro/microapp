@@ -12,6 +12,9 @@
 
 ------------------------------------------------------------------------------------------
 
+-- SET collation_server=utf8_unicode_ci;
+-- SET character_set_server=utf8;
+
 -- Turn off fk check
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -30,9 +33,11 @@ CREATE TABLE UserConnection (
     secret 			VARCHAR(512),
     refreshToken 	VARCHAR(512),
     expireTime 		BIGINT,
-    PRIMARY KEY (userId, providerId, providerUserId));
-	CREATE UNIQUE INDEX UserConnectionRank on UserConnection(userId, providerId, rank);
-
+    PRIMARY KEY (userId, providerId, providerUserId))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
+	
+CREATE UNIQUE INDEX UserConnectionRank on UserConnection(userId, providerId, rank);
 	
 -- Table: users
 DROP TABLE IF EXISTS users;
@@ -43,7 +48,9 @@ CREATE TABLE users(id 						INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    password		           	VARCHAR(100) NOT NULL,-- long length because of encryption
                    email    	        	VARCHAR(200),
                    enabled		           	INTEGER DEFAULT 1,
-                   UNIQUE(username));
+                   UNIQUE(username))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
                    
 -- Table: social_users
 DROP TABLE IF EXISTS social_users;
@@ -57,14 +64,18 @@ CREATE TABLE social_users(id 				INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    FOREIGN KEY (fk_user_id) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
                    fk_user_id    	        INTEGER,
                    enabled		           	INTEGER DEFAULT 1,
-                   UNIQUE(username));                   
+                   UNIQUE(username))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';                   
 
 -- Table: roles
 DROP TABLE IF EXISTS roles;
 CREATE TABLE roles(id 						INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    created_date_time       	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    last_modified_date_time 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                   name			           	VARCHAR(24));
+                   name			           	VARCHAR(24))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
                    
 -- Table: permissions
 DROP TABLE IF EXISTS permissions;
@@ -72,7 +83,9 @@ CREATE TABLE permissions(id 				INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    created_date_time       	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    last_modified_date_time 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    name    	        		VARCHAR(25),
-                   description			    VARCHAR(100));
+                   description			    VARCHAR(100))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
  
 -- Table: user_role_lnk
 DROP TABLE IF EXISTS user_role_lnk;
@@ -82,7 +95,9 @@ CREATE TABLE user_role_lnk(id 				INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    FOREIGN KEY (fk_user_id) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
                    fk_user_id    	        INTEGER,
                    FOREIGN KEY (fk_role_id) REFERENCES roles(id) ON DELETE SET NULL ON UPDATE CASCADE,
-                   fk_role_id			INTEGER);                   
+                   fk_role_id			INTEGER)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';                   
                    
 -- Table: role_permission_lnk
 DROP TABLE IF EXISTS role_permission_lnk;
@@ -92,7 +107,9 @@ CREATE TABLE role_permission_lnk(id 				INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    FOREIGN KEY (fk_role_id) REFERENCES roles(id) ON DELETE SET NULL ON UPDATE CASCADE,
                    fk_role_id    	        INTEGER,
                    FOREIGN KEY (fk_permission_id) REFERENCES permissions(id) ON DELETE SET NULL ON UPDATE CASCADE,
-                   fk_permission_id			INTEGER);
+                   fk_permission_id			INTEGER)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
                    
 -- Table: profiles
 DROP TABLE IF EXISTS profiles;
@@ -108,7 +125,9 @@ CREATE TABLE profiles(id 					INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    date_of_birth    	    date,
                    gender    	        	VARCHAR(1),
                    enabled		           	INTEGER DEFAULT 1,
-                   UNIQUE(firstname,middlename,lastname,date_of_birth));
+                   UNIQUE(firstname,middlename,lastname,date_of_birth))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: user_details_log
 DROP TABLE IF EXISTS user_details_log;
@@ -122,7 +141,9 @@ CREATE TABLE user_details_log(id	 				INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    login_attempt_success 		INTEGER DEFAULT 0,
                    FOREIGN KEY (fk_user_id) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
 				   fk_user_id				INTEGER,
-                   UNIQUE(fk_user_id));   
+                   UNIQUE(fk_user_id))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';   
                    
 -- Table: user_follower_lnk
 DROP TABLE IF EXISTS user_follower_lnk;
@@ -132,7 +153,9 @@ CREATE TABLE user_follower_lnk(id 			INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    FOREIGN KEY (fk_user_id) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
                    fk_user_id    	        INTEGER,
                    FOREIGN KEY (fk_user_follower_id) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
-                   fk_user_follower_id			INTEGER);     
+                   fk_user_follower_id			INTEGER)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';     
                    
 -- Table: diet_plans
 DROP TABLE IF EXISTS diet_plans;
@@ -144,7 +167,9 @@ CREATE TABLE diet_plans(id             			INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						diet_plan_name			VARCHAR(100),
 						diet_plan_description	VARCHAR(200),
 						diet_plan_changes		VARCHAR(400),
-						diet_plan_active		INTEGER);
+						diet_plan_active		INTEGER)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 						
 -- Table: diet_rules
 DROP TABLE IF EXISTS diet_rules;
@@ -155,8 +180,10 @@ CREATE TABLE diet_rules(id             			INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						fk_diet_plan_id			INTEGER,
 						rule_name				VARCHAR(100),
 						rule_description		VARCHAR(200),
-						rule_active				INTEGER);
-
+						rule_active				INTEGER)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
+						
 -- Table: diet_plan_meals
 DROP TABLE IF EXISTS diet_plan_meals;
 CREATE TABLE diet_plan_meals(id             	INTEGER  PRIMARY KEY AUTO_INCREMENT,
@@ -168,7 +195,9 @@ CREATE TABLE diet_plan_meals(id             	INTEGER  PRIMARY KEY AUTO_INCREMENT
 						meal_period				VARCHAR(200),
 						meal_description	    VARCHAR(200),
 						meal_default			INTEGER DEFAULT 0,
-						meal_order				INTEGER DEFAULT 0);
+						meal_order				INTEGER DEFAULT 0)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: diet_plan_meal_items
 DROP TABLE IF EXISTS diet_plan_meal_items;
@@ -184,7 +213,9 @@ CREATE TABLE diet_plan_meal_items(id            INTEGER  PRIMARY KEY AUTO_INCREM
 						meal_item_description	VARCHAR(500),
 						meal_item_energy_kcal	INTEGER,
 						meal_item_img_link		VARCHAR(100),
-						meal_item_enabled		INTEGER DEFAULT 1);
+						meal_item_enabled		INTEGER DEFAULT 1)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 											
 -- Table: products
 DROP TABLE IF EXISTS products;
@@ -202,7 +233,9 @@ CREATE TABLE products(id            			INTEGER PRIMARY KEY AUTO_INCREMENT,
 						carbohydrates	DECIMAL(6,2),
 						fibre			DECIMAL(6,2),
 						protein			DECIMAL(6,2),
-						img_link		VARCHAR(100));
+						img_link		VARCHAR(100))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: diet_menu
 DROP TABLE IF EXISTS diet_menus;
@@ -211,7 +244,9 @@ CREATE TABLE diet_menus(id            INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						last_modified_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 						menu_name			VARCHAR(100),
 						menu_description	VARCHAR(500),
-						menu_active			INTEGER);
+						menu_active			INTEGER)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: diet_menu_items
 DROP TABLE IF EXISTS diet_menu_items;
@@ -225,7 +260,9 @@ CREATE TABLE diet_menu_items(id            INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						menu_item_description	VARCHAR(500),
 						menu_item_energy_kcal	INTEGER,
 						menu_item_img_link		VARCHAR(100),
-						menu_item_enabled		INTEGER DEFAULT 1);
+						menu_item_enabled		INTEGER DEFAULT 1)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: event_log
 DROP TABLE IF EXISTS event_log;
@@ -236,7 +273,9 @@ CREATE TABLE event_log(id            			 INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						fk_user_id				 INTEGER,
 						level					 VARCHAR(25),
 						title					 VARCHAR(50),
-						content   				 VARCHAR(4096));
+						content   				 VARCHAR(4096))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 						
 -- Table: event_log_comment
 DROP TABLE IF EXISTS event_log_comment;
@@ -248,7 +287,9 @@ CREATE TABLE event_log_comment(id            	 INTEGER  PRIMARY KEY AUTO_INCREME
 						FOREIGN KEY (fk_event_log_id) REFERENCES event_log(id) ON DELETE SET NULL ON UPDATE CASCADE,
 						fk_event_log_id				 INTEGER,
 						title					 VARCHAR(50),
-						content   				 VARCHAR(4096));
+						content   				 VARCHAR(4096))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 						
 -- Table: user_diet_menu_item_lnk
 DROP TABLE IF EXISTS user_diet_menu_item_lnk;
@@ -265,7 +306,9 @@ CREATE TABLE user_diet_menu_item_lnk( id                      	INTEGER  PRIMARY 
 									FOREIGN KEY (fk_controlled_by_user_id)  REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
 									caused_conflict           	INTEGER DEFAULT 0,
 									fk_log_id    				INTEGER,
-									FOREIGN KEY (fk_log_id)  REFERENCES event_log(id) ON DELETE CASCADE ON UPDATE CASCADE);
+									FOREIGN KEY (fk_log_id)  REFERENCES event_log(id) ON DELETE CASCADE ON UPDATE CASCADE)
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 									
 						
 -- Table: diet_products
@@ -275,7 +318,9 @@ CREATE TABLE diet_products(id            INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						last_modified_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 						product_name			VARCHAR(100),
 						product_type			VARCHAR(100),
-						product_description		VARCHAR(500));
+						product_description		VARCHAR(500))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: diet_product_equivalent_items
 DROP TABLE IF EXISTS diet_product_equivalent_items;
@@ -285,7 +330,9 @@ CREATE TABLE diet_product_equivalent_items(id   INTEGER  PRIMARY KEY AUTO_INCREM
 						FOREIGN KEY (fk_diet_product_id) REFERENCES diet_products(id) ON DELETE SET NULL ON UPDATE CASCADE,
 						fk_diet_product_id				INTEGER,
 						product_equivalent_name			VARCHAR(100),
-						product_equivalent_description	VARCHAR(500));
+						product_equivalent_description	VARCHAR(500))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: food_recipes
 DROP TABLE IF EXISTS food_recipes;
@@ -293,7 +340,9 @@ CREATE TABLE food_recipes(id            		INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						created_date_time      	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 						last_modified_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 						recipe_name			VARCHAR(100),
-						recipe_description	VARCHAR(500));
+						recipe_description	VARCHAR(500))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: food_recipe_items
 DROP TABLE IF EXISTS food_recipe_items;
@@ -303,7 +352,9 @@ CREATE TABLE food_recipe_items(id            	INTEGER  PRIMARY KEY AUTO_INCREMEN
 						FOREIGN KEY (fk_food_recipe_id) REFERENCES food_recipes(id) ON DELETE SET NULL ON UPDATE CASCADE,
 						fk_food_recipe_id			INTEGER,
 						recipe_item_name			VARCHAR(100),
-						recipe_item_description	VARCHAR(500));
+						recipe_item_description	VARCHAR(500))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 
 -- Table: body_measurements_log
 DROP TABLE IF EXISTS body_measurements_log;
@@ -317,7 +368,9 @@ CREATE TABLE body_measurements_log(id            	INTEGER  PRIMARY KEY AUTO_INCR
 						height			DECIMAL(6,2),
 						comment			VARCHAR(200),
 						weight_metric   VARCHAR(5),
-						height_metric   VARCHAR(5));		
+						height_metric   VARCHAR(5))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';		
 						
 -- TABLE: health_reference_data
 DROP TABLE IF EXISTS health_reference_data;
@@ -327,7 +380,9 @@ CREATE TABLE health_reference_data(id            	INTEGER  PRIMARY KEY AUTO_INCR
 						name						VARCHAR(100),
 						type						VARCHAR(25),
 						gender						VARCHAR(10),
-						description   				VARCHAR(200));	
+						description   				VARCHAR(200))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';	
 						
 -- TABLE: bmi_percentile
 DROP TABLE IF EXISTS growth_reference_data;
@@ -345,7 +400,9 @@ CREATE TABLE growth_reference_data(id            	INTEGER  PRIMARY KEY AUTO_INCR
 						weight_p75						DECIMAL(6,3),
 						height_p25						DECIMAL(6,3),
 						height_p50						DECIMAL(6,3),
-						height_p75						DECIMAL(6,3));		
+						height_p75						DECIMAL(6,3))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';		
 						
 						
 -- Table: childern;
@@ -358,7 +415,9 @@ CREATE TABLE childern(id 					INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    last_name		        VARCHAR(50),
                    mobile					VARCHAR(12),
                    email    	        	VARCHAR(100),
-                   UNIQUE(first_name,middle_name,last_name));	
+                   UNIQUE(first_name,middle_name,last_name))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';	
                    
 -- Table: parents
 DROP TABLE IF EXISTS parents;
@@ -370,7 +429,9 @@ CREATE TABLE parents(id 					INTEGER  PRIMARY KEY AUTO_INCREMENT,
                    last_name		        VARCHAR(50),
                    mobile					VARCHAR(12),
                    email    	        	VARCHAR(100),
-                   UNIQUE(first_name,middle_name,last_name));	
+                   UNIQUE(first_name,middle_name,last_name))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';	
                    
 -- Table: samvar_log
 DROP TABLE IF EXISTS samvar_log;

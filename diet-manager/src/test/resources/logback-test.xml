@@ -54,11 +54,14 @@
 		<appender-ref ref="httpSessionfile" />
 	</logger>
 	
-	<logger name="org.springframework.security" level="debug" additivity="false">
+	<logger name="org.springframework.security" level="error" additivity="false">
 		<appender-ref ref="console" />
 	</logger>
 	
-	<logger name="org.springframework.jdbc" level="error" additivity="false"/>
+	<logger name="org.springframework.jdbc.datasource" level="debug" additivity="false" >
+		<appender-ref ref="console" />
+	</logger>
+	
 	<!-- for logging parameter values -->
 	<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="error" additivity="false" />
 	

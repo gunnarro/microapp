@@ -413,15 +413,16 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
 
     @Test
     public void getSelectedMenuItemsForUser() {
-        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(1, 35, new Date(), 4, 4, 1, getLogEventId()));// breakfast
-        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(2, 38, new Date(), 4, 4, 1, getLogEventId())); // lunch
-        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(3, 45, new Date(), 4, 4, 1, getLogEventId())); // meal
+        Integer userId = 1;
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(1, 35, new Date(), 4, 4, 1, getLogEventId()));// breakfast
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(2, 38, new Date(), 4, 4, 1, getLogEventId())); // lunch
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(3, 45, new Date(), 4, 4, 1, getLogEventId())); // meal
         // between
-        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(4, 4, new Date(), 4, 4, 1, getLogEventId())); // dinner
-        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(5, 33, new Date(), 4, 4, 1, getLogEventId())); // dinner
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(4, 4, new Date(), 4, 4, 1, getLogEventId())); // dinner
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(5, 33, new Date(), 4, 4, 1, getLogEventId())); // dinner
         // dessert
-        dietManagerRepository.createUserDietMenuItemLnk(1, createMenuItem(6, 42, new Date(), 4, 4, 1, getLogEventId())); // evening
-        List<MenuItem> menuItems = dietManagerRepository.getSelectedMenuItemsForUser(1, 60);
+        dietManagerRepository.createUserDietMenuItemLnk(userId, createMenuItem(6, 42, new Date(), 4, 4, 1, getLogEventId())); // evening
+        List<MenuItem> menuItems = dietManagerRepository.getSelectedMenuItemsForUser(userId, 60);
         assertEquals(6, menuItems.size());
         assertNotNull(menuItems.get(0).getId());
         assertNotNull(menuItems.get(0).getPrimaryKeyId());
@@ -613,6 +614,7 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     @Test
     public void getAllDietRules() {
         List<Rule> allDietRules = dietManagerRepository.getAllDietRules();
+        System.out.println("getAllDietRules. " + allDietRules);
         assertEquals(2, allDietRules.size());
     }
 

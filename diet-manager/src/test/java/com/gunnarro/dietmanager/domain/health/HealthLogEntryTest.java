@@ -69,7 +69,7 @@ public class HealthLogEntryTest {
         Set<ConstraintViolation<HealthLogEntry>> violations = validator.validate(log);
         assertEquals(1, violations.size());
         assertEquals("logDate", violations.iterator().next().getPropertyPath().toString());
-        assertEquals("may not be null", violations.iterator().next().getMessage());
+        assertEquals("must not be null", violations.iterator().next().getMessage());
     }
 
     @Test

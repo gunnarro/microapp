@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -32,7 +31,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author admin
  *
  */
-@SpringBootApplication(exclude = SocialWebAutoConfiguration.class)
+@SpringBootApplication
 // @ImportResource("spring/spring.xml")
 @ComponentScan("com.gunnarro.dietmanager.*")
 // @EnableAutoConfiguration(exclude = SocialWebAutoConfiguration.class)

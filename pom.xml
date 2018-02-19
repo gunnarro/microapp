@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
+		<version>2.0.0.RC1</version>
 	</parent>
 		
 	<modelVersion>4.0.0</modelVersion>
@@ -41,7 +41,7 @@
 		<version.aopalliance>1.0</version.aopalliance>
 		<!-- <version.aspectj>1.7.4</version.aspectj> -->
 		<!-- <version.slf4j>1.7.5</version.slf4j> -->
-		<version.jackson.core>2.8.7</version.jackson.core>
+		<version.jackson.core>2.9.4</version.jackson.core>
 		<version.mysql.connector>5.1.44</version.mysql.connector>
 		<!-- Third Party dependencies -->
 		<version.standard.taglibs>1.1.2</version.standard.taglibs>
@@ -154,10 +154,12 @@
 		</dependency>
 		
 		<!-- Spring Social -->
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-social-facebook</artifactId>
 		</dependency>
+		-->
 		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -450,7 +452,17 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
+			<version>2.0.0.Final</version>
+		</dependency>
+		<dependency>
+    			<groupId>org.hibernate.validator</groupId>
+    			<artifactId>hibernate-validator</artifactId>
+    			<version>6.0.2.Final</version>
+		</dependency>
+		<dependency>
+    			<groupId>org.hibernate.validator</groupId>
+    			<artifactId>hibernate-validator-annotation-processor</artifactId>
+    			<version>6.0.2.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>com.newrelic.agent.java</groupId>

@@ -614,7 +614,7 @@ public class DietManagerRepositoryTest extends DefaultTestConfig {
     @Test
     public void getAllDietRules() {
         List<Rule> allDietRules = dietManagerRepository.getAllDietRules();
-        System.out.println("getAllDietRules. " + allDietRules);
+        System.out.println("getAllDietRules: " + allDietRules);
         assertEquals(2, allDietRules.size());
     }
 

@@ -33,16 +33,24 @@
 			</div>
 			
 			<div class="input-group input-group-margin pull-right">
-				<small><span th:text="#{lbl.period}"></span>: <span th:text="${#dates.format(logsFromDate, 'dd-MM-yyyy')}" ></span> - <span th:text="${#dates.format(logsToDate, 'dd-MM-yyyy')}"></span></small>
-			</div>
-			
-			<div class="input-group input-group-margin pull-right">
-				<small><span th:text="#{eventlog.number_of_logs}"></span>: <span class="badge badge-info" th:text="${numberOfLogs}" ></span></small>
-			</div>
-			
-			<div class="input-group input-group-margin pull-right">
-				<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.new_log}" ></a>
-				<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.view_plain}" ></a>
+				<table class="borderless">
+					<tr>
+						<td style="text-align: right;">
+							<span th:text="#{lbl.period}"></span>: <span th:text="${#dates.format(logsFromDate, 'dd-MM-yyyy')}" ></span> - <span th:text="${#dates.format(logsToDate, 'dd-MM-yyyy')}"></span>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">
+							<span th:text="#{eventlog.number_of_logs}"></span>: <span class="badge badge-info" th:text="${numberOfLogs}" ></span>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">
+							<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.new_log}" ></a>
+							<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.view_plain}" ></a>
+						</td>
+					</tr>
+				</table>
 			</div>
 			<div class="clearfix"></div>
 		</div>

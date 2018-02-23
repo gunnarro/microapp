@@ -39,21 +39,21 @@
 	                </li>
 	            </ul>
             
-		          <ul class="nav navbar-nav navbar-right">
+		        <ul class="nav navbar-nav navbar-right">
 		            <li th:if="${#authorization.expression('!isAuthenticated()')}">
 		              <a href="/signin" th:href="@{/signin}">
-		                <span class="glyphicon glyphicon-log-in" aria-hidden="true" th:inline="text">&nbsp;[[#{lbl.signin}]]</span>
+		              	<i class="glyphicon glyphicon-log-in"></i> <span th:text="#{lbl.signin}"></span>
 		              </a>
 		            </li>
 		            <li><a href="#"><i class="${userIcon}"></i><span th:text="${#authentication.getPrincipal().getUsername()}"></span></a></li> 
 					<li><a href="#">|</a></li>
 		            <li th:if="${#authorization.expression('isAuthenticated()')}">
 		              <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
-		                <span class="glyphicon glyphicon-log-out" aria-hidden="true" th:inline="text">&nbsp;[[#{lbl.logout}]]</span>
+		                <i class="glyphicon glyphicon-log-out"></i> <span th:text="#{lbl.logout}"></span>
 		              </a>
 		             <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
 		            </li>
-		          </ul>
+		        </ul>
         	</div>
         </nav>
       </div>

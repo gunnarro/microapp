@@ -182,4 +182,9 @@ public class LoginController extends BaseController {
         return "release-notes";
     }
 
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
 }

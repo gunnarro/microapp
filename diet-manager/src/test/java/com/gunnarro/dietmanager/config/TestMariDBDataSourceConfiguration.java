@@ -1,5 +1,8 @@
 package com.gunnarro.dietmanager.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +16,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import ch.vorburger.exec.ManagedProcessException;
@@ -40,10 +45,14 @@ public class TestMariDBDataSourceConfiguration {
     private String jdbcPwd;
 
     @Bean
-    @Qualifier(value = "pwdEncoder")
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(13);
-    }
+	@Qualifier(value = "pwdEncoder")
+	public PasswordEncoder passwordEncoder() {
+		String idForEncode = "bcrypt";
+		Map<String, PasswordEncoder> encoders = new HashMap<>();
+		encoders.put(idForEncode, new BCryptPasswordEncoder(13));
+		PasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(idForEncode, encoders);
+		return passwordEncoder;
+	}
 
     @Bean
     public MariaDB4jSpringService mariaDB4jSpringService() {

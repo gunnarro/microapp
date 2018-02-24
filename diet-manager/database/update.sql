@@ -628,4 +628,28 @@ VALUES
 (103,now(),now(),4,7,'Regler og tillegg','','Middag: 500 ml Fresubin kan erstatte hele måltidet',0,null,1),
 (104,now(),now(),4,7,'Regler og tillegg','','Kveldsmat: 350 ml Fresubin kan erstatte hele måltidet',0,null,1),
 (105,now(),now(),4,7,'Regler og tillegg','','Alle måltider skal tilberedes av foreldre',0,null,1),
-(106,now(),now(),4,7,'Regler og tillegg','','Ved aktivitet skal hun drikke 0.5 L sjokolademelk, YT eller fresubin 200 ml',0,null,1);
+(106,now(),now(),4,7,'Regler og tillegg','','Ved aktivitet skal hun drikke 0.5 L sjokolademelk, YT eller fresubin 200
+
+
+ -----------------------------------------------------------------------------------------
+-- update	24.02.2018 convert to spring 5
+-----------------------------------------------------------------------------------------
+UPDATE users 
+SET password = '{bcrypt}$2a$13$GwPQNWAfenYSb06qxu/Nqevmwe31I4FJreraz34ScjbpAUBnO0S4y'
+WHERE id = 1;
+
+UPDATE users 
+SET password = '{bcrypt}$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi'
+WHERE id = 3;
+
+UPDATE users 
+SET password = '{bcrypt}$2a$12$Ljya1s3.uWu7svzYEgMT3OUpsMLSwYTgybCID.e/ViVc2x8XM038W'
+WHERE id = 4;
+
+UPDATE users 
+SET password = '{bcrypt}$2a$12$ZuV6/OziRcAHJtbqr0cvmOMkae.pgjbSfayFpL5WqkhfmIw.4F17m'
+WHERE id = 5;
+
+UPDATE users 
+SET password = '{bcrypt}$2a$12$P1tBOtsZNn7ghpLZRIY3Ae7FnIORN9gq.4BY/7vzes04usHVnPhMi'
+WHERE id = 6;

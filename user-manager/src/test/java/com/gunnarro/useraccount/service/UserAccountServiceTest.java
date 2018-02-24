@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +26,12 @@ import com.gunnarro.useraccount.service.exception.ApplicationException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
 @Transactional
-// @TransactionConfiguration(defaultRollback = true)
 // @Ignore
 public class UserAccountServiceTest {
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
     @Autowired
     @Qualifier("userAccountService")
     protected UserAccountService userAccountService;
@@ -37,7 +40,7 @@ public class UserAccountServiceTest {
     public void setUp() throws Exception {
         // Because of security we have to set user and pwd before every unit
         // test
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken("admin", "$2a$13$GwPQNWAfenYSb06qxu/Nqevmwe31I4FJreraz34ScjbpAUBnO0S4y");
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken("admin", "adm-test-pwd");
         SecurityContext ctx = SecurityContextHolder.createEmptyContext();
         SecurityContextHolder.setContext(ctx);
         ctx.setAuthentication(authRequest);
@@ -49,6 +52,16 @@ public class UserAccountServiceTest {
     }
 
 
+    @Test
+    public void generatePassword() {
+        String pwd = "adm-test-pwd";
+        String cryptedPassword = passwordEncoder.encode(pwd);
+        System.out.println("CryptedPwd: " + cryptedPassword);
+        System.out.println("equal     : " + passwordEncoder.matches(pwd, cryptedPassword));
+        Assert.assertTrue(passwordEncoder.matches(pwd, cryptedPassword));
+    }
+    
+    
     @Test
     public void getUser() {
       LocalUser user = userAccountService.getUser(5);    

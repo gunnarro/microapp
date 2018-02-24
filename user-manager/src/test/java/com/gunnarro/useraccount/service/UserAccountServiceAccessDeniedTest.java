@@ -30,7 +30,7 @@ public class UserAccountServiceAccessDeniedTest {
 	public void setUp() throws Exception {
 		// Because of security we have to set user and pwd before every unit
 		// test
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken("guest", "$2a$12$64D4XQ0/lXRTtvvplSMc/eYgKX1f.yYwVsCnjwtE44hyt37K3njXW");
+		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken("guest", "guest");
 		SecurityContext ctx = SecurityContextHolder.createEmptyContext();
 		SecurityContextHolder.setContext(ctx);
 		ctx.setAuthentication(authRequest);
@@ -73,6 +73,10 @@ public class UserAccountServiceAccessDeniedTest {
 	
 	@Test(expected = AccessDeniedException.class)
 	public void saveUser() {
-		userAccountService.saveUser(new LocalUser());
+		LocalUser localUser = new LocalUser();
+		localUser.setId(999);
+		localUser.setUserId("999");
+		localUser.setUsername("gr");
+		userAccountService.saveUser(localUser);
 	}
 }

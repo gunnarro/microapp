@@ -7,7 +7,7 @@
 	<jmxConfigurator />
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n</pattern>
+			<pattern>[%date{ISO8601}] [%-5level] [%logger.%method:%L] %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -45,6 +45,10 @@
 	
 	<logger name="com.gunnarro.useraccount.listener.HttpSessionListener" level="info" additivity="false">
 		<appender-ref ref="httpSessionfile" />
+	</logger>
+	
+	<logger name="org.springframework.security" level="info" additivity="false" >
+		<appender-ref ref="console" />
 	</logger>
 	
 	<logger name="org.springframework.jdbc" level="error" additivity="false"/>

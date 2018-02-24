@@ -14,12 +14,12 @@
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 DELETE FROM users WHERE id > 0;
 INSERT INTO `users` 
-VALUES (1,now(),now(),'admin','$2a$13$GwPQNWAfenYSb06qxu/Nqevmwe31I4FJreraz34ScjbpAUBnO0S4y','gunnar_ronneberg@yahoo.no',1),
-(2,now(),now(),'team','$2a$13$8mkWNrSUAJ6fWJTaV3uvY.3jldSleStDGqf3ONsYwmVcGhlPdhuhK','gunnar.ronneberg@gmail.com',1),
-(3,now(),now(),'guest','$2a$12$64D4XQ0/lXRTtvvplSMc/eYgKX1f.yYwVsCnjwtE44hyt37K3njXW','',1),
-(4,now(),now(),'pepilie','$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi','',1),
-(5,now(),now(),'pappa','$2a$12$93QA9IyI54.gTU2OjVA.QODwk8shVIBGwGTDde061WnuAAU2LM1Du','',1),
-(6,now(),now(),'mamma','$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi','',1);
+VALUES (1,now(),now(),'admin','{bcrypt}$2a$13$ezAvKWTwpao4wzFNDVY0jOJ4TqVnhI6J6A.yrFuPMFRxx/Z4De86O','gunnar_ronneberg@yahoo.no',1),
+(2,now(),now(),'team','{bcrypt}$2a$13$8mkWNrSUAJ6fWJTaV3uvY.3jldSleStDGqf3ONsYwmVcGhlPdhuhK','gunnar.ronneberg@gmail.com',1),
+(3,now(),now(),'guest','{bcrypt}$2a$12$64D4XQ0/lXRTtvvplSMc/eYgKX1f.yYwVsCnjwtE44hyt37K3njXW','',1),
+(4,now(),now(),'pepilie','{bcrypt}$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi','',1),
+(5,now(),now(),'pappa','{bcrypt}$2a$12$93QA9IyI54.gTU2OjVA.QODwk8shVIBGwGTDde061WnuAAU2LM1Du','',1),
+(6,now(),now(),'mamma','{bcrypt}$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi','',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;

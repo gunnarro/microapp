@@ -18,10 +18,10 @@ INSERT INTO `users`
 VALUES (1,now(),now(),'admin','{bcrypt}$2a$13$GwPQNWAfenYSb06qxu/Nqevmwe31I4FJreraz34ScjbpAUBnO0S4y','gunnar_ronneberg@yahoo.no',1),
 (2,now(),now(),'team','{bcrypt}$2a$13$8mkWNrSUAJ6fWJTaV3uvY.3jldSleStDGqf3ONsYwmVcGhlPdhuhK','gunnar.ronneberg@gmail.com',0),
 (3,now(),now(),'guest','{bcrypt}$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi','',1),
-(4,now(),now(),'pepilie','{bcrypt}$2a$12$Ljya1s3.uWu7svzYEgMT3OUpsMLSwYTgybCID.e/ViVc2x8XM038W','',1),-- empa02
-(5,now(),now(),'pappa','{bcrypt}$2a$12$ZuV6/OziRcAHJtbqr0cvmOMkae.pgjbSfayFpL5WqkhfmIw.4F17m','',1), -- guro66
-(6,now(),now(),'mamma','{bcrypt}$2a$12$P1tBOtsZNn7ghpLZRIY3Ae7FnIORN9gq.4BY/7vzes04usHVnPhMi','',1), -- sipa66
-(7,now(),now(),'bup','{bcrypt}$2a$12$k91GEi/aZJqMJn5hrmJ1T.ck7te3loOAjoYgsqiSaflzS0j6li6em','uxbirm@ous-hf.no',1); -- bup2016
+(4,now(),now(),'pepilie','{bcrypt}$2a$12$Ljya1s3.uWu7svzYEgMT3OUpsMLSwYTgybCID.e/ViVc2x8XM038W','',1),
+(5,now(),now(),'pappa','{bcrypt}$2a$12$ZuV6/OziRcAHJtbqr0cvmOMkae.pgjbSfayFpL5WqkhfmIw.4F17m','',1),
+(6,now(),now(),'mamma','{bcrypt}$2a$12$P1tBOtsZNn7ghpLZRIY3Ae7FnIORN9gq.4BY/7vzes04usHVnPhMi','',1),
+(7,now(),now(),'bup','{bcrypt}$2a$12$k91GEi/aZJqMJn5hrmJ1T.ck7te3loOAjoYgsqiSaflzS0j6li6em','uxbirm@ous-hf.no',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;

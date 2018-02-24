@@ -51,26 +51,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // custom 403 access denied handler
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-        .antMatchers("/", "/login*", "/about", "/webjars/**", "/css/**", "/js/**", "/images/**").permitAll()
-        .antMatchers("/admin/**").hasAnyRole("ADMIN")
-        .antMatchers("/rest/**").hasAnyRole("USER")
-        .antMatchers("/**").hasAnyRole("USER").anyRequest().authenticated()
-        .and().formLogin()
-        .successHandler(successHandler).loginPage("/login").permitAll().and().logout().permitAll()
-        .and().exceptionHandling()
-        .accessDeniedHandler(this.accessDeniedHandler);
+        http.csrf().disable().authorizeRequests().antMatchers("/", "/login*", "/about", "/webjars/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/admin/**").hasAnyRole("ADMIN").antMatchers("/rest/**").hasAnyRole("USER").antMatchers("/**").hasAnyRole("USER").anyRequest()
+                .authenticated().and().formLogin().successHandler(successHandler).loginPage("/login").permitAll().and().logout().permitAll().and()
+                .exceptionHandling().accessDeniedHandler(this.accessDeniedHandler);
     }
-    
-//    /**
-//    ref: http://www.baeldung.com/spring-security-5-oauth2-login
-//     * for oauth2 login
-//     */
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//         .anyRequest().authenticated()
-//         .and()
-//         .oauth2Login();
-//    }
+
+    // /**
+    // ref: http://www.baeldung.com/spring-security-5-oauth2-login
+    // * for oauth2 login
+    // */
+    // @Override
+    // protected void configure(HttpSecurity http) throws Exception {
+    // http.authorizeRequests()
+    // .anyRequest().authenticated()
+    // .and()
+    // .oauth2Login();
+    // }
 }

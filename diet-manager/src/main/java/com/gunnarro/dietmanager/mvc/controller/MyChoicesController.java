@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gunnarro.dietmanager.domain.diet.DietMenu;
 import com.gunnarro.dietmanager.domain.diet.MenuItem;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
-import com.gunnarro.dietmanager.domain.statistic.Key;
+import com.gunnarro.dietmanager.domain.statistic.KeyValue;
 import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
 import com.gunnarro.dietmanager.mvc.dto.UserDto;
@@ -305,7 +305,7 @@ public class MyChoicesController extends BaseController {
         }
         int days = 30;
         List<MealStatistic> mealStatsticList = dietManagerService.getMealStatsticForUsers(loggedInUser.getId(), days);
-        Map<Key, List<MealStatistic>> mealStatisticByWeekNumberMap = DietManagerServiceImpl.mapMealStatisticByWeekNumber(mealStatsticList);
+        Map<KeyValue, List<MealStatistic>> mealStatisticByWeekNumberMap = DietManagerServiceImpl.mapMealStatisticByWeekNumber(mealStatsticList);
         List<MealStatistic> sumMealStatisticByUserName = DietManagerServiceImpl.sumMealStatisticByUserName(mealStatsticList);
         String period = Utility.formatTime(sumMealStatisticByUserName.get(0).getFromDate().getTime(), "dd.MM.yyyy") + " to "
                 + Utility.formatTime(sumMealStatisticByUserName.get(0).getToDate().getTime(), "dd.MM.yyyy");

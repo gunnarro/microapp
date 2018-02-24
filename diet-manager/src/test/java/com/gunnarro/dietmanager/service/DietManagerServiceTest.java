@@ -21,7 +21,7 @@ import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
 import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.domain.diet.MenuItem;
 import com.gunnarro.dietmanager.domain.health.HealthLogEntry;
-import com.gunnarro.dietmanager.domain.statistic.Key;
+import com.gunnarro.dietmanager.domain.statistic.KeyValue;
 import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
 import com.gunnarro.dietmanager.endpoint.rest.ChartData;
@@ -91,8 +91,8 @@ public class DietManagerServiceTest extends DefaultTestConfig {
     @Test
     public void getMealStatistic() {
         List<MealStatistic> mealStatsticList = dietManagerService.getMealStatsticForUsers(5, 30);
-        Map<Key, List<MealStatistic>> mealStatisticByWeekNumberMap = DietManagerServiceImpl.mapMealStatisticByWeekNumber(mealStatsticList);
-        for (Map.Entry<Key, List<MealStatistic>> entry : mealStatisticByWeekNumberMap.entrySet()) {
+        Map<KeyValue, List<MealStatistic>> mealStatisticByWeekNumberMap = DietManagerServiceImpl.mapMealStatisticByWeekNumber(mealStatsticList);
+        for (Map.Entry<KeyValue, List<MealStatistic>> entry : mealStatisticByWeekNumberMap.entrySet()) {
             System.out.println(entry.getKey());
             for (MealStatistic m : entry.getValue()) {
                 System.out.println("   " + m);

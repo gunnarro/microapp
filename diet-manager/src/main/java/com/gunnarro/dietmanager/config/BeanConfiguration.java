@@ -19,33 +19,32 @@ import com.gunnarro.dietmanager.service.impl.LocalUserDetailsServiceImpl;
 @Configuration
 public class BeanConfiguration {
 
-	@Bean
-	public SimpleUrlAuthenticationFailureHandler failureHandler() {
-		return new SimpleUrlAuthenticationFailureHandler("/access-denied");
-	}
+    @Bean
+    public SimpleUrlAuthenticationFailureHandler failureHandler() {
+        return new SimpleUrlAuthenticationFailureHandler("/access-denied");
+    }
 
-	@Bean
-	public HttpSessionEventPublisher httpSessionEventPublisher() {
-		return new HttpSessionEventPublisher();
-	}
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
 
-	@Bean
-	@Qualifier(value = "pwdEncoder")
-	public PasswordEncoder passwordEncoder() {
-		String idForEncode = "bcrypt";
-		Map<String, PasswordEncoder> encoders = new HashMap<>();
-		encoders.put(idForEncode, new BCryptPasswordEncoder());
-		PasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(idForEncode, encoders);
-		return passwordEncoder;
-	}
+    @Bean
+    @Qualifier(value = "pwdEncoder")
+    public PasswordEncoder passwordEncoder() {
+        String idForEncode = "bcrypt";
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
+        encoders.put(idForEncode, new BCryptPasswordEncoder());
+        return new DelegatingPasswordEncoder(idForEncode, encoders);
+    }
 
-	@Bean
-	public CustomAccessDeniedHandler accessDeniedHandler() {
-		return new CustomAccessDeniedHandler();
-	}
+    @Bean
+    public CustomAccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new LocalUserDetailsServiceImpl();
-	}
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new LocalUserDetailsServiceImpl();
+    }
 }

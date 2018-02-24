@@ -2,7 +2,7 @@ package com.gunnarro.dietmanager.domain.statistic;
 
 import java.io.Serializable;
 
-public class Key implements Comparable<Key>, Serializable {
+public class KeyValue implements Comparable<KeyValue>, Serializable {
 
     private static final long serialVersionUID = -2899831161022093258L;
 
@@ -13,7 +13,7 @@ public class Key implements Comparable<Key>, Serializable {
      * @param key
      * @param value
      */
-    public Key(String key, String value) {
+    public KeyValue(String key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -35,7 +35,7 @@ public class Key implements Comparable<Key>, Serializable {
     }
 
     @Override
-    public int compareTo(Key o) {
+    public int compareTo(KeyValue o) {
         return this.key.compareTo(o.getKey());
     }
 
@@ -55,7 +55,7 @@ public class Key implements Comparable<Key>, Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Key other = (Key) obj;
+        KeyValue other = (KeyValue) obj;
         if (key == null) {
             if (other.key != null)
                 return false;

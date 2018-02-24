@@ -3,7 +3,6 @@ package com.gunnarro.dietmanager.endpoint.rest;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,7 +14,6 @@ import com.gunnarro.dietmanager.domain.diet.MenuItem;
 import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
 import com.gunnarro.dietmanager.mvc.controller.SpringTestSetup;
 import com.gunnarro.dietmanager.service.DietManagerService;
-import com.gunnarro.useraccount.domain.user.LocalUser;
 
 public class DietManagerRestEndpointTest extends SpringTestSetup {
 
@@ -31,34 +29,6 @@ public class DietManagerRestEndpointTest extends SpringTestSetup {
     public void init() {
         MockitoAnnotations.initMocks(this);
         restEndpoint = new DietManagerRestEndpoint(sportsTeamServiceMock, authenticationFacadeMock);
-    }
-
-    @Test
-    public void getChartDataBmi() {
-        when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(1));
-        List<ChartData> list = restEndpoint.getChartData("bmi");
-        Assert.assertEquals(0, list.size());
-    }
-
-    @Test
-    public void getChartDataBodymeasure() {
-        when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(1));
-        List<ChartData> list = restEndpoint.getChartData("bodymeasure");
-        Assert.assertEquals(0, list.size());
-    }
-
-    @Test
-    public void getChartDataControlledby() {
-        when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(1));
-        List<ChartData> list = restEndpoint.getChartData("controlledby");
-        Assert.assertEquals(0, list.size());
-    }
-
-    @Test
-    public void getChartDataNoHit() {
-        when(authenticationFacadeMock.getLoggedInUser()).thenReturn(new LocalUser(1));
-        List<ChartData> list = restEndpoint.getChartData("unkown");
-        Assert.assertEquals(0, list.size());
     }
 
     @Test

@@ -24,14 +24,14 @@ public class ProductTable {
     public static final String TABLE_NAME = "products";
 
     private enum ColumnsEnum {
-        name, type, category, description, amount, weight_g, kcal, fat, carbohydrates, fibre, protein, img_link;
+        name, type, category, description, amount, weightGr, kcal, fat, carbohydrates, fibre, protein, imgLink;
 
         public static String[] updateValues() {
             String[] s = new String[4];
-            s[0] = TableHelper.ColumnsDefaultEnum.last_modified_date_time.name();
+            s[0] = TableHelper.ColumnsDefaultEnum.lastModifiedDateTime.name();
             s[1] = category.name();
             s[2] = description.name();
-            s[3] = img_link.name();
+            s[3] = imgLink.name();
             return s;
         }
     }
@@ -84,12 +84,12 @@ public class ProductTable {
             public Product mapRow(ResultSet resultSet, int rowNum) throws SQLException {
                 Product product = new Product();
                 product.setId(resultSet.getInt(TableHelper.ColumnsDefaultEnum.id.name()));
-                product.setCreatedDate(new Date(resultSet.getTimestamp(TableHelper.ColumnsDefaultEnum.created_date_time.name()).getTime()));
-                product.setLastModifiedTime(resultSet.getTimestamp(TableHelper.ColumnsDefaultEnum.last_modified_date_time.name()).getTime());
+                product.setCreatedDate(new Date(resultSet.getTimestamp(TableHelper.ColumnsDefaultEnum.createdDateTime.name()).getTime()));
+                product.setLastModifiedTime(resultSet.getTimestamp(TableHelper.ColumnsDefaultEnum.lastModifiedDateTime.name()).getTime());
                 product.setName(resultSet.getString(ColumnsEnum.name.name()));
                 product.setCategory(resultSet.getString(ColumnsEnum.category.name()));
                 product.setDescription(resultSet.getString(ColumnsEnum.description.name()));
-                product.setImageLink(resultSet.getString(ColumnsEnum.img_link.name()));
+                product.setImageLink(resultSet.getString(ColumnsEnum.imgLink.name()));
                 return product;
             }
         };

@@ -1,10 +1,6 @@
 package com.gunnarro.dietmanager.endpoint.rest;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,24 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gunnarro.dietmanager.domain.diet.MenuItem;
-import com.gunnarro.dietmanager.domain.health.HealthLogEntry;
-import com.gunnarro.dietmanager.domain.statistic.Key;
-import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
-import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
 import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
 import com.gunnarro.dietmanager.service.DietManagerService;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
-import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 import com.gunnarro.dietmanager.utility.Utility;
-import com.gunnarro.useraccount.domain.user.LocalUser;
 
 @RestController
 @RequestMapping("/rest")
 public class DietManagerRestEndpoint {
-
-    private static final String USER_DAD = "pappa";
-    private static final String USER_MOM = "mamma";
-    private static final String USER_PEPILIE = "pepilie";
 
     private static final Logger LOG = LoggerFactory.getLogger(DietManagerRestEndpoint.class);
 
@@ -59,67 +45,6 @@ public class DietManagerRestEndpoint {
     public DietManagerRestEndpoint(DietManagerService sportsTeamService, AuthenticationFacade authenticationFacade) {
         this.dietManagerService = sportsTeamService;
         this.authenticationFacade = authenticationFacade;
-    }
-
-    @RequestMapping(value = "/chart/data/{type}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json", headers = "content-type=application/json")
-    @ResponseBody
-    public List<ChartData> getChartData(@PathVariable("type") String type) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        if (loggedInUser == null) {
-            throw new ApplicationException("Not logged in!");
-        }
-        int days = 30;
-        try {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("get chart data for type= " + type);
-            }
-            List<ChartData> data = new ArrayList<>();
-            if ("bmi".equalsIgnoreCase(type)) {
-                data = dietManagerService.getBmiChartData(loggedInUser.getId());
-            } else if ("bodymeasure".equalsIgnoreCase(type)) {
-                List<HealthLogEntry> bodyMeasurementLogs = dietManagerService.getBodyMeasurementLogs(loggedInUser.getId());
-                for (HealthLogEntry log : bodyMeasurementLogs) {
-                    data.add(new ChartData(log.getId(), Utility.formatTime(log.getLogDate().getTime(), Utility.DATE_PATTERN), log.getWeight(), log.getHeight(),
-                            log.getBmi()));
-                }
-            } else if ("controlledby".equalsIgnoreCase(type)) {
-                List<MealStatistic> mealStatsticList = dietManagerService.getMealStatsticForUsers(loggedInUser.getId(), days);
-                Map<Key, List<MealStatistic>> mapMealStatisticByWeekNumber = DietManagerServiceImpl.mapMealStatisticByWeekNumber(mealStatsticList);
-                for (Map.Entry<Key, List<MealStatistic>> entry : mapMealStatisticByWeekNumber.entrySet()) {
-                    data.add(createChartDataControlledBy(entry));
-                }
-                Collections.sort(data);
-            } else if ("preparedby".equalsIgnoreCase(type)) {
-                List<MealStatistic> mealStatsticList = dietManagerService.getMealStatsticForUsers(loggedInUser.getId(), days);
-                Map<Key, List<MealStatistic>> mapMealStatisticByWeekNumber = DietManagerServiceImpl.mapMealStatisticByWeekNumber(mealStatsticList);
-                for (Map.Entry<Key, List<MealStatistic>> entry : mapMealStatisticByWeekNumber.entrySet()) {
-                    data.add(createChartDataPreparedBy(entry));
-                }
-                Collections.sort(data);
-            } else if ("causedconflict".equalsIgnoreCase(type)) {
-                List<MealStatistic> mealStatsticList = dietManagerService.getMealStatsticForUsers(loggedInUser.getId(), days);
-                Map<Key, List<MealStatistic>> mapMealStatisticByWeekNumber = DietManagerServiceImpl.mapMealStatisticByWeekNumber(mealStatsticList);
-                for (Map.Entry<Key, List<MealStatistic>> entry : mapMealStatisticByWeekNumber.entrySet()) {
-                    data.add(createChartDataCausedConflict(entry));
-                }
-                Collections.sort(data);
-            } else if ("mealtypes".equalsIgnoreCase(type)) {
-                List<KeyValuePair> top10SeletedMeals = dietManagerService.getMealTypesStatistic();
-                for (KeyValuePair kv : top10SeletedMeals) {
-                    data.add(new ChartData(kv.getKey(), Double.valueOf(kv.getCount())));
-                }
-            }
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("type: " + type + ", data size: " + data.size());
-            }
-            return data;
-        } catch (AccessDeniedException e) {
-            LOG.error("", e);
-            throw new RestApplicationException(new RestError(HttpStatus.FORBIDDEN.name(), e.getMessage()));
-        } catch (ApplicationException ae) {
-            LOG.error(null, ae);
-            throw new RestApplicationException("Application error! type:" + type);
-        }
     }
 
     @RequestMapping(value = "/menu/deregistrer/{userId}/{menuItemId}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json", headers = "content-type=application/json")
@@ -188,82 +113,4 @@ public class DietManagerRestEndpoint {
         }
     }
 
-    // private ChartData createChartData(Map.Entry<String, List<KeyValuePair>>
-    // entry) {
-    // String weekNumber = null;
-    // double pappa = 0;
-    // double mamma = 0;
-    // double pepilie = 0;
-    // for (KeyValuePair kvp : entry.getValue()) {
-    // weekNumber = kvp.getKey();
-    // if ("pappa".equalsIgnoreCase(kvp.getValue())) {
-    // pappa = kvp.getCount();
-    // } else if ("mamma".equalsIgnoreCase(kvp.getValue())) {
-    // mamma = kvp.getCount();
-    // } else if ("pepilie".equalsIgnoreCase(kvp.getValue())) {
-    // pepilie = kvp.getCount();
-    // }
-    // }
-    // return new ChartData(weekNumber, pappa, mamma, pepilie);
-    // }
-
-    private ChartData createChartDataPreparedBy(Map.Entry<Key, List<MealStatistic>> entry) {
-        String key = null;
-        String weekNumber = null;
-        double pappa = 0;
-        double mamma = 0;
-        double pepilie = 0;
-        for (MealStatistic s : entry.getValue()) {
-            key = s.sortBy();
-            weekNumber = s.getWeekNumber().toString();
-            if (USER_DAD.equalsIgnoreCase(s.getUserName())) {
-                pappa = s.getMealsPreparedByUserCount();
-            } else if (USER_MOM.equalsIgnoreCase(s.getUserName())) {
-                mamma = s.getMealsPreparedByUserCount();
-            } else if (USER_PEPILIE.equalsIgnoreCase(s.getUserName())) {
-                pepilie = s.getMealsPreparedByUserCount();
-            }
-        }
-        return new ChartData(key, weekNumber, pappa, mamma, pepilie);
-    }
-
-    private ChartData createChartDataControlledBy(Map.Entry<Key, List<MealStatistic>> entry) {
-        String key = null;
-        String weekNumber = null;
-        double pappa = 0;
-        double mamma = 0;
-        double pepilie = 0;
-        for (MealStatistic s : entry.getValue()) {
-            key = s.sortBy();
-            weekNumber = s.getWeekNumber().toString();
-            if (USER_DAD.equalsIgnoreCase(s.getUserName())) {
-                pappa = s.getMealsControlledByUserCount();
-            } else if (USER_MOM.equalsIgnoreCase(s.getUserName())) {
-                mamma = s.getMealsControlledByUserCount();
-            } else if (USER_PEPILIE.equalsIgnoreCase(s.getUserName())) {
-                pepilie = s.getMealsControlledByUserCount();
-            }
-        }
-        return new ChartData(key, weekNumber, pappa, mamma, pepilie);
-    }
-
-    private ChartData createChartDataCausedConflict(Map.Entry<Key, List<MealStatistic>> entry) {
-        String key = null;
-        String weekNumber = null;
-        double pappa = 0;
-        double mamma = 0;
-        double pepilie = 0;
-        for (MealStatistic s : entry.getValue()) {
-            key = s.sortBy();
-            weekNumber = s.getWeekNumber().toString();
-            if (USER_DAD.equalsIgnoreCase(s.getUserName())) {
-                pappa = s.getMealsCausedConflictCount();
-            } else if (USER_MOM.equalsIgnoreCase(s.getUserName())) {
-                mamma = s.getMealsCausedConflictCount();
-            } else if (USER_PEPILIE.equalsIgnoreCase(s.getUserName())) {
-                pepilie = s.getMealsCausedConflictCount();
-            }
-        }
-        return new ChartData(key, weekNumber, pappa, mamma, pepilie);
-    }
 }

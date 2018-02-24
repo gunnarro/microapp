@@ -1,8 +1,5 @@
 package com.gunnarro.dietmanager.domain.diet;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.gunnarro.dietmanager.domain.BaseDomain;
 
 public class Product extends BaseDomain {
@@ -31,15 +28,16 @@ public class Product extends BaseDomain {
         setDescription(description);
     }
 
-//    @Override
-//    public void setDescription(@NotNull @Size(min = 4, max = 100) String description) {
-//        super.description = description;
-//    }
-//
-//    @Override
-//    public void setName(@NotNull @Size(min = 4, max = 30) String name) {
-//        this.name = name;
-//    }
+    // @Override
+    // public void setDescription(@NotNull @Size(min = 4, max = 100) String
+    // description) {
+    // super.description = description;
+    // }
+    //
+    // @Override
+    // public void setName(@NotNull @Size(min = 4, max = 30) String name) {
+    // this.name = name;
+    // }
 
     public String getType() {
         return type;

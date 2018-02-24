@@ -1,7 +1,6 @@
 package com.gunnarro.dietmanager.repository.table;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -20,17 +19,16 @@ public class TableHelper {
 
     // Common database table columns
     public static enum ColumnsDefaultEnum {
-        id, created_date_time, last_modified_date_time;
+        id, createdDateTime, lastModifiedDateTime;
     };
 
     public static <T extends Enum<T>> String[] getColumnNames(T[] values) {
-        List<String> list = new ArrayList<String>();
-        list.add(ColumnsDefaultEnum.created_date_time.name());
-        list.add(ColumnsDefaultEnum.last_modified_date_time.name());
+        List<String> list = new ArrayList<>();
+        list.add(ColumnsDefaultEnum.createdDateTime.name());
+        list.add(ColumnsDefaultEnum.lastModifiedDateTime.name());
         for (Enum<T> e : values) {
             list.add(e.name());
         }
-        ;
         return list.toArray(new String[list.size()]);
     };
 
@@ -39,10 +37,6 @@ public class TableHelper {
     private static final String COLUMN_ID = "id";
     public static final String COLUMN_CREATED_DATETIME = "created_date_time";
     public static final String COLUMN_LAST_MODIFIED_DATETIME = "last_modified_date_time";
-
-    public static enum PlayerLinkTableTypeEnum {
-        MATCH, CUP, TRAINING, CONTACT;
-    }
 
     public static void checkInputs(Object[] colNames, Object[] values) {
         checkArray(colNames);
@@ -103,7 +97,7 @@ public class TableHelper {
         return createUpdateQuery(COLUMN_ID, tableName, columnNames);
     }
 
-    public static String createUpdateQuery(String keyName, String tableName, String[] columnNames) {
+    private static String createUpdateQuery(String keyName, String tableName, String[] columnNames) {
         StringBuilder query = new StringBuilder();
         StringBuilder columnValuePairs = new StringBuilder();
         query.append("UPDATE ").append(tableName);
@@ -121,16 +115,6 @@ public class TableHelper {
             LOG.debug(query.toString());
         }
         return query.toString();
-    }
-
-    // public static String defaultContentValues() {
-    // StringBuilder query = new StringBuilder();
-    // query.append(COLUMN_LAST_MODIFIED_DATETIME);
-    // return query.toString();
-    // }
-
-    public static Date getCurrentDate() {
-        return new Date(System.currentTimeMillis());
     }
 
     public static long getToDay() {

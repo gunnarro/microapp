@@ -27,11 +27,11 @@ public class DietMenuItemTable {
     // Database table
     public static final String TABLE_NAME = "diet_menu_items";
 
-    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.ColumnsDefaultEnum.created_date_time.name(), TableHelper.ColumnsDefaultEnum.last_modified_date_time.name(),
-            COLUMN_FK_DIET_MENU_ID, COLUMN_MENU_ITEM_NAME, COLUMN_MENU_ITEM_CATEGORY, COLUMN_MENU_ITEM_DESCRIPTION, COLUMN_MENU_ITEM_ENERGY_KCAL,
-            COLUMN_MENU_ITEM_IMG_LINK, COLUMN_MENU_ITEM_ENABLED };
+    private static final String[] INSERT_TABLE_COLUMNS = new String[] { TableHelper.ColumnsDefaultEnum.createdDateTime.name(),
+            TableHelper.ColumnsDefaultEnum.lastModifiedDateTime.name(), COLUMN_FK_DIET_MENU_ID, COLUMN_MENU_ITEM_NAME, COLUMN_MENU_ITEM_CATEGORY,
+            COLUMN_MENU_ITEM_DESCRIPTION, COLUMN_MENU_ITEM_ENERGY_KCAL, COLUMN_MENU_ITEM_IMG_LINK, COLUMN_MENU_ITEM_ENABLED };
 
-    private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.ColumnsDefaultEnum.last_modified_date_time.name(), COLUMN_MENU_ITEM_CATEGORY,
+    private static final String[] UPDATE_TABLE_COLUMNS = new String[] { TableHelper.ColumnsDefaultEnum.lastModifiedDateTime.name(), COLUMN_MENU_ITEM_CATEGORY,
             COLUMN_MENU_ITEM_DESCRIPTION, COLUMN_MENU_ITEM_ENERGY_KCAL, COLUMN_MENU_ITEM_IMG_LINK, COLUMN_MENU_ITEM_ENABLED };
 
     /**

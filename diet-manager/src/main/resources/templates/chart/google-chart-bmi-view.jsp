@@ -27,7 +27,7 @@
 	
 	//	var materialOptions = {
 	//	chart: {
-	//		title: 'Pepilie Vekt og Høyde'
+	//		title: 'Pepilie Vekt og HÃ¸yde'
 	//	},
     //  	curveType: 'function',
     //  	legend: {position: 'top'},
@@ -41,7 +41,7 @@
     };
 	
 	var hightOptions = {
-	          title: 'Pepilie Høyde',
+	          title: 'Pepilie HÃ¸yde',
 	          curveType: 'function',
 	          legend: { position: 'bottom' }
 	    };
@@ -54,7 +54,7 @@
     weightDataTable.addColumn('number', 'Pepilie vekt (kg)');
     var heightDataTable = new google.visualization.DataTable();
     heightDataTable.addColumn('string', 'Dato');
-	heightDataTable.addColumn('number', 'Pepilie Høyde (cm)');
+	heightDataTable.addColumn('number', 'Pepilie HÃ¸yde (cm)');
 	//for (i=0; i<jsonData.length; i++){
 	for (i=jsonData.length-1; i>=0; i--){
 		weightDataTable.addRow([jsonData[i].label, parseFloat(jsonData[i].value1)]);

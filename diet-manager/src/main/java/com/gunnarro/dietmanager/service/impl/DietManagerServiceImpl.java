@@ -25,7 +25,7 @@ import com.gunnarro.dietmanager.domain.health.HealthLogEntry;
 import com.gunnarro.dietmanager.domain.health.ReferenceData;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.domain.statistic.BodyMeasurementStatistic;
-import com.gunnarro.dietmanager.domain.statistic.Key;
+import com.gunnarro.dietmanager.domain.statistic.KeyValue;
 import com.gunnarro.dietmanager.domain.statistic.KeyValuePair;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
 import com.gunnarro.dietmanager.domain.view.KeyValuePairList;
@@ -45,6 +45,12 @@ import com.gunnarro.dietmanager.utility.Utility;
 public class DietManagerServiceImpl implements DietManagerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DietManagerServiceImpl.class);
+
+    private final static int STATUS_HAPPY2 = 2;
+    private final static int STATUS_HAPPY1 = 1;
+    private final static int STATUS_NEUTRAL = 0;
+    private final static int STATUS_SAD1 = -1;
+    private final static int STATUS_SAD2 = -2;
 
     @Autowired
     private DietManagerRepository dietManagerRepository;
@@ -155,8 +161,6 @@ public class DietManagerServiceImpl implements DietManagerService {
                 break;
             }
 
-            // double diffHeight = logs.get(i).getHeight() - logs.get(i +
-            // 1).getHeight();
             double diffWeight = logs.get(i).getWeight() - logs.get(i + 1).getWeight();
             if (diffWeight > 0) {
                 logs.get(i).setTrendWeight(1);
@@ -277,56 +281,18 @@ public class DietManagerServiceImpl implements DietManagerService {
         List<KeyValuePair> list = new ArrayList<>();
         List<HealthLogEntry> bodyMeasurementsLog = dietManagerRepository.getBodyMeasurementLogs(userId);
         double weightDiff = bodyMeasurementsLog.get(0).getWeight() - bodyMeasurementsLog.get(1).getWeight();
-        int weightIndex = 0;
-        if (weightDiff < 0) {
-            weightIndex = -2;
-        } else if (weightDiff > 0) {
-            weightIndex = 2;
-        }
+        int weightIndex = mapToStatusIndex((int) weightDiff, new int[] { -2, -1, 0, 1, 2 });
 
         int numberOfConflictsLastDays = dietManagerRepository.getNumberOfConflictsLastDays(forLastDays);
-        int conflictIndex = numberOfConflictsLastDays;
-        if (numberOfConflictsLastDays == 0) {
-            conflictIndex = 2;
-        } else if (numberOfConflictsLastDays == 1) {
-            conflictIndex = 1;
-        } else if (numberOfConflictsLastDays == 2) {
-            conflictIndex = 0;
-        } else if (numberOfConflictsLastDays == 3) {
-            conflictIndex = -1;
-        } else if (numberOfConflictsLastDays > 3) {
-            conflictIndex = -2;
-        }
+        int conflictIndex = mapToStatusIndex(numberOfConflictsLastDays, new int[] { 0, 1, 2, 3, 4 });
 
         // max number of activities pr. week 7*1=7
         int numberOfActivitiesLastDays = dietManagerRepository.getNumberOfActivitiesLastDays(forLastDays);
-        int activityIndex = numberOfConflictsLastDays;
-        if (numberOfActivitiesLastDays == 0) {
-            activityIndex = 0;
-        } else if (numberOfActivitiesLastDays == 1) {
-            activityIndex = 1;
-        } else if (numberOfActivitiesLastDays == 2) {
-            activityIndex = 2;
-        } else if (numberOfActivitiesLastDays == 3) {
-            activityIndex = -1;
-        } else if (numberOfActivitiesLastDays >= 4) {
-            activityIndex = -2;
-        }
+        int activityIndex = mapToStatusIndex(numberOfActivitiesLastDays, new int[] { 0, 1, 2, 3, 4 });
 
         // max number of meals pr. week 7*4=28
         int numberOfMealsLastDays = dietManagerRepository.getNumberOfMealsLastDays(forLastDays);
-        int mealIndex = 0;
-        if (numberOfMealsLastDays < 25) {
-            mealIndex = -2;
-        } else if (numberOfMealsLastDays == 25) {
-            mealIndex = -1;
-        } else if (numberOfMealsLastDays == 26) {
-            mealIndex = 0;
-        } else if (numberOfMealsLastDays == 27) {
-            mealIndex = 1;
-        } else if (numberOfMealsLastDays >= 28) {
-            mealIndex = 2;
-        }
+        int mealIndex = mapToStatusIndex(numberOfMealsLastDays, new int[] { 25, 25, 26, 27, 28 });
 
         list.add(new KeyValuePair("Fulgt dietplan", null, mealIndex));
         list.add(new KeyValuePair("Vektøkning", null, weightIndex));
@@ -338,6 +304,22 @@ public class DietManagerServiceImpl implements DietManagerService {
     @Override
     public LogEntry getMyStatusReport(Integer userId) {
         return logEventRepository.getMyLastStatusReport(userId);
+    }
+
+    private int mapToStatusIndex(int value, int[] limits) {
+        int index = STATUS_NEUTRAL;
+        if (value < limits[0]) {
+            index = STATUS_SAD2;
+        } else if (value == limits[1]) {
+            index = STATUS_SAD1;
+        } else if (value == limits[2]) {
+            index = STATUS_NEUTRAL;
+        } else if (value == limits[3]) {
+            index = STATUS_HAPPY1;
+        } else if (value >= limits[4]) {
+            index = STATUS_HAPPY2;
+        }
+        return index;
     }
 
     // ----------------------- event log services ----------------------------
@@ -443,11 +425,11 @@ public class DietManagerServiceImpl implements DietManagerService {
         return mealStatisticList;
     }
 
-    public static Map<Key, List<MealStatistic>> mapMealStatisticByWeekNumber(List<MealStatistic> mealStatisticList) {
-        SortedMap<Key, List<MealStatistic>> map = new TreeMap<Key, List<MealStatistic>>(Collections.reverseOrder());
+    public static Map<KeyValue, List<MealStatistic>> mapMealStatisticByWeekNumber(List<MealStatistic> mealStatisticList) {
+        SortedMap<KeyValue, List<MealStatistic>> map = new TreeMap<KeyValue, List<MealStatistic>>(Collections.reverseOrder());
         for (MealStatistic s : mealStatisticList) {
             s.setPeriod(Utility.getWeekInfo(s.getCreatedDate()));
-            Key key = new Key(s.sortBy(), s.getPeriod());
+            KeyValue key = new KeyValue(s.sortBy(), s.getPeriod());
             if (!map.containsKey(key)) {
                 List<MealStatistic> list = new ArrayList<>();
                 list.add(s);

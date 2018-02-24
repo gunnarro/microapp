@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
 import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.repository.impl.CustomJdbcUsersConnectionRepository;
-import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })

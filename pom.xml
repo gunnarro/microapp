@@ -42,7 +42,7 @@
 		<!-- <version.aspectj>1.7.4</version.aspectj> -->
 		<!-- <version.slf4j>1.7.5</version.slf4j> -->
 		<version.jackson.core>2.9.4</version.jackson.core>
-		<version.mysql.connector>5.1.44</version.mysql.connector>
+		<version.mysql.connector>5.1.45</version.mysql.connector>
 		<!-- Third Party dependencies -->
 		<version.standard.taglibs>1.1.2</version.standard.taglibs>
 		<version.commons.logging>1.1.1</version.commons.logging>

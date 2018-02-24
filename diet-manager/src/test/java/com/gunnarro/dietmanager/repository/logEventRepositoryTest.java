@@ -23,13 +23,12 @@ import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
 import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
-import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.utility.Utility;
 
 @ContextConfiguration(classes = { TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })
 @Transactional
 @Rollback
-// @Ignore
+ @Ignore
 public class logEventRepositoryTest extends DefaultTestConfig {
 
     @Autowired

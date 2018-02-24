@@ -20,7 +20,6 @@ import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
 import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
-import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.LogEventServiceImpl;
 import com.gunnarro.useraccount.domain.user.LocalUser;
 

@@ -40,7 +40,7 @@ import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 @ContextConfiguration(classes = { DietManagerRepositoryImpl.class, TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })
 @Transactional
 //@Rollback(value = true)
-// @Ignore
+ @Ignore
 public class DietManagerRepositoryTest extends DefaultTestConfig {
 
     @Autowired

@@ -2,6 +2,7 @@ package com.gunnarro.useraccount.service;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -23,6 +24,7 @@ import com.gunnarro.useraccount.service.impl.UserAccountServiceImpl;
 @ContextConfiguration(classes = { BeanConfiguration.class, TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class, UserAccountServiceImpl.class, SecurityConfiguration.class,
         AppSuccessHandler.class })
 @Transactional(timeout = 10)
+//@Ignore
 public class UserAccountServiceAccessDeniedTest extends DefaultTestConfig {
 
     @Autowired

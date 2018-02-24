@@ -33,5 +33,5 @@ public class TableHelperTest {
 	public void checkInputsOK() {
 		TableHelper.checkInputs(new String[] { "col1", "col2" }, new String[] { "val1", "val2" });
 	}
-
+	
 }

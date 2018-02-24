@@ -20,7 +20,7 @@ public class TableHelper {
     // Common database table columns
     public static enum ColumnsDefaultEnum {
         id, createdDateTime, lastModifiedDateTime;
-    };
+    }
 
     public static <T extends Enum<T>> String[] getColumnNames(T[] values) {
         List<String> list = new ArrayList<>();
@@ -30,7 +30,7 @@ public class TableHelper {
             list.add(e.name());
         }
         return list.toArray(new String[list.size()]);
-    };
+    }
 
     // deprecated
     // Common database table columns

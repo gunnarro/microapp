@@ -1,90 +1,54 @@
 package com.gunnarro.dietmanager.config;
 
-import java.util.Locale;
-
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
-     * <init-param> <param-name>cors.allowed.methods</param-name>
-     * <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value> </init-param>
-     * 
-     * @return
+     * {@inheritDoc}
      */
-    // @Bean
-    // public EmbeddedServletContainerFactory servletContainer() {
-    // TomcatEmbeddedServletContainerFactory tomcat = new
-    // TomcatEmbeddedServletContainerFactory();
-    // return tomcat;
-    // }
-    //
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedMethods("GET", "POST", "HEAD", "PUT", "OPTIONS");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
+    public void addInterceptors(InterceptorRegistry registry) {
+        ThemeChangeInterceptor themeChangeInterceptor = new ThemeChangeInterceptor();
+        themeChangeInterceptor.setParamName("theme");
+        registry.addInterceptor(themeChangeInterceptor);
+
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        registry.addInterceptor(localeChangeInterceptor);
     }
 
     @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(new Locale("no"));
-        return slr;
+        return new CookieLocaleResolver();
     }
 
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-        lci.setParamName("lang");
-        return lci;
+    @Bean("messageSource")
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:i18n/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setUseCodeAsDefaultMessage(true);
+        return messageSource;
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-    }
-
-    // @Bean
-    // @Description("Thymeleaf template resolver serving HTML 5")
-    // public ClassLoaderTemplateResolver templateResolver() {
-    // ClassLoaderTemplateResolver templateResolver = new
-    // ClassLoaderTemplateResolver();
-    // templateResolver.setPrefix("templates/");
-    // templateResolver.setCacheable(false);
-    // templateResolver.setSuffix(".html");
-    // templateResolver.setTemplateMode("HTML5");
-    // templateResolver.setCharacterEncoding("UTF-8");
-    // return templateResolver;
-    // }
-    //
-    // @Bean
-    // @Description("Thymeleaf template engine with Spring integration")
-    // public SpringTemplateEngine templateEngine() {
-    // SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-    // templateEngine.setTemplateResolver(templateResolver());
-    // return templateEngine;
-    // }
-    //
-    // @Bean
-    // @Description("Thymeleaf view resolver")
-    // public ViewResolver viewResolver() {
-    // ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-    // viewResolver.setTemplateEngine(templateEngine());
-    // viewResolver.setCharacterEncoding("UTF-8");
-    // return viewResolver;
-    // }
 }

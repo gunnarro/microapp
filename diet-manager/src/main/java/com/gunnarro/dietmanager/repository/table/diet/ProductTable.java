@@ -54,7 +54,7 @@ public class ProductTable {
                 ps.setObject(5, product.getCategory());
                 ps.setObject(6, product.getDescription());
                 ps.setObject(7, product.getAmount());
-                ps.setObject(8, product.getWeight_g());
+                ps.setObject(8, product.getWeight());
                 ps.setObject(9, product.getKcal());
                 ps.setObject(10, product.getFat());
                 ps.setObject(11, product.getCarbohydrates());

@@ -9,7 +9,7 @@ public class Product extends BaseDomain {
     private String category;
     private String imageLink;
     private Integer amount;
-    private Integer weight_g;
+    private Integer weight;
     private Integer kcal;
     private Double fat;
     private Double carbohydrates;
@@ -71,12 +71,21 @@ public class Product extends BaseDomain {
         this.amount = amount;
     }
 
-    public Integer getWeight_g() {
-        return weight_g;
+    /**
+     * 
+     * @return weight in kilogram
+     */
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void setWeight_g(Integer weight_g) {
-        this.weight_g = weight_g;
+    /**
+     * Weight in kilogram
+     * 
+     * @param weight
+     */
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public Integer getKcal() {

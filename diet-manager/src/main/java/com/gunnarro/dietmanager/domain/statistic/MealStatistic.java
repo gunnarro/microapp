@@ -3,6 +3,8 @@ package com.gunnarro.dietmanager.domain.statistic;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.context.support.GenericApplicationContextExtensionsKt;
+
 public class MealStatistic implements Serializable, Comparable<MealStatistic> {
 
     private static final long serialVersionUID = 8141619760462227823L;
@@ -132,6 +134,31 @@ public class MealStatistic implements Serializable, Comparable<MealStatistic> {
     @Override
     public int compareTo(MealStatistic o) {
         return this.sortBy().compareTo(o.sortBy());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((sortBy() == null) ? 0 : sortBy().hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        MealStatistic other = (MealStatistic) obj;
+        if (sortBy() == null) {
+            if (other.sortBy() != null)
+                return false;
+        } else if (!sortBy().equals(other.sortBy()))
+            return false;
+        return true;
     }
 
     @Override

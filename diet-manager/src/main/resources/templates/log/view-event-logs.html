@@ -89,7 +89,7 @@
 									<small><span th:text="#{lbl.created_by} + ' ' + ${log.createdByUser}"></span></small>
 								</div>
 								<div class="pull-right">
-									<a th:if="${log.numberOfComments} == 0" href="#" class="btn btn-default btn-xs"><small th:text="#{eventlog.btn.add_comment}"></small>)</a>
+									<a th:if="${log.numberOfComments} == 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-default btn-xs"><small th:text="#{eventlog.btn.add_comment}"></small>)</a>
 									<a th:if="${log.numberOfComments} > 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-default btn-xs"><small th:text="#{eventlog.btn.view_comments} + ' (' + ${log.numberOfComments} + ')'"></small>)</a>
 									
 									<span th:if="${#authentication.name == log.createdByUser}">

@@ -59,7 +59,7 @@ public class UserRegistrationController {
      * up URL is "/signup".
      */
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public ModelAndView signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public ModelAndView signup(HttpServletRequest request, HttpServletResponse response) {
         LocalUser loggedInUser = null;
         try {
             loggedInUser = authenticationFacade.getLoggedInUser();
@@ -67,7 +67,7 @@ public class UserRegistrationController {
             // ignore, not logged inn
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("start registration..." + loggedInUser);
+            LOG.debug("start registration...{}", loggedInUser);
         }
         UserRegistrationForm userForm = new UserRegistrationForm();
         try {
@@ -91,12 +91,12 @@ public class UserRegistrationController {
      * 
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationForm registrationForm) throws URISyntaxException {
+    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationForm registrationForm) throws URISyntaxException {
         if (registrationForm.getSocialProvider() == null) {
             registrationForm.setSocialProvider(SocialProvider.NONE.name());
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("register new user: " + registrationForm.toString());
+            LOG.debug("register new user: {}", registrationForm.toString());
         }
         try {
             userService.registerNewUser(registrationForm);
@@ -104,7 +104,7 @@ public class UserRegistrationController {
         } catch (UserAlreadyExistAuthenticationException uaeae) {
             LOG.debug(uaeae.getMessage());
             // Return Conflict (409)
-            return new ResponseEntity<String>("User already exist!", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("User already exist!", HttpStatus.CONFLICT);
         }
     }
 
@@ -112,7 +112,7 @@ public class UserRegistrationController {
      * 
      */
     @RequestMapping(value = "/register/test", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> testRegisterUser(@RequestBody UserRegistrationForm registrationForm) throws UserAlreadyExistAuthenticationException {
+    public ResponseEntity<String> testRegisterUser(@RequestBody UserRegistrationForm registrationForm) throws UserAlreadyExistAuthenticationException {
         if (LOG.isDebugEnabled()) {
             LOG.debug(registrationForm.toString());
         }
@@ -125,7 +125,7 @@ public class UserRegistrationController {
     }
 
     @RequestMapping(value = "/register/user", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody UserRegistrationForm registrationForm, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<String> createUser(@RequestBody UserRegistrationForm registrationForm, UriComponentsBuilder ucBuilder) {
         if (LOG.isDebugEnabled()) {
             LOG.debug(registrationForm.toString());
         }
@@ -139,6 +139,6 @@ public class UserRegistrationController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/home").buildAndExpand().toUri());
-        return new ResponseEntity<String>("Test user registration OK", headers, HttpStatus.CREATED);
+        return new ResponseEntity<>("Test user registration OK", headers, HttpStatus.CREATED);
     }
 }

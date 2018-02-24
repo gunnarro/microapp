@@ -6,6 +6,12 @@
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 
 	<div class="container-fluid">
+	
+		<ul class="breadcrumb">
+        	<li><a th:href="@{/diet/body/measurement/log}">Oversikt vekt og høyde</a></li>
+        	<li class="active">BMI Detaljer</li>
+    	</ul>
+	
 		<div class="page-header">
 			<h4 th:text="#{weightlog.page.title}" ></h4>
 		</div>

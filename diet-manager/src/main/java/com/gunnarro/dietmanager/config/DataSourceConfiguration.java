@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.gunnarro.useraccount.repository.UserAccountRepository;
@@ -48,9 +51,26 @@ public class DataSourceConfiguration {
         Properties p = new Properties();
         p.put("useSSL", "false");
         ds.setConnectionProperties(p);
+        runUpdateDBScript(ds);
         return ds;
     }
 
+    private void runUpdateDBScript(DataSource ds ) {
+        try {
+            DatabasePopulatorUtils.execute(createDatabasePopulator(), ds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error init datasource: " + e.getMessage());
+        }
+    }
+    
+    private ResourceDatabasePopulator createDatabasePopulator() {
+        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+        databasePopulator.setContinueOnError(true);
+        databasePopulator.addScript(new ClassPathResource("update.sql"));
+        return databasePopulator;
+    }
+    
     /**
      * same as dietmanager data source
      * 

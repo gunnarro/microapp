@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.gunnarro.dietmanager.mvc.dto.SocialProvider;
 import com.gunnarro.dietmanager.mvc.dto.UserRegistrationForm;
@@ -24,7 +23,6 @@ import com.gunnarro.useraccount.repository.UserAccountRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
-@TransactionConfiguration(defaultRollback = true)
 // @Ignore
 public class RegistrationUserDetailsServiceTest {
 

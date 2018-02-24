@@ -61,4 +61,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and().exceptionHandling()
         .accessDeniedHandler(this.accessDeniedHandler);
     }
+    
+//    /**
+//    ref: http://www.baeldung.com/spring-security-5-oauth2-login
+//     * for oauth2 login
+//     */
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//         .anyRequest().authenticated()
+//         .and()
+//         .oauth2Login();
+//    }
 }

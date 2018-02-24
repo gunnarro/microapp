@@ -15,9 +15,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gunnarro.dietmanager.config.DefaultTestConfig;
@@ -42,7 +40,6 @@ import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 @ContextConfiguration(classes = { DietManagerRepositoryImpl.class, TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })
 @Transactional
 //@Rollback(value = true)
-@TransactionConfiguration(defaultRollback = true)
 // @Ignore
 public class DietManagerRepositoryTest extends DefaultTestConfig {
 

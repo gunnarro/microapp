@@ -27,6 +27,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<version.jodatime>2.9.6</version.jodatime>
+		<version.usermanager>1.1</version.usermanager>
+		<version.flexmark>0.32.4</version.flexmark>
 		<fabric8.generator.from>fabric8/s2i-java</fabric8.generator.from>
 	</properties>
 
@@ -84,7 +86,7 @@
 		<dependency>
 			<groupId>com.gunnarro.usermanager</groupId>
 			<artifactId>user-manager</artifactId>
-			<version>1.0</version>
+			<version>${version.usermanager}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.servlet</groupId>
@@ -101,7 +103,7 @@
 		<dependency>
 			<groupId>com.vladsch.flexmark</groupId>
 			<artifactId>flexmark-all</artifactId>
-			<version>0.32.4</version>
+			<version>${version.flexmark}</version>
 		</dependency>
 	</dependencies>
 </project>

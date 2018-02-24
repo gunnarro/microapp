@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -145,18 +144,6 @@ public class LoginController extends BaseController {
         LOG.debug("logout: " + auth.getPrincipal());
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-    }
-
-    private void logoutFaceBook() {
-        Authentication auth = authenticationFacade.getAuthentication();
-        LOG.debug("logout: " + auth.getPrincipal());
-        // have to get access token from userConnections table
-        // String accessToken = getAccessToken(auth.getPrincipal());
-        FacebookTemplate facebookTemplate = new FacebookTemplate("accessToken");
-        boolean authorized = facebookTemplate.isAuthorized();
-        if (authorized) {
-            facebookTemplate.delete("userId", "permissions");
         }
     }
 

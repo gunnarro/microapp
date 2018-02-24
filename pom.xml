@@ -28,8 +28,8 @@
 		<main.basedir>${basedir}/../..</main.basedir>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 		<!-- <version.liquibase>3.4.0</version.liquibase> -->
-		<version.spring>4.3.11.RELEASE</version.spring>
-		<version.spring.security>4.2.3.RELEASE</version.spring.security>
+		<version.spring>5.0.4.RELEASE</version.spring>
+		<version.spring.security>5.0.2.RELEASE</version.spring.security>
 	
 		<version.spring.social>2.0.0.M4</version.spring.social>
 		<version.spring.social.facebook>3.0.0.M1</version.spring.social.facebook>

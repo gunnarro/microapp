@@ -45,7 +45,7 @@
 	          colors: ['#DF3446', '#88D413', '#344BDF', '#4608DF'],
 	    };
 
-    var jsonResponse = loadDataSynchronous("/dietmanager/rest/chart/data/bodymeasure");
+    var jsonResponse = loadDataSynchronous("/rest/data/chart/data/bodymeasure");
     var jsonData = JSON.parse(jsonResponse);
     var weightDataTable = new google.visualization.DataTable();
     weightDataTable.addColumn('string', 'Dato');
@@ -59,7 +59,7 @@
 		heightDataTable.addRow([jsonData[i].label, parseFloat(jsonData[i].value2)]);
 	}
 	
-	var bmiJsonResponse = loadDataSynchronous("/dietmanager/rest/chart/data/bmi");
+	var bmiJsonResponse = loadDataSynchronous("/rest/data/chart/data/bmi");
 	var bmiJsonData = JSON.parse(bmiJsonResponse);
 	var bmiDataTable = new google.visualization.DataTable();
 	bmiDataTable.addColumn('string', 'Alder (mnd)');

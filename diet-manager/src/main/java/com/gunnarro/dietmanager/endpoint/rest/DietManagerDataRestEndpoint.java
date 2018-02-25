@@ -27,7 +27,7 @@ import com.gunnarro.dietmanager.utility.Utility;
 import com.gunnarro.useraccount.domain.user.LocalUser;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/data")
 public class DietManagerDataRestEndpoint {
 
     private static final String USER_DAD = "pappa";

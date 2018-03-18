@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head-include :: head-include">
 </head>
 <body>
-	<div th:replace="fragments/header-topmenu :: header-topmenu"></div> 
-	<div class="container-fluid" >
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+	<div class="container-fluid">
 		<div class="page-header">
 			<h4 th:text="#{eventlog.title}"></h4>
 			<!-- 
@@ -23,32 +23,29 @@
 				<button onclick="closeAll();" type="button" class="btn btn-default">åpne alle</button>
 			</div>
 			 -->
-			 
-			<div class="input-group input-group-margin" >
-				<span class="input-group-addon">
-					<i class="glyphicon glyphicon-search"></i>
+
+			<div class="input-group input-group-margin">
+				<span class="input-group-addon"> <i class="glyphicon glyphicon-search"></i>
 				</span>
-				<label for="txtSearchPage" class="sr-only" th:text="#{eventlog.lbl.filter_log}"></label>
+				<label for="txtSearchPage" class="sr-only" th:text="#{eventlog.lbl.filter_log}"></label> 
 				<input id="txtSearchPage" type="text" class="form-control" th:placeholder="#{eventlog.lbl.filter_log}" />
 			</div>
-			
+
 			<div class="input-group input-group-margin pull-right">
 				<table class="borderless">
 					<tr>
-						<td style="text-align: right;">
-							<span th:text="#{lbl.period}"></span>: <span th:text="${#dates.format(logsFromDate, 'dd-MM-yyyy')}" ></span> - <span th:text="${#dates.format(logsToDate, 'dd-MM-yyyy')}"></span>
+						<td style="text-align: right;"><span th:text="#{lbl.period}"></span>: <span th:text="${#dates.format(logsFromDate, 'dd-MM-yyyy')}"></span> - <span
+							th:text="${#dates.format(logsToDate, 'dd-MM-yyyy')}"></span></td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">Log <span class="badge badge-info" th:text="${page.size * (page.number-1) + 1}"></span> to <span class="badge badge-info"
+							th:text="${page.lastPage ? page.totalElements : page.size * (page.number-1) + page.size}"></span> of <span class="badge badge-info" th:text="${page.totalElements}"></span>
+							logs
 						</td>
 					</tr>
 					<tr>
-						<td style="text-align: right;">
-							<span th:text="#{eventlog.number_of_logs}"></span>: <span class="badge badge-info" th:text="${numberOfLogs}" ></span>
-						</td>
-					</tr>
-					<tr>
-						<td style="text-align: right;">
-							<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.new_log}" ></a>
-							<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.view_plain}" ></a>
-						</td>
+						<td style="text-align: right;"><a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.new_log}"></a> <a
+							th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-xs" th:text="#{eventlog.btn.view_plain}"></a></td>
 					</tr>
 				</table>
 			</div>
@@ -56,62 +53,91 @@
 		</div>
 		<!-- End page header -->
 		<div class="list panel-group" id="accordion">
-			<div th:each="log, iter : ${logs}">
-				<div th:if="${log.level != 'ALL'}" id="panel-child" class="panel panel-default" style="margin-bottom: 5px;" >
-						<div class="panel-heading panel-heading-sm">
-							<h6 class="panel-title">
-								<small th:with="logWeekDay=${#dates.dayOfWeekNameShort(log.createdDate)}, logDate=${#dates.format(log.createdDate, 'EEEE dd.MM.yy')}, logTime=${#dates.format(log.createdDate, 'HH:mm')}"> 
-									<span th:switch="${#dates.dayOfWeekName(log.createdDate)}">
-										<span th:case="'mandag'" class="label label-danger" th:text="${logDate} + ' ' + ${logTime}"></span>
-										<span th:case="'tirsdag'" class="label label-primary" th:text="${logDate} + ' ' + ${logTime}"></span>
-										<span th:case="'onsdag'" class="label label-success" th:text="${logDate} + ' ' + ${logTime}"></span>
-										<span th:case="'torsdag'" class="label label-info" th:text="${logDate} + ' ' + ${logTime}"></span>
-										<span th:case="'fredag'" class="label label-warning" th:text="${logDate} + ' ' + ${logTime}"></span>
-										<span th:case="'lørdag'" class="label label-yellow" th:text="${logDate} + ' ' + ${logTime}"></span>
-										<span th:case="'søndag'" class="label label-purple" th:text="${logDate} + ' ' + ${logTime}"></span>
-									</span>
-
-									<span th:switch="${log.level}">
-										<span th:case="'INFO'" th:text="${log.level}" class="label label-info" ></span>
-										<span th:case="'ACTIVITY'" th:text="${log.level}" class="label label-success" ></span> 
-										<span th:case="'REPORT'" th:text="${log.level}" class="label label-warning" ></span> 
-										<span th:case="'CONFLICT'" th:text="${log.level}" class="label label-danger" ></span> 
-										<span th:case="'GAMING'" th:text="${log.level}" class="label label-default" ></span> 
-									</span>
-									<span> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{'#collapse_' + ${iter.index}}" th:text="${log.title}"></a></span>
-								</small>
-							</h6>
-						</div> <!-- panel header -->
-						<div th:id="'#collapse_' + ${iter.index}" class="panel-collapse collapse in">
-							<div class="panel-body" th:utext="${log.contentHtml}"></div>
-							<div class="panel-footer clearfix panel-footer-sm">
-								<div class="pull-left">
-									<small><span th:text="#{lbl.created_by} + ' ' + ${log.createdByUser}"></span></small>
-								</div>
-								<div class="pull-right">
-									<a th:if="${log.numberOfComments} == 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-default btn-xs"><small th:text="#{eventlog.btn.add_comment}"></small></a>
-									<a th:if="${log.numberOfComments} > 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-default btn-xs"><small th:text="#{eventlog.btn.view_comments} + ' (' + ${log.numberOfComments} + ')'"></small></a>
+			<div th:each="log, iter : ${page.content}">
+				<div th:if="${log.level != 'ALL'}" id="panel-child" class="panel panel-default" style="margin-bottom: 5px;">
+					<div class="panel-heading panel-heading-sm">
+						<h6 class="panel-title">
+							<span th:text="${log.id}"></span>
+							<small th:with="logWeekDay=${#dates.dayOfWeekNameShort(log.createdDate)}, logDate=${#dates.format(log.createdDate, 'EEEE dd.MM.yy')}, logTime=${#dates.format(log.createdDate, 'HH:mm')}">
+								<span th:switch="${#dates.dayOfWeekName(log.createdDate)}"> 
+									<span th:case="'Mandag'" class="label label-danger" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Tirsdag'" class="label label-primary" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Onsdag'" class="label label-success" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Torsdag'" class="label label-info" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Fredag'" class="label label-warning" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Lørdag'" class="label label-yellow" th:text="${logDate} + ' ' + ${logTime}"></span>
+									<span th:case="'Søndag'" class="label label-purple" th:text="${logDate} + ' ' + ${logTime}"></span>
 									
-									<span th:if="${#authentication.name == log.createdByUser}">
-										<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
-										<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
-									</span>
-									<span th:if="${#authentication.name != log.createdByUser}">
-										<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-edit"></i></a>
-										<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-trash"></i></a>
-									</span>
-								</div>
+									<span th:case="'Monday'" class="label label-danger" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Tuesday'" class="label label-primary" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Wednesday'" class="label label-success" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Thursday'" class="label label-info" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Friday'" class="label label-warning" th:text="${logDate} + ' ' + ${logTime}"></span> 
+									<span th:case="'Saturday'" class="label label-yellow" th:text="${logDate} + ' ' + ${logTime}"></span>
+									<span th:case="'Sunday'" class="label label-purple" th:text="${logDate} + ' ' + ${logTime}"></span>
+								</span> 
+								<span th:switch="${log.level}"> 
+									<span th:case="'INFO'" th:text="${log.level}" class="label label-info"></span> 
+									<span th:case="'ACTIVITY'" th:text="${log.level}" class="label label-success"></span> 
+									<span th:case="'REPORT'" th:text="${log.level}" class="label label-warning"></span> 
+									<span th:case="'CONFLICT'" th:text="${log.level}" class="label label-danger"></span> 
+									<span th:case="'GAMING'" th:text="${log.level}" class="label label-default"></span>
+								</span> 
+									<span> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{'#collapse_' + ${iter.index}}" th:text="${log.title}"></a></span>
+							</small>
+						</h6>
+					</div>
+					<!-- panel header -->
+					<div th:id="'#collapse_' + ${iter.index}" class="panel-collapse collapse in">
+						<div class="panel-body" th:utext="${log.contentHtml}"></div>
+						<div class="panel-footer clearfix panel-footer-sm">
+							<div class="pull-left">
+								<small><span th:text="#{lbl.created_by} + ' ' + ${log.createdByUser}"></span></small>
 							</div>
+							<div class="pull-right">
+								<a th:if="${log.numberOfComments} == 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-default btn-xs"><small
+									th:text="#{eventlog.btn.add_comment}"></small></a> <a th:if="${log.numberOfComments} > 0" th:href="@{/diet/log/event/view/} + ${log.id}"
+									class="btn btn-default btn-xs"><small th:text="#{eventlog.btn.view_comments} + ' (' + ${log.numberOfComments} + ')'"></small></a> <span
+									th:if="${#authentication.name == log.createdByUser}"> <a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-default btn-xs"><i
+										class="glyphicon glyphicon-edit"></i></a> <a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-default btn-xs"><i
+										class="glyphicon glyphicon-trash"></i></a>
+								</span> <span th:if="${#authentication.name != log.createdByUser}"> <a th:href="@{/diet/log/event/edit/} + ${log.id}"
+									class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-edit"></i></a> <a th:href="@{/diet/log/event/delete/} + ${log.id}"
+									class="btn btn-default btn-xs disabled"><i class="glyphicon glyphicon-trash"></i></a>
+								</span>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div> <!-- end each -->
-		</div> <!-- end panel group -->
-	</div> <!-- end container -->
-	
+			</div>
+			<!-- end each -->
+		</div>
+		<!-- end panel group -->
+
+		<div class="col-sm-7">
+			<!-- Pagination Bar -->
+			<div th:fragment='paginationbar'>
+				<div class="text-center">
+					<ul class='pagination justify-content-center'>
+						<li th:class="${page.firstPage}?'disabled':''"><span th:if='${page.firstPage}'>First</span> <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>First</a></li>
+						<li th:class="${page.hasPreviousPage}? '' : 'disabled'"><span th:if='${not page.hasPreviousPage}' aria-hidden="true">&laquo;</span> <a th:if='${page.hasPreviousPage}'th:href='@{${page.url}(page=${page.number-2},size=${page.size})}' title='Go to previous page'>«</a></li>
+						<li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+							<span th:if='${item.current}' th:text='${item.number}'>1</span> 
+							<a th:if='${not item.current}' th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span th:text='${item.number}'>1</span></a>
+						</li>
+						<li th:class="${page.hasNextPage}? '' : 'disabled'"><span th:if='${not page.hasNextPage}'>&raquo;</span> <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}' title='Go to next page'>&raquo;</a></li>
+						<li th:class="${page.lastPage}? 'disabled' : ''"><span th:if='${page.lastPage}'>Last</span> <a th:if='${not page.lastPage}' th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end container -->
+
 	<div th:replace="fragments/footer :: footer"></div>
-	
+
 	<!-- Put java script at end of document -->
-<script type="text/javascript">
+	<script type="text/javascript">
 $(document).ready(function() {
 	$("#txtSearchPage").keyup(function() {
 	    var search = $(this).val();
@@ -141,6 +167,6 @@ function closeAll() {
 function openAll() {
 	$('.panel-collapse:not(".in")').collapse('show');
 };
-</script>	
+</script>
 </body>
 </html>

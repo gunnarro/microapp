@@ -50,19 +50,19 @@ public class PersonalLogController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
     }
 
-    @RequestMapping(value = "/personal/logs", method = RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView getLogEvents() {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        List<LogEntry> logs = logEventService.getAllLogEvents(loggedInUser.getId());
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("number of log entries: " + logs.size());
-        }
-        ModelAndView modelView = new ModelAndView("log/view-event-logs");
-        modelView.getModel().put("logs", logs);
-        modelView.getModel().put("number_of_logs", logs.size());
-        return modelView;
-    }
+//    @RequestMapping(value = "/personal/logs", method = RequestMethod.GET)
+//    @ResponseBody
+//    public ModelAndView getLogEvents() {
+//        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+//        List<LogEntry> logs = logEventService.getAllLogEvents(loggedInUser.getId(), 2);
+//        if (LOG.isDebugEnabled()) {
+//            LOG.debug("number of log entries: " + logs.size());
+//        }
+//        ModelAndView modelView = new ModelAndView("log/view-event-logs");
+//        modelView.getModel().put("logs", logs);
+//        modelView.getModel().put("number_of_logs", logs.size());
+//        return modelView;
+//    }
 
     @RequestMapping(value = "/personal/log/view/{logId}", method = RequestMethod.GET)
     public ModelAndView logEventView(@PathVariable("logId") int logId) {
@@ -77,18 +77,18 @@ public class PersonalLogController extends BaseController {
         return modelView;
     }
 
-    @RequestMapping(value = "/personal/logs/txt", method = RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView viewLogEventsAsPlainText() {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        List<LogEntry> logs = logEventService.getAllLogEvents(loggedInUser.getId());
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("number of log entries: " + logs.size());
-        }
-        ModelAndView modelView = new ModelAndView("log/view-event-logs-txt");
-        modelView.getModel().put("logs", logs);
-        return modelView;
-    }
+//    @RequestMapping(value = "/personal/logs/txt", method = RequestMethod.GET)
+//    @ResponseBody
+//    public ModelAndView viewLogEventsAsPlainText() {
+//        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+//        List<LogEntry> logs = logEventService.getAllLogEvents(loggedInUser.getId());
+//        if (LOG.isDebugEnabled()) {
+//            LOG.debug("number of log entries: " + logs.size());
+//        }
+//        ModelAndView modelView = new ModelAndView("log/view-event-logs-txt");
+//        modelView.getModel().put("logs", logs);
+//        return modelView;
+//    }
 
     // ---------------------------------------------
     // New and update log event

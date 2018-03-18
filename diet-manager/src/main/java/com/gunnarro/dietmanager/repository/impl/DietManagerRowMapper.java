@@ -10,9 +10,12 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.gunnarro.dietmanager.domain.activity.ActivityLog;
 import com.gunnarro.dietmanager.domain.diet.DietMenu;
 import com.gunnarro.dietmanager.domain.diet.DietPlan;
 import com.gunnarro.dietmanager.domain.diet.FoodProduct;
@@ -299,6 +302,21 @@ public class DietManagerRowMapper {
                 // Date(resultSet.getTimestamp("to_date").getTime()));
                 statistic.setCreatedDate(new Date(resultSet.getTimestamp("created_date").getTime()));
                 return statistic;
+            }
+        };
+    }
+
+    public static RowMapper<ActivityLog> mapToActivityLogRM() {
+        return new RowMapper<ActivityLog>() {
+            @Override
+            public ActivityLog mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+                ActivityLog log = new ActivityLog();
+                log.setId(resultSet.getInt("id"));
+                log.setFkUserId(resultSet.getInt("fk_user_id"));
+                log.setCreatedDate(new Date(resultSet.getTimestamp("created_date_time").getTime()));
+                log.setLastModifiedTime(resultSet.getTimestamp("last_modified_date_time").getTime());
+                log.setDescription(resultSet.getString("description"));
+                return log;
             }
         };
     }

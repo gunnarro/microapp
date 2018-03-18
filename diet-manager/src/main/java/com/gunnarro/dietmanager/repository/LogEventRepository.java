@@ -2,6 +2,8 @@ package com.gunnarro.dietmanager.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
 
@@ -17,7 +19,7 @@ public interface LogEventRepository {
 
     public List<LogEntry> getLogEvents(Integer userId);
 
-    public List<LogEntry> getAllLogEvents(Integer userId);
+    public Page<LogEntry> getAllLogEvents(Integer userId, int pageNumber, int pageSize);
 
     public int createLogEvent(LogEntry logEntry);
 
@@ -38,5 +40,7 @@ public interface LogEventRepository {
     public boolean hasPermission(Integer logEventId, String username);
 
     public int updateLogEventLastModifiedDate(Integer logEntryId);
+
+    public int count(String query);
 
 }

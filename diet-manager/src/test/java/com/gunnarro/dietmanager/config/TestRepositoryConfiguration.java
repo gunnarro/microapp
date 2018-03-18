@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.gunnarro.dietmanager.repository.ActivityRepository;
 import com.gunnarro.dietmanager.repository.LogEventRepository;
+import com.gunnarro.dietmanager.repository.impl.ActivityRepositoryImpl;
 import com.gunnarro.dietmanager.repository.impl.LogEventRepositoryImpl;
 import com.gunnarro.useraccount.repository.UserAccountRepository;
 import com.gunnarro.useraccount.repository.impl.UserAccountRepositoryImpl;
@@ -28,15 +30,20 @@ public class TestRepositoryConfiguration {
     @Autowired
     @Qualifier(value = "dietManagerDataSource")
     private DataSource dataSource;
-    
+
     @Bean
     public LogEventRepository logEventRepository() {
         return new LogEventRepositoryImpl(dataSource);
     }
-    
+
+    @Bean
+    public ActivityRepository activityRepository() {
+        return new ActivityRepositoryImpl(dataSource);
+    }
+
     @Bean
     public UserAccountRepository userAccountRepository() {
         return new UserAccountRepositoryImpl(new JdbcTemplate(dataSource));
     }
 
-   }
+}

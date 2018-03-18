@@ -14,44 +14,56 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public abstract class BaseJdbcRepository {
 
-    private JdbcTemplate jdbcTemplate;
+	public static final int PAGE_SIZE = 25;
 
-    public BaseJdbcRepository() {
-    }
+	private JdbcTemplate jdbcTemplate;
 
-    /**
-     * Creates a new JdbcRepositorySupport for the given JdbcTemplate.
-     * 
-     * @param jdbcTemplate the JDBC template to create the JDBC Repository
-     *            Support for.
-     */
-    public BaseJdbcRepository(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+	public BaseJdbcRepository() {
+	}
 
-    /**
-     * Returns the JdbcTemplate injected into the class.
-     * 
-     * @return
-     */
-    public final JdbcTemplate getJdbcTemplate() {
-        return this.jdbcTemplate;
-    }
+	protected int getPageIndex(int pageNumber) {
+		// check if fist page, always start at 0
+		if (pageNumber <= 1) {
+			return 0;
+		} else {
+			return pageNumber * PAGE_SIZE;
+		}
+	}
 
-    /**
-     * return all user id's this followers are allowed to read
-     * 
-     * @param userIdFollower
-     * @return
-     */
-    public List<Integer> getGrantedUserIdsForFollower(Integer userIdFollowerId) {
-        RowMapper<Integer> rm = new RowMapper<Integer>() {
-            @Override
-            public Integer mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-                return resultSet.getInt("fk_user_id");
-            }
-        };
-        return getJdbcTemplate().query("SELECT fk_user_id FROM user_follower_lnk WHERE fk_user_follower_id = ? ORDER BY fk_user_id ASC",
-                new Object[] { userIdFollowerId }, rm);
-    }
+	/**
+	 * Creates a new JdbcRepositorySupport for the given JdbcTemplate.
+	 * 
+	 * @param jdbcTemplate
+	 *            the JDBC template to create the JDBC Repository Support for.
+	 */
+	public BaseJdbcRepository(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	/**
+	 * Returns the JdbcTemplate injected into the class.
+	 * 
+	 * @return
+	 */
+	public final JdbcTemplate getJdbcTemplate() {
+		return this.jdbcTemplate;
+	}
+
+	/**
+	 * return all user id's this followers are allowed to read
+	 * 
+	 * @param userIdFollower
+	 * @return
+	 */
+	public List<Integer> getGrantedUserIdsForFollower(Integer userIdFollowerId) {
+		RowMapper<Integer> rm = new RowMapper<Integer>() {
+			@Override
+			public Integer mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+				return resultSet.getInt("fk_user_id");
+			}
+		};
+		return getJdbcTemplate().query(
+				"SELECT fk_user_id FROM user_follower_lnk WHERE fk_user_follower_id = ? ORDER BY fk_user_id ASC",
+				new Object[] { userIdFollowerId }, rm);
+	}
 }

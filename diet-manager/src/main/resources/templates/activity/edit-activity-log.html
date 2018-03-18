@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="fragments/head-include :: head-include">
+</head>
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+	      var date_input=$('input[name="logDate"]');
+	      var container=$('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+	      var options={
+	        format: 'dd.mm.yyyy',
+	        container: container,
+	        todayHighlight: true,
+	        autoclose: true,
+	      };
+	      date_input.datepicker(options);
+	    })
+	</script>
+
+	<div class="container-fluid">
+		
+		<ul class="breadcrumb">
+			<li><a th:href="@{/diet/body/measurement/log}" >Mine data</a></li>
+        	<li class="active">Ny Log</li>
+    	</ul>
+
+		<div class="panel panel-default">
+			<div class="panel-heading clearfix">
+					<div th:if="${log.id} != null" class="pull-right">
+						<div class="pull-right">
+							<a th:href="${/diet/body/measurement/delete/${logEntryId}}" class="btn btn-danger btn-xs" th:text="#{btn.delete}">delete</a>
+						</div>
+					</div>
+				<h3 class="panel-title">
+					<span th:if="${log['new']}" th:text="#{editweightlog.title}"></span>
+				</h3>
+			</div>
+			<!-- end panel header -->
+
+			<div class="panel-body">
+				<form action="#" th:action="@{/diet/body/measurement/new}" th:object="${log}" method="post" >
+					<input type="hidden" th:field="*{userId}" />
+					
+					 <div th:class="form-group">
+						<label th:text="#{editweightlog.label.logdate}" class="control-label"></label>
+						<div class="controls">
+							<div class="input-group">
+								<input id="logDate" name="logDate" type="text" class="date-picker form-control" th:field="*{logDate}" placeholder="dd.MM.yyyy" />
+								<label for="logDate" class="input-group-addon btn">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+					 
+					<div class="form-group">
+						<label th:text="#{editweightlog.label.weight}"></label>
+						<input class="form-control" type="text" th:field="*{weight}" placeholder="0.0" size="5" />
+						<label th:each="err : ${#fields.errors('weight')}" th:text="${err}" class="help-block" ></label>
+					</div>
+					
+					<div class="form-group">
+						<label th:text="#{editweightlog.label.height}"></label>
+						<input class="form-control" type="text" th:field="*{height}" placeholder="0.0" size="5" />
+						<label th:each="err : ${#fields.errors('height')}" th:text="${err}" class="help-block" ></label>
+					</div>
+					
+					<div class="form-group">
+						<label th:text="#{editweightlog.label.comment}"></label>
+						<input class="form-control" type="text" th:field="*{comment}" placeholder="0.0" size="5" />
+						<label th:each="err : ${#fields.errors('comment')}" th:text="${err}" class="help-block" ></label>
+					</div>
+					<p />
+					<button th:if="${log['new']}" type="submit" class="btn btn-primary" th:text="#{btn.new}"></button>
+					<a th:href="@{/diet/body/measurement/log}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
+				</form>
+			</div>
+			<!-- end panel body -->
+
+			<div class="panel-footer clearfix">
+				<div class="pull-right">
+					<a th:href="@{/diet/body/measurement/log}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
+				</div>
+			</div>
+
+			<!-- end panel footer -->
+		</div>
+		<!-- end panel -->
+	</div>
+	<!-- end container -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

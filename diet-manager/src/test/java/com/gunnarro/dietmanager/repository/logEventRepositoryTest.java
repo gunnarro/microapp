@@ -7,13 +7,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ import com.gunnarro.dietmanager.utility.Utility;
 @ContextConfiguration(classes = { TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class })
 @Transactional
 @Rollback
- @Ignore
+// @Ignore
 public class logEventRepositoryTest extends DefaultTestConfig {
 
     @Autowired
@@ -148,13 +148,8 @@ public class logEventRepositoryTest extends DefaultTestConfig {
     }
 
     @Test
-    public void getAllEventLogs() {
-        List<LogEntry> logs = logEventRepository.getAllLogEvents(1);
-        assertNotNull(logs);
-        assertEquals(1, logs.get(0).getNumberOfComments());
-        // for (LogEntry l : logs) {
-        // System.out.println("UnitTest EventLog: " + l);
-        // }
+    public void count() {
+        assertEquals(5, logEventRepository.count("SELECT count(*) FROM event_log"));
     }
 
     @Ignore
@@ -179,9 +174,10 @@ public class logEventRepositoryTest extends DefaultTestConfig {
 
     @Test
     public void getAllLogEvents() {
-        List<LogEntry> allLogEvents = logEventRepository.getAllLogEvents(4);
-        assertEquals(1, allLogEvents.size());
-        assertNull(allLogEvents.get(0).getLogComments());
+        Page<LogEntry> page = logEventRepository.getAllLogEvents(4, 0, 25);
+        System.out.println(page.toString());
+        assertEquals(1, page.getContent().size());
+        assertNull(page.getContent().get(0).getLogComments());
     }
 
     // @Test

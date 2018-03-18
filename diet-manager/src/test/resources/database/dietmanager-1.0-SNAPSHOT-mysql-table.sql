@@ -387,16 +387,5 @@ CREATE TABLE samvar_log(id            			 	 INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						to_time						 TIME(4),
 						description   				 VARCHAR(200));		
 						
-						
-DROP TABLE IF EXISTS playlist;
-CREATE TABLE playlist(id            			 	 INTEGER  PRIMARY KEY AUTO_INCREMENT,
-						created_date_time      	 	 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-						last_modified_date_time  	 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-						played_date					 TIMESTAMP,
-						radio_channel			     VARCHAR(25),
-						artist_name					 VARCHAR(50),
-						song_title					 VARCHAR(100),
-						description   				 VARCHAR(200));		
-						
 -- Turn on fk check						
 SET FOREIGN_KEY_CHECKS=1;

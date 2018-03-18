@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gunnarro.dietmanager.service.ActivityService;
 import com.gunnarro.dietmanager.service.DietManagerService;
 import com.gunnarro.dietmanager.service.LogEventService;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
@@ -38,6 +39,10 @@ public class BaseController {
     @Autowired
     protected LogEventService logEventService;
 
+    @Autowired
+    protected ActivityService activityService;
+
+    
     public AuthenticationFacade getAuthenticationFacade() {
         return authenticationFacade;
     }

@@ -10,6 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -74,23 +79,40 @@ public class LogEventControllerTest extends SpringTestSetup {
     @Test
     @SuppressWarnings("unchecked")
     public void getLogEvents() throws Exception {
-        when(logEventServiceMock.getLogEvents(4)).thenReturn(new ArrayList<LogEntry>());
-        ModelAndView modelAndView = controller.getLogEvents();
+        List<LogEntry> list = new ArrayList<>();
+        for (int i = 0; i<30; i++) {
+            list.add(new LogEntry(i));
+        }
+        Pageable pageSpecification = new PageRequest(0, 5, new Sort(Sort.Direction.ASC, "id"));
+        Page<LogEntry> page = new PageImpl(list, pageSpecification, list.size());
+        when(logEventServiceMock.getAllLogEvents(ADMIN_USER_ID, 1, 5)).thenReturn(page);
+        ModelAndView modelAndView = controller.getLogEvents(1, 5);
         Assert.assertEquals("log/view-event-logs", modelAndView.getViewName());
         Assert.assertNotNull(modelAndView.getModel());
-        List<LogEntry> list = (List<LogEntry>) modelAndView.getModel().get("logs");
-        Assert.assertNotNull(list);
+        PageWrapper p = (PageWrapper) modelAndView.getModel().get("page");
+        Assert.assertNotNull(p.getContent());
+        Assert.assertEquals(29, ((LogEntry)p.getLastElement()).getId().intValue());
+        Assert.assertEquals(30, p.getContent().size());
+        Assert.assertEquals(1, p.getNumber());
+        Assert.assertEquals(30, p.getTotalElements());
+        Assert.assertEquals(5, p.getItems().size());
+        Assert.assertEquals(6, p.getTotalPages());
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void viewLogEventsAsPlainText() throws Exception {
-        when(logEventServiceMock.getAllLogEvents(4)).thenReturn(new ArrayList<LogEntry>());
+        Pageable pageSpecification = new PageRequest(1, 25, new Sort(Sort.Direction.ASC, "id"));
+        Page<LogEntry> page = new PageImpl<>(new ArrayList<>(), pageSpecification, 100);
+        when(logEventServiceMock.getAllLogEvents(ADMIN_USER_ID, 1, 25)).thenReturn(page);
         ModelAndView modelAndView = controller.viewLogEventsAsPlainText();
         Assert.assertEquals("log/view-event-logs-txt", modelAndView.getViewName());
         Assert.assertNotNull(modelAndView.getModel());
-        List<LogEntry> list = (List<LogEntry>) modelAndView.getModel().get("logs");
-        Assert.assertNotNull(list);
+        Page<LogEntry> p = (Page<LogEntry>) modelAndView.getModel().get("page");
+        Assert.assertNotNull(p.getContent());
+        Assert.assertEquals(1, p.getNumber());
+        Assert.assertEquals(100, p.getTotalElements());
+        Assert.assertEquals(4, p.getTotalPages());
     }
 
     @Test

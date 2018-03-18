@@ -55,7 +55,7 @@ public class DataSourceConfiguration {
         return ds;
     }
 
-    private void runUpdateDBScript(DataSource ds ) {
+    private void runUpdateDBScript(DataSource ds) {
         try {
             DatabasePopulatorUtils.execute(createDatabasePopulator(), ds);
         } catch (Exception e) {
@@ -63,14 +63,14 @@ public class DataSourceConfiguration {
             throw new RuntimeException("Error init datasource: " + e.getMessage());
         }
     }
-    
+
     private ResourceDatabasePopulator createDatabasePopulator() {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.setContinueOnError(true);
         databasePopulator.addScript(new ClassPathResource("update.sql"));
         return databasePopulator;
     }
-    
+
     /**
      * same as dietmanager data source
      * 
@@ -79,6 +79,11 @@ public class DataSourceConfiguration {
     @Bean(name = "logEventDataSource")
     // @Primary
     public DataSource logEventDataSource() {
+        return dietManagerDataSource();
+    }
+
+    @Bean(name = "activityDataSource")
+    public DataSource activityDataSource() {
         return dietManagerDataSource();
     }
 

@@ -2,7 +2,6 @@ package com.gunnarro.dietmanager.mvc.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -11,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,33 +52,35 @@ public class LogEventController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
     }
 
-    @RequestMapping(value = "/diet/log/events/filter", method = RequestMethod.GET, params = { "filterBy", "filterValue" })
-    // public ModelAndView filterLogEvents(@PathVariable("filterBy") String
-    // filterBy, @PathVariable("filterValue") String filterValue) {
-    public String filterLogEvents(@RequestParam("filterBy") String filterBy, @RequestParam("filterValue") String filterValue, Model map) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        List<LogEntry> logs = logEventService.getLogEvents(loggedInUser.getId(), filterBy, filterValue);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("number of log entries: " + logs.size());
-        }
-        map.addAttribute("logs", logs);
-        map.addAttribute("number_of_logs", logs.size());
-        return "log/view-event-logs";
-    }
+    // @RequestMapping(value = "/diet/log/events/filter", method =
+    // RequestMethod.GET, params = { "filterBy", "filterValue" })
+    // // public ModelAndView filterLogEvents(@PathVariable("filterBy") String
+    // // filterBy, @PathVariable("filterValue") String filterValue) {
+    // public String filterLogEvents(@RequestParam("filterBy") String filterBy,
+    // @RequestParam("filterValue") String filterValue, Model map) {
+    // LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+    // List<LogEntry> logs = logEventService.getLogEvents(loggedInUser.getId(),
+    // filterBy, filterValue);
+    // if (LOG.isDebugEnabled()) {
+    // LOG.debug("number of log entries: " + logs.size());
+    // }
+    // map.addAttribute("logs", logs);
+    // map.addAttribute("number_of_logs", logs.size());
+    // return "log/view-event-logs";
+    // }
 
     @RequestMapping(value = "/diet/log/events", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView getLogEvents() {
+    public ModelAndView getLogEvents(@RequestParam(value = "page", required = false) Integer pageNumber,
+            @RequestParam(value = "size", required = false) Integer pageSize) {
         LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        List<LogEntry> logs = logEventService.getAllLogEvents(loggedInUser.getId());
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("number of log entries: " + logs.size());
-        }
+        Page<LogEntry> logsPage = logEventService.getAllLogEvents(loggedInUser.getId(), pageNumber != null ? pageNumber : 0, pageSize != null ? pageSize : 25);
+        LOG.debug("number = {}, logs = {}, total pages = {}", logsPage.getNumber(), logsPage.getNumberOfElements(), logsPage.getTotalPages());
+        PageWrapper<LogEntry> page = new PageWrapper<LogEntry>(logsPage, "/diet/log/events");
         ModelAndView modelView = new ModelAndView("log/view-event-logs");
-        modelView.getModel().put("logs", logs);
-        modelView.getModel().put("numberOfLogs", logs.size());
-        modelView.getModel().put("logsFromDate", !logs.isEmpty() ? logs.get(logs.size() - 1).getCreatedDate() : new Date());
-        modelView.getModel().put("logsToDate", !logs.isEmpty() ? logs.get(0).getCreatedDate() : new Date());
+        modelView.getModel().put("page", page);
+        modelView.getModel().put("logsFromDate",!page.getContent().isEmpty() ? page.getContent().get(page.getContent().size() - 1).getCreatedDate() : new Date());
+        modelView.getModel().put("logsToDate", !page.getContent().isEmpty() ? page.getContent().get(0).getCreatedDate() : new Date());
         return modelView;
     }
 
@@ -101,12 +103,12 @@ public class LogEventController extends BaseController {
     @ResponseBody
     public ModelAndView viewLogEventsAsPlainText() {
         LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        List<LogEntry> logs = logEventService.getAllLogEvents(loggedInUser.getId());
+        Page<LogEntry> page = logEventService.getAllLogEvents(loggedInUser.getId(), 1, 25);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("number of log entries: " + logs.size());
+            LOG.debug("number of log entries: " + page.getNumber());
         }
         ModelAndView modelView = new ModelAndView("log/view-event-logs-txt");
-        modelView.getModel().put("logs", logs);
+        modelView.getModel().put("page", page);
         return modelView;
     }
 

@@ -2,6 +2,7 @@ package com.gunnarro.dietmanager.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public interface LogEventService {
      * @return
      */
     @PreAuthorize("hasAuthority('BLOGG_READ_PRIVILEGE')")
-    public List<LogEntry> getAllLogEvents(Integer userId);
+    public Page<LogEntry> getAllLogEvents(Integer userId, int pageNumber, int pageSize);
 
     /**
      * 
@@ -70,8 +71,8 @@ public interface LogEventService {
      * @param filterValue
      * @return
      */
-    @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE')")
-    public List<LogEntry> getLogEvents(Integer userId, String filterBy, String filterValue);
+//    @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE')")
+//    public List<LogEntry> getLogEvents(Integer userId, String filterBy, String filterValue);
 
     /**
      * 

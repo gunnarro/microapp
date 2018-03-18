@@ -449,15 +449,21 @@ CREATE TABLE samvar_log(id            			 	 INTEGER  PRIMARY KEY AUTO_INCREMENT,
 						description   				 VARCHAR(200));		
 						
 						
-DROP TABLE IF EXISTS playlist;
-CREATE TABLE playlist(id            			 	 INTEGER  PRIMARY KEY AUTO_INCREMENT,
-						created_date_time      	 	 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-						last_modified_date_time  	 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-						played_date					 TIMESTAMP,
-						radio_channel			     VARCHAR(25),
-						artist_name					 VARCHAR(50),
-						song_title					 VARCHAR(100),
-						description   				 VARCHAR(200));		
+-- Table: activity_log
+DROP TABLE IF EXISTS activity_log;
+CREATE TABLE activity_log(id            		 INTEGER  PRIMARY KEY AUTO_INCREMENT,
+						created_date_time      	 TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						last_modified_date_time  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						FOREIGN KEY (fk_user_id) REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE,
+						fk_user_id				 INTEGER,
+						name					 VARCHAR(25),
+						from_hour				 INTEGER,
+						to_hour					 INTEGER,
+						rating_intensivity		 INTEGER,
+						rating_emotions			 INTEGER,
+						description   			 VARCHAR(4096))
+CHARACTER SET 'utf8' 
+COLLATE 'utf8_unicode_ci';
 						
 -- Turn on fk check						
 SET FOREIGN_KEY_CHECKS=1;

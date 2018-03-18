@@ -1,5 +1,6 @@
 package com.gunnarro.dietmanager.repository.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -8,6 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -100,8 +106,10 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
      * {@inheritDoc}
      */
     @Override
-    public List<LogEntry> getAllLogEvents(Integer userId) {
-        StringBuffer inQuery = new StringBuffer();
+    public Page<LogEntry> getAllLogEvents(Integer userId, int pageNumber, int pageSize) {
+        Pageable pageSpecification = new PageRequest(pageNumber, pageSize, new Sort(Sort.Direction.DESC, "last_modified_date_time"));
+        LOG.debug("pageSpecification: {}, offset: {}", pageSpecification.toString(), pageSpecification.getOffset());
+        StringBuilder inQuery = new StringBuilder();
         inQuery.append("IN(?");
         List<Integer> grantedUserIdsForFollower = getGrantedUserIdsForFollower(userId);
         for (int i = 0; i < grantedUserIdsForFollower.size(); i++) {
@@ -109,7 +117,6 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         }
         inQuery.append(")");
         grantedUserIdsForFollower.add(userId);
-
         StringBuilder query = new StringBuilder();
         query.append("SELECT l.*");
         query.append(", u.username");
@@ -117,9 +124,32 @@ public class LogEventRepositoryImpl extends BaseJdbcRepository implements LogEve
         query.append(" FROM event_log l, users u");
         query.append(" WHERE l.fk_user_id ").append(inQuery.toString());
         query.append(" AND l.fk_user_id = u.id");
+//        query.append(" AND l.id >= " + pageNumber*pageSize);
+//        query.append(" AND l.last_modified_date_time >= (SELECT last_modified_date_time FROM event_log WHERE  = )");
         query.append(" ORDER BY l.last_modified_date_time DESC");
-        // query.append(" LIMIT 50");
-        return getJdbcTemplate().query(query.toString(), grantedUserIdsForFollower.toArray(), DietManagerRowMapper.mapToLogEntryRM());
+        query.append(" LIMIT " + pageSpecification.getPageSize() + " OFFSET " + pageSpecification.getOffset());
+        int totalCount = count("SELECT count(*) FROM event_log");
+        List<LogEntry> list = getJdbcTemplate().query(query.toString(), grantedUserIdsForFollower.toArray(), DietManagerRowMapper.mapToLogEntryRM());
+        LOG.debug("list size: " + list.size());
+        
+        return new PageImpl<LogEntry>(list != null ? list : new ArrayList<>(), pageSpecification, totalCount);
+    }
+
+//    @Override
+//    public Integer getLastLogIdForPage(int pageNumber, int pageSize) {
+//        StringBuilder query = new StringBuilder();
+//        query.append("SELECT id FROM event_log");
+//        query.append(" FROM event_log");
+//        query.append(" ORDER BY l.last_modified_date_time DESC");
+//        query.append(" LIMIT ?");
+//        Integer id = getJdbcTemplate().queryForObject(query.toString(), new Object[] {pageNumber*pageSize}, Integer.class);
+//        return id != null ? id : null;
+//    }
+    
+    @Override
+    public int count(String query) {
+        Integer count = getJdbcTemplate().queryForObject(query, Integer.class);
+        return count != null ? count : 0;
     }
 
     /**

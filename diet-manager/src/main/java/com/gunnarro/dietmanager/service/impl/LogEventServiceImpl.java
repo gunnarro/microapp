@@ -2,10 +2,10 @@ package com.gunnarro.dietmanager.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.domain.log.LogComment;
@@ -60,32 +60,32 @@ public class LogEventServiceImpl implements LogEventService {
     /**
      * {@inheritDoc}
      */
-    @Override
-    public List<LogEntry> getLogEvents(Integer userId, String filterBy, String filterValue) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("filterBy: {}, filterValue: {}", filterBy, filterValue);
-        }
-        if (StringUtils.isEmpty(filterBy) || StringUtils.isEmpty(filterValue)) {
-            return logEventRepository.getAllLogEvents(userId);
-        }
-
-        if (filterBy.equals("title")) {
-            return logEventRepository.getLogEventsFilteredByTitle(userId, filterValue);
-        } else if (filterBy.equals("type")) {
-            return logEventRepository.getLogEventsFilteredByType(userId, filterValue);
-        } else if (filterBy.equals("content")) {
-            return logEventRepository.searchLogEventsContent(userId, filterValue);
-        } else {
-            return logEventRepository.getAllLogEvents(userId);
-        }
-    }
+//    @Override
+//    public List<LogEntry> getLogEvents(Integer userId, String filterBy, String filterValue) {
+//        if (LOG.isDebugEnabled()) {
+//            LOG.debug("filterBy: {}, filterValue: {}", filterBy, filterValue);
+//        }
+//        if (StringUtils.isEmpty(filterBy) || StringUtils.isEmpty(filterValue)) {
+//            return logEventRepository.getAllLogEvents(userId);
+//        }
+//
+//        if (filterBy.equals("title")) {
+//            return logEventRepository.getLogEventsFilteredByTitle(userId, filterValue);
+//        } else if (filterBy.equals("type")) {
+//            return logEventRepository.getLogEventsFilteredByType(userId, filterValue);
+//        } else if (filterBy.equals("content")) {
+//            return logEventRepository.searchLogEventsContent(userId, filterValue);
+//        } else {
+//            return logEventRepository.getAllLogEvents(userId);
+//        }
+//    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<LogEntry> getAllLogEvents(Integer userId) {
-        return logEventRepository.getAllLogEvents(userId);
+    public Page<LogEntry> getAllLogEvents(Integer userId, int pageNumber, int pageSize) {
+        return logEventRepository.getAllLogEvents(userId, pageNumber, pageSize);
     }
 
     /**
@@ -118,7 +118,9 @@ public class LogEventServiceImpl implements LogEventService {
     @Override
     public int saveLogEventComment(LogComment logComment) {
         if (logComment.isNew()) {
-            return logEventRepository.createLogComment(logComment);
+            logEventRepository.createLogComment(logComment);
+            // update last modified date for main log entry
+            return logEventRepository.updateLogEventLastModifiedDate(logComment.getFkLogId());
         } else {
             // update is not supported for comments
             return 0;

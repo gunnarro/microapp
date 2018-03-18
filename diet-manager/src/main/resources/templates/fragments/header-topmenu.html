@@ -23,6 +23,7 @@
 					<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/recipes}"><i class="glyphicon glyphicon-list"></i> <span th:text="#{topmenu.recipes}"></span></a></li>
 					<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/changelist}"><i class="glyphicon glyphicon-list"></i> <span th:text="#{topmenu.changelist}"></span></a></li>
 					<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/mychoices}"><i class="glyphicon glyphicon-check"></i> <span th:text="#{topmenu.mychoices}"></span></a></li>
+					<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/activity}"><i class="glyphicon glyphicon-stats"></i> <span th:text="#{topmenu.activity}"></span></a></li>
 					<li th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/diet/body/measurement/log}"><i class="glyphicon glyphicon-stats"></i> <span th:text="#{topmenu.measurements}"></span></a></li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/image-manager/gallery}"><i class="glyphicon glyphicon-picture"></i> <span th:text="#{topmenu.gallery}"></span></a></li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'home' ? 'active' : ''}"><a th:href="@{/calendar-manager/calendar/listevents/false/week/0/all/all}"><i class="glyphicon glyphicon-calendar"></i> <span th:text="#{topmenu.calendar}"></span></a></li>

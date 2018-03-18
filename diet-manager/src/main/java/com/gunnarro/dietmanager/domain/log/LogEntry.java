@@ -32,6 +32,13 @@ public class LogEntry extends BaseDomain {
     public LogEntry() {
         // for unit tests
     }
+    
+    /**
+     * default constructor
+     */
+    public LogEntry(Integer id) {
+        super.setId(id);
+    }
 
     /**
      * @param title

@@ -10,10 +10,10 @@
 	<!-- https://sonarqube.com/projects/favorite -->
 	<!-- mvn sonar:sonar -Dsonar.organization=gunnarro-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=2a992b24f92b4f573993300e78bb5daa07ea50d2 -->
 	<parent>
-		<groupId>com.gunnarro.enterprise</groupId>
-		<artifactId>enterprise-parent-spring-boot</artifactId>
-		<version>1.2-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
+		<groupId>com.gunnarro.enterprise.microapp</groupId>
+		<artifactId>microapp-parent-pom</artifactId>
+		<version>1.2</version>
+		<relativePath>pom-parent.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -87,6 +87,8 @@
 			<groupId>com.gunnarro.usermanager</groupId>
 			<artifactId>user-manager</artifactId>
 			<version>${version.usermanager}</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/user-manager.jar</systemPath>
 			<exclusions>
 				<exclusion>
 					<groupId>*</groupId>

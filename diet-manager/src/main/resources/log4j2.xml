@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">
+			[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] [%-5level] [%logger{36}] %m%n
+		</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="consoleAppender" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="debugFileAppender" fileName="logs/dietmanager-service.log" filePattern="logs/dietmanager-service.log.%i">
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+		<!-- 
+		<Logger name="nimbus.enterprise.provision" level="DEBUG" additivity="false">
+			<AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="debugFileAppender" />
+		</Logger>
+		 -->
+		<Logger name="org.springframework" level="ERROR" additivity="false">
+			<AppenderRef ref="consoleAppender" />
+		</Logger>
+		
+		<!--  application specific logs will be asynchronous, other root logs is still synchronous -->
+		<AsyncLogger name="com.gunnarro.dietmanager" level="DEBUG" additivity="false">
+    	    <AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="debugFileAppender" />
+	    </AsyncLogger>
+		
+		<Root level="WARN">
+			<AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="debugFileAppender" />
+		</Root>
+	</Loggers>
+</Configuration>

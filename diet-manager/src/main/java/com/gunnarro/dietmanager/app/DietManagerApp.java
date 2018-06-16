@@ -41,6 +41,14 @@ public class DietManagerApp
 
     private static final Logger LOG = LoggerFactory.getLogger(DietManagerApp.class);
 
+    
+ // set default properties
+     static {
+//     System.setProperty("spring.profiles.active", "vktest");
+//     System.setProperty("spring.config.location", "config");
+     System.setProperty("logging.config", "src/main/resources/log4j2.xml");
+     }
+    
     // @Override
     // protected SpringApplicationBuilder configure(
     // SpringApplicationBuilder application) {

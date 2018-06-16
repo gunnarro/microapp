@@ -1,12 +1,9 @@
 package com.gunnarro.dietmanager.config;
 
-import java.util.List;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -53,13 +50,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }
-    
-//    @Override
-//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-//        PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
-//        resolver.setFallbackPageable(new PageRequest(0, 5));
-//        argumentResolvers.add(resolver);
-//        super.addArgumentResolvers(argumentResolvers);
-//}
 
 }

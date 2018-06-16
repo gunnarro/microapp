@@ -18,6 +18,7 @@ import com.gunnarro.dietmanager.service.ActivityService;
 import com.gunnarro.dietmanager.service.DietManagerService;
 import com.gunnarro.dietmanager.service.LogEventService;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
+import com.gunnarro.dietmanager.service.exception.UploadFileException;
 import com.mysql.jdbc.CommunicationsException;
 
 /**
@@ -66,6 +67,11 @@ public class BaseController {
         return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
     }
 
+    @ExceptionHandler(UploadFileException.class)
+    public ModelAndView handleUploadFileException(HttpServletRequest request, Exception ex) {
+        return handleException(request.getRequestURI(), request.getRequestURI(), ex, ex.getMessage());
+    }
+    
     @ExceptionHandler(CommunicationsException.class)
     public ModelAndView handleCommunicationsException(HttpServletRequest request, Exception ex) {
         return handleException(request.getRequestURI(), request.getRequestURI(), ex, "Database cummunication problems!");

@@ -12,14 +12,14 @@
 	<parent>
 		<groupId>com.gunnarro.enterprise</groupId>
 		<artifactId>enterprise-parent-spring-boot</artifactId>
-		<version>1.1</version>
+		<version>1.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gunnarro.dietmanager</groupId>
 	<artifactId>dietmanager</artifactId>
-	<version>1.4.0</version>
+	<version>1.5.0</version>
 	<name>dietmanager</name>
 	<packaging>jar</packaging>
 
@@ -27,7 +27,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<version.jodatime>2.9.6</version.jodatime>
-		<version.usermanager>1.1</version.usermanager>
+		<version.usermanager>1.2</version.usermanager>
 		<version.flexmark>0.32.4</version.flexmark>
 		<fabric8.generator.from>fabric8/s2i-java</fabric8.generator.from>
 	</properties>
@@ -89,8 +89,8 @@
 			<version>${version.usermanager}</version>
 			<exclusions>
 				<exclusion>
-					<groupId>javax.servlet</groupId>
-					<artifactId>jstl</artifactId>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

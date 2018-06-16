@@ -1,6 +1,7 @@
 package com.gunnarro.dietmanager.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
+import com.gunnarro.dietmanager.domain.log.ImageResource;
 import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
 import com.gunnarro.dietmanager.repository.LogEventRepository;
+import com.gunnarro.dietmanager.service.FileUploadService;
 import com.gunnarro.dietmanager.service.LogEventService;
 
 /**
@@ -26,6 +29,9 @@ public class LogEventServiceImpl implements LogEventService {
 
     @Autowired
     protected AuthenticationFacade authenticationFacade;
+
+    @Autowired
+    private FileUploadService fileUploadService;
 
     @Autowired
     private LogEventRepository logEventRepository;
@@ -50,35 +56,40 @@ public class LogEventServiceImpl implements LogEventService {
      * {@inheritDoc}
      */
     @Override
-    public LogEntry getLogEvent(Integer userId, int logEntryId) {
+    public LogEntry getLogEvent(Integer userId, Integer logEntryId) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("userId = {}, logEntryId = {}", +userId, logEntryId);
         }
-        return logEventRepository.getLogEvent(userId, logEntryId);
+        LogEntry logEvent = logEventRepository.getLogEvent(userId, logEntryId);
+        logEvent.setResources(fileUploadService.getImages(logEntryId.toString()));
+        return logEvent;
     }
 
     /**
      * {@inheritDoc}
      */
-//    @Override
-//    public List<LogEntry> getLogEvents(Integer userId, String filterBy, String filterValue) {
-//        if (LOG.isDebugEnabled()) {
-//            LOG.debug("filterBy: {}, filterValue: {}", filterBy, filterValue);
-//        }
-//        if (StringUtils.isEmpty(filterBy) || StringUtils.isEmpty(filterValue)) {
-//            return logEventRepository.getAllLogEvents(userId);
-//        }
-//
-//        if (filterBy.equals("title")) {
-//            return logEventRepository.getLogEventsFilteredByTitle(userId, filterValue);
-//        } else if (filterBy.equals("type")) {
-//            return logEventRepository.getLogEventsFilteredByType(userId, filterValue);
-//        } else if (filterBy.equals("content")) {
-//            return logEventRepository.searchLogEventsContent(userId, filterValue);
-//        } else {
-//            return logEventRepository.getAllLogEvents(userId);
-//        }
-//    }
+    // @Override
+    // public List<LogEntry> getLogEvents(Integer userId, String filterBy,
+    // String filterValue) {
+    // if (LOG.isDebugEnabled()) {
+    // LOG.debug("filterBy: {}, filterValue: {}", filterBy, filterValue);
+    // }
+    // if (StringUtils.isEmpty(filterBy) || StringUtils.isEmpty(filterValue)) {
+    // return logEventRepository.getAllLogEvents(userId);
+    // }
+    //
+    // if (filterBy.equals("title")) {
+    // return logEventRepository.getLogEventsFilteredByTitle(userId,
+    // filterValue);
+    // } else if (filterBy.equals("type")) {
+    // return logEventRepository.getLogEventsFilteredByType(userId,
+    // filterValue);
+    // } else if (filterBy.equals("content")) {
+    // return logEventRepository.searchLogEventsContent(userId, filterValue);
+    // } else {
+    // return logEventRepository.getAllLogEvents(userId);
+    // }
+    // }
 
     /**
      * {@inheritDoc}

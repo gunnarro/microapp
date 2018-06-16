@@ -16,6 +16,7 @@
 			<div class="panel-heading clearfix">
 				<div th:if="${log.id} != null" class="pull-right">
 					<div class="pull-right">
+						<a th:href="@{/upload/} + ${log.id}" class="btn btn-primary btn-xs" th:text="#{btn.upload}"></a>
 						<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
 					</div>
 				</div>

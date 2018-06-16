@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,11 @@ import com.gunnarro.dietmanager.config.TestMariDBDataSourceConfiguration;
 import com.gunnarro.dietmanager.config.TestRepositoryConfiguration;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
+import com.gunnarro.dietmanager.service.impl.FileUploadServiceImpl;
 import com.gunnarro.dietmanager.service.impl.LogEventServiceImpl;
 import com.gunnarro.useraccount.domain.user.LocalUser;
 
-@ContextConfiguration(classes = { TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class, LogEventServiceImpl.class, AuthenticationFacade.class })
+@ContextConfiguration(classes = { TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class, LogEventServiceImpl.class, AuthenticationFacade.class, FileUploadServiceImpl.class })
 @Transactional(timeout = 10)
 public class LogEventServiceTest extends DefaultTestConfig {
 

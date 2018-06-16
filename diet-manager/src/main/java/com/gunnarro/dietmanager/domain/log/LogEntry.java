@@ -25,6 +25,7 @@ public class LogEntry extends BaseDomain {
     private boolean isPrivate = false;
     private List<LogComment> logComments;
     private int numberOfComments = 0;
+    private List<ImageResource> resources;
 
     /**
      * default constructor
@@ -32,7 +33,7 @@ public class LogEntry extends BaseDomain {
     public LogEntry() {
         // for unit tests
     }
-    
+
     /**
      * default constructor
      */
@@ -126,6 +127,14 @@ public class LogEntry extends BaseDomain {
             this.numberOfComments = logComments.size();
         }
         return this.numberOfComments;
+    }
+
+    public List<ImageResource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<ImageResource> resources) {
+        this.resources = resources;
     }
 
     @Override

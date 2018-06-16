@@ -68,6 +68,14 @@ public class LoginController extends BaseController {
     }
 
     /**
+     * @return the select profile page
+     */
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
+    
+    /**
      * @return the login page
      */
     @GetMapping("/error")

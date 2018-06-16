@@ -33,7 +33,7 @@ public interface LogEventService {
      * @return
      */
     @PreAuthorize("hasAuthority('BLOGG_READ_PRIVILEGE')")
-    public LogEntry getLogEvent(Integer userId, int logEntryId);
+    public LogEntry getLogEvent(Integer userId, Integer logEntryId);
 
     /**
      * 

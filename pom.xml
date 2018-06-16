@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RC1</version>
+		<version>2.0.3.RELEASE</version>
 	</parent>
 		
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gunnarro.enterprise</groupId>
 	<artifactId>enterprise-parent-spring-boot</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<!-- Run DB update: -->
 	<!-- mvn resources:resources liquibase:update -P DBSystemTest -->
@@ -85,8 +85,10 @@
 	<!-- mvn assembly:assembly -DdescriptorId=project -->
 	<modules>
 		<!-- <module>calendar-manager</module> -->
+		<!--
 		<module>user-manager</module>
 		<module>diet-manager</module>
+		-->
 		<!-- <module>image-manager</module> -->
 	</modules>
 		
@@ -100,59 +102,44 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			
-			<!-- if using wildfly app server, exclude tomcat -->
-			<!--
+			<!-- exclude logback, we use log4j2 due to better performance-->
 			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
-			-->
+			    <exclusion>
+      				<groupId>org.springframework.boot</groupId>
+      				<artifactId>spring-boot-starter-logging</artifactId>
+    			    </exclusion>
+  			</exclusions>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jetty</artifactId>
-		</dependency>
-		-->
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		-->
-		<!--
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
-		<!-- do you like thymeleaf? -->
+		<!-- thymeleaf -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
+            		<groupId>org.springframework.boot</groupId>
+            		<artifactId>spring-boot-starter-thymeleaf</artifactId>
+        	</dependency>
 		<!-- optional, it brings userful tags to display spring security stuff -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        </dependency>
-		
+        	<dependency>
+            		<groupId>org.thymeleaf.extras</groupId>
+            		<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        	</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<scope>provided</scope>
 		</dependency>
-		
+		<!-- Add Log4j2 Dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<!-- Needed for Async Logging with Log4j 2 -->
+		<dependency>
+			<groupId>com.lmax</groupId>
+		    	<artifactId>disruptor</artifactId>
+		    	<version>3.4.1</version>
+		</dependency>
 		<!-- Spring Social -->
 		<!--
 		<dependency>
@@ -168,62 +155,28 @@
 		-->
 		<!-- for spring app health check, memory usage, etc -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-		
-	<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-		<scope>test</scope>
-        </dependency>
-		
-	<dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt</artifactId>
-            <version>${version.jasypt}</version>
-	</dependency>
-		
-		<!-- Javax servlet -->
-		<!--
+            		<groupId>org.springframework.boot</groupId>
+            		<artifactId>spring-boot-starter-actuator</artifactId>
+        	</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<scope>provided</scope>	
-		</dependency>
-		-->
-		<!--
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		-->
-		<!--
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.1</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet.jsp.jstl</groupId>
-			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		-->
+            		<groupId>org.springframework.boot</groupId>
+            		<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+        	</dependency>
 		
-		
+		<dependency>
+		    <groupId>org.jasypt</groupId>
+		    <artifactId>jasypt</artifactId>
+		    <version>${version.jasypt}</version>
+		</dependency>	
 		
 		<!-- Spring framework -->
 		<!-- Spring social -->
 		<dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-config</artifactId>
-            <version>${version.spring.social}</version>
-        </dependency>
+            		<groupId>org.springframework.social</groupId>
+            		<artifactId>spring-social-config</artifactId>
+            		<version>${version.spring.social}</version>
+        	</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
@@ -235,10 +188,10 @@
 			<version>${version.spring.social}</version>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-security</artifactId>
-            <version>${version.spring.social}</version>
-        </dependency>
+            		<groupId>org.springframework.social</groupId>
+            		<artifactId>spring-social-security</artifactId>
+            		<version>${version.spring.social}</version>
+        	</dependency>
 	
 		<!--
 		<dependency>
@@ -275,88 +228,6 @@
 			</exclusions>
 		</dependency>
 		-->
-		<!--
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${version.spring}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${version.spring}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${version.spring}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${version.spring}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${version.spring}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${version.spring}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${version.spring}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${version.spring}</version>
-		</dependency>
-		-->
-		<!-- Spring webflow -->
-		<!-- <dependency> <groupId>org.springframework.webflow</groupId> <artifactId>spring-webflow</artifactId> 
-			<version>${version.spring.webflow}</version> </dependency> -->
-		<!-- Spring Security -->
-		<!--
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>${version.spring.security}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${version.spring.security}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${version.spring.security}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${version.spring.security}</version>
-			<scope>compile</scope>
-		</dependency>
-		-->
 		<!-- MySQL Driver -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -380,18 +251,23 @@
 			<scope>compile</scope>
 		</dependency>
 		<!-- Logging with SLF4J & LogBack -->
+		<!--
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+		-->
 		<!-- for spring -->
+		<!--
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		-->
+		<!--
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
@@ -402,6 +278,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
+		-->
 		<!-- Webjars (static dependencies distributed as JAR files) -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -424,9 +301,6 @@
 			<artifactId>javassist</artifactId>
 			<version>3.12.1.GA</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.apache.velocity</groupId> <artifactId>velocity</artifactId> 
-			<version>1.7</version> </dependency> -->
-		<!-- Apache Commons FileUpload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -454,6 +328,7 @@
 			<artifactId>validation-api</artifactId>
 			<version>2.0.0.Final</version>
 		</dependency>
+		<!--
 		<dependency>
     			<groupId>org.hibernate.validator</groupId>
     			<artifactId>hibernate-validator</artifactId>
@@ -464,6 +339,7 @@
     			<artifactId>hibernate-validator-annotation-processor</artifactId>
     			<version>6.0.2.Final</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>com.newrelic.agent.java</groupId>
 			<artifactId>newrelic-java</artifactId>
@@ -524,14 +400,6 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- for sonarqube test coverage report -->
-		<!--		
-		<dependency>
-          		<groupId>org.sonarsource.java</groupId>
-          		<artifactId>sonar-jacoco-listeners</artifactId>
-          		<version>3.8</version>
-          		<scope>test</scope>
-        	</dependency>
-		-->
 		<dependency>
 		    <groupId>org.sonarsource.java</groupId>
     		    <artifactId>sonar-jacoco-listeners</artifactId>

@@ -10,8 +10,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -507,7 +505,7 @@ public class DietManagerRowMapper {
             list.add(menuItem);
             map.put(menuItem.getId(), menuItem);
         } else {
-            map.get(menuItem.getName()).addSelectionTrends(Utility.formatTime(menuItem.getCreatedTime(), "dd.MM.yyyy"));
+            map.get(menuItem.getId()).addSelectionTrends(Utility.formatTime(menuItem.getCreatedTime(), "dd.MM.yyyy"));
         }
     }
 

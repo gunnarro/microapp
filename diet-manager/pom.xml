@@ -19,7 +19,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gunnarro.dietmanager</groupId>
 	<artifactId>dietmanager</artifactId>
-	<version>1.5.0</version>
+	<version>1.6.0-SNAPSHOT</version>
 	<name>dietmanager</name>
 	<packaging>jar</packaging>
 
@@ -27,7 +27,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<version.jodatime>2.9.6</version.jodatime>
-		<version.usermanager>1.2</version.usermanager>
+		<version.usermanager>1.2.0</version.usermanager>
 		<version.flexmark>0.32.4</version.flexmark>
 		<fabric8.generator.from>fabric8/s2i-java</fabric8.generator.from>
 	</properties>
@@ -88,7 +88,7 @@
 			<artifactId>user-manager</artifactId>
 			<version>${version.usermanager}</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/lib/user-manager.jar</systemPath>
+			<systemPath>${basedir}/lib/user-manager-${version.usermanager}.jar</systemPath>
 			<exclusions>
 				<exclusion>
 					<groupId>*</groupId>

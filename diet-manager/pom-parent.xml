@@ -6,11 +6,11 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.3.RELEASE</version>
 	</parent>
-		
+
 	<modelVersion>4.0.0</modelVersion>
-        <groupId>com.gunnarro.enterprise.microapp</groupId>
-        <artifactId>microapp-parent-pom</artifactId>
-        <version>1.2</version>
+	<groupId>com.gunnarro.enterprise.microapp</groupId>
+	<artifactId>microapp-parent-pom</artifactId>
+	<version>1.2</version>
 	<packaging>pom</packaging>
 	<!-- Run DB update: -->
 	<!-- mvn resources:resources liquibase:update -P DBSystemTest -->
@@ -30,11 +30,11 @@
 		<!-- <version.liquibase>3.4.0</version.liquibase> -->
 		<version.spring>5.0.4.RELEASE</version.spring>
 		<version.spring.security>5.0.2.RELEASE</version.spring.security>
-	
+
 		<version.spring.social>2.0.0.M4</version.spring.social>
 		<version.spring.social.facebook>3.0.0.M1</version.spring.social.facebook>
 		<version.spring.social.github>1.0.0.M4</version.spring.social.github>
-		
+
 		<!-- <version.spring.webflow>2.4.2.RELEASE</version.spring.webflow> -->
 		<!-- <version.hibernate>4.2.13.Final</version.hibernate> -->
 		<!-- Spring Third Party dependencies -->
@@ -49,17 +49,15 @@
 
 		<version.jasypt>1.9.2</version.jasypt>
 
-		<!-- cause sec:authorize="isAuthenticated()" problems in the top menu
-		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
-        	<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
-		-->
+		<!-- cause sec:authorize="isAuthenticated()" problems in the top menu <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version> 
+			<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version> -->
 
 		<!-- Web dependencies -->
-		<webjars-bootstrap.version>3.3.7</webjars-bootstrap.version>
-<!--		<webjars-bootstrap.version>4.0.0-alpha.3</webjars-bootstrap.version> -->
+		<webjars-bootstrap.version>4.1.2</webjars-bootstrap.version>
+		<!-- <webjars-bootstrap.version>4.0.0-alpha.3</webjars-bootstrap.version> -->
 		<webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
-		<webjars-jquery.version>3.1.1</webjars-jquery.version>
-
+		<webjars-jquery.version>3.3.1-1</webjars-jquery.version>
+		<webjars-propper.version>1.14.1</webjars-propper.version>
 
 		<!-- Logging -->
 		<logback.version>1.2.3</logback.version>
@@ -69,29 +67,26 @@
 		<db.url>jdbc:mysql://localhost:3306/dietmanager</db.url>
 		<db.username>root</db.username>
 		<db.password>mysql</db.password>
-		
+
 		<!-- Test -->
 		<version.junit>4.12</version.junit>
 	</properties>
 
 
 	<scm>
-    		<url>https://github.com/gunnarro/microapp</url>
-    		<connection>scm:git:git://github.com/gunnarro/microapp.git</connection>
-    		<developerConnection>scm:git:ssh://git@github.com/gunnarro/microapp.git</developerConnection>
-    		<tag>HEAD</tag>
-  	</scm>
+		<url>https://github.com/gunnarro/diet-manager</url>
+		<connection>scm:git:git://github.com/gunnarro/diet-manager.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/gunnarro/diet-manager.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 
 	<!-- mvn assembly:assembly -DdescriptorId=project -->
 	<modules>
 		<!-- <module>calendar-manager</module> -->
-		<!--
-		<module>user-manager</module>
-		<module>diet-manager</module>
-		-->
+		<!-- <module>user-manager</module> <module>diet-manager</module> -->
 		<!-- <module>image-manager</module> -->
 	</modules>
-		
+
 	<dependencyManagement>
 		<dependencies>
 		</dependencies>
@@ -102,13 +97,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<!-- exclude logback, we use log4j2 due to better performance-->
+			<!-- exclude logback, we use log4j2 due to better performance -->
 			<exclusions>
-			    <exclusion>
-      				<groupId>org.springframework.boot</groupId>
-      				<artifactId>spring-boot-starter-logging</artifactId>
-    			    </exclusion>
-  			</exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -116,14 +111,14 @@
 		</dependency>
 		<!-- thymeleaf -->
 		<dependency>
-            		<groupId>org.springframework.boot</groupId>
-            		<artifactId>spring-boot-starter-thymeleaf</artifactId>
-        	</dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 		<!-- optional, it brings userful tags to display spring security stuff -->
-        	<dependency>
-            		<groupId>org.thymeleaf.extras</groupId>
-            		<artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        	</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
@@ -137,46 +132,39 @@
 		<!-- Needed for Async Logging with Log4j 2 -->
 		<dependency>
 			<groupId>com.lmax</groupId>
-		    	<artifactId>disruptor</artifactId>
-		    	<version>3.4.1</version>
+			<artifactId>disruptor</artifactId>
+			<version>3.4.1</version>
 		</dependency>
 		<!-- Spring Social -->
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-social-facebook</artifactId>
-		</dependency>
-		-->
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-social-github</artifactId>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-social-facebook</artifactId> 
+			</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-social-github</artifactId> 
+			</dependency> -->
 		<!-- for spring app health check, memory usage, etc -->
 		<dependency>
-            		<groupId>org.springframework.boot</groupId>
-            		<artifactId>spring-boot-starter-actuator</artifactId>
-        	</dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
-            		<groupId>org.springframework.boot</groupId>
-            		<artifactId>spring-boot-starter-test</artifactId>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-devtools</artifactId>
+    		<optional>true</optional>
+    		<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-        	</dependency>
-		
-		<dependency>
-		    <groupId>org.jasypt</groupId>
-		    <artifactId>jasypt</artifactId>
-		    <version>${version.jasypt}</version>
-		</dependency>	
-		
+		</dependency>
+		<!-- <dependency> <groupId>org.jasypt</groupId> <artifactId>jasypt</artifactId> 
+			<version>${version.jasypt}</version> </dependency> -->
 		<!-- Spring framework -->
 		<!-- Spring social -->
 		<dependency>
-            		<groupId>org.springframework.social</groupId>
-            		<artifactId>spring-social-config</artifactId>
-            		<version>${version.spring.social}</version>
-        	</dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-config</artifactId>
+			<version>${version.spring.social}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
@@ -188,45 +176,20 @@
 			<version>${version.spring.social}</version>
 		</dependency>
 		<dependency>
-            		<groupId>org.springframework.social</groupId>
-            		<artifactId>spring-social-security</artifactId>
-            		<version>${version.spring.social}</version>
-        	</dependency>
-		<!--
-		<dependency>
 			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-facebook</artifactId>
-			<version>${version.spring.social.facebook}</version>
+			<artifactId>spring-social-security</artifactId>
+			<version>${version.spring.social}</version>
 		</dependency>
-	
-		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-github</artifactId>
-			<version>${version.spring.social.github}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-annotations</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-databind</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework.social</groupId>
-					<artifactId>spring-social-config</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework.social</groupId>
-					<artifactId>spring-social-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.springframework.social</groupId> <artifactId>spring-social-facebook</artifactId> 
+			<version>${version.spring.social.facebook}</version> </dependency> <dependency> 
+			<groupId>org.springframework.social</groupId> <artifactId>spring-social-github</artifactId> 
+			<version>${version.spring.social.github}</version> <exclusions> <exclusion> 
+			<groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-core</artifactId> 
+			</exclusion> <exclusion> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-annotations</artifactId> 
+			</exclusion> <exclusion> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
+			</exclusion> <exclusion> <groupId>org.springframework.social</groupId> <artifactId>spring-social-config</artifactId> 
+			</exclusion> <exclusion> <groupId>org.springframework.social</groupId> <artifactId>spring-social-core</artifactId> 
+			</exclusion> </exclusions> </dependency> -->
 		<!-- MySQL Driver -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -250,34 +213,15 @@
 			<scope>compile</scope>
 		</dependency>
 		<!-- Logging with SLF4J & LogBack -->
-		<!--
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
+			<version>${slf4j.version}</version> </dependency> -->
 		<!-- for spring -->
-		<!--
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		-->
-		<!--
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>jcl-over-slf4j</artifactId> 
+			<version>${slf4j.version}</version> <scope>runtime</scope> </dependency> -->
+		<!-- <dependency> <groupId>ch.qos.logback</groupId> <artifactId>logback-core</artifactId> 
+			<version>${logback.version}</version> </dependency> <dependency> <groupId>ch.qos.logback</groupId> 
+			<artifactId>logback-classic</artifactId> <version>${logback.version}</version> 
+			</dependency> -->
 		<!-- Webjars (static dependencies distributed as JAR files) -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -296,49 +240,37 @@
 			<version>${webjars-jquery.version}</version>
 		</dependency>
 		<dependency>
+    		<groupId>org.webjars</groupId>
+    		<artifactId>popper.js</artifactId>
+    		<version>${webjars-propper.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.12.1.GA</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.3</version>
-		</dependency>
+		<!-- <dependency> <groupId>commons-fileupload</groupId> <artifactId>commons-fileupload</artifactId> 
+			<version>1.3.3</version> </dependency> -->
 		<!-- Apache -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.1</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-collections4</artifactId> 
+			<version>4.1</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.7</version>
 		</dependency>
-		<dependency>
-    			<groupId>commons-io</groupId>
-    			<artifactId>commons-io</artifactId>
-    			<version>2.6</version>
-		</dependency>
+		<!-- <dependency> <groupId>commons-io</groupId> <artifactId>commons-io</artifactId> 
+			<version>2.6</version> </dependency> -->
 		<!-- javax validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>2.0.0.Final</version>
 		</dependency>
-		<!--
-		<dependency>
-    			<groupId>org.hibernate.validator</groupId>
-    			<artifactId>hibernate-validator</artifactId>
-    			<version>6.0.2.Final</version>
-		</dependency>
-		<dependency>
-    			<groupId>org.hibernate.validator</groupId>
-    			<artifactId>hibernate-validator-annotation-processor</artifactId>
-    			<version>6.0.2.Final</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.hibernate.validator</groupId> <artifactId>hibernate-validator</artifactId> 
+			<version>6.0.2.Final</version> </dependency> <dependency> <groupId>org.hibernate.validator</groupId> 
+			<artifactId>hibernate-validator-annotation-processor</artifactId> <version>6.0.2.Final</version> 
+			</dependency> -->
 		<dependency>
 			<groupId>com.newrelic.agent.java</groupId>
 			<artifactId>newrelic-java</artifactId>
@@ -393,17 +325,17 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-    			<groupId>org.mariadb.jdbc</groupId>
-    			<artifactId>mariadb-java-client</artifactId>
-    			<version>2.2.1</version>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>2.2.5</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- for sonarqube test coverage report -->
 		<dependency>
-		    <groupId>org.sonarsource.java</groupId>
-    		    <artifactId>sonar-jacoco-listeners</artifactId>
-		    <version>5.1.1.13214</version>
-    		    <scope>test</scope>
+			<groupId>org.sonarsource.java</groupId>
+			<artifactId>sonar-jacoco-listeners</artifactId>
+			<version>5.1.1.13214</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -420,59 +352,25 @@
 						<target>${maven.compiler.target}</target>
 					</configuration>
 				</plugin>
-				<!--
-				<plugin> 
-					<groupId>org.springframework.boot</groupId> 
-					<artifactId>spring-boot-maven-plugin</artifactId> 
-					<version>1.5.7.RELEASE</version> 
-				</plugin>
-				-->
-				<!--
+				<!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
+					<version>1.5.7.RELEASE</version> </plugin> -->
+				<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
+					<version>2.10</version> <executions> <execution> <id>unpack-zip</id> <phase>prepare-package</phase> 
+					<goals> <goal>unpack-dependencies</goal> </goals> <configuration> <artifactItems> 
+					<artifactItem> <groupId>com.newrelic.agent.java</groupId> <artifactId>newrelic-java</artifactId> 
+					<version>3.15.0</version> <type>zip</type> <overWrite>true</overWrite> <outputDirectory>${project.build.directory}</outputDirectory> 
+					<destFileName>newrelic</destFileName> </artifactItem> </artifactItems> <outputDirectory>${project.build.directory}</outputDirectory> 
+					<includeArtifactIds>newrelic-java</includeArtifactIds> <overWriteReleases>false</overWriteReleases> 
+					<overWriteSnapshots>true</overWriteSnapshots> </configuration> </execution> 
+					</executions> </plugin> -->
+				<!-- <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
+					<version>2.3-SNAPSHOT</version> </plugin> -->
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.10</version>
-					<executions>
-						<execution>
-							<id>unpack-zip</id>
-							<phase>prepare-package</phase>
-							<goals>
-								<goal>unpack-dependencies</goal>
-							</goals>
-							<configuration>
-								<artifactItems>
-									<artifactItem>
-										<groupId>com.newrelic.agent.java</groupId>
-										<artifactId>newrelic-java</artifactId>
-										<version>3.15.0</version>
-										<type>zip</type>
-										<overWrite>true</overWrite>
-										<outputDirectory>${project.build.directory}</outputDirectory>
-										<destFileName>newrelic</destFileName>
-									</artifactItem>
-								</artifactItems>
-								<outputDirectory>${project.build.directory}</outputDirectory>
-								<includeArtifactIds>newrelic-java</includeArtifactIds>
-								<overWriteReleases>false</overWriteReleases>
-								<overWriteSnapshots>true</overWriteSnapshots>
-							</configuration>
-						</execution>
-					</executions>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.4.0.905</version>
 				</plugin>
-				-->
-				<!--
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.3-SNAPSHOT</version>
-				</plugin>
-				-->
-			      <plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.4.0.905</version>
-			      </plugin>
-    			</plugins>
+			</plugins>
 		</pluginManagement>
 	</build>
 
@@ -487,8 +385,8 @@
 					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
 				</configuration>
 			</plugin>
-			<!-- used by sonarqube --> 	
-			
+			<!-- used by sonarqube -->
+
 			<!-- integrate maven-cobertura-plugin to project site -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -506,40 +404,18 @@
 
 	<profiles>
 		<profile>
+			<id>dev</id>
+		</profile>
+		<profile>
 			<id>openshift</id>
-			<!--
-			<build>
-            			<directory>/tmp/src/target</directory>
-			</build>
-			-->
-			<properties>
-                                <db.driver>com.mysql.jdbc.Driver</db.driver>
-                                <db.url>jdbc:mysql://172.30.169.124:3306/dietmanager</db.url>
-                                <db.username>web</db.username>
-                                <db.password>wEbt0t3</db.password>
-                        </properties>
-		</profile>
-
-		<profile>
-			<id>DBSystemTest</id>
+			<!-- <build> <directory>/tmp/src/target</directory> </build> -->
 			<properties>
 				<db.driver>com.mysql.jdbc.Driver</db.driver>
-				<db.url>jdbc:mysql://localhost:3306/sportsteam</db.url>
-				<db.username>root</db.username>
-				<db.password>mysql</db.password>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>DBProd</id>
-			<properties>
-				<db.driver>com.mysql.jdbc.Driver</db.driver>
-				<db.url>jdbc:mysql://127.9.127.2:3306/sportsteam</db.url>
+				<db.url>jdbc:mysql://172.30.169.124:3306/dietmanager</db.url>
 				<db.username>web</db.username>
 				<db.password>wEbt0t3</db.password>
 			</properties>
 		</profile>
-
 	</profiles>
 
 	<repositories>
@@ -553,7 +429,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		
+
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -563,7 +439,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>eap</id>

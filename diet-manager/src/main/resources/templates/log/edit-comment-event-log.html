@@ -1,54 +1,52 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-<head th:include="fragments/head-include :: head-include">
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head-include :: head-include"></head>
+
 <body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
-
 	<div class="container-fluid">
 		
-		<ul class="breadcrumb">
-			<li><a th:href="@{/diet/log/events}" th:text="#{topmenu.log}"></a></li>
-			<li><a th:href="@{/diet/log/event/view/} + ${log.id}" th:text="#{lbl.event}"></a></li>
-        	<li class="active" th:text="#{lbl.comment}"></li>
-    	</ul>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/diet/log/events}" th:text="#{topmenu.log}"></a></li>
+				<li class="breadcrumb-item"><a th:href="@{/diet/log/event/view/} + ${log.id}" th:text="#{lbl.event}"></a></li>
+				<li class="breadcrumb-item active" aria-current="page" th:text="#{lbl.comment}"></li>
+			</ol>
+		</nav>
 		
-		<div class="panel panel-default">
-			<div class="panel-heading clearfix">
-				<div th:if="${#authentication.name == log.createdByUser} && ${comment.id} != null" class="pull-right">
-					<div class="pull-right">
+		<div class="card">
+			<div class="card-header clearfix">
+				<div th:if="${#authentication.name == log.createdByUser} &amp;&amp; ${comment.id} != null" class="float-right">
+					<div class="float-right">
 						<a th:href="${/diet/log/event/comment/delete/} + ${comment.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
 					</div>
 				</div>
-				<h3 th:if="${comment.id} == null" class="panel-title" th:text="#{editeventlog.title_comment}"></h3>
-				<h3 th:if="${comment.id} != null" class="panel-title" th:text="#{editeventlog.title_comment_update}"></h3>
+				<h3 th:if="${comment.id} == null" class="card-title" th:text="#{editeventlog.title_comment}"></h3>
+				<h3 th:if="${comment.id} != null" class="card-title" th:text="#{editeventlog.title_comment_update}"></h3>
 			</div>
 			<!-- end panel header -->
-
-			<div class="panel-body">
+			<div class="card-body">
 				<!-- View log -->
-				<form action="#" th:action="@{/diet/log/event/comment/new}" th:object="${comment}" method="POST" >
-					<input type="hidden" th:field="*{id}" />
-					 
+				<form action="#" th:action="@{/diet/log/event/comment/new}" th:object="${comment}" method="POST">
+					<input type="hidden" th:field="*{id}">
 					<div class="form-group">
 						<label th:text="#{lbl.comment}"></label>
-						<textarea class="form-control" th:field="*{contentHtml}" ></textarea>
-						<label th:each="err : ${#fields.errors('comment')}" th:text="${err}" class="help-block" ></label>
+						<textarea class="form-control" th:field="*{contentHtml}"></textarea>
+						<label th:each="err : ${#fields.errors(&apos;comment&apos;)}" th:text="${err}" class="form-text"></label>
 					</div>
-					
-					<p />
-					<button type="submit" class="btn btn-primary" th:text="#{btn.new}"></button>
-					<a th:href="@{/diet/log/events}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
+					<p>
+						<button type="submit" class="btn btn-primary" th:text="#{btn.new}"></button>
+						<a th:href="@{/diet/log/events}" class="btn btn-secondary"><span th:text="#{btn.cancel}"></span></a>
+					</p>
 				</form>
 			</div>
 			<!-- end panel body -->
-
-			<div class="panel-footer clearfix">
-				<div class="pull-right">
+			<div class="card-footer clearfix">
+				<div class="float-right">
 					<a th:href="@{/diet/log/events}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
 				</div>
 			</div>
-
 			<!-- end panel footer -->
 		</div>
 		<!-- end panel -->
@@ -56,4 +54,5 @@
 	<!-- end container -->
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
+
 </html>

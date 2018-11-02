@@ -82,4 +82,6 @@ public interface LogEventService {
     @PreAuthorize("hasAuthority('BLOGG_WRITE_PRIVILEGE')")
     public int saveLogEventComment(LogComment logComment);
 
+	public void deleteLogEventImage(Integer logId, String fileName);
+
 }

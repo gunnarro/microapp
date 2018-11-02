@@ -1,63 +1,75 @@
 package com.gunnarro.dietmanager.domain.log;
 
 public class ImageResource {
-    private Integer id;
-    private String name;
-    private String description;
-    private String path;
-    private String type;
 
-    public ImageResource(String path) {
-        this.path = path;
-    }
+	private String id;
+	private String name;
+	private String description;
+	private String path;
+	private String type;
+	private long createdTimeMs;
 
-    public String getName() {
-        return name;
-    }
+	public ImageResource(String id, String name, String path) {
+		this.id = id;
+		this.name = name;
+		this.path = path;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getPath() {
-        return path;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public String getPath() {
+		return path;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setPath(String path) {
+		this.path = path;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("ImageResource [path=");
-        builder.append(path);
-        builder.append("]");
-        return builder.toString();
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public long getCreatedTimeMs() {
+		return createdTimeMs;
+	}
+
+	public void setCreatedTimeMs(long createdTimeMs) {
+		this.createdTimeMs = createdTimeMs;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ImageResource [path=");
+		builder.append(path);
+		builder.append("]");
+		return builder.toString();
+	}
 
 }

@@ -24,7 +24,7 @@ public class HttpSessionListener implements ApplicationListener<ApplicationEvent
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
-        LOG.debug("start session...");
+        LOG.info("start session...");
         // Care only about Http session events
         if (applicationEvent instanceof HttpSessionCreatedEvent) {
             counter++;

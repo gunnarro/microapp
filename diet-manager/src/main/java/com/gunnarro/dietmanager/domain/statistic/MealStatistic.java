@@ -3,8 +3,6 @@ package com.gunnarro.dietmanager.domain.statistic;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.context.support.GenericApplicationContextExtensionsKt;
-
 public class MealStatistic implements Serializable, Comparable<MealStatistic> {
 
     private static final long serialVersionUID = 8141619760462227823L;

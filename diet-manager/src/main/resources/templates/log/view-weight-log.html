@@ -7,12 +7,12 @@
 
 	<div class="container-fluid">
 		
-		<div class="page-header">
-			<h4 th:text="#{weightlog.page.title}" ></h4>
-			<h5>
-			<a th:href="@{/diet/body/measurement/details}">Vis detaljer</a><br></br>
-			<a th:href="@{/diet/body/measurement/graph}">Vis graf</a>
-			</h5>
+		<div class="bg-light mt-2 mb-2">
+			<div class="clearfix ml-2 mr-2">
+				<h3 class="float-sm-left align-baseline" th:text="#{weightlog.page.title}"></h3>
+ 		    	<a th:href="@{/diet/body/measurement/details}" class="btn btn-primary btn-sm float-sm-right ml-1 align-baseline" th:text="#{weightlog.btn.view_details}" role="button"></a> 
+				<a th:href="@{/diet/body/measurement/graph}" class="btn btn-primary btn-sm float-sm-right" th:text="#{weigtlog.btn.view_graph}" role="button"></a>
+			</div>
 		</div>
 		
 		<div th:replace="log/list-log-data :: log-data-table"></div>

@@ -1,17 +1,13 @@
 package com.gunnarro.dietmanager.config;
 
-import java.util.Properties;
-
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -30,36 +26,68 @@ import com.gunnarro.useraccount.repository.impl.UserAccountRepositoryImpl;
 @EnableTransactionManagement
 public class DataSourceConfiguration {
 
-    @Value("${jdbc.url}")
-    private String jdbcUrl;
+//    @Value("${jdbc.url}")
+//    private String jdbcUrl;
+//
+//    @Value("${jdbc.user}")
+//    private String jdbcUser;
+//
+//    @Value("${jdbc.pwd}")
+//    private String jdbcPwd;
+//
+//    @Value("${jdbc.driverClassName}")
+//	private String jdbcDriverClassName;
 
-    @Value("${jdbc.user}")
-    private String jdbcUser;
-
-    @Value("${jdbc.pwd}")
-    private String jdbcPwd;
-
+    /**
+	 * The gcp datasource is auto configured and autowired as jdbc template
+	 */
+    @Autowired
+//    @Qualifier("dietManagerJdbcTemplate")
+	private JdbcTemplate jdbcTemplate;
+	
+//    @Autowired
+//    private DataSource gcpDataSource;
+    
+ // bean is singleton as default
+// 	@Bean(name = "dietManagerDataSource")
+// 	@Primary
+// 	public DataSource dietManagerDataSource() {
+// 		DriverManagerDataSource ds = new DriverManagerDataSource();
+// 		ds.setDriverClassName(jdbcDriverClassName);
+// 		ds.setUrl(jdbcUrl);
+// 		ds.setUsername(jdbcUser);
+// 		ds.setPassword(jdbcPwd);
+// 		Properties p = new Properties();
+// 		p.put("useSSL", "false");
+// 		p.put("useUnicode", "true");
+// 		p.put("passwordCharacterEncoding", "UTF-8");
+// 		p.put("characterEncoding", "UTF-8");
+// 		ds.setConnectionProperties(p);
+// 		return ds;
+// 		return gcpDataSource;
+// 	}
+    
+    
     // bean is singleton as default
-    @Bean(name = "dietManagerDataSource")
-    @Primary
-    public DataSource dietManagerDataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl(jdbcUrl);
-        ds.setUsername(jdbcUser);
-        ds.setPassword(jdbcPwd);
-        Properties p = new Properties();
-        p.put("useSSL", "false");
-        ds.setConnectionProperties(p);
-        runUpdateDBScript(ds);
-        return ds;
-    }
+//    @Bean(name = "dietManagerDataSource")
+//    @Primary
+//    public DataSource dietManagerDataSource() {
+//        DriverManagerDataSource ds = new DriverManagerDataSource();
+//        ds.setDriverClassName("com.mysql.jdbc.Driver");
+//        ds.setUrl(jdbcUrl);
+//        ds.setUsername(jdbcUser);
+//        ds.setPassword(jdbcPwd);
+//        Properties p = new Properties();
+//        p.put("useSSL", "false");
+//        ds.setConnectionProperties(p);
+//        runUpdateDBScript(ds);
+//        return ds;
+//    }
 
     private void runUpdateDBScript(DataSource ds) {
         try {
             DatabasePopulatorUtils.execute(createDatabasePopulator(), ds);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException("Error init datasource: " + e.getMessage());
         }
     }
@@ -76,24 +104,34 @@ public class DataSourceConfiguration {
      * 
      * @return
      */
-    @Bean(name = "logEventDataSource")
-    // @Primary
-    public DataSource logEventDataSource() {
-        return dietManagerDataSource();
-    }
+//    @Bean(name = "logEventDataSource")
+//    // @Primary
+//    public DataSource logEventDataSource() {
+//        return dietManagerDataSource();
+//    }
 
-    @Bean(name = "activityDataSource")
-    public DataSource activityDataSource() {
-        return dietManagerDataSource();
-    }
+//    @Bean(name = "activityDataSource")
+//    public DataSource activityDataSource() {
+//    	DriverManagerDataSource ds = new DriverManagerDataSource();
+//        ds.setDriverClassName("com.mysql.jdbc.Driver");
+//        ds.setUrl("dbc:mysql://google/petclinic?cloudSqlInstance=INSTANCE_CONNECTION_NAME&socketFactory=com.google.cloud.sql.mysql.SocketFactory");
+//        ds.setUsername("root");
+//        ds.setPassword("ABcd2o1o");
+////        Properties p = new Properties();
+////        p.put("useSSL", "false");
+////        ds.setConnectionProperties(p);
+//        runUpdateDBScript(ds);
+//        return ds;
+//    }
 
-    @Bean
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dietManagerDataSource());
-    }
+//    @Bean
+//    public DataSourceTransactionManager transactionManager() {
+//        return new DataSourceTransactionManager(dietManagerDataSource());
+//    }
 
     @Bean
     public UserAccountRepository userAccountRepository() {
-        return new UserAccountRepositoryImpl(new JdbcTemplate(dietManagerDataSource()));
+//        return new UserAccountRepositoryImpl(new JdbcTemplate(dietManagerDataSource()));
+    	return new UserAccountRepositoryImpl(jdbcTemplate);
     }
 }

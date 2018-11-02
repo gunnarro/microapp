@@ -1,41 +1,46 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header-css">
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header-css"></head>
+
 <body>
-
 	<div th:replace="fragments/header :: header"></div>
-
 	<div class="container">
-
 		<div>
 			<h2>About</h2>
 		</div>
-
 		<h3>Open Source projects</h3>
 		<ul>
 			<li><a href="https://spring.io/">Spring</a></li>
 			<li><a href="http://www.thymeleaf.org/">Thymeleaf</a></li>
 			<li><a href="https://www.mysql.com/">mysql</a></li>
+			<li><a href="https://useiconic.com/open">OpenIconic</a>
 		</ul>
 		<h3>Platform</h3>
 		<ul>
 			<li><a href="https://www.openshift.com/">openshift</a></li>
+			<li><a href="https://cloud.google.com/sql/">Cloud sql</a></li>
 		</ul>
-
 		<h3>Source</h3>
 		<ul>
 			<li><a href="https://github.com/gunnarro/microapp/tree/master/diet-manager">github</a></li>
+			<li><a href="https://hub.docker.com/r/gunnarro/dietmanager/">Docker</a></li>
 		</ul>
-
+		<h3>Build and deploy</h3>
+		<ul>
+			<li><a href="https://travis-ci.org/gunnarro">Travis</a></li>
+		</ul>
 		<h3>QA</h3>
 		<ul>
-			<li><a href="https://sonarcloud.io/dashboard?id=com.gunnarro.dietmanager%3Adiet-manager">SonarQube</a></li>
+			<li><a href="https://sonarcloud.io/organizations/gunnarro-github/projects">SonarQube</a></li>
 		</ul>
-
+		<h3>Resources</h3>
+		<ul>
+			<li><a href="https://sivalabs.in/2018/01/ci-cd-springboot-applications-using-travis-ci/">Travis Spring Boot Continous Integration</a></li>
+			<li><a href="http://rkh.github.io/travis-encrypt/public/index.html">Travis Encrypt Online</a></li>
+		</ul>
 	</div>
-
 	<div th:replace="fragments/footer :: footer"></div>
-
 </body>
+
 </html>

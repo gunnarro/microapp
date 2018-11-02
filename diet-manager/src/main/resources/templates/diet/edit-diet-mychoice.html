@@ -63,26 +63,24 @@
 	
 	<div class="container-fluid">
 		
-		<ul class="breadcrumb">
-			<li><a th:href="@{/diet/mychoices}" th:text="#{topmenu.mychoices}" ></a></li>
-        	<li class="active" th:text="#{mychoice.label.newchoice}"></li>
-    	</ul>
+    	<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/diet/mychoices}" th:text="#{topmenu.mychoices}"></a></li>
+				<li class="breadcrumb-item active" aria-current="page" th:text="#{mychoice.label.newchoice}"></li>
+			</ol>
+		</nav>
     	
-		<div class="panel panel-default">
-		
-			<div class="panel-heading clearfix">
-				<div th:if="${menuItem.id} != null" class="pull-right">
-					<div class="pull-right">
-						<a th:href="@{/diet/mychoices/delete/ + ${menuItem.id} + / + ${menuItem.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
+			<div class="card">
+			<div class="card-header clearfix">
+				<div th:if="${menuItem.id} != null" class="float-right">
+					<div class="float-right">
+						<a th:href="@{/diet/mychoices/delete/ + ${menuItem.id} + / + ${menuItem.id}" class="btn btn-danger btn-sm" th:text="#{btn.delete}"></a>
 					</div>
 				</div>
-				<h3 class="panel-title" th:text="#{mychoice.label.mealforuser}">
-				</h3>
+				<h3 th:if="${menuItem.id} == null" class="card-title" th:text="#{mychoice.label.mealforuser}"></h3>
 			</div>
-			
-			<!-- end panel header -->
-			
-			<div class="panel-body">
+			<!-- end card header -->
+			<div class="card-body">			
 				<form action="#" th:object="${menuItem}" th:action="@{${menuItem.id == null ? '/diet/mychoices/new/__*{fkDietMenuId}__/today' : '/diet/mychoices/edit/__*{id}'}}" th:attr="method=${menuItem.id == null ? 'POST' : 'PUT'}" >
 					<input th:if="${menuItem.id} != null" type="hidden" th:field="*{id}" />
 					<input th:if="${menuItem.fkDietMenuId} != null" type="hidden" th:field="*{fkDietMenuId}" />
@@ -90,12 +88,11 @@
 					<input th:if="${menuItem.description} != null" type="hidden" th:field="*{description}" />
 				
 					<div th:class="form-group">
-						<label th:text="#{lbl.createddate}" class="control-label"></label>
+						<label th:text="#{lbl.created_date}" class="control-label"></label>
 						<div class="controls">
 							<div class="input-group">
-								<input id="createdDate" name="createdDate" type="text" class="date-picker form-control" th:field="*{createdDate}" placeholder="dd.MM.yyyy" onchange="refreshMealSelectionList();" />
-								<label for="createdDate" class="input-group-addon btn">
-									<span class="glyphicon glyphicon-calendar"></span>
+								<input id="createdDate" name="createdDate" type="text" class="date-picker form-control" th:field="*{createdDate}" placeholder="dd.MM.yyyy"> <label
+									for="createdDate" class="input-group-addon btn"> <span class="oi oi-calendar"></span>
 								</label>
 							</div>
 						</div>
@@ -103,7 +100,7 @@
 
 					<div id="meal-selection-id" class="form-group">
 						<label th:text="#{mychoice.label.choosemeal}" ></label>
-						<select class="form-control" th:field="*{id}" >
+						<select class="custom-select mr-sm-2" th:field="*{id}" >
 							<optgroup th:label="${breakfastMenuItems} == null ? '&#x2714;&nbsp; Frokost' : ' Frokost'" class="breakfast-color" >
 								<option th:each="breakfastItem : ${breakfastMenuItems}" th:value="${breakfastItem.id}" th:text="${breakfastItem.description}" class="default-txt-color"></option>
 						 	</optgroup>
@@ -127,50 +124,37 @@
 					</div>
 										
 					<label th:text="#{mychoice.label.controlledby}"></label>
-					<div class="form-group">
-						<div class="btn-group" data-toggle="buttons" id="controlledByBtnGroupId">
-	    					<label th:each="p : ${users}" class="btn btn-default" th:onclick="'javascript:selectUserNew(' + '\'controlledBy\',' + ${p.id} + ');'">
-								<i th:id="'controlledByBtn' + ${p.id}" th:class="${menuItem.controlledByUserId == p.id} ? 'glyphicon glyphicon-check' : 'glyphicon glyphicon-unchecked'" ></i>
-	        					<input type="radio" name="options" /><span th:text="${p.username}"></span>
-	    					</label>
+					<div class="form-group">	
+						<div class="custom-control custom-radio" th:each="p : ${users}">
+							<input type="checkbox" class="custom-control-input" th:id="'controlledByBtn' + ${p.id}" th:value="${p.username}">
+							<label class="custom-control-label" th:for="'controlledByBtn' + ${p.id}" th:text="${p.username}"></label>
+							<input id="controlledByInputId" type="hidden" th:field="*{controlledByUserId}" />
 						</div>
-						<input id="controlledByInputId" type="hidden" th:field="*{controlledByUserId}" />
 					</div>
 					
 					<label th:text="#{mychoice.label.preparedby}"></label>
-					<div class="form-group">
-						<div class="btn-group" data-toggle="buttons" id="preparedByBtnGroupId">
-	    					<label th:each="p : ${users}" class="btn btn-default" th:onclick="'javascript:selectUserNew(' + '\'preparedBy\',' + ${p.id} + ');'">
-								<i th:id="'preparedByBtn' + ${p.id}" th:class="${menuItem.preparedByUserId == p.id} ? 'glyphicon glyphicon-check' : 'glyphicon glyphicon-unchecked'" ></i>
-	        					<input type="radio" name="options" /><span th:text="${p.username}"></span>
-	    					</label>
+					<div class="form-group">	
+						<div class="custom-control custom-radio" th:each="p : ${users}">
+							<input type="checkbox" class="custom-control-input" th:id="'preparedByBtn' + ${p.id}" th:value="${p.username}">
+							<label class="custom-control-label" th:for="'preparedByBtn' + ${p.id}" th:text="${p.username}"></label>
+							<input id="preparedByInputId" type="hidden" th:field="*{preparedByUserId}" />
 						</div>
-						<input id="preparedByInputId" type="hidden" th:field="*{preparedByUserId}" />
 					</div>
-					
-					<label>Har ikke fulgt reglene</label>	
-					<div class="form-group">
-						<div class="checkbox" th:each="rule : ${dietRules}">
-						  	<label>
-						  		<input type="checkbox" value="${rule.name}" />
-						  		<span th:text="${rule.description}"></span>
-						  	</label>
+						
+					<label th:text="#{mychoices.followed_rules}"></label>
+					<div class="form-group">	
+						<div class="custom-control custom-checkbox" th:each="rule : ${dietRules}">
+							<input type="checkbox" class="custom-control-input" th:id="'followedRulesBtn' + ${rule.id}" th:value="${rule.name}">
+							<label class="custom-control-label" th:for="'followedRulesBtn' + ${rule.id}" th:text="${rule.description}"></label>
 						</div>
 					</div>
 					
-					<label th:text="#{mychoice.label.causedconflict}"></label>					
-					<div class="form-group">
-						<div class="btn-group" data-toggle="buttons">
-	    					<label class="btn btn-default" onclick="selectConflict('icoBtn4','1');">
-								<i id="icoBtn4" class="glyphicon glyphicon-unchecked"></i>
-	        					<input type="radio" name="options" id="option10" value="1" /><span th:text="#{label.yes}"></span>
-	    					</label>
-						    <label class="btn btn-default" onclick="selectConflict('icoBtn5','0');">
-						        <i id="icoBtn5" class="glyphicon glyphicon-check"></i>
-						        <input type="radio" name="options" id="option11" value="0" /><span th:text="#{label.no}"></span>
-						    </label>
+					<label></label>
+					<div class="form-group">	
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="causedConflictBtn" value="1" th:field="*{causedConflict}">
+							<label class="custom-control-label" th:for="causedConflictBtn" th:text="#{mychoice.label.causedconflict}"></label>
 						</div>
-						<input type="hidden" id="conflictInputId" th:field="*{causedConflict}" />
 					</div>
 					
 					<div class="form-group">
@@ -179,25 +163,24 @@
 						<label th:each="err : ${#fields.errors('conflictDescription')}" th:text="${err}" class="help-block" ></label>
 					</div>
 					
-					<p />
-
-					<button type="submit" class="btn btn-primary" th:if="${menuItem.id} == null" th:text="#{btn.new}"></button>
-					<button type="submit" class="btn btn-primary" th:if="${menuItem.id} != null" th:text="#{btn.update}"></button>
-					<a th:href="@{/diet/mychoices}" class="btn btn-default"><span th:text="#{btn.cancel}"></span></a>
+					<div class="form-group float-right">
+						<button type="submit" class="btn btn-primary btn-sm" th:if="${menuItem.id} == null" th:text="#{btn.new}"></button>
+						<button type="submit" class="btn btn-primary btn-sm" th:if="${menuItem.id} != null" th:text="#{btn.update}"></button>
+						<a th:href="@{/diet/mychoices}" class="btn btn-outline-secondary btn-sm"><span th:text="#{btn.cancel}"></span></a>
+					</div>
 					
 				</form>
 			</div>
-			<!-- end panel body -->
+			<!-- end card body -->
 
-			<div class="panel-footer clearfix">
-				<div class="pull-right">
+			<div class="card-footer clearfix">
+				<div class="float-right">
 					<a th:href="@{/diet/mychoices}" class="btn btn-primary btn-sm"><span th:text="#{btn.back}"></span></a>
 				</div>
 			</div>
-
-			<!-- end panel footer -->
+			<!-- end card footer -->
 		</div>
-		<!-- end panel -->
+		<!-- end card -->
 	</div>
 	<!-- end container -->
 	<div th:replace="fragments/footer :: footer"></div>

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.gunnarro.dietmanager.domain.activity.ActivityLog;
 import com.gunnarro.dietmanager.mvc.controller.AuthenticationFacade;
 import com.gunnarro.dietmanager.repository.ActivityRepository;
-import com.gunnarro.dietmanager.repository.LogEventRepository;
 import com.gunnarro.dietmanager.service.ActivityService;
 
 /**

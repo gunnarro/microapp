@@ -15,16 +15,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gunnarro.dietmanager.domain.log.ImageResource;
 import com.gunnarro.dietmanager.domain.log.LogComment;
 import com.gunnarro.dietmanager.domain.log.LogEntry;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
@@ -43,233 +46,287 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
 @Scope("session")
 public class LogEventController extends BaseController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LogEventController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LogEventController.class);
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat(Utility.DATE_TIME_PATTERN);
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
-    }
+	private static final String REDIRECT = "redirect";
+	private static final String URI_LOG_EVENTS = "/diet/log/events";
+	private static final String URI_LOG_EVENT_VIEW = "/diet/log/event/view";
 
-    // @RequestMapping(value = "/diet/log/events/filter", method =
-    // RequestMethod.GET, params = { "filterBy", "filterValue" })
-    // // public ModelAndView filterLogEvents(@PathVariable("filterBy") String
-    // // filterBy, @PathVariable("filterValue") String filterValue) {
-    // public String filterLogEvents(@RequestParam("filterBy") String filterBy,
-    // @RequestParam("filterValue") String filterValue, Model map) {
-    // LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-    // List<LogEntry> logs = logEventService.getLogEvents(loggedInUser.getId(),
-    // filterBy, filterValue);
-    // if (LOG.isDebugEnabled()) {
-    // LOG.debug("number of log entries: " + logs.size());
-    // }
-    // map.addAttribute("logs", logs);
-    // map.addAttribute("number_of_logs", logs.size());
-    // return "log/view-event-logs";
-    // }
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat(Utility.DATE_TIME_PATTERN);
+		sdf.setLenient(true);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
+	}
 
-    @RequestMapping(value = "/diet/log/events", method = RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView getLogEvents(@RequestParam(value = "page", required = false) Integer pageNumber,
-            @RequestParam(value = "size", required = false) Integer pageSize) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        Page<LogEntry> logsPage = logEventService.getAllLogEvents(loggedInUser.getId(), pageNumber != null ? pageNumber : 0, pageSize != null ? pageSize : 25);
-        LOG.debug("number = {}, logs = {}, total pages = {}", logsPage.getNumber(), logsPage.getNumberOfElements(), logsPage.getTotalPages());
-        PageWrapper<LogEntry> page = new PageWrapper<LogEntry>(logsPage, "/diet/log/events");
-        ModelAndView modelView = new ModelAndView("log/view-event-logs");
-        modelView.getModel().put("page", page);
-        modelView.getModel().put("logsFromDate",!page.getContent().isEmpty() ? page.getContent().get(page.getContent().size() - 1).getCreatedDate() : new Date());
-        modelView.getModel().put("logsToDate", !page.getContent().isEmpty() ? page.getContent().get(0).getCreatedDate() : new Date());
-        return modelView;
-    }
+	@GetMapping(URI_LOG_EVENTS)
+	@ResponseBody
+	public ModelAndView getLogEvents(@RequestParam(value = "page", required = false) Integer pageNumber,
+			@RequestParam(value = "size", required = false) Integer pageSize) {
+		LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+		Page<LogEntry> logsPage = logEventService.getAllLogEvents(loggedInUser.getId(),
+				pageNumber != null ? pageNumber : 0, pageSize != null ? pageSize : 25);
+		LOG.debug("number = {}, logs = {}, total pages = {}", logsPage.getNumber(), logsPage.getNumberOfElements(),
+				logsPage.getTotalPages());
+		PageWrapper<LogEntry> page = new PageWrapper<LogEntry>(logsPage, URI_LOG_EVENTS);
+		ModelAndView modelView = new ModelAndView("log/view-event-logs");
+		modelView.getModel().put("page", page);
+		modelView.getModel().put("logsFromDate",
+				!page.getContent().isEmpty() ? page.getContent().get(page.getContent().size() - 1).getCreatedDate()
+						: new Date());
+		modelView.getModel().put("logsToDate",
+				!page.getContent().isEmpty() ? page.getContent().get(0).getCreatedDate() : new Date());
+		return modelView;
+	}
 
-    @RequestMapping(value = "/diet/log/event/view/{logId}", method = RequestMethod.GET)
-    public ModelAndView logEventView(@PathVariable("logId") int logId) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        if (loggedInUser == null) {
-            throw new ApplicationException("Not logged in!");
-        }
-        LogEntry logEvent = logEventService.getLogEvent(loggedInUser.getId(), logId);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("{}", logEvent);
-        }
-        ModelAndView modelView = new ModelAndView("log/view-log-event");
-        modelView.getModel().put("log", logEvent);
-        return modelView;
-    }
+	@GetMapping("/diet/log/event/view/{logId}")
+	public ModelAndView logEventView(@PathVariable("logId") int logId) {
+		LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+		if (loggedInUser == null) {
+			throw new ApplicationException("Not logged in!");
+		}
+		LogEntry logEvent = logEventService.getLogEvent(loggedInUser.getId(), logId);
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("{}", logEvent);
+		}
+		ModelAndView modelView = new ModelAndView("log/view-log-event");
+		modelView.getModel().put("log", logEvent);
+		return modelView;
+	}
 
-    @RequestMapping(value = "/diet/log/events/txt", method = RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView viewLogEventsAsPlainText() {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        Page<LogEntry> page = logEventService.getAllLogEvents(loggedInUser.getId(), 1, 25);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("number of log entries: " + page.getNumber());
-        }
-        ModelAndView modelView = new ModelAndView("log/view-event-logs-txt");
-        modelView.getModel().put("page", page);
-        return modelView;
-    }
+	@GetMapping("/diet/log/events/txt")
+	@ResponseBody
+	public ModelAndView viewLogEventsAsPlainText() {
+		LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+		Page<LogEntry> page = logEventService.getAllLogEvents(loggedInUser.getId(), 1, 25);
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("number of log entries: " + page.getNumber());
+		}
+		ModelAndView modelView = new ModelAndView("log/view-event-logs-txt");
+		modelView.getModel().put("page", page);
+		return modelView;
+	}
 
-    // ---------------------------------------------
-    // New and update log event
-    // ---------------------------------------------
+	// ---------------------------------------------
+	// New and update log event
+	// ---------------------------------------------
 
-    @RequestMapping(value = "/diet/log/event/new", method = RequestMethod.GET)
-    public String initNewLogEventForm(Map<String, Object> model) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        if (loggedInUser == null) {
-            throw new ApplicationException("Not logged in!");
-        }
-        LogEntry log = new LogEntry();
-        log.setLevel("INFO");
-        log.setCreatedDate(new Date());
-        log.setLastModifiedTime(System.currentTimeMillis());
-        log.setCreatedByUser(loggedInUser.getUsername());
-        model.put("log", log);
-        return "log/edit-event-log";
-    }
+	@GetMapping("/diet/log/event/new")
+	public String initNewLogEventForm(Map<String, Object> model) {
+		LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+		if (loggedInUser == null) {
+			throw new ApplicationException("Not logged in!");
+		}
+		LogEntry log = new LogEntry();
+		log.setLevel("INFO");
+		log.setCreatedDate(new Date());
+		log.setLastModifiedTime(System.currentTimeMillis());
+		log.setCreatedByUser(loggedInUser.getUsername());
+		model.put("log", log);
+		return "log/edit-event-log";
+	}
 
-    /**
-     * User POST for new
-     * 
-     */
-    @RequestMapping(value = "/diet/log/event/new", method = RequestMethod.POST)
-    public String processNewLogEventForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result, SessionStatus status) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(log.toString());
-        }
-        if (result.hasErrors()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(result.toString());
-            }
-            return "log/edit-event-log";
-        } else {
-            // set created by user id
-            log.setFkUserId(authenticationFacade.getLoggedInUser().getId());
-            this.logEventService.saveLogEvent(log);
-            status.setComplete();
-            return "redirect:/diet/log/events";
-        }
-    }
+	/**
+	 * User POST for new
+	 * 
+	 */
+	@PostMapping("/diet/log/event/new")
+	public String processNewLogEventForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result,
+			SessionStatus status) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug(log.toString());
+		}
+		if (result.hasErrors()) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug(result.toString());
+			}
+			return "log/edit-event-log";
+		} else {
+			// set created by user id
+			log.setFkUserId(authenticationFacade.getLoggedInUser().getId());
+			this.logEventService.saveLogEvent(log);
+			status.setComplete();
+			return String.format("%s:%s", REDIRECT, URI_LOG_EVENTS);
+		}
+	}
 
-    @RequestMapping(value = "/diet/log/event/edit/{logEventId}", method = RequestMethod.GET)
-    public String initUpdateLogEventForm(@PathVariable("logEventId") int logEventId, Model model) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        LogEntry log = logEventService.getLogEvent(loggedInUser.getId(), logEventId);
-        if (log == null) {
-            throw new ApplicationException("Object Not Found, logEventId=" + logEventId);
-        }
+	@GetMapping("/diet/log/event/edit/{logEventId}")
+	public String initUpdateLogEventForm(@PathVariable("logEventId") int logEventId, Model model) {
+		LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+		LogEntry log = logEventService.getLogEvent(loggedInUser.getId(), logEventId);
+		if (log == null) {
+			throw new ApplicationException(String.format("Object Not Found, logEventId=%s", logEventId));
+		}
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(log.toString());
-        }
-        model.addAttribute("log", log);
-        return "log/edit-event-log";
-    }
+		if (LOG.isDebugEnabled()) {
+			LOG.debug(log.toString());
+		}
+		model.addAttribute("log", log);
+		return "log/edit-event-log";
+	}
 
-    /**
-     * Use PUT for updates
-     * 
-     */
-    @RequestMapping(value = "/diet/log/event/edit", method = RequestMethod.POST)
-    public String processUpdateLogEventForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result, SessionStatus status) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(log.toString());
-        }
-        if (result.hasErrors()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(result.toString());
-            }
-            return "log/edit-event-log";
-        } else {
-            logEventService.saveLogEvent(log);
-            status.setComplete();
-            return "redirect:/diet/log/events";
-        }
-    }
+	/**
+	 * Use PUT for updates
+	 * 
+	 */
+	@PostMapping("/diet/log/event/edit")
+	public String processUpdateLogEventForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result,
+			SessionStatus status) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug(log.toString());
+		}
+		if (result.hasErrors()) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug(result.toString());
+			}
+			return "log/edit-event-log";
+		} else {
+			logEventService.saveLogEvent(log);
+			status.setComplete();
+			return String.format("%s:%s", REDIRECT, URI_LOG_EVENTS);
+		}
+	}
 
-    /**
-     * Use PUT for updates
-     * 
-     */
-    @RequestMapping(value = "/diet/log/event/edit/{logEventId}", method = RequestMethod.POST)
-    public String processUpdateLogEventIdForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result, SessionStatus status) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(log.toString());
-        }
-        if (result.hasErrors()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(result.toString());
-            }
-            return "log/edit-event-log";
-        } else {
-            logEventService.saveLogEvent(log);
-            status.setComplete();
-            return "redirect:/diet/log/events";
-        }
-    }
+	/**
+	 * Use PUT for updates
+	 * 
+	 */
+	@PostMapping("/diet/log/event/edit/{logEventId}")
+	public String processUpdateLogEventIdForm(@Valid @ModelAttribute("log") LogEntry log, BindingResult result,
+			SessionStatus status) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug(log.toString());
+		}
+		if (result.hasErrors()) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug(result.toString());
+			}
+			return "log/edit-event-log";
+		} else {
+			logEventService.saveLogEvent(log);
+			status.setComplete();
+			return String.format("%s:%s", REDIRECT, URI_LOG_EVENTS);
+		}
+	}
 
-    /**
-     * 
-     */
-    @RequestMapping(value = "/diet/log/event/delete/{logEntryId}", method = RequestMethod.GET)
-    public String deletelogEvent(@PathVariable("logEntryId") int logEntryId) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        LogEntry log = logEventService.getLogEvent(loggedInUser.getId(), logEntryId);
-        if (log == null) {
-            throw new ApplicationException("Object Not Found, logEntryId=" + logEntryId);
-        }
-        logEventService.deleteLogEvent(loggedInUser.getId(), logEntryId);
-        return "redirect:/diet/log/events";
-    }
+	/**
+	 * 
+	 */
+	@GetMapping("/diet/log/event/delete/{logEntryId}")
+	public String deletelogEvent(@PathVariable("logEntryId") int logEntryId) {
+		LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+		LogEntry log = logEventService.getLogEvent(loggedInUser.getId(), logEntryId);
+		if (log == null) {
+			throw new ApplicationException("Object Not Found, logEntryId=" + logEntryId);
+		}
+		logEventService.deleteLogEvent(loggedInUser.getId(), logEntryId);
+		return String.format("%s:%s", REDIRECT, URI_LOG_EVENTS);
+	}
 
-    // ---------------------------------------------
-    // Add comments to log event
-    // ---------------------------------------------
+	// ---------------------------------------------
+	// Add/delete image to log event
+	// ---------------------------------------------
+	
+	/**
+	 * 
+	 * @param file
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@PostMapping("/diet/log/event/img/upload/")
+	public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("description") String description, @RequestParam("id") String id, RedirectAttributes redirectAttributes) {
+		if (file == null) {
+			// return error
+			return "redirect:/upload/" + id;
+		}
+		fileUploadService.store(file, id, description);
+		LOG.debug("Successfully uploaded: {}/{}", id, file.getName());
+		// Add parameters to be viewed on the redirect page
+		redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
+		return "redirect:/upload/" + id;
+	}
 
-    @RequestMapping(value = "/diet/log/event/comment/add", method = RequestMethod.POST, params = { "logId", "comment" })
-    public String newCommentLogEventForm(@RequestParam("logId") Integer logId, @RequestParam("comment") String comment, Model map) {
-        LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
-        LogComment logComment = new LogComment();
-        logComment.setFkUserId(loggedInUser.getId());
-        logComment.setCreatedDate(new Date());
-        logComment.setFkLogId(logId);
-        logComment.setContent(comment);
-        logEventService.saveLogEventComment(logComment);
-        return "redirect:/diet/log/event/view/" + logId;
-    }
+	
+	/**
+	 * Use PUT for updates
+	 * 
+	 */
+	@PostMapping("/diet/log/event/img/delete")
+	public String processDeleteLogImageForm(@Valid @ModelAttribute("resource") ImageResource resource, BindingResult result,
+			SessionStatus status) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug(resource.toString());
+		}
+		if (result.hasErrors()) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug(result.toString());
+			}
+			return String.format("%s:%s/%s", REDIRECT, URI_LOG_EVENT_VIEW, resource.getId());
+		} else {
+			fileUploadService.deleteImage(resource.getId(), resource.getName());
+			logEventService.deleteLogEventImage(Integer.parseInt(resource.getId()), resource.getName());
+			return String.format("%s:%s/%s", REDIRECT, URI_LOG_EVENT_VIEW, resource.getId());
+		}
+	}
 
-    @RequestMapping(value = "/diet/log/event/comment/new", method = RequestMethod.GET)
-    public String initNewCommentLogEventForm(Map<String, Object> model) {
-        LogComment comment = new LogComment();
-        comment.setCreatedDate(new Date());
-        model.put("logComment", comment);
-        return "log/edit-comment-event-log";
-    }
+	/**
+	 * 
+	 */
+	@GetMapping("/diet/log/event/img/delete/{logEntryId}/{filename}")
+	public String deletelogEventImg(@PathVariable("logEntryId") int logEntryId,
+			@PathVariable("filename") String filename) {
+		fileUploadService.deleteImage(Integer.toString(logEntryId), filename);
+		logEventService.deleteLogEventImage(logEntryId, filename);
+		return String.format("%s:%s/%s", REDIRECT, URI_LOG_EVENT_VIEW, logEntryId);
+	}
 
-    /**
-     * User POST for new
-     * 
-     */
-    @RequestMapping(value = "/diet/log/event/comment/new", method = RequestMethod.POST)
-    public String processNewCommentLogEventForm(@Valid @ModelAttribute("logComment") LogComment logComment, BindingResult result, SessionStatus status) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(logComment.toString());
-        }
-        if (result.hasErrors()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(result.toString());
-            }
-            return "log/edit-comment-event-log";
-        } else {
-            // set created by user id
-            logComment.setFkUserId(authenticationFacade.getLoggedInUser().getId());
-            this.logEventService.saveLogEventComment(logComment);
-            status.setComplete();
-            return "redirect:/diet/log/events";
-        }
-    }
+	// ---------------------------------------------
+	// Add comments to log event
+	// ---------------------------------------------
+
+	@PostMapping(value = "/diet/log/event/comment/add", params = { "logId", "comment" })
+	public String newCommentLogEventForm(@RequestParam("logId") Integer logId, @RequestParam("comment") String comment,
+			Model map) {
+		LocalUser loggedInUser = authenticationFacade.getLoggedInUser();
+		LogComment logComment = new LogComment();
+		logComment.setFkUserId(loggedInUser.getId());
+		logComment.setCreatedDate(new Date());
+		logComment.setFkLogId(logId);
+		logComment.setContent(comment);
+		logEventService.saveLogEventComment(logComment);
+		return String.format("%s:%s/%s", REDIRECT, URI_LOG_EVENT_VIEW, logId);
+	}
+
+	@GetMapping(value = "/diet/log/event/comment/new")
+	public String initNewCommentLogEventForm(Map<String, Object> model) {
+		LogComment comment = new LogComment();
+		comment.setCreatedDate(new Date());
+		model.put("logComment", comment);
+		return "log/edit-comment-event-log";
+	}
+
+	/**
+	 * User POST for new
+	 * 
+	 */
+	@PostMapping(value = "/diet/log/event/comment/new")
+	public String processNewCommentLogEventForm(@Valid @ModelAttribute("logComment") LogComment logComment,
+			BindingResult result, SessionStatus status) {
+		if (LOG.isDebugEnabled()) {
+			LOG.debug(logComment.toString());
+		}
+		if (result.hasErrors()) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug(result.toString());
+			}
+			return "log/edit-comment-event-log";
+		} else {
+			// set created by user id
+			logComment.setFkUserId(authenticationFacade.getLoggedInUser().getId());
+			this.logEventService.saveLogEventComment(logComment);
+			status.setComplete();
+			return String.format("%s:%s", REDIRECT, URI_LOG_EVENTS);
+		}
+	}
 
 }

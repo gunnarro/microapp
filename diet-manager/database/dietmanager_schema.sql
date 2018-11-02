@@ -13,6 +13,7 @@ USE dietmanager;
 
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 SET time_zone = "+00:00";
+SET GLOBAL time_zone = "+00:00";
 
 -- Turn off fk check
 SET FOREIGN_KEY_CHECKS=0;

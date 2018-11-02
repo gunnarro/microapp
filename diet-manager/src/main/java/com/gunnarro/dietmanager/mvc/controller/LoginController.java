@@ -16,6 +16,7 @@ import com.gunnarro.useraccount.domain.user.LocalUser;
 @Controller
 public class LoginController extends BaseController {
 
+	public static final String PUBLIC_DOMAIN = "";
     public static final String HOME_PAGE = "/diet/log/events";
     public static final String ADMIN_PAGE = "/admin";
     public static final String LOGIN_PAGE = "/login";
@@ -64,7 +65,7 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return PUBLIC_DOMAIN + "/login";
     }
 
     /**
@@ -80,7 +81,7 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/error")
     public String error() {
-        return "application-error";
+        return PUBLIC_DOMAIN + "/application-error";
     }
 
     @GetMapping("/403")
@@ -173,12 +174,22 @@ public class LoginController extends BaseController {
 
     @GetMapping("/releasenotes")
     public String releasenotes() {
-        return "release-notes";
+        return PUBLIC_DOMAIN + "/release-notes";
     }
 
     @GetMapping("/about")
     public String about() {
-        return "about";
+        return PUBLIC_DOMAIN + "/about";
+    }
+
+    @GetMapping("/cv")
+    public String cv() {
+        return PUBLIC_DOMAIN + "/cv";
+    }
+    
+    @GetMapping("/index")
+    public String indexPublic() {
+        return PUBLIC_DOMAIN + "/index";
     }
 
 }

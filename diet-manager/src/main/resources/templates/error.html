@@ -1,10 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>DietManager</title>
-<link rel="stylesheet" type="text/css" href="/dietmanager/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/dietmanager.css}" href="../../css/dietmanager.css" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-css"></head>
 
 <body>
 	<div th:replace="fragments/header :: header"></div>
@@ -19,7 +15,7 @@
 			</div>
 
 			<div class="panel-body">
-				<div class="alert alert-danger" role="alert">
+				<div class="alert alert-info" role="alert">
 					<p>
 						<span th:text="${requestUrl}"></span>
 						<span th:if="${param.requesturi}" th:text="${param.requesturi[0]}"></span>

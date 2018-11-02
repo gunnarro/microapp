@@ -7,90 +7,98 @@
 
 	<div class="container-fluid">
 	
-		<ul class="breadcrumb">
-        	<li><a th:href="@{/diet/body/measurement/log}">Oversikt vekt og høyde</a></li>
-        	<li class="active">BMI Detaljer</li>
-    	</ul>
+		<nav aria-label="breadcrumb">
+  			<ol class="breadcrumb">
+    			<li class="breadcrumb-item"><a th:href="@{/diet/body/measurement/log}" th:text="#{weightlog.page.title}"></a></li>
+        		<li class="breadcrumb-item active" aria-current="page" th:text="#{weightlog.details.title}"></li>
+  			</ol>
+		</nav>
 	
-		<div class="page-header">
-			<h4 th:text="#{weightlog.page.title}" ></h4>
+		<div class="bg-light mt-2 mb-2">
+			<div class="clearfix ml-2 mr-2">
+				<h3 class="float-sm-left align-baseline" th:text="#{weightlog.details.title}"></h3>
+			</div>
 		</div>
 		
 		<h4 th:text="#{weightlog.header.formulas}" ></h4>
 		<div class="panel-body center-block">
-			<dl class="dl-horizontal"> 
-				<dt th:text="#{weightlog.label.bmi}" ></dt>
-				<dd th:text="#{weightlog.formula.bmi}" ></dd>
-				<dt th:text="#{weightlog.label.geneticheightgirls}" ></dt>
-				<dd th:text="#{weightlog.formula.geneticheightgirls}" ></dd>
-				<dt th:text="#{weightlog.label.geneticheightboys}" ></dt>
-				<dd th:text="#{weightlog.formula.geneticheightboys}" ></dd>
+			<dl class="row"> 
+				<dt class="col-sm-3" th:text="#{weightlog.label.bmi}" ></dt>
+				<dd class="col-sm-9" th:text="#{weightlog.formula.bmi}" ></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.geneticheightgirls}" ></dt>
+				<dd class="col-sm-9" th:text="#{weightlog.formula.geneticheightgirls}" ></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.geneticheightboys}" ></dt>
+				<dd class="col-sm-9" th:text="#{weightlog.formula.geneticheightboys}" ></dd>
 			</dl>
 		</div>
 				
 		<h4 th:text="#{weightlog.header.developmentpercentile50}" ></h4>
 		<div class="panel-body center-block">
-			<dl class="dl-horizontal">
-				<dt th:text="#{weightlog.label.geneticheight}" ></dt>
-				<dd>166</dd>
-				<dt th:text="#{weightlog.label.age}" ></dt>
-				<dd> 
+			<dl class="row">
+				<dt class="col-sm-3" th:text="#{weightlog.label.geneticheight}" ></dt>
+				<dd class="col-sm-9" >166</dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.age}" ></dt>
+				<dd class="col-sm-9" > 
 					<span th:text="${referenceData.ageYears} + ' ' + #{label.year}"></span>
-					<div th:if="${referenceData.ageMonths} &gt; 0"> 
-						<span th:text="#{label.and} + ' ' + ${referenceData.ageMonths} + ' ' + #{label.months}"  ></span> 
-					</div>
+					<span th:if="${referenceData.ageMonths} &gt; 0" th:text="#{label.and} + ' ' + ${referenceData.ageMonths} + ' ' + #{label.months}"  ></span> 
 				</dd>
-				<dt th:text="#{weightlog.label.weightkg}" ></dt>
-				<dd th:text="${referenceData.weightP50}"></dd>
-				<dt th:text="#{weightlog.label.heightcm}" ></dt>
-				<dd th:text="${referenceData.heightP50}"></dd>
-				<dt th:text="#{weightlog.label.bmi}" ></dt>
-				<dd th:text="${referenceData.bmiP50}"></dd>
-				<dt th:text="#{weightlog.label.reference}" ></dt>
-				<dd><a th:href="#{weightlog.url.whoreferancedata}" ><span th:text="#{weightlog.url.whoreferancedata.txt}" ></span></a></dd>
-				<dd><a th:href="#{weightlog.url.percentileschema}" ><span th:text="#{weightlog.url.percentileschema.txt}" ></span></a></dd>
-				<dd><a th:href="#{weightlog.url.growth2to19}" ><span th:text="#{weightlog.url.growth2to19.txt}" ></span></a></dd>
-				<dd><a th:href="#{weightlog.url.kmi2to19}" ><span th:text="#{weightlog.url.kmi2to19.txt}" ></span></a></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.weightkg}" ></dt>
+				<dd class="col-sm-9" th:text="${referenceData.weightP50}"></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.heightcm}" ></dt>
+				<dd class="col-sm-9" th:text="${referenceData.heightP50}"></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.bmi}" ></dt>
+				<dd class="col-sm-9" th:text="${referenceData.bmiP50}"></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.reference}" ></dt>
+				<dd class="col-sm-9">
+    				<dl class="row">
+      					<dd class="col-sm-9" ><a th:href="#{weightlog.url.whoreferancedata}" ><span th:text="#{weightlog.url.whoreferancedata.txt}" ></span></a></dd>
+						<dd class="col-sm-9" ><a th:href="#{weightlog.url.percentileschema}" ><span th:text="#{weightlog.url.percentileschema.txt}" ></span></a></dd>
+						<dd class="col-sm-9" ><a th:href="#{weightlog.url.growth2to19}" ><span th:text="#{weightlog.url.growth2to19.txt}" ></span></a></dd>
+						<dd class="col-sm-9" ><a th:href="#{weightlog.url.kmi2to19}" ><span th:text="#{weightlog.url.kmi2to19.txt}" ></span></a></dd>
+    				</dl>
+  				</dd>
 			</dl>
 		</div>
 		
+		
 		<h4 th:text="#{weightlog.header.progression}" ></h4>
 		<div class="panel-body">
-			<dl class="dl-horizontal">
-				<dt>For perioden</dt>
-				<dd th:text="${#dates.format(myStatistic.startDate, 'EEEE dd.MM.yy') + ' to ' +  #dates.format(myStatistic.endDate, 'EEEE dd.MM.yy')}" ></dd>
-				<dt th:text="#{weightlog.label.weightrecommended}" ></dt>
-				<dd>250 g</dd>
-				<dt>Nåværende vekt/høyde</dt>
-				<dd th:text="${myStatistic.weight + ' ' + myStatistic.weightMetric + '/' + myStatistic.height + ' ' + myStatistic.heightMetric}"></dd>
-				<dt th:text="#{weightlog.label.weightaverage}" ></dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeight,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfMeasurements}"></span></dd>
-				<dt>Vektøking gj pr uke</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightUp,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' +  myStatistic.numberOfUp}"></span></dd>
-				<dt>Vektreduksjon gj pr uke</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightDown,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDown}"></span></dd>
-				<dt>Vektøking gj pr mnd</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightUpStep,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfUpStep}"></span></dd>
-				<dt>Vektreduksjon gj pr mnd</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageWeightDownStep,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDownStep}"></span></dd>
-				<dt th:text="#{weightlog.label.heightaverage}" ></dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.averageHeight,2,1)}"><span th:text="#{myStatistic.heightMetric}"></span></dd>
-				<dt>Min/Max vekt</dt>
-				<dd th:text="${myStatistic.minWeight + ' / ' + myStatistic.maxWeight}"></dd>
-				<dt>Min/Max høyde</dt>
-				<dd th:text="${myStatistic.minHeight + ' / ' + myStatistic.maxHeight}"></dd>
-				<dt>Max nedgang/Max oppgang vekt</dt>
-				<dd th:text="${#numbers.formatDecimal(myStatistic.maxWeightDecrease,2,1) + ' / ' + #numbers.formatDecimal(myStatistic.maxWeightIncrease,2,1)}" ></dd>
-				<dt>Antall målinger</dt>
-				<dd th:text="${myStatistic.numberOfMeasurementsStep + '  mnd'}"></dd>
-				<dt>Antall økninger</dt>
-				<dd th:text="${myStatistic.numberOfUp + ' uker'}"></dd>
-				<dt>Antall reduksjoner</dt>
-				<dd th:text="${myStatistic.numberOfDown + ' uker'}"></dd>
-				<dt>Antall nøytral</dt>
-				<dd th:text="${myStatistic.numberOfNeutral + ' uker'}"></dd>
+			<dl class="row">
+				<dt class="col-sm-3" >For perioden</dt>
+				<dd class="col-sm-9" th:text="${#dates.format(myStatistic.startDate, 'EEEE dd.MM.yy') + ' to ' +  #dates.format(myStatistic.endDate, 'EEEE dd.MM.yy')}" ></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.weightrecommended}" ></dt>
+				<dd class="col-sm-9" >250 g</dd>
+				<dt class="col-sm-3" >Nåværende vekt/høyde</dt>
+				<dd class="col-sm-9" th:text="${myStatistic.weight + ' ' + myStatistic.weightMetric + '/' + myStatistic.height + ' ' + myStatistic.heightMetric}"></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.weightaverage}" ></dt>
+				<dd class="col-sm-9" th:text="${#numbers.formatDecimal(myStatistic.averageWeight,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfMeasurements}"></span></dd>
+				<dt class="col-sm-3" >Vektøking gj pr uke</dt>
+				<dd class="col-sm-9" th:text="${#numbers.formatDecimal(myStatistic.averageWeightUp,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' +  myStatistic.numberOfUp}"></span></dd>
+				<dt class="col-sm-3" >Vektreduksjon gj pr uke</dt>
+				<dd class="col-sm-9" th:text="${#numbers.formatDecimal(myStatistic.averageWeightDown,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDown}"></span></dd>
+				<dt class="col-sm-3" >Vektøking gj pr mnd</dt>
+				<dd class="col-sm-9" th:text="${#numbers.formatDecimal(myStatistic.averageWeightUpStep,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfUpStep}"></span></dd>
+				<dt class="col-sm-3" >Vektreduksjon gj pr mnd</dt>
+				<dd class="col-sm-9" th:text="${#numbers.formatDecimal(myStatistic.averageWeightDownStep,2,1)}"><span th:text="#{myStatistic.weightMetric + ', målinger ' + myStatistic.numberOfDownStep}"></span></dd>
+				<dt class="col-sm-3" th:text="#{weightlog.label.heightaverage}" ></dt>
+				<dd class="col-sm-9" th:text="${#numbers.formatDecimal(myStatistic.averageHeight,2,1)}"><span th:text="#{myStatistic.heightMetric}"></span></dd>
+				<dt class="col-sm-3" >Min/Max vekt</dt>
+				<dd class="col-sm-9" th:text="${myStatistic.minWeight + ' / ' + myStatistic.maxWeight}"></dd>
+				<dt class="col-sm-3" >Min/Max høyde</dt>
+				<dd class="col-sm-9" th:text="${myStatistic.minHeight + ' / ' + myStatistic.maxHeight}"></dd>
+				<dt class="col-sm-3" >Max nedgang/Max oppgang vekt</dt>
+				<dd class="col-sm-9" th:text="${#numbers.formatDecimal(myStatistic.maxWeightDecrease,2,1) + ' / ' + #numbers.formatDecimal(myStatistic.maxWeightIncrease,2,1)}" ></dd>
+				<dt class="col-sm-3" >Antall målinger</dt>
+				<dd class="col-sm-9" th:text="${myStatistic.numberOfMeasurementsStep + '  mnd'}"></dd>
+				<dt class="col-sm-3" >Antall økninger</dt>
+				<dd class="col-sm-9" th:text="${myStatistic.numberOfUp + ' uker'}"></dd>
+				<dt class="col-sm-3" >Antall reduksjoner</dt>
+				<dd class="col-sm-9" th:text="${myStatistic.numberOfDown + ' uker'}"></dd>
+				<dt class="col-sm-3" >Antall nøytral</dt>
+				<dd class="col-sm-9" th:text="${myStatistic.numberOfNeutral + ' uker'}"></dd>
 			</dl>
 		</div>
+		
 	</div>
 	<!-- end container -->
 	<div th:replace="fragments/footer :: footer"></div>

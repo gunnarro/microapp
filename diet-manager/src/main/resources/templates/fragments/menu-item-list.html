@@ -1,36 +1,40 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+
 <body>
-<th:block th:fragment="menu-item-list">
-    <tr th:each="menuItem, iter : ${menuItems}" >
-			<!-- Hack for jquery filter so the row will apear in the result set when searching for meal type -->
-			<td hidden="" th:text="*{type}"></td>
-			<td class="text-left" style="border-top: none;">
-				<a th:href="@{/diet/menuitem/edit/} + ${menuItem.id}" title="Edit">
-					<i class="glyphicon glyphicon-edit"></i>
-				</a>
-				<a th:href="@{/diet/menuitem/view/} + ${menuItem.id}" title="View">
-					<span th:text="${menuItem.description}"></span>
-				</a>
-			</td>
-			<td class="text-left" style="border-top: none;">
-					<a th:if="${isMenu}" th:href="@{/diet/mychoices}" th:title="'Valgt ' + ${menuItem.selectedCount} + ' ganger'">
-						<small><span class="badge badge-info" th:id="'numOfSelectionMenuItem_' + ${menuItem.id}" th:text="${menuItem.selectedCount}" ></span></small>
-					</a>
-			</td>
-			<td th:id="'row_' + ${iter.index}" class="text-left" style="border-top: none;">
-					<div th:with="restServiceAddUri='menu/registrer/' + ${userId} + '/' + ${menuItem.id}, restServiceDelUri='menu/deregistrer/' + ${userId} + '/' + ${menuItem.id}">
-					<button th:if="${isMenu}" id="addSelectedMenuItem" type="button" class="btn btn-default btn-xs" th:onclick="'registrerMenuSelection(' + ${menuItem.id} + ',' + ${restServiceAddUri} + ');'">
+	<th:block th:fragment="menu-item-list">
+		<tr th:each="menuItem, iter : ${menuItems}">
+			<!-- Hack for jquery filter so the row will apear in the result set when
+                searching for meal type -->
+			<td hidden th:text="*{type}"></td>
+			<td class="text-left" style="border-top: none;"><a th:href="@{/diet/menuitem/edit/} + ${menuItem.id}" title="Edit"> <i
+					class="glyphicon glyphicon-edit"></i>
+
+			</a> <a th:href="@{/diet/menuitem/view/} + ${menuItem.id}" title="View"> <span th:text="${menuItem.description}"></span>
+
+			</a></td>
+			<td class="text-left" style="border-top: none;"><a th:if="${isMenu}" th:href="@{/diet/mychoices}"
+				th:title="&apos;Valgt &apos; + ${menuItem.selectedCount} + &apos; ganger&apos;"> <small><span class="badge badge-pill badge-info"
+						th:id="&apos;numOfSelectionMenuItem_&apos; + ${menuItem.id}" th:text="${menuItem.selectedCount}"></span></small>
+
+			</a></td>
+			<td th:id="&apos;row_&apos; + ${iter.index}" class="text-left" style="border-top: none;">
+				<div
+					th:with="restServiceAddUri=&apos;menu/registrer/&apos; + ${userId} + &apos;/&apos; + ${menuItem.id}, restServiceDelUri=&apos;menu/deregistrer/&apos; + ${userId} + &apos;/&apos; + ${menuItem.id}">
+					<button th:if="${isMenu}" id="addSelectedMenuItem" type="button" class="btn btn-secondary btn-xs"
+						th:onclick="&apos;registrerMenuSelection(&apos; + ${menuItem.id} + &apos;,&apos; + ${restServiceAddUri} + &apos;);&apos;">
 						<i class="glyphicon glyphicon-plus-sign edit-color"></i>
 					</button>
-					<button th:if="${isMenu}" id="deleteSelectedMenuItem" type="button" class="btn btn-default btn-xs" th:onclick="'registrerMenuSelection(' + ${menuItem.id} + ',' + ${restServiceDelUri} + ');'">
+					<button th:if="${isMenu}" id="deleteSelectedMenuItem" type="button" class="btn btn-secondary btn-xs"
+						th:onclick="&apos;registrerMenuSelection(&apos; + ${menuItem.id} + &apos;,&apos; + ${restServiceDelUri} + &apos;);&apos;">
 						<i class="glyphicon glyphicon-minus-sign delete-color"></i>
 					</button>
-					</div>
+				</div>
 			</td>
-    </tr>
-</th:block>
+		</tr>
+	</th:block>
 </body>
+
 </html>

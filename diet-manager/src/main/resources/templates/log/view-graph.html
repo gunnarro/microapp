@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-<head>
-		<title>DietManager</title>
-		<meta charset="UTF-8"></meta>
-		<!-- mobile friendly style -->
-		<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-		<!-- For search engines -->
-		<meta name="description" content="private web app for logging personal data." ></meta>
-		<meta name="author" content="gunnarro"></meta>
-      
-    	<script type="text/javascript" src="/webjars/jquery/3.1.1/jquery.min.js"></script>
-		<script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.js"></script>
-		
-		<script type="text/javascript" src="/js/google-chart-loader.js"></script>
-    	<script type="text/javascript" src="/js/bmi-chart.js"></script>
-    	
-    	 <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
-    	 <link href="../static/css/dietmanager.css" th:href="@{/css/dietmanager.css}" rel="stylesheet" media="screen"/>
-    	 <link href="../static/css/icomoon-icon-font.css" th:href="@{/css/icomoon-icon-font.css}" rel="stylesheet" media="screen"/></head>
+<head th:replace="fragments/head-include :: head-include"></head>
+
 <body>
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 	
 	<div class="container-fluid">
-		<ul class="breadcrumb">
-        	<li><a th:href="@{/diet/body/measurement/log}">Oversikt vekt og høyde</a></li>
-        	<li class="active">Utvikling vekt, høyde og bmi</li>
-    	</ul>
     	
-		<div class="page-header">
-			<h4>Utvikling vekt, høyde og bmi</h4>
-		</div>
+    	<nav aria-label="breadcrumb">
+  			<ol class="breadcrumb">
+    			<li class="breadcrumb-item"><a th:href="@{/diet/body/measurement/log}" th:text="#{weightlog.page.title}"></a></li>
+        		<li class="breadcrumb-item active" aria-current="page" th:text="#{weightlog.grap.title}"></li>
+  			</ol>
+		</nav>
 		
+    	<div class="bg-light mt-2 mb-2">
+			<div class="clearfix ml-2 mr-2">
+				<h3 class="float-sm-left align-baseline" th:text="#{weightlog.grap.title}"></h3>
+			</div>
+		</div>
+    	
 		<div id="linechart_weight"></div>
   		<div id="linechart_height"></div>
   		<div id="linechart_bmi"></div>

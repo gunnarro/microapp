@@ -2,12 +2,10 @@ package com.gunnarro.dietmanager.repository.impl;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -22,16 +20,10 @@ public class ActivityRepositoryImpl extends BaseJdbcRepository implements Activi
 
     private static final Logger LOG = LoggerFactory.getLogger(ActivityRepositoryImpl.class);
 
+    
     @Autowired
-    public ActivityRepositoryImpl(@Qualifier("activityDataSource") DataSource dataSource) {
-        super(dataSource);
-    }
-
-    /**
-     * Needed by spring framework
-     */
-    public ActivityRepositoryImpl() {
-        super(null);
+    public ActivityRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    	super(jdbcTemplate);
     }
 
     /**
@@ -117,10 +109,11 @@ public class ActivityRepositoryImpl extends BaseJdbcRepository implements Activi
     @Override
     public boolean hasPermission(Integer logEventId, String username) {
         StringBuilder sqlQuery = new StringBuilder();
-        sqlQuery.append("SELECT u.username");
-        sqlQuery.append(" FROM activity_log l, users u");
-        sqlQuery.append(" WHERE l.id = ?");
-        sqlQuery.append(" AND l.fk_user_id = u.id");
+//        sqlQuery.append("SELECT u.username");
+//        sqlQuery.append(" FROM activity_log l, users u");
+//        sqlQuery.append(" WHERE l.id = ?");
+//        sqlQuery.append(" AND l.fk_user_id = u.id");
+        sqlQuery.append("SELECT * FROM users WHERE username = ?");
         try {
             String name = getJdbcTemplate().queryForObject(sqlQuery.toString(), new Object[] { logEventId }, String.class);
             return name.equals(username);

@@ -46,7 +46,7 @@ public class DietManagerApp
      static {
 //     System.setProperty("spring.profiles.active", "vktest");
 //     System.setProperty("spring.config.location", "config");
-     System.setProperty("logging.config", "src/main/resources/log4j2.xml");
+//       System.setProperty("logging.config", "src/main/resources/log4j2.xml");
      }
     
     // @Override

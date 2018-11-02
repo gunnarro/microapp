@@ -1,10 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>DietManager</title>
-<link rel="stylesheet" type="text/css" href="/dietmanager/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/dietmanager.css}" href="../../css/dietmanager.css" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-css"></head>
 <body>
 
 <div th:replace="fragments/header :: header"></div>
@@ -12,8 +8,8 @@
 <div class="container">
 
     <div class="starter-template">
-        <h1>403 - Access is denied</h1>
-        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]', you do not have permission to access this page!</div>
+        <h1>403 - Access denied</h1>
+        <div th:inline="text">'[[${#httpServletRequest.remoteUser}]]', you do not have permission to access this page!</div>
     	<div th:if="${param.requesturi}">
         	<div th:text="${param.requesturi[0]}"></div>   
         </div>

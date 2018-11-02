@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -60,7 +61,12 @@ public class TestMariDBDataSourceConfiguration {
     }
 
     @Bean
-    @Qualifier(value = "dietManagerDataSource")
+    public JdbcTemplate dietManagerJdbcTemplate(DataSource dataSource) {
+    	return new JdbcTemplate(dataSource);
+    }
+    
+    @Bean
+//    @Qualifier(value = "dietManagerDataSource")
     @Primary
     public DataSource dietManagerDataSource(MariaDB4jSpringService mariaDB4jSpringService) throws ManagedProcessException {
         // Create our database with default root user and no password

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN" monitorInterval="30">
+<Configuration status="INFO" monitorInterval="30">
 	<Properties>
 		<Property name="LOG_PATTERN">
 			[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] [%-5level] [%logger{36}] %m%n
@@ -34,13 +34,17 @@
 			<AppenderRef ref="consoleAppender" />
 		</Logger>
 		
+		<logger name="om.google.api.client" level="DEBUG">
+			<AppenderRef ref="consoleAppender" />
+		</logger>
+		
 		<!--  application specific logs will be asynchronous, other root logs is still synchronous -->
 		<AsyncLogger name="com.gunnarro.dietmanager" level="DEBUG" additivity="false">
     	    <AppenderRef ref="consoleAppender" />
 			<AppenderRef ref="debugFileAppender" />
 	    </AsyncLogger>
 		
-		<Root level="WARN">
+		<Root level="DEBUG">
 			<AppenderRef ref="consoleAppender" />
 			<AppenderRef ref="debugFileAppender" />
 		</Root>

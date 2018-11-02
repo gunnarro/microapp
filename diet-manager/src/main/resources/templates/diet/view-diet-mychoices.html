@@ -22,20 +22,22 @@ $(document).ready(function () {
 
 	<div class="container-fluid">
 		
-		<ul class="breadcrumb">
-			<li><a th:href="@{/diet/menu/1}" >Diet Menu</a></li>
-        	<li class="active">Mine Valg</li>
-    	</ul>
+    	<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/diet/menu/1}" th:text="#{topmenu.menu}"></a></li>
+				<li class="breadcrumb-item active" aria-current="page" th:text="#{mychoises.title}"></li>
+			</ol>
+		</nav>
     	
-		<div class="page-header">
-			<h4>Mine Valg</h4>
-			<h5>
-					<a th:href="@{/diet/mychoices/statistic/log}" >Vis Kontrollert av oversikt</a><br></br>
-					<a th:href="@{/diet/mychoices/statistic/graph}" >Vis Kontrollert av graf</a><br></br>
-					<a th:href="@{/diet/mychoices/statistic/top10}" >Vis mest valget</a>
-			</h5>
+    	<div class="bg-light mt-2 mb-2">
+			<div class="clearfix ml-2 mr-2">
+				<h3 class="float-sm-left align-baseline" th:text="#{mychoises.title}"></h3>
+ 		    	<a th:href="@{/diet/mychoices/statistic/log}" class="btn btn-primary btn-sm float-sm-right ml-1 align-baseline" th:text="#{mychoices.btn.controlledby}" role="button"></a> 
+				<a th:href="@{/diet/mychoices/statistic/graph}" class="btn btn-primary btn-sm float-sm-right" th:text="#{mychoices.btn.controlledbygraph}" role="button"></a>
+				<a th:href="@{/diet/mychoices/statistic/top10}" class="btn btn-primary btn-sm float-sm-right" th:text="#{mychoices.btn.top10}" role="button"></a>
+			</div>
 		</div>
-
+    	
 		<!-- 
 		<c:if test="${missingMealsMap != null}">
 			<jsp:include page="diet-mychoices-missing-meals.jsp" />
@@ -50,16 +52,17 @@ $(document).ready(function () {
 				<input id="filterInputId" type="text" class="form-control" placeholder="Filter text" />
 		</div>
 		
-		<table id="myChoicesTbl" class="table table-condensed">
+		<div class="table-responsive">
+		<table id="myChoicesTbl" class="table table-sm">
 			<caption class="text-right">
 				<small th:text="#{lbl.lastupdated} + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}"></small>
 			</caption>
 			<thead class="thead-light">
 				<tr>
-					<th scope="col" colspan="4" class="text-left"><small>Mine valg fra </small><small th:text="${period}"></small></th>
+					<th scope="col" colspan="4" class="text-left"><small th:text="#{mychoises.mychoisesfrom}"></small><small th:text="${period}"></small></th>
 					<th scope="col" colspan="2" class="text-right">
 						<a th:href="@{/diet/mychoices/new/1/today}" class="btn btn-primary btn-sm">
-							<span>Legg til</span>
+							<span th:text="#{btn.add}"></span>
 						</a>
 					</th>
 				</tr>
@@ -67,16 +70,19 @@ $(document).ready(function () {
 			<tbody class="table-tbody">
 				<th:block th:each="mapEntry, iter : ${menuItemMap}" >	
 				<tr th:id="'title-row_' + ${iter.index}" class="active-row">
-					<td colspan="5" class="text-left">
-			            <span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Saturday')}" class="label label-danger" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Sunday')}" class="label label-primary" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Monday')}" class="label label-success" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Tuesday')}" class="label label-info" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Wednesday')}" class="label label-warning" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Thursday')}" class="label label-yellow" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
-						<span th:if="${#strings.equals(#dates.dayOfWeekName(mapEntry.key), 'Friday')}" class="label label-purple" th:text="${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}"></span>
+					<td colspan="5" class="text-left" th:with="logDate=${#dates.format(mapEntry.key, 'EEEE dd.MM.yy')}">
+						<th:block th:switch="${#dates.dayOfWeekName(mapEntry.key)}"> 
+							<span th:case="&apos;Mandag&apos;" class="badge badge-dark" th:text="${logDate}"></span>
+							<span th:case="&apos;Tirsdag&apos;" class="badge badge-dark" th:text="${logDate}"></span> 
+							<span th:case="&apos;Onsdag&apos;" class="badge badge-dark" th:text="${logDate}"></span> 
+							<span th:case="&apos;Torsdag&apos;" class="badge badge-dark" th:text="${logDate}"></span> 
+							<span th:case="&apos;Fredag&apos;" class="badge badge-dark" th:text="${logDate}"></span> 
+							<span th:case="&apos;L&#xF8;rdag&apos;" class="badge badge-dark" th:text="${logDate}"></span> 
+							<span th:case="&apos;S&#xF8;ndag&apos;" class="badge badge-dark" th:text="${logDate}"></span>  
+							<span th:case="*" class="badge badge-info" th:text="${logDate}"></span> 
+						</th:block>
 					</td>
-					<!-- hack for jquery filter in order to link tilte to data row in search result -->
+					<!-- hack for jquery filter in order to link title to data row in search result -->
 					<td hidden="true" th:text="${mapEntry.value}"></td>    
 				</tr>
 				<th:block th:each="menuItem, iter : ${mapEntry.value}">
@@ -86,9 +92,12 @@ $(document).ready(function () {
 						
 						<td class="col-icon-fixed" style="border-top: none;">
 							<a th:href="@{/diet/log/event/view/} + ${menuItem.fkLogId}" title="Se event log">
-								<i th:if="${menuItem.controlledByUserId} == 5" th:class="${menuItem.hasConflict()}? 'glyphicon glyphicon-king error-color' : 'glyphicon glyphicon-king king-color'" ></i>
-								<i th:if="${menuItem.controlledByUserId} == 6" th:class="${menuItem.hasConflict()}? 'glyphicon glyphicon-queen error-color' : 'glyphicon glyphicon-queen queen-color'" ></i>
-								<i th:if="${menuItem.controlledByUserId} == 4" th:class="${menuItem.hasConflict()}? 'glyphicon glyphicon-pawn error-color' : 'glyphicon glyphicon-pawn pawn-color'" ></i>
+							<th:block th:switch="${menuItem.controlledByUserId}"> 
+								<i th:case="6" th:class="${menuItem.hasConflict()}? 'oi oi-person error-color' : 'oi oi-person pawn-color'"></i>
+								<i th:case="5" th:class="${menuItem.hasConflict()}? 'oi oi-person error-color' : 'oi oi-person pawn-color'"></i>
+								<i th:case="4" th:class="${menuItem.hasConflict()}? 'oi oi-person error-color' : 'oi oi-person pawn-color'"></i>
+								<i th:case="*" th:class="${menuItem.hasConflict()}? 'oi oi-person error-color' : 'oi oi-person pawn-color'"></i>
+							</th:block>
 							</a>
 						</td>
 						
@@ -102,16 +111,16 @@ $(document).ready(function () {
 							<small><span class="badge badge-info" th:text="${menuItem.selectedCount}"></span></small>
 						</td>
 						<td class="col-icon-fixed" style="border-top: none;">
-							<small><a th:href="@{/diet/mychoices/delete/} + ${menuItem.primaryKeyId}" ><i class="glyphicon glyphicon-trash" ></i></a></small>
+							<small><a th:href="@{/diet/mychoices/delete/} + ${menuItem.primaryKeyId}" ><i class="oi oi-trash" ></i></a></small>
 						</td>
 					</tr>
 					<tr th:id="'trend-row_' + ${iter.index}">
 						<td colspan="2" style="border-top: none;"></td>
 						<td colspan="1" class="text-left" style="border-top: none;">
-								<small>Trend:</small>
+								<small th:text="#{lbl.trend}"></small>
 								<th:block th:each="keyValuePair : ${menuItem.selectionTrends}">
-										<small th:if="${keyValuePair.value == 'false'}" ><a href="#" title="Ikke valgt"><i class="glyphicon glyphicon-stop unchecked-color"></i></a></small>
-										<small th:if="${keyValuePair.value == 'true'}" ><a href="#"><i class="glyphicon glyphicon-stop checked-color" th:title="'Valgt ' + ${keyValuePair.key}"></i></a></small>
+										<small th:if="${keyValuePair.value == 'false'}" ><a href="#" title="Ikke valgt"><i class="oi oi-media-stop unchecked-color"></i></a></small>
+										<small th:if="${keyValuePair.value == 'true'}" ><a href="#"><i class="oi oi-media-stop checked-color" th:title="'Valgt ' + ${keyValuePair.key}"></i></a></small>
 								</th:block>
 						</td>
 						<td colspan="2" style="border-top: none;"></td>
@@ -125,10 +134,10 @@ $(document).ready(function () {
 				<tr>
 					<td colspan="4">
 						<small>
-							<span><i class="glyphicon glyphicon-king king-color"></i> for Pappa, </span>
-							<span><i class="glyphicon glyphicon-queen queen-color"></i> for Mamma,</span>
-							<span><i class="glyphicon glyphicon-pawn pawn-color"></i> for Pepilie,</span><br/>
-							<span>Hvor <span class="label label-danger">rødt</span> ikon indikerer at det har vært konflikter rundt måltidet, se da <a href="${fn:escapeXml(eventLogUrl)}" title="Se event log">her</a> eller klikk på ikonet</span>
+							<span><i class="oi oi-person king-color"></i> for Pappa, </span>
+							<span><i class="oi oi-person queen-color"></i> for Mamma,</span>
+							<span><i class="oi oi-person pawn-color"></i> for Pepilie,</span><br/>
+							<span>Hvor <span class="bagde bagde-danger">rødt</span> ikon indikerer at det har vært konflikter rundt måltidet, se da <a href="${fn:escapeXml(eventLogUrl)}" title="Se event log">her</a> eller klikk på ikonet</span>
 						</small>
 					</td>
 					<td colspan="2" class="text-right">
@@ -137,6 +146,7 @@ $(document).ready(function () {
 				</tr>
 			</tfoot>
 		</table>
+		</div>
 
 		<!-- end container -->
 		<div th:replace="fragments/footer :: footer"></div>

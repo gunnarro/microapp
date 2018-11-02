@@ -11,8 +11,6 @@ import com.gunnarro.dietmanager.domain.log.ImageResource;
 
 public interface FileUploadService {
 
-    public void init();
-
     public Stream<Path> loadAll(String id);
 
     public Resource loadAsResource(String id, String filename);
@@ -22,4 +20,6 @@ public interface FileUploadService {
     public void store(MultipartFile file, String id, String description);
 
     public List<ImageResource> getImages(String id);
+
+	public void deleteImage(String id, String path);
 }

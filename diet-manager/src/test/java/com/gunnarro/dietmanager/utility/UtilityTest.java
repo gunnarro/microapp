@@ -26,11 +26,9 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.gunnarro.dietmanager.domain.log.ImageResource;
 import com.gunnarro.dietmanager.domain.statistic.MealStatistic;
-import com.gunnarro.dietmanager.mvc.controller.FileUploadController;
 import com.gunnarro.dietmanager.service.DietManagerService;
 
 public class UtilityTest {
@@ -42,7 +40,7 @@ public class UtilityTest {
 //    	System.out.println(MvcUriComponentsBuilder.fromMethodName(FileUploadController.class, "getImageAsResource", "23","/u01/gunnarro/test/myfile.jpg").build().toString());
 //    }
     
-//    @Ignore
+    @Ignore
     @Test
     public void path() throws IOException {
         Path rootDir = Paths.get("/home/mentos/code/github/microapp/diet-manager/target/classes/uploadedfiles");
@@ -54,7 +52,7 @@ public class UtilityTest {
         
         Stream<Path> images = Files.walk(userDir, 1).filter(path -> !path.equals(userDir)).map(path -> rootDir.relativize(path));
         List<ImageResource> collect = images
-        .map(path -> new ImageResource(path.toString()))
+        .map(path -> new ImageResource("23","img.png",path.toString()))
         .collect(Collectors.toList());
         
         System.out.println(collect);
@@ -85,18 +83,18 @@ public class UtilityTest {
     public void convertMarkdown() {
         String txt = "**Brev  fra Emilie 19.06.2017**"
 
-                + "Hva vi kan gj��re for �� unng��:" + "1. Stress for deg p�� ferie med mamma" + "2. Unng�� vekttap" + "3. Unng�� bekymringer vedr��rende sniktrening"
+                + "Hva vi kan gj������re for ������ unng������:" + "1. Stress for deg p������ ferie med mamma" + "2. Unng������ vekttap" + "3. Unng������ bekymringer vedr������rende sniktrening"
 
-                + "Noen ting vi kan gj��re for �� inng�� det som er nevnt over:"
-                + "* Vi kan lage en liste over trening jeg for lov til �� gj��re i l��pet av reisen for �� unng�� at jeg finner p�� endre ting. I tillegg bestemmer du hvor mye jeg ta i meg etterp�� (f.eks 1 banan og 1 sjokomelk hvir jeg vil jogge rolig 5 km/30 min)"
-                + "* Jeg f��lger kostplanen p�� tur (dette er noe du ikke trenger �� bekymre deg for hvis jeg har aktivitet pleier jeg ogs�� og spise mer, fordi jeg ikke vil ned i vekt. Jeg vil vise at jeg klarer �� v��re p�� ferie med mamma uten �� f�� drastiskt vekttap). I tillegg f��ler jeg meg frisk nok til �� dra p�� ferie."
-                + "* Jeg skal si fra hvis jeg gj��r noe jeg ikek f��r lov til, eller noe ut over reglene v��re. I det siste har det blitt avsl��rt nye ting rundt meg, og n�� som du vet alt er jeg ikke lenger redd for �� si fra. Jeg ahr holdt p�� og sniktrent av og til ganske lenge, og har hatt skikkelig problemer med og si noe, s�� jeg ble egentlig litt glad n��r Andreas sa det til deg.Men inni meg m�� jeg forberede med mentalt f��r noen handling skjer. Jeg hadde nok ikke klart �� bare plutselig spise godteri hvis jeg ikke hadde spist det p�� 1 ��r. Jeg m�� tenke  inni meg at: OK, l��rdag om 3 uker skal jeg spise l��rdagsgodt p�� ordentlig. Ikke bare smake p�� en bit. S��nn var det n��r jeg begynte med godtepose, og s��nn var det med sniktreningen. Jeg hadde bestemt meg innvendign for �� slutte n��r sommerferien starta, men du rakk i finne ut av det f��r. jeg har begynt �� jobbe for �� bli kvitt sykdommen veldig n��, fordi jeg har funnet ut at jeg ikke vil ha det s��nn her lenger."
+                + "Noen ting vi kan gj������re for ������ inng������ det som er nevnt over:"
+                + "* Vi kan lage en liste over trening jeg for lov til ������ gj������re i l������pet av reisen for ������ unng������ at jeg finner p������ endre ting. I tillegg bestemmer du hvor mye jeg ta i meg etterp������ (f.eks 1 banan og 1 sjokomelk hvir jeg vil jogge rolig 5 km/30 min)"
+                + "* Jeg f������lger kostplanen p������ tur (dette er noe du ikke trenger ������ bekymre deg for hvis jeg har aktivitet pleier jeg ogs������ og spise mer, fordi jeg ikke vil ned i vekt. Jeg vil vise at jeg klarer ������ v������re p������ ferie med mamma uten ������ f������ drastiskt vekttap). I tillegg f������ler jeg meg frisk nok til ������ dra p������ ferie."
+                + "* Jeg skal si fra hvis jeg gj������r noe jeg ikek f������r lov til, eller noe ut over reglene v������re. I det siste har det blitt avsl������rt nye ting rundt meg, og n������ som du vet alt er jeg ikke lenger redd for ������ si fra. Jeg ahr holdt p������ og sniktrent av og til ganske lenge, og har hatt skikkelig problemer med og si noe, s������ jeg ble egentlig litt glad n������r Andreas sa det til deg.Men inni meg m������ jeg forberede med mentalt f������r noen handling skjer. Jeg hadde nok ikke klart ������ bare plutselig spise godteri hvis jeg ikke hadde spist det p������ 1 ������r. Jeg m������ tenke  inni meg at: OK, l������rdag om 3 uker skal jeg spise l������rdagsgodt p������ ordentlig. Ikke bare smake p������ en bit. S������nn var det n������r jeg begynte med godtepose, og s������nn var det med sniktreningen. Jeg hadde bestemt meg innvendign for ������ slutte n������r sommerferien starta, men du rakk i finne ut av det f������r. jeg har begynt ������ jobbe for ������ bli kvitt sykdommen veldig n������, fordi jeg har funnet ut at jeg ikke vil ha det s������nn her lenger."
 
-                + "Noe jeg har gjort er:" + "* Sitte p�� do (siden jeg kom ut av sykehuset har jeg aldri sittet p�� dosetet, men n�� er det ikke ett problem)"
-                + "* Sitte �� sykle" + "* G�� ett og ett trappetrinn, istendefor 2 og 2" + "* Veie maten" + "* Lage lister for alt jeg spiser"
+                + "Noe jeg har gjort er:" + "* Sitte p������ do (siden jeg kom ut av sykehuset har jeg aldri sittet p������ dosetet, men n������ er det ikke ett problem)"
+                + "* Sitte ������ sykle" + "* G������ ett og ett trappetrinn, istendefor 2 og 2" + "* Veie maten" + "* Lage lister for alt jeg spiser"
 
-                + "Alle disse tvangstankene har jeg gjort tiltak for �� bli kvitt, nettopp ved �� g�� mot dem."
-                + "Og n��r sommeren er over, da er jeg frisk. Det har jeg bestemt.";
+                + "Alle disse tvangstankene har jeg gjort tiltak for ������ bli kvitt, nettopp ved ������ g������ mot dem."
+                + "Og n������r sommeren er over, da er jeg frisk. Det har jeg bestemt.";
 
         System.out.println(Utility.convertMarkdownToHtml(txt));
         String html = Utility.convertMarkdownToHtml("*test*");

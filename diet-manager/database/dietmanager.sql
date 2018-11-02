@@ -9,6 +9,10 @@
 
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 SET time_zone = "+00:00";
+#SET zeroDateTimeBehavior = 'CONVERT_TO_NULL';
+SET GLOBAL time_zone = "+00:00";
+# check time zone
+# SELECT @@global.time_zone, @@session.time_zone;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -1703,12 +1707,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 #
 
 INSERT INTO `users` (`id`, `created_date_time`, `last_modified_date_time`, `username`, `password`, `email`, `enabled`) VALUES
-(1, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'admin', '$2a$13$GwPQNWAfenYSb06qxu/Nqevmwe31I4FJreraz34ScjbpAUBnO0S4y', 'gunnar_ronneberg@yahoo.no', 1),
-(2, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'team', '$2a$13$8mkWNrSUAJ6fWJTaV3uvY.3jldSleStDGqf3ONsYwmVcGhlPdhuhK', 'gunnar.ronneberg@gmail.com', 0),
-(3, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'guest', '$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi', '', 1),
-(4, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'pepilie', '$2a$12$Ljya1s3.uWu7svzYEgMT3OUpsMLSwYTgybCID.e/ViVc2x8XM038W', '', 1),
-(5, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'pappa', '$2a$12$ZuV6/OziRcAHJtbqr0cvmOMkae.pgjbSfayFpL5WqkhfmIw.4F17m', '', 1),
-(6, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'mamma', '$2a$12$P1tBOtsZNn7ghpLZRIY3Ae7FnIORN9gq.4BY/7vzes04usHVnPhMi', '', 1),
+(1, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'admin', '{bcrypt}$2a$13$GwPQNWAfenYSb06qxu/Nqevmwe31I4FJreraz34ScjbpAUBnO0S4y', 'gunnar_ronneberg@yahoo.no', 1),
+(2, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'team', '{bcrypt}$2a$13$8mkWNrSUAJ6fWJTaV3uvY.3jldSleStDGqf3ONsYwmVcGhlPdhuhK', 'gunnar.ronneberg@gmail.com', 0),
+(3, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'guest', '{bcrypt}$2a$13$g.kS1DuAeebMpouKuRTKZesauQlqQbcEgNSZqUvFkr21ubl3d26Qi', '', 1),
+(4, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'pepilie', '{bcrypt}$2a$12$Ljya1s3.uWu7svzYEgMT3OUpsMLSwYTgybCID.e/ViVc2x8XM038W', '', 1),
+(5, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'pappa', '{bcrypt}$2a$12$ZuV6/OziRcAHJtbqr0cvmOMkae.pgjbSfayFpL5WqkhfmIw.4F17m', '', 1),
+(6, '2016-08-11 20:48:40', '2016-08-11 20:48:40', 'mamma', '{bcrypt}$2a$12$P1tBOtsZNn7ghpLZRIY3Ae7FnIORN9gq.4BY/7vzes04usHVnPhMi', '', 1),
 (7, '2016-10-23 08:39:09', '2016-10-23 08:39:09', 'bup', 'xx', 'uxbirm@ous-hf.no', 1);
 
 # ############################

@@ -30,13 +30,17 @@
 			<AppenderRef ref="debugFileAppender" />
 		</Logger>
 		 -->
-		<Logger name="org.springframework" level="ERROR" additivity="false">
+		<Logger name="org.springframework" level="info" additivity="false">
 			<AppenderRef ref="consoleAppender" />
 		</Logger>
 		
 		<!--  application specific logs will be asynchronous, other root logs is still synchronous -->
-		<AsyncLogger name="com.gunnarro.dietmanager" level="ERROR" additivity="false">
+		<AsyncLogger name="com.gunnarro.dietmanager" level="debug" additivity="false">
     	    <AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="debugFileAppender" />
+	    </AsyncLogger>
+	    
+	    <AsyncLogger name="com.gunnarro.dietmanager.listener" level="WARN" additivity="false">
 			<AppenderRef ref="debugFileAppender" />
 	    </AsyncLogger>
 		

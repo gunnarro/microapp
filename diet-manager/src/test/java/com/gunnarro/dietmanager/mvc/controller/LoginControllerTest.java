@@ -74,7 +74,7 @@ public class LoginControllerTest extends SpringTestSetup {
 
     @Test
     public void login() throws Exception {
-        Assert.assertEquals("login", controller.login());
+        Assert.assertEquals("/login", controller.login());
     }
 
     @Test

@@ -5,3 +5,8 @@ mysqldump --password=${OPENSHIFT_MYSQL_DB_PASSWORD} -u ${OPENSHIFT_MYSQL_DB_USER
 # mysql import
 rsync -avz tmp/src/diet-manager/database/ root@10.129.38.214:/var/lib/mysql/
 mysql -u web -pwEbt0t3 -h 10.129.38.214 dietmanager < /var/lib/mysql/database/dietmanager.sql
+
+# or 
+mysql -u web pwEbt0t3 
+use dietmanager
+source dietmanager.sql

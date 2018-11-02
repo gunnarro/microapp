@@ -6,16 +6,21 @@
 	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
 	<div class="container-fluid">
 
-		<ul class="breadcrumb">
-        	<li><a th:href="@{/diet/listdietplans}">Diet Plans</a></li>
-        	<li class="active">Diet Plan</li>
-    	</ul>
+    	<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/diet/listdietplans}" th:text="#{topmenu.menu}"></a></li>
+				<li class="breadcrumb-item active" aria-current="page" th:text="#{dietplan.title}"></li>
+			</ol>
+		</nav>
     	
-		<div class="page-header">
-			<h4 th:text="${dietPlan.name}"></h4>
-			<h5 th:if="${dietPlan.active}">Aktiv</h5>
-			<h5 th:if="! ${dietPlan.active}">Ikke aktiv</h5>
+		<div class="bg-light mt-2 mb-2">
+			<div class="clearfix ml-2 mr-2">
+				<h3 class="float-sm-left align-baseline" th:text="${dietPlan.name}"></h3>
+				<h4 th:if="${dietPlan.active}" th:text="${lbl.active}"></h4>
+				<h4 th:if="! ${dietPlan.active}"th:text="${lbl.notactive}"></h4>
+			</div>
 		</div>
+		
 		<table id="dietPlanTbl" class="table table-condensed">
 			<caption class="text-right">
 				<small th:text="#{lbl.lastupdated} + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}"></small>

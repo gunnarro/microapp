@@ -7,10 +7,12 @@
 
 	<div class="container-fluid">
 
-		<ul class="breadcrumb">
-			<li><a th:href="@{/diet/log/events}">Event Logs</a></li>
-			<li class="active">Event Log Text</li>
-		</ul>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/diet/log/events}" th:text="#{topmenu.log}"></a></li>
+				<li class="breadcrumb-item active" aria-current="page" th:text="#{lbl.event}"></li>
+			</ol>
+		</nav>
 
 		<div class="page-header">
 			<h4>Event Log Text</h4>
@@ -24,7 +26,7 @@
 							<span th:text="${#dates.format(log.createdDate, 'HH:mm')}"></span>					
 							<span th:text="${log.title}"></span>
 						</h4>
-						<h5>Opprettet av <span th:text="${log.createdByUser}"></span></h5>
+						<h5 th:text="#{lbl.created_by}"><span th:text="${log.createdByUser}"></span></h5>
 					</header>
 					<p class="post-content">
 						<small th:text="${log.content}"></small>

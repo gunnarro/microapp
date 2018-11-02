@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<th:block th:fragment="log-card-list">
+			<div th:each="log, iter : ${page.content}" th:if="${(log.level == logType or logType == '*') and iter.count < limit}" >
+				<div id="panel-child" class="card mb-2">
+					<div class="card-header">
+						<h5 class="card-title" th:with="logDate=${#dates.format(log.createdDate, &apos;EEEE dd.MM.yy&apos;)}, logTime=${#dates.format(log.createdDate, &apos;HH:mm&apos;)}">
+							<th:block th:switch="${#dates.dayOfWeekName(log.createdDate)}"> 
+								<span th:case="&apos;Mandag&apos;" class="badge badge-dark" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Tirsdag&apos;" class="badge badge-primary" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Onsdag&apos;" class="badge badge-success" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Torsdag&apos;" class="badge badge-info" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Fredag&apos;" class="badge badge-warning" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;L&#xF8;rdag&apos;" class="badge badge-white" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;S&#xF8;ndag&apos;" class="badge badge-purple" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Monday&apos;" class="badge badge-dark" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Tuesday&apos;" class="badge badge-primary" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Wednesday&apos;" class="badge badge-success" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Thursday&apos;" class="badge badge-info" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Friday&apos;" class="badge badge-warning" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Saturday&apos;" class="badge badge-white" th:text="${logDate} + &apos; &apos; + ${logTime}"></span> 
+								<span th:case="&apos;Sunday&apos;" class="badge badge-purple" th:text="${logDate} + &apos; &apos; + ${logTime}"></span>
+								<span th:case="*" class="badge badge-info" th:text="${logDate} + &apos; &apos; + ${logTime}"></span>
+							</th:block> 
+							<th:block th:switch="${log.level}"> 
+								<span th:case="&apos;INFO&apos;" th:text="${log.level}" class="badge badge-info"></span> 
+								<span th:case="&apos;ACTIVITY&apos;" th:text="${log.level}" class="badge badge-success"></span> 
+								<span th:case="&apos;REPORT&apos;" th:text="${log.level}" class="badge badge-warning"></span> 
+								<span th:case="&apos;CONFLICT&apos;" th:text="${log.level}" class="badge badge-danger"></span> 
+								<span th:case="&apos;GAMING&apos;" th:text="${log.level}" class="badge badge-dark"></span>
+								<span th:case="&apos;MEETING&apos;" th:text="${log.level}" class="badge badge-primary"></span>
+								<span th:case="*" th:text="${log.level}" class="badge badge-info"></span>
+							</th:block> 
+							<span> 
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{&apos;#collapse_&apos; + ${iter.index}}" th:text="${log.title}"></a>
+							</span>
+						</h5>
+					</div>
+					<!-- panel header -->
+					<div th:id="&apos;#collapse_&apos; + ${iter.index}" class="panel-collapse collapse show">
+						<div class="card-body" th:utext="${log.contentHtml}"></div>
+						<div class="card-footer clearfix card-footer-sm">
+							<div class="float-left">
+								<small><span th:text="#{lbl.created_by} + &apos; &apos; + ${log.createdByUser}"></span></small>
+							</div>
+							<div class="float-right">
+								<a th:if="${log.numberOfComments} == 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-secondary btn-sm"><small th:text="#{eventlog.btn.add_comment}"></small></a> 
+								<a th:if="${log.numberOfComments} &gt; 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-secondary btn-sm"><small th:text="#{eventlog.btn.view_comments} + &apos; (&apos; + ${log.numberOfComments} + &apos;)&apos;"></small></a> 
+								<span th:if="${#authentication.name == log.createdByUser}"> 
+									<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-secondary btn-sm"><i class="oi oi-pencil"></i></a> 
+									<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-secondary btn-sm"><i class="oi oi-trash"></i></a>
+								</span> 
+								<span th:if="${#authentication.name != log.createdByUser}"> 
+									<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-secondary btn-sm disabled"><i class="oi oi-pencil"></i></a> 
+									<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-secondary btn-sm disabled"><i class="oi oi-trash"></i> </a>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</th:block>
+</body>
+
+</html>

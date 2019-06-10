@@ -87,7 +87,8 @@ public class DietManagerSql {
      */
     public static String createMealsManagedByUserQuery() {
         StringBuilder sqlQuery = new StringBuilder();
-        sqlQuery.append("SELECT week(l.created_date_time) AS weeknumber");
+        // set monday as first day of week
+        sqlQuery.append("SELECT week(l.created_date_time, 1) AS weeknumber");
         sqlQuery.append(", count(l.fk_controlled_by_user_id) AS meals_controlled_by_user_count");
         sqlQuery.append(", sum(l.caused_conflict = 1) AS total_count");
         sqlQuery.append(", u.id");

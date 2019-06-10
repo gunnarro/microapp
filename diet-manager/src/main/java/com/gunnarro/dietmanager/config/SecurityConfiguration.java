@@ -18,7 +18,6 @@ import com.gunnarro.dietmanager.handler.CustomAccessDeniedHandler;
  *
  */
 @Configuration
-// @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 

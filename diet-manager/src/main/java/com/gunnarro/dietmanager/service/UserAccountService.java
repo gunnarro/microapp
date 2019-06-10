@@ -14,7 +14,6 @@ import com.gunnarro.dietmanager.mvc.dto.UserDto;
  * @author admin
  *
  */
-@Service
 public interface UserAccountService {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') AND hasAuthority('ACCOUNT_WRITE_PRIVILEGE')")

@@ -10,7 +10,6 @@ import com.gunnarro.dietmanager.domain.activity.ActivityLog;
 /**
  * @author admin
  */
-@Service(value = "activityService")
 public interface ActivityService {
 
     /**

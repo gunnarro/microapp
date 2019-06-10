@@ -21,7 +21,7 @@ import com.gunnarro.dietmanager.service.FileUploadService;
 import com.gunnarro.dietmanager.service.LogEventService;
 import com.gunnarro.dietmanager.service.exception.ApplicationException;
 import com.gunnarro.dietmanager.service.exception.UploadFileException;
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
 /**
  * URL security is applied in the spring security config.

@@ -5,8 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Profile;
 
 /**
+ * 
+ * RUN:
+ * 
+ * mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev,--spring.config.location=config 
+ * mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dproperty1=overridden"
+ * 
+ * 
  * Tutorial:
  * https://developers.redhat.com/blog/2017/02/23/getting-started-with-openshift-java-s2i
  * 
@@ -34,7 +42,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 // @ImportResource("spring/spring.xml")
 @ComponentScan("com.gunnarro.dietmanager.*")
-// @EnableAutoConfiguration(exclude = SocialWebAutoConfiguration.class)
+// @EnableAutoConfiguration(exclude = SocialWebAutoConfiguration.class
 public class DietManagerApp
 // extends SpringBootServletInitializer
 {
@@ -57,6 +65,8 @@ public class DietManagerApp
 
     public static void main(String[] args) {
         LOG.info("Start dietmanager ....");
+        LOG.info(System.getProperty("spring.config.location"));
+        LOG.info(System.getProperty("spring.profiles.active"));
         SpringApplication.run(DietManagerApp.class, args);
     }
 }

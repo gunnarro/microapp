@@ -7,7 +7,6 @@ import com.gunnarro.dietmanager.mvc.dto.UserRegistrationForm;
 import com.gunnarro.dietmanager.service.exception.UserAlreadyExistAuthenticationException;
 import com.gunnarro.useraccount.domain.user.LocalUser;
 
-@Service
 public interface UserService {
 
     /**

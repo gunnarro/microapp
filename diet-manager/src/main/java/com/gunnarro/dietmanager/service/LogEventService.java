@@ -16,7 +16,6 @@ import com.gunnarro.dietmanager.domain.log.LogEntry;
  * @author admin
  *
  */
-@Service(value = "logEventService")
 public interface LogEventService {
 
     /**

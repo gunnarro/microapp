@@ -15,40 +15,40 @@ import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("GET", "POST", "HEAD", "PUT", "OPTIONS");
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedMethods("GET", "POST", "HEAD", "PUT", "OPTIONS");
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        ThemeChangeInterceptor themeChangeInterceptor = new ThemeChangeInterceptor();
-        themeChangeInterceptor.setParamName("theme");
-        registry.addInterceptor(themeChangeInterceptor);
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		ThemeChangeInterceptor themeChangeInterceptor = new ThemeChangeInterceptor();
+		themeChangeInterceptor.setParamName("theme");
+		registry.addInterceptor(themeChangeInterceptor);
 
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lang");
-        registry.addInterceptor(localeChangeInterceptor);
-    }
+		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+		localeChangeInterceptor.setParamName("lang");
+		registry.addInterceptor(localeChangeInterceptor);
+	}
 
-    @Bean
-    public LocaleResolver localeResolver() {
-        return new CookieLocaleResolver();
-    }
+	@Bean
+	public LocaleResolver localeResolver() {
+		return new CookieLocaleResolver();
+	}
 
-    @Bean("messageSource")
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:i18n/messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setUseCodeAsDefaultMessage(true);
-        return messageSource;
-    }
+	@Bean("messageSource")
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:i18n/messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setUseCodeAsDefaultMessage(true);
+		return messageSource;
+	}
 
 }

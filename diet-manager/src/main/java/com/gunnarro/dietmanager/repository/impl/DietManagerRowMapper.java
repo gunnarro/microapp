@@ -275,9 +275,10 @@ public class DietManagerRowMapper {
                 } catch (SQLException sqle) {
                     // ignore, field not found
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Error: " + sqle.getMessage());
+                        LOG.debug(sqle.getMessage());
                     }
                 }
+                LOG.debug("===================================================== {}", keyValuePair);
                 return keyValuePair;
             }
         };

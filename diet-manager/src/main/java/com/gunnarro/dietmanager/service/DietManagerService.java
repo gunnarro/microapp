@@ -29,7 +29,6 @@ import com.gunnarro.dietmanager.endpoint.rest.ChartData;
  * @author admin
  *
  */
-@Service
 public interface DietManagerService {
 
     @PreAuthorize("hasAuthority('READ_PRIVILEGE')")

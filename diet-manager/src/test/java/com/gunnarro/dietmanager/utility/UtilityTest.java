@@ -1,6 +1,7 @@
 package com.gunnarro.dietmanager.utility;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,6 +36,38 @@ public class UtilityTest {
 
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    
+    @Test
+    public void readSMS() throws IOException {
+    	Path smsFile = Paths.get("/home/mentos/code/github/microapp/diet-manager/target/classes/uploadedfiles");
+    	List<String> readAllLines = Files.readAllLines(smsFile);
+    	for (String sms : readAllLines) {
+    		System.out.println(sms);
+    	}
+    }
+    
+    
+  @Test
+  public void whenReadWithBufferedReader()
+    throws IOException {
+       String file ="src/test/resources/data/sms.txt";
+       StringBuilder sms = new StringBuilder(); 
+       BufferedReader reader = new BufferedReader(new FileReader(file));
+       String currentLine = reader.readLine();
+       int i = 0;
+       while (currentLine != null) {
+           currentLine = reader.readLine();
+           sms.append(currentLine);
+//           if (currentLine != null && currentLine.contains("4745410219"))
+//               System.out.println(i++ + ". " + currentLine);
+       }
+       
+       for (String s : sms.toString().split(",")) {
+           System.out.println(s);
+       }
+   
+  }
+    
 //    @Test 
 //    public void testing() {
 //    	System.out.println(MvcUriComponentsBuilder.fromMethodName(FileUploadController.class, "getImageAsResource", "23","/u01/gunnarro/test/myfile.jpg").build().toString());

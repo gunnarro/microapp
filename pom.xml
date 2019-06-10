@@ -12,7 +12,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
     		<maven.compiler.target>1.8</maven.compiler.target>
-		<spring.boot.version>2.0.6.RELEASE</spring.boot.version>
+		<spring.boot.version>2.0.7.RELEASE</spring.boot.version>
+		<version.plugin.spring.boot>2.0.7.RELEASE</version.plugin.spring.boot>
 	</properties>
 
 	<dependencyManagement>
@@ -26,4 +27,17 @@
 			</dependency>
    		 </dependencies>
 	</dependencyManagement>
+
+	<build>
+       	     <!-- To define the plugin version in your parent POM -->
+	    <pluginManagement>
+	      <plugins>
+		<plugin>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-maven-plugin</artifactId>
+		  <version>${version.plugin.spring.boot}</version>
+		</plugin>
+	      </plugins>
+	    </pluginManagement>
+	</build>
 </project>

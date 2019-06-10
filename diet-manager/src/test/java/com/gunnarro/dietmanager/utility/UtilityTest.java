@@ -36,7 +36,7 @@ public class UtilityTest {
 
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    
+    @Ignore
     @Test
     public void readSMS() throws IOException {
     	Path smsFile = Paths.get("/home/mentos/code/github/microapp/diet-manager/target/classes/uploadedfiles");

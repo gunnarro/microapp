@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:fragment="scripts"></head>
 
@@ -20,10 +22,9 @@
 					<li th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/diet/mychoices}" class="nav-link"><i class="oi oi-list"></i> <span th:text="#{topmenu.mychoices}"></span></a></li>
 					<li th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/activity}" class="nav-link"><i class="oi oi-list"></i> <span th:text="#{topmenu.activity}"></span></a></li>
 					<li th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/diet/body/measurement/log}" class="nav-link"><i class="oi oi-bar-chart"></i> <span th:text="#{topmenu.measurements}"></span></a></li>
-					<li th:if="${#authorization.expression(&apos;isAuthenticated()&apos;)}" th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/image-manager/gallery}" class="nav-link"><i class="oi oi-image"></i> <span th:text="#{topmenu.gallery}"></span></a></li>
-					<li th:if="${#authorization.expression(&apos;isAuthenticated()&apos;)}" th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/calendar-manager/calendar/listevents/false/week/0/all/all}" class="nav-link"><i class="oi oi-calendar"></i> <span th:text="#{topmenu.calendar}"></span></a></li>
-					<li th:if="${#authorization.expression(&apos;isAuthenticated()&apos;)}" th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/diet/log/events}" class="nav-link"><i class="oi oi-chat"></i> <span th:text="#{topmenu.log}"></span></a>
-					</li>
+					<li th:if="${#authorization?.expression(&apos;isAuthenticated()&apos;)}" th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/image-manager/gallery}" class="nav-link"><i class="oi oi-image"></i> <span th:text="#{topmenu.gallery}"></span></a></li>
+					<li th:if="${#authorization?.expression(&apos;isAuthenticated()&apos;)}" th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/calendar-manager/calendar/listevents/false/week/0/all/all}" class="nav-link"><i class="oi oi-calendar"></i> <span th:text="#{topmenu.calendar}"></span></a></li>
+					<li th:if="${#authorization?.expression(&apos;isAuthenticated()&apos;)}" th:classappend="${module == &apos;home&apos; ? &apos;active&apos; : &apos;&apos;}" class="nav-item"><a th:href="@{/diet/log/events}" class="nav-link"><i class="oi oi-chat"></i> <span th:text="#{topmenu.log}"></span></a></li>
 				</ul>
 				<ul class="nav navbar-nav">
 					<li class="dropdown nav-item"><a data-toggle="dropdown" class="dropdown-toggle nav-link" href="#" th:text="#{lbl.language}"><b class="caret"></b></a>
@@ -35,13 +36,13 @@
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav ml-auto">
-					<li th:if="${#authorization.expression(&apos;!isAuthenticated()&apos;)}" class="nav-item"><a href="/signin" th:href="@{/signin}" class="nav-link">
+					<li th:if="${#authorization?.expression(&apos;!isAuthenticated()&apos;)}" class="nav-item"><a href="/signin" th:href="@{/signin}" class="nav-link">
 							<i class="oi oi-account-login"></i> <span th:text="#{lbl.signin}"></span>
 					</a></li>
-					<li class="nav-item"><a href="#" class="nav-link"><i class="${userIcon}"></i><span th:text="${#authentication.getPrincipal().getUsername()}"></span></a>
+					<li class="nav-item"><a href="#" class="nav-link"><i class="${userIcon}"></i><span sec:authentication="name"></span></a>
 					</li>
 					<li class="nav-item"><a href="#" class="nav-link">|</a></li>
-					<li th:if="${#authorization.expression(&apos;isAuthenticated()&apos;)}" class="nav-item">
+					<li th:if="${#authorization?.expression(&apos;isAuthenticated()&apos;)}" class="nav-item">
 						<a href="/logout" th:href="@{#}" onclick="$(&apos;#form&apos;).submit();" class="nav-link"> <i class="oi oi-account-logout"></i> <span th:text="#{lbl.logout}"></span></a>
 						<form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
 					</li>

@@ -14,172 +14,183 @@ import com.gunnarro.tournament.utility.Utility;
 
 public abstract class Activity extends BaseDomain implements Serializable {
 
-    private static final long serialVersionUID = -3968811135575991342L;
+	private static final long serialVersionUID = -3968811135575991342L;
 
-    public static enum ActivityStatusEnum {
-        COMPLETED, CANCELLED, BEGIN, NOT_STARTED;
-    }
+	public static enum ActivityStatusEnum {
+		COMPLETED, CANCELLED, BEGIN, NOT_STARTED;
+	}
 
-    private String information;
-    private Integer numberOfRegistreredTeams = 0;
-    private Integer numberOfSignedPlayers = 0;
-    private Integer reiterations = 1;
+	private String information;
+	private String status;
+	private Integer numberOfRegistreredTeams = 0;
+	private Integer numberOfSignedPlayers = 0;
+	private Integer reiterations = 1;
 
-    @DateTimeFormat(pattern = "MM.dd.yyyy HH:mm")
-    @NotNull
-    private Date startDate = Calendar.getInstance().getTime();
+	@DateTimeFormat(pattern = "MM.dd.yyyy HH:mm")
+	@NotNull
+	private Date startDate = Calendar.getInstance().getTime();
 
-    @DateTimeFormat(pattern = "MM.dd.yyyy HH:mm")
-    @NotNull
-    private Date endDate = Calendar.getInstance().getTime();
+	@DateTimeFormat(pattern = "MM.dd.yyyy HH:mm")
+	@NotNull
+	private Date endDate = Calendar.getInstance().getTime();
 
-    // helpers for user input to only hold the time part of the start date in
-    // HH:mm format
-    @DateTimeFormat(pattern = "HH:mm")
-    private String startTime;
+	// helpers for user input to only hold the time part of the start date in
+	// HH:mm format
+	@DateTimeFormat(pattern = "HH:mm")
+	private String startTime;
 
-    // helpers for user input to only hold the time part of the start date in
-    // HH:mm format
-    @DateTimeFormat(pattern = "HH:mm")
-    private String endTime;
-    
-    @Override
-    public abstract String getName();
+	// helpers for user input to only hold the time part of the start date in
+	// HH:mm format
+	@DateTimeFormat(pattern = "HH:mm")
+	private String endTime;
 
-    public abstract String getType();
-    
-    /**
-     * default constructor
-     */
-    public Activity() {
-    }
+	@Override
+	public abstract String getName();
 
+	public abstract String getType();
 
-    public static enum ActivityTypesEnum {
-        Training, Match, Cup, Tournament, Event;
-    }
+	/**
+	 * default constructor
+	 */
+	public Activity() {
+	}
 
-    public String getInformation() {
-        return information;
-    }
+	public static enum ActivityTypesEnum {
+		Training, Match, Cup, Tournament, Event;
+	}
 
-    public void setInformation(String information) {
-        this.information = information;
-    }
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public Integer getNumberOfSignedPlayers() {
-        return numberOfSignedPlayers;
-    }
+	public String getInformation() {
+		return information;
+	}
 
-    public void setNumberOfSignedPlayers(Integer numberOfSignedPlayers) {
-        this.numberOfSignedPlayers = numberOfSignedPlayers;
-    }
+	public void setInformation(String information) {
+		this.information = information;
+	}
 
-    public Integer getNumberOfRegistreredTeams() {
-        return numberOfRegistreredTeams;
-    }
+	public Integer getNumberOfSignedPlayers() {
+		return numberOfSignedPlayers;
+	}
 
-    public void setNumberOfRegistreredTeams(Integer numberOfRegistreredTeams) {
-        this.numberOfRegistreredTeams = numberOfRegistreredTeams;
-    }
+	public void setNumberOfSignedPlayers(Integer numberOfSignedPlayers) {
+		this.numberOfSignedPlayers = numberOfSignedPlayers;
+	}
 
+	public Integer getNumberOfRegistreredTeams() {
+		return numberOfRegistreredTeams;
+	}
 
-    public String getStartWeekDayName() {
-        return Utility.formatTime(startDate.getTime(), "EEE");
-    }
+	public void setNumberOfRegistreredTeams(Integer numberOfRegistreredTeams) {
+		this.numberOfRegistreredTeams = numberOfRegistreredTeams;
+	}
 
-    public Date getStartDateOnly() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(startDate);
-        // Reset time part of date
-        cal.set(Calendar.HOUR, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTime();
-    }
+	public String getStartWeekDayName() {
+		return Utility.formatTime(startDate.getTime(), "EEE");
+	}
 
-    public Date getStartDate() {
-        appendTimeToStartDate();
-        return startDate;
-    }
+	public Date getStartDateOnly() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(startDate);
+		// Reset time part of date
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal.getTime();
+	}
 
-    public String getStartDateEEEEDDMMMYYYY() {
-        return Utility.formatTime(getStartDate().getTime(), Utility.DATE_EEE_PATTERN);
-    }
+	public Date getStartDate() {
+		appendTimeToStartDate();
+		return startDate;
+	}
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+	public String getStartDateEEEEDDMMMYYYY() {
+		return Utility.formatTime(getStartDate().getTime(),
+				Utility.DATE_EEE_PATTERN);
+	}
 
-    public Date getEndDate() {
-        appendTimeToEndDate();
-        return endDate;
-    }
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+	public Date getEndDate() {
+		appendTimeToEndDate();
+		return endDate;
+	}
 
-    public String getStartTime() {
-        // if (StringUtils.isEmpty(startTime)) {
-        // return Utility.formatTime(startDate.getTime(), "HH:mm");
-        // }
-        return startTime;
-    }
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
+	public String getStartTime() {
+		// if (StringUtils.isEmpty(startTime)) {
+		// return Utility.formatTime(startDate.getTime(), "HH:mm");
+		// }
+		return startTime;
+	}
 
-    public String getEndTime() {
-        if (StringUtils.isEmpty(endTime)) {
-            return Utility.formatTime(endDate.getTime(), "HH:mm");
-        }
-        return endTime;
-    }
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
+	public String getEndTime() {
+		if (StringUtils.isEmpty(endTime)) {
+			return Utility.formatTime(endDate.getTime(), "HH:mm");
+		}
+		return endTime;
+	}
 
-    public boolean isMatch() {
-        return this.getType().equalsIgnoreCase(ActivityTypesEnum.Match.name());
-    }
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
 
-    public boolean isTraining() {
-        return this.getType().equalsIgnoreCase(ActivityTypesEnum.Training.name());
-    }
+	public boolean isMatch() {
+		return this.getType().equalsIgnoreCase(ActivityTypesEnum.Match.name());
+	}
 
-    public boolean isCup() {
-        return this.getType().equalsIgnoreCase(ActivityTypesEnum.Cup.name());
-    }
+	public boolean isTraining() {
+		return this.getType()
+				.equalsIgnoreCase(ActivityTypesEnum.Training.name());
+	}
 
-    public boolean isEvent() {
-        return this.getType().equalsIgnoreCase(ActivityTypesEnum.Event.name());
-    }
+	public boolean isCup() {
+		return this.getType().equalsIgnoreCase(ActivityTypesEnum.Cup.name());
+	}
 
+	public boolean isEvent() {
+		return this.getType().equalsIgnoreCase(ActivityTypesEnum.Event.name());
+	}
 
-    public void appendTimeToStartDate() {
-        if (!StringUtils.isEmpty(startTime)) {
-            String startDateStr = Utility.formatTime(startDate.getTime(), "dd.MM.yyyy");
-            startDate = Utility.timeToDate(startDateStr + " " + startTime, "dd.MM.yyyy HH:mm");
-        }
-    }
+	public void appendTimeToStartDate() {
+		if (!StringUtils.isEmpty(startTime)) {
+			String startDateStr = Utility.formatTime(startDate.getTime(),
+					"dd.MM.yyyy");
+			startDate = Utility.timeToDate(startDateStr + " " + startTime,
+					"dd.MM.yyyy HH:mm");
+		}
+	}
 
-    public void appendTimeToEndDate() {
-        if (!StringUtils.isEmpty(endTime)) {
-            String endDateStr = Utility.formatTime(endDate.getTime(), "dd.MM.yyyy");
-            endDate = Utility.timeToDate(endDateStr + " " + endTime, "dd.MM.yyyy HH:mm");
-        }
-    }
+	public void appendTimeToEndDate() {
+		if (!StringUtils.isEmpty(endTime)) {
+			String endDateStr = Utility.formatTime(endDate.getTime(),
+					"dd.MM.yyyy");
+			endDate = Utility.timeToDate(endDateStr + " " + endTime,
+					"dd.MM.yyyy HH:mm");
+		}
+	}
 
-    public Integer getReiterations() {
-        return reiterations;
-    }
+	public Integer getReiterations() {
+		return reiterations;
+	}
 
-    public void setReiterations(Integer reiterations) {
-        this.reiterations = reiterations;
-    }
+	public void setReiterations(Integer reiterations) {
+		this.reiterations = reiterations;
+	}
 
 }

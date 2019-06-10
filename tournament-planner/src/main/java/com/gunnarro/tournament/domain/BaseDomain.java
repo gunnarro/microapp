@@ -3,7 +3,7 @@ package com.gunnarro.tournament.domain;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.dandelion.core.utils.StringUtils;
+import com.github.dandelion.core.util.StringUtils;
 import com.gunnarro.tournament.endpoint.rest.RestResponse;
 
 /**

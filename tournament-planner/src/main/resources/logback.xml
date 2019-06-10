@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="60 seconds">
+<configuration scan="false" scanPeriod="60 seconds">
 	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
 		<resetJUL>true</resetJUL>
 	</contextListener>
@@ -7,31 +7,28 @@
 	<jmxConfigurator />
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n
-			</pattern>
+			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="debugfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${OPENSHIFT_LOG_DIR}/tournament-service.log</file>
+		<file>logs/tournament-service-test.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${OPENSHIFT_LOG_DIR}/tournament-service.log.%d{yyyy-MM-dd}
-			</fileNamePattern>
+			<fileNamePattern>logs/tournament-service-test.log.%d{yyyy-MM-dd}</fileNamePattern>
 			<maxHistory>2</maxHistory>
 		</rollingPolicy>
 
 		<encoder>
-			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n
-			</pattern>
+			<pattern>[%date{ISO8601}] [%-5level] [%logger{0}.%method:%L] %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="httpSessionfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${OPENSHIFT_LOG_DIR}/tournament-http-session.log</file>
+		<file>logs/http-session-test.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${OPENSHIFT_LOG_DIR}/tournament-http-session.log.%d{yyyy-MM-dd}
+			<fileNamePattern>logs/tournament-http-session-test.log.%d{yyyy-MM-dd}
 			</fileNamePattern>
 			<maxHistory>2</maxHistory>
 		</rollingPolicy>
@@ -41,21 +38,19 @@
 			</pattern>
 		</encoder>
 	</appender>
-
+	
 	<logger name="com.gunnarro.tournament" level="debug" additivity="false">
-		<appender-ref ref="debugfile" />
+		<appender-ref ref="console" />
 	</logger>
-		
+	
 	<logger name="com.gunnarro.tournament.listener.HttpSessionListener" level="info" additivity="false">
 		<appender-ref ref="httpSessionfile" />
 	</logger>
-
-	<logger name="org.springframework.security" level="error" additivity="false"/>
-	<!-- for logging parameter values -->
-	<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="error" additivity="false" />
-
+	
 	<root level="info">
-		<!-- <appender-ref ref="console" /> -->
+		<appender-ref ref="console" />
+		<!-- 
 		<appender-ref ref="debugfile" />
+		 -->
 	</root>
 </configuration>

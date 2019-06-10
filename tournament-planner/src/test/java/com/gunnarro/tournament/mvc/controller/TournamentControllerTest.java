@@ -1,4 +1,4 @@
-package com.gunnarro.dietmanager.mvc.controller;
+package com.gunnarro.tournament.mvc.controller;
 
 import static org.mockito.Mockito.when;
 
@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,13 +19,15 @@ import org.springframework.validation.MapBindingResult;
 import org.springframework.web.bind.support.SimpleSessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gunnarro.tournament.config.TestCacheConfig;
 import com.gunnarro.tournament.domain.activity.Group;
 import com.gunnarro.tournament.domain.activity.Tournament;
 import com.gunnarro.tournament.domain.view.FinalSetup;
 import com.gunnarro.tournament.domain.view.TournamentInput;
-import com.gunnarro.tournament.mvc.controller.TournamentPlannerController;
 import com.gunnarro.tournament.service.TournamentPlannerService;
+import com.gunnarro.tournament.service.impl.TournamentPlannerServiceImpl;
 
+@ContextConfiguration(classes = { TestCacheConfig.class, AuthenticationFacade.class, TournamentPlannerController.class, TournamentPlannerServiceImpl.class })
 public class TournamentControllerTest extends SpringTestSetup {
 
     private TournamentPlannerController controller;
@@ -43,9 +46,9 @@ public class TournamentControllerTest extends SpringTestSetup {
     public void listTournaments() throws Exception {
         when(tournamentPlannerServiceMock.getTournaments("token")).thenReturn(Arrays.asList(new Tournament("test")));
         ModelAndView modelAndView = controller.listTournaments("token");
-        Assert.assertEquals("tournament/list-tournaments-view", modelAndView.getViewName());
+        Assert.assertEquals("tournament/view-tournaments", modelAndView.getViewName());
         Assert.assertNotNull(modelAndView.getModel());
-        Assert.assertNotNull(modelAndView.getModel().get("tournamentList"));
+        Assert.assertNotNull(modelAndView.getModel().get("tournaments"));
     }
 
     @Test
@@ -55,15 +58,26 @@ public class TournamentControllerTest extends SpringTestSetup {
     }
 
     @Test
-    public void prosessGenerateTournament() {
+    public void prosessGenerateTournament_validation_error() {
         TournamentInput tournamentInput = new TournamentInput();
         tournamentInput.setName("unittesttournament");
-        tournamentInput.setTeams("t1\nt2\nt3\nt4\nt5\nt6\nt7\nt8");
+        tournamentInput.setTeamNames(new ArrayList<>());
         tournamentInput.setNumberOfGroups(2);
         tournamentInput.setPauseTimeBetweenMatches(5);
         tournamentInput.setNumberOfFields(2);
         tournamentInput.setPlayTime(20);
         tournamentInput.setType("single");
+        BindingResult validationResult = new  MapBindingResult(new HashMap<String,String>(), "name");
+        Tournament tournament = new Tournament("unittestid");
+        when(tournamentPlannerServiceMock.generateTournament(tournamentInput)).thenReturn(tournament);
+        String view = controller.processGenerateTournamentForm(tournamentInput, validationResult, new SimpleSessionStatus());
+        Assert.assertEquals("tournament/generate-tournament", view);
+    }
+    
+    @Test
+    public void prosessGenerateTournament_ok() {
+        TournamentInput tournamentInput = new TournamentInput();
+        tournamentInput.setName("unittesttournament");
         BindingResult validationResult = new  MapBindingResult(new HashMap<String,String>(), "name");
         Tournament tournament = new Tournament("unittestid");
         when(tournamentPlannerServiceMock.generateTournament(tournamentInput)).thenReturn(tournament);

@@ -1,4 +1,4 @@
-package com.gunnarro.dietmanager.endpoint.rest;
+package com.gunnarro.tournament.endpoint.rest;
 
 import static org.mockito.Mockito.when;
 
@@ -8,8 +8,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.gunnarro.dietmanager.mvc.controller.SpringTestSetup;
 import com.gunnarro.tournament.endpoint.rest.TournamentRestEndpoint;
+import com.gunnarro.tournament.mvc.controller.SpringTestSetup;
 import com.gunnarro.tournament.service.TournamentPlannerService;
 
 public class TournamentRestEndpointTest extends SpringTestSetup {

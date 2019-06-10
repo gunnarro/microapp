@@ -49,6 +49,10 @@ public class Match extends Activity implements Comparable<Match>, Serializable {
 		return matchStatus;
 	}
 
+	public String getStatus() {
+		return matchStatus.getName();
+	}
+
 	public void setMatchStatus(MatchStatus matchStatus) {
 		this.matchStatus = matchStatus;
 	}
@@ -168,22 +172,15 @@ public class Match extends Activity implements Comparable<Match>, Serializable {
 	}
 
 	public String getMatchInfo() {
-		return Utility.formatTime(getStartDate().getTime(),
-				"EEE dd.MM.yyyy HH:mm")
-				+ " "
-				+ getStartTime()
-				+ " "
-				+ getTeamVersus() + ", " + getVenue();
+		return Utility.formatTime(getStartDate().getTime(), "EEE dd.MM.yyyy HH:mm") + " " + getStartTime() + " " + getTeamVersus() + ", " + getVenue();
 	}
 
 	public boolean isStartDateBeforeToDay() {
 		return getStartDate().before(new Date());
 	}
 
-	public static Match createMatch(String tournamnetStage,
-			String homeTeamName, String awayTeamName, String venue) {
-		Match m = new Match(new Date(), new Team(homeTeamName), new Team(
-				awayTeamName), venue);
+	public static Match createMatch(String tournamnetStage, String homeTeamName, String awayTeamName, String venue) {
+		Match m = new Match(new Date(), new Team(homeTeamName), new Team(awayTeamName), venue);
 		m.setTournamentPhase(tournamnetStage);
 		return m;
 	}
@@ -198,8 +195,7 @@ public class Match extends Activity implements Comparable<Match>, Serializable {
 
 	public String getWinnerTeamName() {
 		if (numberOfGoalsHome == numberOfGoalsAway) {
-			return this.getHomeTeam().getName() + "/"
-					+ this.getAwayTeam().getName();
+			return this.getHomeTeam().getName() + "/" + this.getAwayTeam().getName();
 		}
 		if (numberOfGoalsHome > numberOfGoalsAway) {
 			return this.getHomeTeam().getName();
@@ -209,8 +205,7 @@ public class Match extends Activity implements Comparable<Match>, Serializable {
 
 	public String getLooserTeamName() {
 		if (numberOfGoalsHome == numberOfGoalsAway) {
-			return this.getHomeTeam().getName() + "/"
-					+ this.getAwayTeam().getName();
+			return this.getHomeTeam().getName() + "/" + this.getAwayTeam().getName();
 		}
 		if (numberOfGoalsHome > numberOfGoalsAway) {
 			return this.getAwayTeam().getName();
@@ -226,9 +221,7 @@ public class Match extends Activity implements Comparable<Match>, Serializable {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getClass().getSimpleName());
 		sb.append(" [id=").append(getId());
-		sb.append(", startDate=").append(
-				Utility.formatTime(getStartDate().getTime(),
-						Utility.DATE_TIME_PATTERN));
+		sb.append(", startDate=").append(Utility.formatTime(getStartDate().getTime(), Utility.DATE_TIME_PATTERN));
 		sb.append(", status=").append(matchStatus.getName());
 		sb.append(", team=").append(team != null ? team.getName() : null);
 		sb.append(", versus=").append(getTeamVersus());

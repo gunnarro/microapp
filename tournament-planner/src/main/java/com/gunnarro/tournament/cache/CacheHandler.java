@@ -9,9 +9,11 @@ import net.sf.ehcache.Element;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.gunnarro.tournament.domain.activity.Tournament;
 
+@Component
 public class CacheHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(CacheHandler.class);

@@ -1,7 +1,8 @@
 package com.gunnarro.tournament.repository;
 
-import com.gunnarro.tournament.domain.party.User;
+import org.springframework.stereotype.Repository;
 
+import com.gunnarro.tournament.domain.party.User;
 
 public interface TournamentRepository {
 

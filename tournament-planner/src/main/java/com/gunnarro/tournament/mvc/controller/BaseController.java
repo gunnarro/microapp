@@ -20,10 +20,9 @@ import com.gunnarro.tournament.service.exception.ApplicationException;
  * @author admin
  *
  */
-public class DefaultController {
+public class BaseController {
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(DefaultController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
 	@Autowired
 	protected AuthenticationFacade authenticationFacade;
@@ -42,14 +41,12 @@ public class DefaultController {
 		return tournamentPlannerService;
 	}
 
-	public void setTournamentPlannerService(
-			TournamentPlannerService tournamentPlannerService) {
+	public void setTournamentPlannerService(TournamentPlannerService tournamentPlannerService) {
 		this.tournamentPlannerService = tournamentPlannerService;
 	}
 
 	@ExceptionHandler(ApplicationException.class)
-	public ModelAndView handleApplicationException(HttpServletRequest request,
-			Exception ex) {
+	public ModelAndView handleApplicationException(HttpServletRequest request, Exception ex) {
 		LOG.error("Requested URL=" + request.getRequestURI());
 		LOG.error("Exception Raised=" + ex);
 		ModelAndView modelAndView = new ModelAndView();
@@ -60,8 +57,7 @@ public class DefaultController {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ModelAndView handleAllException(HttpServletRequest request,
-			Exception ex) {
+	public ModelAndView handleAllException(HttpServletRequest request, Exception ex) {
 		LOG.error("Requested URL=" + request.getRequestURI());
 		LOG.error("Exception Raised=" + ex);
 		ex.printStackTrace();

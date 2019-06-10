@@ -48,11 +48,11 @@
 							<div class="float-right">
 								<a th:if="${log.numberOfComments} == 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-secondary btn-sm"><small th:text="#{eventlog.btn.add_comment}"></small></a> 
 								<a th:if="${log.numberOfComments} &gt; 0" th:href="@{/diet/log/event/view/} + ${log.id}" class="btn btn-secondary btn-sm"><small th:text="#{eventlog.btn.view_comments} + &apos; (&apos; + ${log.numberOfComments} + &apos;)&apos;"></small></a> 
-								<span th:if="${#authentication.name == log.createdByUser}"> 
+								<span th:if="${#authentication?.name == log.createdByUser}"> 
 									<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-secondary btn-sm"><i class="oi oi-pencil"></i></a> 
 									<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-secondary btn-sm"><i class="oi oi-trash"></i></a>
 								</span> 
-								<span th:if="${#authentication.name != log.createdByUser}"> 
+								<span th:if="${#authentication?.name != log.createdByUser}"> 
 									<a th:href="@{/diet/log/event/edit/} + ${log.id}" class="btn btn-secondary btn-sm disabled"><i class="oi oi-pencil"></i></a> 
 									<a th:href="@{/diet/log/event/delete/} + ${log.id}" class="btn btn-secondary btn-sm disabled"><i class="oi oi-trash"></i> </a>
 								</span>

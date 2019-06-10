@@ -1,9 +1,10 @@
-package com.gunnarro.dietmanager.service;
+package com.gunnarro.tournament.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.gunnarro.tournament.config.TestCacheConfig;
 import com.gunnarro.tournament.domain.Team;
 import com.gunnarro.tournament.domain.activity.Group;
 import com.gunnarro.tournament.domain.activity.Match;
@@ -18,17 +20,40 @@ import com.gunnarro.tournament.domain.activity.MatchStatus;
 import com.gunnarro.tournament.domain.activity.Tournament;
 import com.gunnarro.tournament.domain.view.FinalSetup;
 import com.gunnarro.tournament.domain.view.TournamentInput;
-import com.gunnarro.tournament.service.TournamentPlannerService;
+import com.gunnarro.tournament.service.impl.TournamentPlannerServiceImpl;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/test-spring.xml" })
+@ContextConfiguration(classes = { TestCacheConfig.class, TournamentPlannerServiceImpl.class })
 public class TournamentPlannerServiceTest {
 
     @Autowired
     @Qualifier("tournamentPlannerService")
     protected TournamentPlannerService service;
+    
+    
+    @Before
+    public void init() {
+    	service.clearCache();
+    }
 
+    @Test
+    public void getTournaments() {
+    	List<String> teamNames = new ArrayList<String>();
+        teamNames.add("lyn");
+        teamNames.add("skeid");
+        teamNames.add("røa");
+        teamNames.add("sagene");
+        teamNames.add("stabekk");
+        teamNames.add("høvik");
+        TournamentInput tournamentInput = new TournamentInput("andreas-tournament-2015", "single", teamNames);
+        tournamentInput.setNumberOfGroups(2);
+        service.generateTournament(tournamentInput);
+    	
+    	List<Tournament> tournaments = service.getTournaments("");
+    	Assert.assertEquals(1, tournaments.size());
+    }
+    
     @Test
     public void generateTournamentSingelCup6Teams2Groups() {
         List<String> teamNames = new ArrayList<String>();

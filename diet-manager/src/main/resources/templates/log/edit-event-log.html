@@ -68,7 +68,7 @@
 						<label th:each="err : ${#fields.errors(&apos;title&apos;)}" th:text="${err}" class="form-text"></label>
 					</div>
 					<div class="form-group">
-						<label th:text="#{lbl.comment}"></label>
+						<label th:text="#{lbl.message}"></label>
 						<textarea th:required="required" class="form-control" th:field="*{content}"></textarea>
 						<label th:each="err : ${#fields.errors(&apos;content&apos;)}" th:text="${err}" class="form-text"></label>
 					</div>
@@ -93,7 +93,7 @@
 	<!-- end container -->
 	<div th:replace="fragments/footer :: footer"></div>
 	
-	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<script type="text/javascript">

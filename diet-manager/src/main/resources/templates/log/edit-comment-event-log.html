@@ -17,7 +17,7 @@
 		
 		<div class="card">
 			<div class="card-header clearfix">
-				<div th:if="${#authentication.name == log.createdByUser} &amp;&amp; ${comment.id} != null" class="float-right">
+				<div th:if="${#authentication?.name == log.createdByUser} &amp;&amp; ${comment.id} != null" class="float-right">
 					<div class="float-right">
 						<a th:href="${/diet/log/event/comment/delete/} + ${comment.id}" class="btn btn-danger btn-xs" th:text="#{btn.delete}"></a>
 					</div>

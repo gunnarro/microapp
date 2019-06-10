@@ -22,6 +22,7 @@ import com.gunnarro.dietmanager.handler.AppSuccessHandler;
 import com.gunnarro.dietmanager.repository.impl.DietManagerRepositoryImpl;
 import com.gunnarro.dietmanager.service.impl.DietManagerServiceImpl;
 
+@Ignore
 @ContextConfiguration(classes = { BeanConfiguration.class, TestMariDBDataSourceConfiguration.class, TestRepositoryConfiguration.class, SecurityConfiguration.class, DietManagerServiceImpl.class,
         DietManagerRepositoryImpl.class, AppSuccessHandler.class })
 @Transactional(timeout = 10)

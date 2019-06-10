@@ -17,12 +17,12 @@
 		<div class="card">
 			<div class="card-header clearfix">
 				<div th:if="${log.id} != null" class="float-right">
-					<span th:if="${#authentication.name == log.createdByUser}"> 
+					<span th:if="${#authentication?.name == log.createdByUser}"> 
 						<a th:href="@{/upload/__${log.id}__(redirectUri='/diet/log/event/view/' + ${logId})}" class="btn btn-outline-secondary btn-sm"><i class="oi oi-data-transfer-upload"></i></a> 
 						<a th:href="@{/diet/log/event/edit/__${log.id}__}"  class="btn btn-outline-secondary btn-sm"><i class="oi oi-pencil"></i></a>
 						<a th:href="@{/diet/log/event/delete/__${log.id}__}"  class="btn btn-outline-secondary btn-sm"><i class="oi oi-trash"></i></a>
 					</span> 
-					<span th:if="${#authentication.name != log.createdByUser}"> 
+					<span th:if="${#authentication?.name != log.createdByUser}"> 
 						<a th:href="@{/upload/__${log.id}__(redirectUri='/diet/log/event/view/' + ${logId})}" class="btn btn-outline-secondary btn-sm"><i class="oi oi-data-transfer-upload"></i></a> 
 						<a th:href="@{/diet/log/event/edit/__${log.id}__}" class="btn btn-outline-secondary btn-sm disabled"><i class="oi oi-pencil"></i></a> 
 						<a th:href="@{/diet/log/event/delete/__${log.id}__}" class="btn btn-outline-secondary btn-sm disabled"><i class="oi oi-trash"></i></a>

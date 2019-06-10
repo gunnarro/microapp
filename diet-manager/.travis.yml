@@ -1,0 +1,19 @@
+sudo: required
+language: java
+script: mvn clean verify
+jdk: oraclejdk8
+services:
+- docker
+env:
+global:
+ - DOCKER_USER = "gunnarro" # docker user
+ - DOCKER_PASS = "ABcd2o1o" # docker pass
+ - COMMIT=${TRAVIS_COMMIT::8}
+
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+- export IMAGE_NAME=gunnarro/dietmanager
+- docker build -t $IMAGE_NAME:$COMMIT .
+- docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
+- docker push $IMAGE_NAME

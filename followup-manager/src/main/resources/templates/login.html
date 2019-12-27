@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head-include :: head-include"></head>
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div class="row" style="margin-top: 20px">
+			<div class="col-12 col-md-8 col-lg-6 offset-sm-2 offset-md-3">
+				<form th:action="@{/login}" method="POST">
+					<fieldset>
+						<div th:if="${param.error}">
+							<div class="alert alert-danger">
+								<span th:text="#{login.msg.invalidcredentials}"></span>
+							</div>
+						</div>
+						<div th:if="${param.logout}">
+							<div class="alert alert-info">
+								<span th:text="#{login.msg.loggedout}"></span>
+							</div>
+						</div>
+						<div class="input-group input-group-margin">
+							<label for="inputUserName" class="sr-only" th:text="#{lbl.username}"></label> 
+							<input id="inputUserName" type="text" name="username" class="form-control form-control-lg" th:placeholder="#{lbl.username}" required="required" autofocus="autofocus">
+						</div>
+						<div class="input-group input-group-margin">
+							<label for="inputPassword" class="sr-only" th:text="#{lbl.password}"></label> 
+							<input id="inputPassword" type="password" name="password" class="form-control form-control-lg" th:placeholder="#{lbl.password}" required="required">
+						</div>
+						<div class="input-group input-group-margin">
+							<input type="submit" class="btn btn-lg btn-primary btn-block" th:value="#{lbl.signin}">
+						<div class="col-6 col-md-6 col-lg-6"></div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

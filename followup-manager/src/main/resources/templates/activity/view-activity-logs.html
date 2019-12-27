@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+</head>
+<body>
+	<div th:fragment="log-data-table" class="table-responsive">
+		<table id="myWieghtTbl" class="table table-sm">
+			<caption class="text-right">
+				<small th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></small>
+			</caption>
+			<thead>
+				<tr>
+					<th colspan="6" class="text-left">Min Vekt</th>
+					<th class="text-right">
+						<a th:href="@{/diet/body/measurement/new}"  class="btn btn-primary btn-sm float-sm-right" th:text="#{btn.add}"><span></span></a>
+					</th>
+				</tr>
+				<tr>
+					<th><small th:text="#{lbl.number}"></small></th>
+					<th><small th:text="#{lbl.date}"></small></th>
+					<th><small th:text="#{lbl.weightkg}"></small></th>
+					<th><small th:text="#{lbl.heightcm}"></small></th>
+					<th><small th:text="#{lbl.bmi}"></small></th>
+					<th><small th:text="#{lbl.comment}"></small></th>
+					<th><small th:text="#{lbl.number}"></small></th>
+				</tr>
+			</thead>
+			<tbody th:with="txtColor=text-muted, numberColor=text-primary, rowBgColor=none">
+				<tr th:each="log,iter : ${logs}" th:class="${iter.index mod 2 == 0}? 'none' : 'bg-color-row-even'" >
+						<td class="text-left" style="border-top: none;">
+							<i th:if="${log.trendWeight} &gt; 0" class="oi oi-arrow-top color-satisfaction-5" ></i>
+							<i th:if="${log.trendWeight} &lt; 0" class="oi oi-arrow-bottom color-satisfaction-1" ></i>
+							<i th:if="${log.trendWeight} == 0" class="oi oi-arrow-right color-muted" ></i>
+						</td>
+						<td class="text-left" style="border-top: none;">
+							<small><span class="${txtColor}" th:text="${#dates.format(log.logDate, 'EEE dd.MM.yyyy')}" ></span></small>
+						</td>
+						<td class="text-left" style="border-top: none;">
+							<small><span class="${numberColor}" th:text="${log.weight}"></span> (<span class="${txtColor}" th:text="${#numbers.formatDecimal(log.weight - 52.5, 1,1)}"></span>)</small>
+						</td>
+						<td class="text-left" style="border-top: none;">
+							<small><span class="${numberColor}" th:text="${log.height}"></span> (<span class="${txtColor}" th:text="${#numbers.formatDecimal(log.height - 163, 1,1)}"></span>)</small>
+						</td>
+						<td class="text-left" style="border-top: none;">
+							<small>
+							<span class="${numberColor}" th:text="${#numbers.formatDecimal(log.bmi,2,1)}"></span>
+							(<span class="${txtColor}" th:text="${#numbers.formatDecimal(log.bmi - 20.5, 1,1)}"></span>)
+							</small>
+						</td>
+						<td class="text-left" style="border-top: none;"><small><span class="${txtColor}" th:text="${log.comment}"></span></small></td>
+						<td class="text-left" style="border-top: none;">
+							<a th:href="@{/diet/body/measurement/delete/__${log.id}__}" >
+								<i class="oi oi-trash" ></i>
+							</a>
+						</td>
+					</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="7" class="text-right">
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>

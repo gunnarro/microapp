@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-css">
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="container-fluid">
+		<h2 class="releases-header">Release notes</h2>
+			<div class="release">
+        		<h3><a href="https://github.com/gunnarro">2018-04-28 <span>v1.5.0</span> </a></h3>
+        		<ul>Paging for event logs</ul>
+        		<ul>File upload</ul>
+        		<ul>Profile</ul>
+        	</div>
+			<div class="release">
+        		<h3><a href="https://github.com/gunnarro">2018-02-23 <span>v1.4.0</span> </a></h3>
+        		<ul>Springframework 5.0</ul>
+        	</div>
+			<div class="release">
+        		<h3><a href="https://github.com/gunnarro">2017-02-17 <span>v1.2.1</span> </a></h3>
+        		<ul>Bug fix</ul>
+        	</div>
+			<div class="release">
+        		<h3><a href="https://github.com/gunnarro">2016-12-03 <span>v1.1.0</span> </a></h3>
+        		<ul>Added new features and improvments</ul>
+        	</div>
+      		<div class="release">
+        		<h3><a href="https://github.com/gunnarro">2015-01-01 <span>v1.0.0</span></a></h3>
+        		<ul>Inital release</ul>
+        	</div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">
+			[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] [%-5level] [%logger{36}] %m%n
+		</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="consoleAppender" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="debugFileAppender" fileName="logs/followup-service.log" filePattern="logs/followup-service.log.%i">
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="org.springframework.security" level="debug" additivity="false">
+			<AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="debugFileAppender" />
+		</Logger>
+		
+		<!--  application specific logs will be asynchronous, other root logs is still synchronous -->
+		<Logger name="com.gunnarro.followup" level="debug" additivity="false">
+    	    <AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="debugFileAppender" />
+	    </Logger>
+	    
+	    <Logger name="com.gunnarro.followup.listener" level="WARN" additivity="false">
+			<AppenderRef ref="debugFileAppender" />
+	    </Logger>
+		
+		<Root level="debug">
+			<AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="debugFileAppender" />
+		</Root>
+	</Loggers>
+</Configuration>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head-include :: head-include"></head>
+
+<body>
+	<div th:replace="fragments/header-topmenu :: header-topmenu"></div>
+	<div class="container-fluid">
+		<div class="bg-light mt-2 mb-2">
+			<div class="clearfix ml-2 mr-2">
+				<h3 class="float-sm-left align-baseline" th:text="#{eventlog.title}"></h3>
+ 		    	<a th:href="@{/diet/log/event/new}" class="btn btn-primary btn-sm float-sm-right ml-1 align-baseline" th:text="#{eventlog.btn.new_log}" role="button"></a> 
+				<a th:href="@{/diet/log/events/txt}" class="btn btn-primary btn-sm float-sm-right" th:text="#{eventlog.btn.view_plain}" role="button"></a>
+			</div>
+		</div>
+			
+		<div class="mb-2 ml-2 mr-2">
+				<label for="txtSearchPage" class="sr-only" th:text="#{eventlog.lbl.filter_log}"></label> 
+				<input id="txtSearchPage" type="text" class="form-control" th:placeholder="#{eventlog.lbl.filter_log}">
+		</div>
+		
+		<div class="float-right mb-2">
+				<table class="boarderless">
+					<tr>
+						<td style="text-align: right;"><span th:text="#{lbl.period}"></span>: <span th:text="${#dates.format(logsFromDate, &apos;dd-MM-yyyy&apos;)}"></span>
+							- <span th:text="${#dates.format(logsToDate, &apos;dd-MM-yyyy&apos;)}"></span></td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">Log <span class="badge badge-pill badge-info" th:text="${page.size * (page.number-1) + 1}"></span> to <span
+							class="badge badge-pill badge-info" th:text="${page.lastPage ? page.totalElements : page.size * (page.number-1) + page.size}"></span> of <span
+							class="badge badge-pill badge-info" th:text="${page.totalElements}"></span> logs
+						</td>
+					</tr>
+				</table>
+		</div>
+		<div class="clearfix"></div>
+		</div>
+		<!-- End page header -->
+		<!-- Tab navigation -->
+        <ul class="nav nav-tabs"> 
+			<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#latestlogs" th:text="#{logview.tab.latestlogs}"></a></li>
+    		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#mettings" th:text="#{logview.tab.meetings}"></a></li>
+    		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#alllogs" th:text="#{logview.tab.alllogs}"></a></li>
+    		<!--
+    		<li class="nav-item"><a class="nav-link active" data-toggle="tab_ajax" href="" data-target="latestlogs">Latest logs</a></li>
+    		<li class="nav-item"><a class="nav-link" data-toggle="tab_ajax" href="" data-target="mettings">Meetings</a></li>
+    		<li class="nav-item"><a class="nav-link" data-toggle="tab_ajax" href="" data-target="alllogs">All logs</a></li>
+    		-->
+  		</ul>
+        
+		<p></p>
+		<!-- Tab content -->
+		<div class="tab-content">
+        	<div id="latestlogs" class="tab-pane active">	
+				<div class="list panel-group ml-2 mr-2" id="accordion">
+					<div th:replace="fragments/log-card-list :: log-card-list(logType='*', limit=25)"></div>
+				</div>
+			</div>		
+	        <div id="mettings" class="tab-pane fade">		
+				<div class="list panel-group ml-2 mr-2" id="accordion">
+					<div th:replace="fragments/log-card-list :: log-card-list(logType='MEETING', limit=25)"></div>
+				</div>
+			</div>
+	        <div id="alllogs" class="tab-pane fade">		
+				<div class="list panel-group ml-2 mr-2" id="accordion">
+					<div th:replace="fragments/log-card-list :: log-card-list(logType='*', limit=100)"></div>
+				</div>
+			</div>
+		</div> <!-- end tab content -->
+		<!-- end panel group -->
+		<div class="col-md-7">
+			<!-- Pagination Bar -->
+			<div th:fragment="paginationbar">
+				<div class="text-center">
+					<ul class="pagination justify-content-center">
+						<li th:class="${page.firstPage} ? &apos;disabled&apos;:&apos;&apos;" class="page-item">
+							<span th:if="${page.firstPage}">First</span> 
+							<a th:if="${not page.firstPage}" th:href="@{${page.url}(page=0,size=${page.size})}" class="page-link">First</a>
+						</li>
+						<li th:class="${page.hasPreviousPage} ? &apos;&apos; : &apos;disabled&apos;" class="page-item">
+							<span th:if="${not page.hasPreviousPage}" aria-hidden="true">&#xAB;</span> 
+							<a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(page=${page.number-2},size=${page.size})}" title="Go to previous page" class="page-link">&#xAB;</a>
+						</li>
+						<li th:each="item : ${page.items}" th:class="${item.current}? &apos;active&apos; : &apos;&apos;" class="page-item">
+							<span th:if="${item.current}" th:text="${item.number}">1</span> 
+							<a th:if="${not item.current}" th:href="@{${page.url}(page=${item.number-1},size=${page.size})}" class="page-link"><span th:text="${item.number}">1</span></a>
+						</li>
+						<li th:class="${page.hasNextPage} ? &apos;&apos; : &apos;disabled&apos;" class="page-item">
+							<span th:if="${not page.hasNextPage}">&#xBB;</span>
+							<a th:if="${page.hasNextPage}" th:href="@{${page.url}(page=${page.number},size=${page.size})}" title="Go to next page" class="page-link">&#xBB;</a>
+							</li>
+						<li th:class="${page.lastPage} ? &apos;disabled&apos; : &apos;&apos;" class="page-item">
+							<span th:if="${page.lastPage}">Last</span> 
+							<a th:if="${not page.lastPage}" th:href="@{${page.url}(page=${page.totalPages - 1},size=${page.size})}" class="page-link">Last</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<!-- end container -->
+	<div th:replace="fragments/footer :: footer"></div>
+	<!-- Put java script at end of document -->
+	<script type="text/javascript">
+	
+	</script>
+</body>
+
+</html>

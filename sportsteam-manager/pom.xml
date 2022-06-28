@@ -20,7 +20,7 @@
 		<version.javax.mail.api>1.5.2</version.javax.mail.api>
 		<version.javax.mail>1.5.0-b01</version.javax.mail>
 		<!-- apache poi -->
-		<version.apache.poi>3.12</version.apache.poi>
+		<version.apache.poi>4.1.1</version.apache.poi>
 	</properties>
 
 	<build>
